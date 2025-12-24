@@ -189,7 +189,7 @@ const resources = {
           message_placeholder: "Location, type of glass work, rough timelines and any drawings you have.",
           submit: "Send message",
           submitting: "Sending…",
-          success: "Thank you. Your email client should now open with the details prefilled.",
+          success: "Thank you! Your message has been sent successfully. We'll contact you within 24 hours.",
           required: "Required"
         },
         mobile_cta: {
@@ -385,7 +385,7 @@ const resources = {
           message_placeholder: "מיקום, סוג עבודת זכוכית, לוחות זמנים גסים וכל שרטוטים שיש לכם.",
           submit: "שלח הודעה",
           submitting: "שולח...",
-          success: "תודה. לקוח האימייל שלך אמור להיפתח כעת עם הפרטים שמולאו מראש.",
+          success: "תודה! ההודעה שלך נשלחה בהצלחה. ניצור איתך קשר תוך 24 שעות.",
           required: "שדה חובה"
         },
         mobile_cta: {
@@ -581,7 +581,7 @@ const resources = {
           message_placeholder: "الموقع، نوع عمل الزجاج، الجداول الزمنية التقريبية وأي رسومات لديك.",
           submit: "إرسال رسالة",
           submitting: "جاري الإرسال...",
-          success: "شكرًا لك. يجب أن يفتح عميل البريد الإلكتروني الآن مع التفاصيل المملوءة مسبقًا.",
+          success: "شكراً لك! تم إرسال رسالتك بنجاح. سنتواصل معك خلال 24 ساعة.",
           required: "حقل مطلوب"
         },
         mobile_cta: {

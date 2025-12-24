@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useTranslation } from 'react-i18next';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Phone, MessageCircle, Mail } from 'lucide-react';
+import { sendContactFormToTelegram } from '@/lib/telegram';
 
 const contactSchema = z.object({
   name: z.string().min(1, 'Required'),
@@ -19,23 +21,47 @@ type ContactValues = z.infer<typeof contactSchema>;
 
 const Contact: React.FC = () => {
   const { t } = useTranslation();
+  const { currentLanguage } = useLanguage();
+  const [isSubmitSuccessful, setIsSubmitSuccessful] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isSubmitting },
     reset,
   } = useForm<ContactValues>({
     resolver: zodResolver(contactSchema),
   });
 
-  const onSubmit = (values: ContactValues) => {
-    // Simple mailto fallback; can be replaced with API later
-    const subject = encodeURIComponent('New inquiry from Fusion Glassworks website');
-    const body = encodeURIComponent(
-      `Name: ${values.name}\nPhone: ${values.phone}\nEmail: ${values.email}\n\nMessage:\n${values.message}`,
-    );
-    window.location.href = `mailto:info@fusion-glassworks.com?subject=${subject}&body=${body}`;
-    reset();
+  const onSubmit = async (values: ContactValues) => {
+    try {
+      setErrorMessage('');
+      
+      // Send to Telegram
+      const telegramSuccess = await sendContactFormToTelegram({
+        name: values.name,
+        phone: values.phone,
+        email: values.email || '',
+        message: values.message,
+        language: currentLanguage,
+      });
+
+      if (telegramSuccess) {
+        setIsSubmitSuccessful(true);
+        reset();
+        
+        // Reset success message after 5 seconds
+        setTimeout(() => {
+          setIsSubmitSuccessful(false);
+        }, 5000);
+      } else {
+        setErrorMessage('Failed to send message. Please try WhatsApp or call us directly.');
+      }
+    } catch (error) {
+      console.error('Form submission error:', error);
+      setErrorMessage('An error occurred. Please contact us via WhatsApp or phone.');
+    }
   };
 
   return (
@@ -124,6 +150,11 @@ const Contact: React.FC = () => {
               {isSubmitSuccessful && (
                 <p className="mt-2 text-xs text-emerald-300">
                   {t('contact.form.success')}
+                </p>
+              )}
+              {errorMessage && (
+                <p className="mt-2 text-xs text-red-400">
+                  {errorMessage}
                 </p>
               )}
             </form>
