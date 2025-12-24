@@ -1,97 +1,184 @@
-import React, { useState } from 'react';
+/**
+ * Header Component
+ * Main navigation header with animated scroll effects and language switching
+ */
+
+import React, { useState, useRef, useCallback, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
+import { useSpring, animated } from '@react-spring/web';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Phone, MessageCircle } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle, Sparkles } from 'lucide-react';
+import { useScrollDetection } from '@/hooks/useScrollDetection';
+import { SPRING_CONFIGS } from '@/constants/animation';
+import { getWhatsAppLink, getPhoneLink } from '@/constants/contact';
+import type { NavigationItem } from '@/types';
 
-const Header = () => {
+/**
+ * Header component with animated navigation
+ */
+const Header: React.FC = () => {
   const { t } = useTranslation();
-  const { isRTL, switchLanguage, supportedLanguages, currentLanguage } = useLanguage();
+  const { switchLanguage, supportedLanguages, currentLanguage } = useLanguage();
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const scrolled = useScrollDetection({ threshold: 20 });
+  const headerRef = useRef<HTMLElement>(null);
 
-  const navigation = [
-    { key: 'home', href: `/${currentLanguage}` },
-    { key: 'services', href: `/${currentLanguage}/services` },
-    { key: 'projects', href: `/${currentLanguage}/projects` },
-    { key: 'process', href: `/${currentLanguage}/process` },
-    { key: 'about', href: `/${currentLanguage}/about` },
-    { key: 'contact', href: `/${currentLanguage}/contact` }
-  ];
+  // Navigation configuration
+  const navigation = useMemo<NavigationItem[]>(
+    () => [
+      { key: 'home', href: `/${currentLanguage}` },
+      { key: 'services', href: `/${currentLanguage}/services` },
+      { key: 'projects', href: `/${currentLanguage}/projects` },
+      { key: 'contractors', href: `/${currentLanguage}/contractors` },
+      { key: 'process', href: `/${currentLanguage}/process` },
+      { key: 'about', href: `/${currentLanguage}/about` },
+      { key: 'contact', href: `/${currentLanguage}/contact` },
+    ],
+    [currentLanguage]
+  );
 
-  const isActive = (href: string) => location.pathname === href;
+  // Check if navigation item is active
+  const isActive = useCallback(
+    (href: string): boolean => location.pathname === href,
+    [location.pathname]
+  );
 
-  const handleWhatsApp = () => {
-    const message = encodeURIComponent(t('hero.cta.whatsapp'));
-    window.open(`https://wa.me/972501234567?text=${message}`, '_blank');
-  };
+  // Handle WhatsApp CTA
+  const handleWhatsApp = useCallback(() => {
+    const message = t('hero.cta.whatsapp');
+    window.open(getWhatsAppLink(message), '_blank');
+  }, [t]);
+
+  // Handle phone call CTA
+  const handlePhoneCall = useCallback(() => {
+    window.open(getPhoneLink(), '_blank');
+  }, []);
+
+  // Close mobile menu
+  const closeMobileMenu = useCallback(() => {
+    setIsMenuOpen(false);
+  }, []);
+
+  // Advanced scroll effect with spring physics
+  const headerSpring = useSpring({
+    backgroundColor: scrolled ? 'rgba(10, 10, 15, 0.95)' : 'rgba(10, 10, 15, 0.7)',
+    backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'blur(16px) saturate(150%)',
+    boxShadow: scrolled
+      ? '0 8px 32px rgba(0, 0, 0, 0.6)'
+      : '0 4px 16px rgba(0, 0, 0, 0.2)',
+    transform: scrolled ? 'translateY(0px)' : 'translateY(0px)',
+    config: SPRING_CONFIGS.smooth,
+  });
+
+  const logoSpring = useSpring({
+    transform: scrolled ? 'scale(0.9)' : 'scale(1)',
+    config: SPRING_CONFIGS.wobbly,
+  });
+
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-border">
+    <animated.header
+      ref={headerRef}
+      style={headerSpring}
+      className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
+      aria-label="Main navigation"
+    >
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
-          {/* Logo */}
-          <Link to={`/${currentLanguage}`} className="flex items-center space-x-2">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <div className="w-4 h-4 bg-white rounded-sm opacity-80"></div>
-            </div>
-            <span className="font-bold text-xl text-foreground">GlassMax</span>
+        <div className="flex items-center justify-between h-20">
+          {/* Animated Logo */}
+          <Link
+            to={`/${currentLanguage}`}
+            className="group"
+            aria-label="Fusion Glassworks home"
+          >
+            <animated.div
+              style={logoSpring}
+              className="flex items-center gap-3 transition-transform"
+            >
+              <div className="relative">
+                <div className="glass-morphism w-12 h-12 rounded-2xl flex items-center justify-center shadow-2xl group-hover:shadow-blue-500/50 transition-all duration-500">
+                  <Sparkles className="w-6 h-6 text-blue-400 animate-pulse" aria-hidden="true" />
+                </div>
+                <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-blue-500/30 to-purple-500/30 blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
+              </div>
+              <div className="flex flex-col leading-tight">
+                <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-blue-400">
+                  Fusion
+                </span>
+                <span className="text-xl font-bold bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent">
+                  Glassworks
+                </span>
+              </div>
+            </animated.div>
           </Link>
 
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex items-center space-x-8">
+          {/* Desktop Navigation with Magnetic Effect */}
+          <nav className="hidden md:flex items-center gap-8" aria-label="Primary navigation">
             {navigation.map((item) => (
               <Link
                 key={item.key}
                 to={item.href}
-                className={`text-sm font-medium transition-colors hover:text-primary ${
-                  isActive(item.href) 
-                    ? 'text-primary border-b-2 border-primary pb-1' 
-                    : 'text-muted-foreground'
+                className={`magnetic group relative text-sm font-medium transition-all duration-300 ${
+                  isActive(item.href)
+                    ? 'text-blue-400'
+                    : 'text-gray-300 hover:text-white'
                 }`}
+                aria-current={isActive(item.href) ? 'page' : undefined}
               >
-                {t(`nav.${item.key}`)}
+                <span className="relative z-10">{t(`nav.${item.key}`)}</span>
+                <span
+                  className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-blue-400 to-purple-500 transition-all duration-300 ${
+                    isActive(item.href) ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}
+                  aria-hidden="true"
+                />
               </Link>
             ))}
           </nav>
 
           {/* Language Switcher & CTAs */}
-          <div className="flex items-center space-x-4">
-            {/* Language Switcher */}
-            <div className="flex items-center space-x-1 bg-secondary rounded-lg p-1">
+          <div className="flex items-center gap-4">
+            {/* Animated Language Switcher */}
+            <div className="glass-morphism flex items-center gap-1 rounded-full p-1" role="group" aria-label="Language selector">
               {supportedLanguages.map((lang) => (
                 <button
                   key={lang.code}
                   onClick={() => switchLanguage(lang.code)}
-                  className={`px-2 py-1 text-xs font-medium rounded transition-all ${
+                  className={`px-3 py-1.5 text-xs font-semibold rounded-full transition-all duration-300 ${
                     currentLanguage === lang.code
-                      ? 'bg-white text-primary shadow-sm'
-                      : 'text-muted-foreground hover:text-foreground'
+                      ? 'bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg'
+                      : 'text-gray-400 hover:text-white'
                   }`}
+                  aria-label={`Switch to ${lang.name}`}
+                  aria-current={currentLanguage === lang.code ? 'true' : undefined}
                 >
                   {lang.nativeName}
                 </button>
               ))}
             </div>
 
-            {/* Desktop CTAs */}
-            <div className="hidden md:flex items-center space-x-2">
+            {/* Premium CTAs */}
+            <div className="hidden md:flex items-center gap-3">
               <Button
-                variant="outline"
+                variant="ghost"
                 size="sm"
-                onClick={() => window.open('tel:+972501234567')}
-                className="flex items-center space-x-2"
+                onClick={handlePhoneCall}
+                className="magnetic glass-morphism hover:scale-105 transition-all duration-300 text-white border-0"
+                aria-label="Call us"
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="w-4 h-4 mr-2" aria-hidden="true" />
                 <span>{t('hero.cta.call')}</span>
               </Button>
               <Button
                 size="sm"
                 onClick={handleWhatsApp}
-                className="cta-button flex items-center space-x-2"
+                className="cta-premium magnetic hover:scale-105 transition-all duration-300"
+                aria-label="Contact via WhatsApp"
               >
-                <MessageCircle className="w-4 h-4" />
+                <MessageCircle className="w-4 h-4 mr-2" aria-hidden="true" />
                 <span>{t('hero.cta.whatsapp')}</span>
               </Button>
             </div>
@@ -99,57 +186,69 @@ const Header = () => {
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden p-2 hover:bg-secondary rounded-lg transition-colors"
+              className="md:hidden glass-morphism p-3 rounded-xl hover:scale-110 transition-transform duration-300"
+              aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={isMenuOpen}
+              aria-controls="mobile-menu"
             >
-              {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+              {isMenuOpen ? (
+                <X className="w-5 h-5 text-white" aria-hidden="true" />
+              ) : (
+                <Menu className="w-5 h-5 text-white" aria-hidden="true" />
+              )}
             </button>
           </div>
         </div>
 
         {/* Mobile Navigation */}
         {isMenuOpen && (
-          <div className="md:hidden py-4 border-t border-border">
-            <nav className="flex flex-col space-y-4">
-              {navigation.map((item) => (
-                <Link
-                  key={item.key}
-                  to={item.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`text-sm font-medium transition-colors ${
-                    isActive(item.href) ? 'text-primary' : 'text-muted-foreground'
-                  }`}
-                >
-                  {t(`nav.${item.key}`)}
-                </Link>
-              ))}
-              <div className="flex flex-col space-y-2 pt-4 border-t border-border">
-                <Button
-                  variant="outline"
-                  onClick={() => {
-                    window.open('tel:+972501234567');
-                    setIsMenuOpen(false);
-                  }}
-                  className="w-full flex items-center justify-center space-x-2"
-                >
-                  <Phone className="w-4 h-4" />
-                  <span>{t('hero.cta.call')}</span>
-                </Button>
-                <Button
-                  onClick={() => {
-                    handleWhatsApp();
-                    setIsMenuOpen(false);
-                  }}
-                  className="cta-button w-full flex items-center justify-center space-x-2"
-                >
-                  <MessageCircle className="w-4 h-4" />
-                  <span>{t('hero.cta.whatsapp')}</span>
-                </Button>
-              </div>
-            </nav>
-          </div>
+          <nav
+            id="mobile-menu"
+            className="md:hidden py-6 space-y-4 animate-in slide-in-from-top duration-300"
+            aria-label="Mobile navigation"
+          >
+            {navigation.map((item) => (
+              <Link
+                key={item.key}
+                to={item.href}
+                onClick={closeMobileMenu}
+                className={`block text-base font-medium transition-colors ${
+                  isActive(item.href) ? 'text-blue-400' : 'text-gray-300'
+                }`}
+                aria-current={isActive(item.href) ? 'page' : undefined}
+              >
+                {t(`nav.${item.key}`)}
+              </Link>
+            ))}
+            <div className="flex flex-col gap-3 pt-4 border-t border-white/10">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  handlePhoneCall();
+                  closeMobileMenu();
+                }}
+                className="glass-morphism w-full justify-center border-0 text-white"
+                aria-label="Call us"
+              >
+                <Phone className="w-4 h-4 mr-2" aria-hidden="true" />
+                <span>{t('hero.cta.call')}</span>
+              </Button>
+              <Button
+                onClick={() => {
+                  handleWhatsApp();
+                  closeMobileMenu();
+                }}
+                className="cta-premium w-full justify-center"
+                aria-label="Contact via WhatsApp"
+              >
+                <MessageCircle className="w-4 h-4 mr-2" aria-hidden="true" />
+                <span>{t('hero.cta.whatsapp')}</span>
+              </Button>
+            </div>
+          </nav>
         )}
       </div>
-    </header>
+    </animated.header>
   );
 };
 

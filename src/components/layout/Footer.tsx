@@ -19,13 +19,13 @@ const Footer = () => {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-                <div className="w-4 h-4 bg-white rounded-sm opacity-80"></div>
+              <div className="w-8 h-8 bg-primary/90 rounded-xl flex items-center justify-center shadow-md shadow-primary/30">
+                <div className="w-4 h-4 bg-white/80 rounded-sm rotate-12" />
               </div>
-              <span className="font-bold text-xl text-foreground">GlassMax</span>
+              <span className="font-bold text-xl text-foreground">Fusion Glassworks</span>
             </div>
             <p className="text-muted-foreground text-sm">
-              Professional glass installation services with over 15 years of experience in Israel.
+              Architectural glass solutions for residential, commercial and highrise projects across Israel.
             </p>
           </div>
 
@@ -85,7 +85,7 @@ const Footer = () => {
         {/* Bottom Bar */}
         <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-sm text-muted-foreground">
-            © 2024 GlassMax. All rights reserved.
+            © 2024 Fusion Glassworks. All rights reserved.
           </div>
           <div className="flex items-center space-x-6">
             <Link 
