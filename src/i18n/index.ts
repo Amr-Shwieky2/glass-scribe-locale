@@ -130,7 +130,19 @@ const resources = {
           projects: "Completed projects",
           partners: "Returning trade partners",
           ontime: "On-time installations"
-        }
+        },
+        our_values: "Our Values",
+        value_quality: "Quality Excellence",
+        value_quality_desc: "Every installation meets the highest standards",
+        value_precision: "Precision Engineering",
+        value_precision_desc: "Meticulous attention to every detail",
+        value_care: "Customer Care",
+        value_care_desc: "Your satisfaction is our priority",
+        value_innovation: "Innovation",
+        value_innovation_desc: "Modern solutions for contemporary spaces",
+        cta_title: "Ready to Transform Your Space?",
+        cta_description: "Let us bring your vision to life with precision and care",
+        cta_button: "Get In Touch"
       },
       // Projects
       projects: {
@@ -201,7 +213,41 @@ const resources = {
       footer: {
         hours: "Business Hours",
         contact: "Contact Information",
-        areas: "Service Areas"
+        areas: "Service Areas",
+        description: "Architectural glass solutions for residential, commercial and highrise projects across Israel.",
+        location: "Central Israel",
+        hours_sun_thu: "Sun-Thu: 8:00-17:00",
+        hours_friday: "Friday: 8:00-14:00",
+        hours_saturday: "Saturday: Closed",
+        copyright: "© 2025 Fusion Glassworks. All rights reserved.",
+        privacy: "Privacy Policy",
+        terms: "Terms of Service",
+        all_israel: "We provide professional glass installation services throughout Israel"
+      },
+      // WhatsApp
+      whatsapp: {
+        buttonLabel: "Chat with us",
+        buttonText: "WhatsApp",
+        tooltip: "Send us a message on WhatsApp",
+        defaultMessage: "Hi! I'd like to inquire about glass services."
+      },
+      // Accessibility
+      accessibility: {
+        open: "Open accessibility menu",
+        title: "Accessibility Assistant",
+        settings: "Settings",
+        profiles: "Profiles",
+        content: "Content",
+        textSize: "Text Size",
+        lineHeight: "Line Spacing",
+        highlightLinks: "Highlight Links",
+        highlightHeaders: "Highlight Headers",
+        readableFont: "Readable Font",
+        readingMode: "Reading Mode",
+        readingCursor: "Reading Guide",
+        reset: "Reset Settings",
+        poweredBy: "Site accessibility by",
+        profilesInfo: "Accessibility profiles coming soon"
       }
     }
   },
@@ -326,7 +372,19 @@ const resources = {
           projects: "פרויקטים שהושלמו",
           partners: "שותפים מסחריים חוזרים",
           ontime: "התקנות בזמן"
-        }
+        },
+        our_values: "הערכים שלנו",
+        value_quality: "מצוינות איכותית",
+        value_quality_desc: "כל התקנה עומדת בסטנדרטים הגבוהים ביותר",
+        value_precision: "הנדסת דיוק",
+        value_precision_desc: "תשומת לב קפדנית לכל פרט",
+        value_care: "שירות לקוחות",
+        value_care_desc: "שביעות רצונכם היא העדיפות שלנו",
+        value_innovation: "חדשנות",
+        value_innovation_desc: "פתרונות מודרניים לחללים עכשוויים",
+        cta_title: "מוכנים לשנות את המרחב שלכם?",
+        cta_description: "תנו לנו להפוך את החזון שלכם למציאות בדיוק ובטיפול",
+        cta_button: "צור קשר"
       },
       // Projects
       projects: {
@@ -374,7 +432,17 @@ const resources = {
       contact: {
         heading: "ספרו לנו על הפרויקט שלכם",
         description: "שתפו כמה פרטים והצוות שלנו יגיב עם השלבים הבאים, הנחיות תקציב ולוחות זמנים אפשריים.",
+        get_in_touch: "צור קשר",
+        phone: "טלפון",
+        email: "אימייל",
+        chat_now: "שלח לנו הודעה עכשיו",
+        why_choose: "למה לבחור בנו?",
+        benefit_1: "+15 שנות ניסיון",
+        benefit_2: "התקנה מקצועית",
+        benefit_3: "זמן תגובה מהיר",
+        benefit_4: "שירות בכל הארץ",
         form: {
+          title: "שלחו לנו הודעה",
           name: "שם",
           name_placeholder: "שמך המלא",
           phone: "טלפון",
@@ -397,7 +465,41 @@ const resources = {
       footer: {
         hours: "שעות פעילות",
         contact: "פרטי התקשרות",
-        areas: "אזורי שירות"
+        areas: "אזורי שירות",
+        description: "פתרונות זכוכית אדריכלית לפרויקטים מגורים, מסחריים ומבני ריבוד ברחבי ישראל.",
+        location: "מרכז ישראל",
+        hours_sun_thu: "א-ה: 8:00-17:00",
+        hours_friday: "שישי: 8:00-14:00",
+        hours_saturday: "שבת: סגור",
+        copyright: "© 2025 Fusion Glassworks. כל הזכויות שמורות.",
+        privacy: "מדיניות פרטיות",
+        terms: "תנאי שימוש",
+        all_israel: "אנו מספקים שירותי התקנת זכוכית מקצועיים בכל רחבי ישראל"
+      },
+      // WhatsApp
+      whatsapp: {
+        buttonLabel: "שוחחו איתנו",
+        buttonText: "וואטסאפ",
+        tooltip: "שלחו לנו הודעה בוואטסאפ",
+        defaultMessage: "שלום! אני רוצה לברר לגבי שירותי זכוכית."
+      },
+      // Accessibility
+      accessibility: {
+        open: "פתח תפריט נגישות",
+        title: "עוזר הנגישות",
+        settings: "הגדרות",
+        profiles: "פרופילים",
+        content: "תוכן",
+        textSize: "גודל טקסט",
+        lineHeight: "מרווחים",
+        highlightLinks: "הגדשת קישורים",
+        highlightHeaders: "הגדשת כותרות",
+        readableFont: "גופן קריא (צורות אותיות)",
+        readingMode: "מצב קריאה",
+        readingCursor: "עזר קריאה",
+        reset: "אפס הגדרות",
+        poweredBy: "נגישות האתר ע״י",
+        profilesInfo: "פרופילי נגישות יתווספו בקרוב"
       }
     }
   },
@@ -522,7 +624,19 @@ const resources = {
           projects: "مشاريع منجزة",
           partners: "شركاء تجاريين عائدين",
           ontime: "التركيبات في الموعد"
-        }
+        },
+        our_values: "قيمنا",
+        value_quality: "التميز في الجودة",
+        value_quality_desc: "كل تركيب يلبي أعلى المعايير",
+        value_precision: "الهندسة الدقيقة",
+        value_precision_desc: "اهتمام دقيق بكل التفاصيل",
+        value_care: "رعاية العملاء",
+        value_care_desc: "رضاكم هو أولويتنا",
+        value_innovation: "الابتكار",
+        value_innovation_desc: "حلول حديثة للمساحات المعاصرة",
+        cta_title: "هل أنت مستعد لتحويل مساحتك؟",
+        cta_description: "دعنا نحول رؤيتك إلى واقع بدقة وعناية",
+        cta_button: "تواصل معنا"
       },
       // Projects
       projects: {
@@ -570,7 +684,17 @@ const resources = {
       contact: {
         heading: "أخبرنا عن مشروعك",
         description: "شارك بعض التفاصيل وسيرد فريقنا بالخطوات التالية وإرشادات الميزانية والجداول الزمنية المحتملة.",
+        get_in_touch: "تواصل معنا",
+        phone: "الهاتف",
+        email: "البريد الإلكتروني",
+        chat_now: "تحدث معنا الآن",
+        why_choose: "لماذا تختارنا؟",
+        benefit_1: "+15 سنة خبرة",
+        benefit_2: "تركيب محترف",
+        benefit_3: "وقت استجابة سريع",
+        benefit_4: "خدمة في جميع أنحاء البلاد",
         form: {
+          title: "أرسل لنا رسالة",
           name: "الاسم",
           name_placeholder: "اسمك الكامل",
           phone: "الهاتف",
@@ -593,7 +717,41 @@ const resources = {
       footer: {
         hours: "ساعات العمل",
         contact: "معلومات الاتصال",
-        areas: "مناطق الخدمة"
+        areas: "مناطق الخدمة",
+        description: "حلول الزجاج المعماري للمشاريع السكنية والتجارية والمباني الشاهقة في جميع أنحاء إسرائيل.",
+        location: "وسط إسرائيل",
+        hours_sun_thu: "الأحد-الخميس: 8:00-17:00",
+        hours_friday: "الجمعة: 8:00-14:00",
+        hours_saturday: "السبت: مغلق",
+        copyright: "© 2025 Fusion Glassworks. جميع الحقوق محفوظة.",
+        privacy: "سياسة الخصوصية",
+        terms: "شروط الخدمة",
+        all_israel: "نحن نقدم خدمات تركيب الزجاج المهنية في جميع أنحاء إسرائيل"
+      },
+      // WhatsApp
+      whatsapp: {
+        buttonLabel: "تحدث معنا",
+        buttonText: "واتساب",
+        tooltip: "أرسل لنا رسالة على واتساب",
+        defaultMessage: "مرحباً! أود الاستفسار عن خدمات الزجاج."
+      },
+      // Accessibility
+      accessibility: {
+        open: "فتح قائمة إمكانية الوصول",
+        title: "مساعد إمكانية الوصول",
+        settings: "الإعدادات",
+        profiles: "الملفات الشخصية",
+        content: "المحتوى",
+        textSize: "حجم النص",
+        lineHeight: "تباعد الأسطر",
+        highlightLinks: "تمييز الروابط",
+        highlightHeaders: "تمييز العناوين",
+        readableFont: "خط قابل للقراءة",
+        readingMode: "وضع القراءة",
+        readingCursor: "دليل القراءة",
+        reset: "إعادة تعيين الإعدادات",
+        poweredBy: "إمكانية الوصول للموقع من قبل",
+        profilesInfo: "ملفات إمكانية الوصول قريباً"
       }
     }
   }

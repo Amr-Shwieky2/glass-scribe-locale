@@ -9,10 +9,11 @@ import { useTranslation } from 'react-i18next';
 import { useSpring, animated } from '@react-spring/web';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Phone, MessageCircle, Sparkles } from 'lucide-react';
+import { Menu, X, Phone, Sparkles } from 'lucide-react';
+import WhatsAppIcon from '@/components/icons/WhatsAppIcon';
 import { useScrollDetection } from '@/hooks/useScrollDetection';
 import { SPRING_CONFIGS } from '@/constants/animation';
-import { getWhatsAppLink, getPhoneLink } from '@/constants/contact';
+import { BUSINESS_INFO, getWhatsAppLink, getPhoneLink } from '@/constants/contact';
 import type { NavigationItem } from '@/types';
 
 /**
@@ -167,18 +168,19 @@ const Header: React.FC = () => {
                 size="sm"
                 onClick={handlePhoneCall}
                 className="magnetic glass-morphism hover:scale-105 transition-all duration-300 text-white border-0"
-                aria-label="Call us"
+                aria-label={`Call ${BUSINESS_INFO.phone.display}`}
               >
                 <Phone className="w-4 h-4 mr-2" aria-hidden="true" />
-                <span>{t('hero.cta.call')}</span>
+                <span dir="ltr">{BUSINESS_INFO.phone.display}</span>
               </Button>
               <Button
                 size="sm"
                 onClick={handleWhatsApp}
-                className="cta-premium magnetic hover:scale-105 transition-all duration-300"
+                className="magnetic hover:scale-105 transition-all duration-300 text-white shadow-lg hover:shadow-xl"
+                style={{ backgroundColor: '#25D366' }}
                 aria-label="Contact via WhatsApp"
               >
-                <MessageCircle className="w-4 h-4 mr-2" aria-hidden="true" />
+                <WhatsAppIcon size={16} className="mr-2" />
                 <span>{t('hero.cta.whatsapp')}</span>
               </Button>
             </div>
@@ -228,20 +230,21 @@ const Header: React.FC = () => {
                   closeMobileMenu();
                 }}
                 className="glass-morphism w-full justify-center border-0 text-white"
-                aria-label="Call us"
+                aria-label={`Call ${BUSINESS_INFO.phone.display}`}
               >
                 <Phone className="w-4 h-4 mr-2" aria-hidden="true" />
-                <span>{t('hero.cta.call')}</span>
+                <span dir="ltr">{BUSINESS_INFO.phone.display}</span>
               </Button>
               <Button
                 onClick={() => {
                   handleWhatsApp();
                   closeMobileMenu();
                 }}
-                className="cta-premium w-full justify-center"
+                className="w-full justify-center text-white shadow-lg hover:shadow-xl transition-all"
+                style={{ backgroundColor: '#25D366' }}
                 aria-label="Contact via WhatsApp"
               >
-                <MessageCircle className="w-4 h-4 mr-2" aria-hidden="true" />
+                <WhatsAppIcon size={16} className="mr-2" />
                 <span>{t('hero.cta.whatsapp')}</span>
               </Button>
             </div>

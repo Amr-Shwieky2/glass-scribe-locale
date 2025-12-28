@@ -22,10 +22,18 @@ interface ContactFormData {
 export async function sendTelegramMessage(message: string): Promise<boolean> {
   if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
     console.error('Telegram configuration missing. Please set VITE_TELEGRAM_BOT_TOKEN and VITE_TELEGRAM_CHAT_ID in .env.local');
+    console.error('Current values:', {
+      hasToken: !!TELEGRAM_BOT_TOKEN,
+      hasChatId: !!TELEGRAM_CHAT_ID,
+      token: TELEGRAM_BOT_TOKEN ? 'SET' : 'NOT SET',
+      chatId: TELEGRAM_CHAT_ID ? 'SET' : 'NOT SET'
+    });
     return false;
   }
 
   const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+  console.log('Sending to Telegram:', { url: url.substring(0, 50) + '...', chatId: TELEGRAM_CHAT_ID });
 
   try {
     const response = await fetch(url, {
@@ -42,11 +50,21 @@ export async function sendTelegramMessage(message: string): Promise<boolean> {
 
     const data = await response.json();
 
+    console.log('Telegram response:', data);
+
     if (!response.ok || !data.ok) {
       console.error('Telegram API error:', data);
+      
+      // Provide helpful error messages
+      if (data.description && data.description.includes('chat not found')) {
+        console.error('❌ You need to start a chat with your bot first!');
+        console.error('👉 Open https://t.me/Glasswork_bot and click START');
+      }
+      
       return false;
     }
 
+    console.log('✅ Message sent successfully to Telegram!');
     return true;
   } catch (error) {
     console.error('Failed to send Telegram message:', error);

@@ -11,6 +11,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import Layout from "./components/layout/Layout";
+import FloatingWhatsApp from "./components/FloatingWhatsApp";
 
 // Lazy load pages for code splitting
 const HomeNew = lazy(() => import("./pages/HomeNew"));
@@ -51,6 +52,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <LanguageProvider>
+          <FloatingWhatsApp />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               {/* Redirect root to default language */}

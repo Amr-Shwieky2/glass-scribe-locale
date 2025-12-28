@@ -2,15 +2,12 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { Phone, Mail, MapPin, Clock, Globe } from 'lucide-react';
+import { BUSINESS_INFO } from '@/constants/contact';
 
 const Footer = () => {
   const { t } = useTranslation();
   const { currentLanguage } = useLanguage();
-
-  const serviceAreas = [
-    'Tel Aviv', 'Jerusalem', 'Haifa', 'Herzliya', 'Petah Tikva', 'Ramat Gan'
-  ];
 
   return (
     <footer className="bg-gray-50 border-t border-border">
@@ -25,7 +22,7 @@ const Footer = () => {
               <span className="font-bold text-xl text-foreground">Fusion Glassworks</span>
             </div>
             <p className="text-muted-foreground text-sm">
-              Architectural glass solutions for residential, commercial and highrise projects across Israel.
+              {t('footer.description', 'Architectural glass solutions for residential, commercial and highrise projects across Israel.')}
             </p>
           </div>
 
@@ -35,20 +32,38 @@ const Footer = () => {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <Phone className="w-4 h-4 text-primary" />
-                <a href="tel:+972501234567" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  +972-50-123-4567
+                <a 
+                  href={BUSINESS_INFO.phone.link} 
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                  dir="ltr"
+                >
+                  {BUSINESS_INFO.phone.display}
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="w-4 h-4 text-primary" />
-                <a href="mailto:info@glassmax.co.il" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  info@glassmax.co.il
+                <a 
+                  href={BUSINESS_INFO.email.link} 
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {BUSINESS_INFO.email.address}
+                </a>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Globe className="w-4 h-4 text-primary" />
+                <a 
+                  href={BUSINESS_INFO.website.url} 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="text-sm text-muted-foreground hover:text-primary transition-colors"
+                >
+                  {BUSINESS_INFO.website.display}
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <MapPin className="w-4 h-4 text-primary" />
                 <span className="text-sm text-muted-foreground">
-                  Central Israel
+                  {t('footer.location', 'Central Israel')}
                 </span>
               </div>
             </div>
@@ -61,9 +76,9 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Clock className="w-4 h-4 text-primary" />
                 <div className="text-sm text-muted-foreground">
-                  <div>Sun-Thu: 8:00-17:00</div>
-                  <div>Friday: 8:00-14:00</div>
-                  <div>Saturday: Closed</div>
+                  <div>{t('footer.hours_sun_thu', 'Sun-Thu: 8:00-17:00')}</div>
+                  <div>{t('footer.hours_friday', 'Friday: 8:00-14:00')}</div>
+                  <div>{t('footer.hours_saturday', 'Saturday: Closed')}</div>
                 </div>
               </div>
             </div>
@@ -72,33 +87,29 @@ const Footer = () => {
           {/* Service Areas */}
           <div className="space-y-4">
             <h3 className="font-semibold text-foreground">{t('footer.areas')}</h3>
-            <div className="grid grid-cols-2 gap-2">
-              {serviceAreas.map((area) => (
-                <span key={area} className="text-sm text-muted-foreground">
-                  {area}
-                </span>
-              ))}
-            </div>
+            <p className="text-sm text-muted-foreground">
+              {t('footer.all_israel')}
+            </p>
           </div>
         </div>
 
         {/* Bottom Bar */}
         <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
           <div className="text-sm text-muted-foreground">
-            © 2024 Fusion Glassworks. All rights reserved.
+            {t('footer.copyright', '© 2024 Fusion Glassworks. All rights reserved.')}
           </div>
           <div className="flex items-center space-x-6">
             <Link 
               to={`/${currentLanguage}/privacy`} 
               className="text-sm text-muted-foreground hover:text-primary transition-colors"
             >
-              Privacy Policy
+              {t('footer.privacy', 'Privacy Policy')}
             </Link>
             <Link 
               to={`/${currentLanguage}/terms`} 
               className="text-sm text-muted-foreground hover:text-primary transition-colors"
             >
-              Terms of Service
+              {t('footer.terms', 'Terms of Service')}
             </Link>
           </div>
         </div>

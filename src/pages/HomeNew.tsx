@@ -20,6 +20,11 @@ import {
   ArrowRight,
   Star,
   Zap,
+  Droplets,
+  Shield,
+  Store,
+  SquareStack,
+  Frame,
 } from 'lucide-react';
 import heroImage from '@/assets/hero-glass-installation.jpg';
 import railingImage from '@/assets/glass-railing.jpg';
@@ -28,6 +33,8 @@ import { useMouseParallax } from '@/hooks/useMouseParallax';
 import { useGSAPScrollAnimations } from '@/hooks/useGSAPScrollAnimations';
 import { SPRING_CONFIGS } from '@/constants/animation';
 import { getWhatsAppLink, getPhoneLink } from '@/constants/contact';
+import QuickContactForm from '@/components/QuickContactForm';
+import WhatsAppIcon from '@/components/icons/WhatsAppIcon';
 import type { ServiceItem, StatItem } from '@/types';
 
 /**
@@ -66,12 +73,12 @@ const HomeNew: React.FC = () => {
 
   // Services configuration
   const services: ServiceItem[] = [
-    { key: 'shower', icon: <div className="w-8 h-8 bg-blue-500/20 rounded-lg" />, image: heroImage },
-    { key: 'railings', icon: <div className="w-8 h-8 bg-purple-500/20 rounded-lg" />, image: railingImage },
-    { key: 'storefronts', icon: <div className="w-8 h-8 bg-cyan-500/20 rounded-lg" />, image: storefrontImage },
-    { key: 'windows', icon: <Eye className="w-8 h-8 text-blue-400" />, image: heroImage },
-    { key: 'mirrors', icon: <div className="w-8 h-8 bg-indigo-500/20 rounded-lg" />, image: railingImage },
-    { key: 'repairs', icon: <Wrench className="w-8 h-8 text-purple-400" />, image: storefrontImage },
+    { key: 'shower', icon: <Droplets className="w-8 h-8 text-blue-600" />, image: heroImage },
+    { key: 'railings', icon: <Shield className="w-8 h-8 text-blue-600" />, image: railingImage },
+    { key: 'storefronts', icon: <Store className="w-8 h-8 text-blue-600" />, image: storefrontImage },
+    { key: 'windows', icon: <Frame className="w-8 h-8 text-blue-600" />, image: heroImage },
+    { key: 'mirrors', icon: <SquareStack className="w-8 h-8 text-blue-600" />, image: railingImage },
+    { key: 'repairs', icon: <Wrench className="w-8 h-8 text-blue-600" />, image: storefrontImage },
   ];
 
   // Statistics configuration
@@ -100,9 +107,9 @@ const HomeNew: React.FC = () => {
   });
 
   return (
-    <div className="relative bg-[#0a0a0f]">
+    <div className="relative bg-gradient-to-br from-white via-blue-50/30 to-slate-50">
       {/* Animated Gradient Mesh Background */}
-      <div className="gradient-mesh" aria-hidden="true" />
+      <div className="gradient-mesh opacity-20" aria-hidden="true" />
 
       {/* Floating Particles */}
       <div className="fixed inset-0 pointer-events-none overflow-hidden" aria-hidden="true">
@@ -137,22 +144,22 @@ const HomeNew: React.FC = () => {
               {titleTrail.map((style, index) => (
                 <animated.div key={index} style={style}>
                   {index === 0 && (
-                    <div className="inline-flex items-center gap-2 glass-morphism px-4 py-2 rounded-full">
-                      <Sparkles className="w-4 h-4 text-blue-400 animate-pulse" />
-                      <span className="text-xs font-bold uppercase tracking-[0.3em] text-blue-400">
+                    <div className="inline-flex items-center gap-2 bg-blue-100/80 backdrop-blur-sm px-4 py-2 rounded-full border border-blue-200">
+                      <Sparkles className="w-4 h-4 text-blue-600 animate-pulse" />
+                      <span className="text-xs font-bold uppercase tracking-[0.3em] text-blue-700">
                         {t('hero.badge')}
                       </span>
                     </div>
                   )}
                   {index === 1 && (
                     <h1 className="text-5xl lg:text-7xl font-bold leading-tight">
-                      <span className="bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent">
+                      <span className="bg-gradient-to-r from-gray-900 via-blue-900 to-gray-900 bg-clip-text text-transparent">
                         {t('hero.title')}
                       </span>
                     </h1>
                   )}
                   {index === 2 && (
-                    <p className="text-lg lg:text-xl text-gray-300 max-w-xl leading-relaxed">
+                    <p className="text-lg lg:text-xl text-gray-700 max-w-xl leading-relaxed font-medium">
                       {t('hero.subtitle')}
                     </p>
                   )}
@@ -162,7 +169,7 @@ const HomeNew: React.FC = () => {
               <animated.div style={titleTrail[2]} className="flex flex-wrap gap-4 pt-4">
                 <Button
                   size="lg"
-                  className="cta-premium magnetic group rounded-2xl px-8 py-7 text-base"
+                  className="magnetic group rounded-2xl px-8 py-7 text-base bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg hover:shadow-xl transition-all"
                   onClick={scrollToQuote}
                   aria-label="Get a quote"
                 >
@@ -173,10 +180,11 @@ const HomeNew: React.FC = () => {
                   size="lg"
                   variant="outline"
                   onClick={handleWhatsApp}
-                  className="glass-morphism magnetic rounded-2xl px-8 py-7 text-base border-0 text-white hover:scale-105 transition-transform"
+                  className="magnetic rounded-2xl px-8 py-7 text-base border-2 bg-white hover:bg-gray-50 transition-all"
+                  style={{ borderColor: '#25D366', color: '#25D366' }}
                   aria-label="Contact via WhatsApp"
                 >
-                  <MessageCircle className="w-5 h-5 mr-2" aria-hidden="true" />
+                  <WhatsAppIcon size={20} className="mr-2" />
                   <span>{t('hero.cta.whatsapp')}</span>
                 </Button>
               </animated.div>
@@ -191,12 +199,12 @@ const HomeNew: React.FC = () => {
                   return (
                     <div
                       key={`stat-hero-${index}`}
-                      className="glass-morphism p-6 rounded-2xl spotlight"
+                      className="bg-white/90 backdrop-blur-sm p-6 rounded-2xl shadow-lg border border-blue-100 spotlight"
                       style={{ animationDelay: `${index * 0.1}s` }}
                     >
-                      <Icon className="w-6 h-6 text-blue-400 mb-2" aria-hidden="true" />
-                      <div className="text-3xl font-bold text-white">{stat.value}</div>
-                      <div className="text-sm text-gray-400">{stat.label}</div>
+                      <Icon className="w-6 h-6 text-blue-600 mb-2" aria-hidden="true" />
+                      <div className="text-3xl font-bold text-gray-900">{stat.value}</div>
+                      <div className="text-sm text-gray-600 font-medium">{stat.label}</div>
                     </div>
                   );
                 })}
@@ -249,15 +257,15 @@ const HomeNew: React.FC = () => {
       </section>
 
       {/* Services Section */}
-      <section className="relative py-32" aria-labelledby="services-heading">
+      <section className="relative py-24 bg-white" aria-labelledby="services-heading">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-20 reveal">
-            <h2 id="services-heading" className="text-4xl lg:text-5xl font-bold text-white mb-6">
-              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
+          <div className="text-center mb-16 reveal">
+            <h2 id="services-heading" className="text-4xl lg:text-5xl font-bold mb-6">
+              <span className="bg-gradient-to-r from-blue-600 to-blue-800 bg-clip-text text-transparent">
                 {t('services.title')}
               </span>
             </h2>
-            <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            <p className="text-xl text-gray-700 max-w-3xl mx-auto font-medium">
               {t('hero.tagline')}
             </p>
           </div>
@@ -269,7 +277,7 @@ const HomeNew: React.FC = () => {
                 className="blur-reveal card-3d spotlight group"
                 style={{ animationDelay: `${index * 0.1}s` }}
               >
-                <Card className="glass-morphism h-full overflow-hidden border-0">
+                <Card className="bg-white h-full overflow-hidden border-0 shadow-lg hover:shadow-2xl transition-all duration-300">
                   <div className="aspect-[4/3] overflow-hidden image-distort">
                     <img
                       src={service.image}
@@ -281,11 +289,11 @@ const HomeNew: React.FC = () => {
                   <CardContent className="p-6 space-y-4">
                     <div className="flex items-center gap-3">
                       <div aria-hidden="true">{service.icon}</div>
-                      <h3 className="text-xl font-bold text-white">
+                      <h3 className="text-xl font-bold text-gray-900">
                         {t(`services.${service.key}.title`)}
                       </h3>
                     </div>
-                    <p className="text-gray-400">{t(`services.${service.key}.description`)}</p>
+                    <p className="text-gray-600 font-medium">{t(`services.${service.key}.description`)}</p>
                     <Button
                       variant="ghost"
                       className="w-full justify-between text-blue-400 hover:text-blue-300 group"
@@ -302,37 +310,45 @@ const HomeNew: React.FC = () => {
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section id="quote-form" className="relative py-32" aria-labelledby="cta-heading">
+      {/* CTA Section with Contact Form */}
+      <section id="quote-form" className="relative py-24 bg-gradient-to-br from-blue-50 via-white to-blue-50" aria-labelledby="cta-heading">
         <div className="container mx-auto px-4">
-          <div className="glass-morphism max-w-4xl mx-auto p-12 lg:p-16 rounded-3xl text-center reveal">
-            <h2 id="cta-heading" className="text-4xl lg:text-5xl font-bold text-white mb-6">
+          <div className="max-w-4xl mx-auto text-center reveal mb-12">
+            <h2 id="cta-heading" className="text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
               {t('cta.heading')}
             </h2>
-            <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
               {t('cta.description')}
             </p>
-            <div className="flex flex-wrap gap-4 justify-center">
-              <Button
-                size="lg"
-                className="cta-premium magnetic rounded-2xl px-10 py-7 text-lg"
-                onClick={handleWhatsApp}
-                aria-label="Contact via WhatsApp"
-              >
-                <MessageCircle className="w-6 h-6 mr-2" aria-hidden="true" />
-                <span>{t('hero.cta.whatsapp')}</span>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                onClick={handlePhoneCall}
-                className="glass-morphism magnetic rounded-2xl px-10 py-7 text-lg border-0 text-white"
-                aria-label="Call us"
-              >
-                <Phone className="w-6 h-6 mr-2" aria-hidden="true" />
-                <span>{t('hero.cta.call')}</span>
-              </Button>
-            </div>
+          </div>
+
+          {/* Quick Contact Form */}
+          <div className="max-w-md mx-auto mb-12">
+            <QuickContactForm />
+          </div>
+
+          {/* Alternative Contact Methods */}
+          <div className="flex flex-wrap gap-4 justify-center pt-8 border-t border-gray-200">
+            <Button
+              size="lg"
+              className="magnetic rounded-2xl px-8 py-6 text-lg font-semibold shadow-lg hover:shadow-xl transition-all"
+              onClick={handleWhatsApp}
+              aria-label="Contact via WhatsApp"
+              style={{ backgroundColor: '#25D366', color: 'white' }}
+            >
+              <WhatsAppIcon size={24} className="mr-2" />
+              <span>{t('hero.cta.whatsapp')}</span>
+            </Button>
+            <Button
+              size="lg"
+              variant="outline"
+              onClick={handlePhoneCall}
+              className="magnetic rounded-2xl px-8 py-6 text-lg border-2 border-blue-500 text-blue-600 hover:bg-blue-50"
+              aria-label="Call us"
+            >
+              <Phone className="w-6 h-6 mr-2" aria-hidden="true" />
+              <span>{t('hero.cta.call')}</span>
+            </Button>
           </div>
         </div>
       </section>
