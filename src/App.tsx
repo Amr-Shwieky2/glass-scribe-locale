@@ -8,7 +8,9 @@ import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
+import { AdminAuthProvider } from "./contexts/AdminAuthContext";
 import Layout from "./components/layout/Layout";
+import { ProtectedAdminRoute } from "./components/admin/ProtectedAdminRoute";
 
 // Lazy load pages for code splitting
 const HomeNew = lazy(() => import("./pages/HomeNew"));
@@ -19,6 +21,9 @@ const Contractors = lazy(() => import("./pages/Contractors"));
 const About = lazy(() => import("./pages/About"));
 const Contact = lazy(() => import("./pages/Contact"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+
+const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
+const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
 
 // Loading fallback component
 const PageLoader = () => (
@@ -37,9 +42,21 @@ const App = () => {
     <TooltipProvider>
       <Toaster />
       <BrowserRouter>
-        <LanguageProvider>
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
+        <AdminAuthProvider>
+          <LanguageProvider>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                {/* Admin routes */}
+                <Route path="/admin/login" element={<AdminLogin />} />
+                <Route
+                  path="/admin"
+                  element={(
+                    <ProtectedAdminRoute>
+                      <AdminDashboard />
+                    </ProtectedAdminRoute>
+                  )}
+                />
+
               {/* Redirect root to default language */}
               <Route path="/" element={<Navigate to="/en" replace />} />
               
@@ -103,9 +120,10 @@ const App = () => {
               
               {/* Catch-all route */}
               <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </LanguageProvider>
+              </Routes>
+            </Suspense>
+          </LanguageProvider>
+        </AdminAuthProvider>
       </BrowserRouter>
     </TooltipProvider>
   );
