@@ -3,100 +3,104 @@ import { useTranslation } from 'react-i18next';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Link } from 'react-router-dom';
 import { Phone, Mail, MapPin, Clock } from 'lucide-react';
+import { useSiteSettings } from '@/lib/strapi/hooks';
+import { getStrapiImageUrl } from '@/lib/strapi/client';
 
 const Footer = () => {
   const { t } = useTranslation();
   const { currentLanguage } = useLanguage();
+  const { data: siteSettings } = useSiteSettings();
+
+  // Get contact info from CMS or fallback
+  const phone = siteSettings?.phone || '+972-50-123-4567';
+  const email = siteSettings?.email || 'info@shwaki-glass.co.il';
+  const logoUrl = siteSettings?.logo?.url
+    ? getStrapiImageUrl(siteSettings.logo.url)
+    : '/logo.png';
+  const footerText = siteSettings?.footerText || t('footer.about_text');
 
   const serviceAreas = [
     'Tel Aviv', 'Jerusalem', 'Haifa', 'Herzliya', 'Petah Tikva', 'Ramat Gan'
   ];
 
   return (
-    <footer className="bg-gray-50 border-t border-border">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-          {/* Company Info */}
+    <footer className="bg-secondary border-t border-border">
+      <div className="container mx-auto px-4 py-16 max-w-6xl">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
+          {/* About Column */}
           <div className="space-y-4">
-            <div className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-primary/90 rounded-xl flex items-center justify-center shadow-md shadow-primary/30">
-                <div className="w-4 h-4 bg-white/80 rounded-sm rotate-12" />
-              </div>
-              <span className="font-bold text-xl text-foreground">Fusion Glassworks</span>
-            </div>
-            <p className="text-muted-foreground text-sm">
-              Architectural glass solutions for residential, commercial and highrise projects across Israel.
+            <img 
+              src={logoUrl} 
+              alt={siteSettings?.siteName || 'Shwaki Glassworks'} 
+              className="h-16 w-auto object-contain mb-4"
+            />
+            <p className="text-muted-foreground text-sm leading-relaxed">
+              {footerText}
             </p>
           </div>
 
-          {/* Contact Information */}
+          {/* Contact Column */}
           <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">{t('footer.contact')}</h3>
+            <h3 className="font-semibold text-lg text-foreground">{t('footer.contact')}</h3>
             <div className="space-y-3">
-              <div className="flex items-center space-x-3">
-                <Phone className="w-4 h-4 text-primary" />
-                <a href="tel:+972501234567" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  +972-50-123-4567
-                </a>
+              <div className="flex items-start space-x-3">
+                <Phone className="w-5 h-5 text-accent mt-0.5" />
+                <div>
+                  <a href={`tel:${phone}`} className="text-sm text-foreground hover:text-accent transition-colors block font-medium">
+                    {phone}
+                  </a>
+                  <span className="text-xs text-muted-foreground">Call anytime</span>
+                </div>
               </div>
-              <div className="flex items-center space-x-3">
-                <Mail className="w-4 h-4 text-primary" />
-                <a href="mailto:info@glassmax.co.il" className="text-sm text-muted-foreground hover:text-primary transition-colors">
-                  info@glassmax.co.il
-                </a>
-              </div>
-              <div className="flex items-center space-x-3">
-                <MapPin className="w-4 h-4 text-primary" />
-                <span className="text-sm text-muted-foreground">
-                  Central Israel
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Business Hours */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">{t('footer.hours')}</h3>
-            <div className="space-y-2">
-              <div className="flex items-center space-x-3">
-                <Clock className="w-4 h-4 text-primary" />
-                <div className="text-sm text-muted-foreground">
-                  <div>Sun-Thu: 8:00-17:00</div>
-                  <div>Friday: 8:00-14:00</div>
-                  <div>Saturday: Closed</div>
+              <div className="flex items-start space-x-3">
+                <Mail className="w-5 h-5 text-accent mt-0.5" />
+                <div>
+                  <a href={`mailto:${email}`} className="text-sm text-foreground hover:text-accent transition-colors block font-medium">
+                    {email}
+                  </a>
+                  <span className="text-xs text-muted-foreground">Email us</span>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Service Areas */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-foreground">{t('footer.areas')}</h3>
-            <div className="grid grid-cols-2 gap-2">
-              {serviceAreas.map((area) => (
-                <span key={area} className="text-sm text-muted-foreground">
-                  {area}
-                </span>
-              ))}
+          {/* Service Areas & Hours Column */}
+          <div className="space-y-6">
+            <div>
+              <h3 className="font-semibold text-lg text-foreground mb-3">{t('footer.areas')}</h3>
+              <p className="text-sm text-muted-foreground">
+                {serviceAreas.join(' • ')}
+              </p>
+            </div>
+            <div>
+              <h3 className="font-semibold text-lg text-foreground mb-3 flex items-center gap-2">
+                <Clock className="w-5 h-5 text-accent" />
+                {t('footer.hours')}
+              </h3>
+              <div className="text-sm text-muted-foreground space-y-1">
+                <div>Sun-Thu: 8:00-17:00</div>
+                <div>Friday: 8:00-14:00</div>
+                <div className="text-xs">Saturday: Closed</div>
+              </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-border mt-8 pt-8 flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
-          <div className="text-sm text-muted-foreground">
-            © 2024 Fusion Glassworks. All rights reserved.
+        <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+          <div className="text-sm text-muted-foreground text-center md:text-left">
+            © {new Date().getFullYear()} Shwaki Glassworks (אחים שוואקי זכוכית). All rights reserved.
           </div>
-          <div className="flex items-center space-x-6">
+          <div className="flex items-center gap-6">
             <Link 
               to={`/${currentLanguage}/privacy`} 
-              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              className="text-sm text-muted-foreground hover:text-accent transition-colors"
             >
               Privacy Policy
             </Link>
             <Link 
               to={`/${currentLanguage}/terms`} 
-              className="text-sm text-muted-foreground hover:text-primary transition-colors"
+              className="text-sm text-muted-foreground hover:text-accent transition-colors"
             >
               Terms of Service
             </Link>

@@ -5,9 +5,7 @@
 
 import { lazy, Suspense } from "react";
 import { Toaster } from "@/components/ui/toaster";
-import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { LanguageProvider } from "./contexts/LanguageContext";
 import Layout from "./components/layout/Layout";
@@ -24,7 +22,7 @@ const NotFound = lazy(() => import("./pages/NotFound"));
 
 // Loading fallback component
 const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center bg-[#0a0a0f]">
+  <div className="min-h-screen flex items-center justify-center bg-white">
     <div className="glass-morphism p-8 rounded-2xl">
       <div className="flex flex-col items-center gap-4">
         <div className="w-12 h-12 border-4 border-blue-400 border-t-transparent rounded-full animate-spin" />
@@ -34,21 +32,10 @@ const PageLoader = () => (
   </div>
 );
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 60 * 1000, // 1 minute
-      gcTime: 5 * 60 * 1000, // 5 minutes
-      refetchOnWindowFocus: false,
-    },
-  },
-});
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
+const App = () => {
+  return (
     <TooltipProvider>
       <Toaster />
-      <Sonner />
       <BrowserRouter>
         <LanguageProvider>
           <Suspense fallback={<PageLoader />}>
@@ -121,7 +108,7 @@ const App = () => (
         </LanguageProvider>
       </BrowserRouter>
     </TooltipProvider>
-  </QueryClientProvider>
-);
+  );
+};
 
 export default App;

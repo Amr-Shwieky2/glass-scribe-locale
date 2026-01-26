@@ -1,23 +1,15 @@
 /* ============================================
-   ULTRA-PREMIUM DESIGN SYSTEM
-   Fusion Glassworks - Architectural Excellence
+   SHWAKI GLASSWORKS DESIGN SYSTEM
+   Professional • Clean • Trustworthy
    ============================================ */
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* This file provides minimal, professional styling */
+/* Main colors are defined in index.css */
 
 @layer base {
   :root {
-    /* Colors */
-    --primary: 220 90% 56%;
-    --secondary: 280 85% 60%;
-    --accent: 180 80% 50%;
-    
-    /* Transitions */
+    /* Simple transitions - no bounces or elastic */
     --ease-smooth: cubic-bezier(0.4, 0, 0.2, 1);
-    --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    --ease-elastic: cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
   
   * {
@@ -30,266 +22,137 @@
   }
   
   body {
-    background: radial-gradient(ellipse at top, #1a1a2e 0%, #0a0a0f 50%, #000000 100%);
-    background-attachment: fixed;
+    background: #FFFFFF;
     overflow-x: hidden;
   }
 }
 
 @layer components {
   /* ============================================
-     GLASS MORPHISM PREMIUM
+     CLEAN CARD STYLING
      ============================================ */
   
   .glass {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.1) 0%,
-      rgba(255, 255, 255, 0.02) 100%
-    );
-    backdrop-filter: blur(32px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    box-shadow: 
-      0 8px 32px rgba(0, 0, 0, 0.4),
-      inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   }
   
   .glass-hover {
-    transition: all 0.5s var(--ease-smooth);
+    transition: all 0.2s var(--ease-smooth);
   }
   
   .glass-hover:hover {
-    background: linear-gradient(
-      135deg,
-      rgba(255, 255, 255, 0.15) 0%,
-      rgba(255, 255, 255, 0.05) 100%
-    );
-    transform: translateY(-4px);
-    box-shadow: 
-      0 20px 60px rgba(0, 0, 0, 0.6),
-      inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   /* ============================================
-     ANIMATED GRADIENTS
+     GOLD ACCENT TEXT
      ============================================ */
   
-  .gradient-text {
-    background: linear-gradient(
-      90deg,
-      #fff 0%,
-      #60a5fa 25%,
-      #a78bfa 50%,
-      #60a5fa 75%,
-      #fff 100%
-    );
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: gradient-flow 8s ease infinite;
-  }
-  
-  @keyframes gradient-flow {
-    0%, 100% { background-position: 0% center; }
-    50% { background-position: 100% center; }
+  .accent-text {
+    color: #B08D57;
   }
 
   /* ============================================
-     FLOATING ANIMATIONS
+     MINIMAL UTILITIES
      ============================================ */
   
-  .float {
-    animation: float 6s ease-in-out infinite;
-  }
-  
-  @keyframes float {
-    0%, 100% { transform: translateY(0px); }
-    50% { transform: translateY(-20px); }
-  }
-  
-  .float-slow {
-    animation: float-slow 10s ease-in-out infinite;
-  }
-  
-  @keyframes float-slow {
-    0%, 100% { transform: translateY(0px) rotate(0deg); }
-    33% { transform: translateY(-15px) rotate(2deg); }
-    66% { transform: translateY(15px) rotate(-2deg); }
-  }
-
-  /* ============================================
-     SHIMMER EFFECT
-     ============================================ */
-  
-  .shimmer {
-    position: relative;
-    overflow: hidden;
-  }
-  
-  .shimmer::after {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(
-      90deg,
-      transparent,
-      rgba(255, 255, 255, 0.2),
-      transparent
-    );
-    animation: shimmer 3s infinite;
-  }
-  
-  @keyframes shimmer {
-    to { left: 100%; }
-  }
-
-  /* ============================================
-     GLOW EFFECTS
-     ============================================ */
-  
-  .glow-blue {
-    box-shadow: 0 0 40px rgba(96, 165, 250, 0.4);
-  }
-  
-  .glow-purple {
-    box-shadow: 0 0 40px rgba(167, 139, 250, 0.4);
-  }
-  
-  .glow-hover {
-    transition: box-shadow 0.5s ease;
-  }
-  
-  .glow-hover:hover {
-    box-shadow: 0 0 60px currentColor;
-  }
-
-  /* ============================================
-     BUTTONS PREMIUM
-     ============================================ */
-  
-  .btn-premium {
-    position: relative;
-    background: linear-gradient(135deg, #60a5fa, #a78bfa);
-    color: white;
-    font-weight: 600;
-    overflow: hidden;
-    transition: all 0.4s var(--ease-smooth);
-  }
-  
-  .btn-premium::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(135deg, #a78bfa, #34d399);
+  .fade-up {
     opacity: 0;
-    transition: opacity 0.4s;
+    transform: translateY(20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
   }
   
-  .btn-premium:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: 0 20px 40px rgba(96, 165, 250, 0.4);
-  }
-  
-  .btn-premium:hover::before {
+  .fade-up.visible {
     opacity: 1;
+    transform: translateY(0);
   }
 
   /* ============================================
-     SCROLL REVEALS
+     PROFESSIONAL BUTTONS
+     ============================================ */
+  
+  .btn-primary {
+    background: #2B2B2B;
+    color: #FFFFFF;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-primary:hover {
+    background: #3D3D3D;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+  
+  .btn-accent {
+    background: #B08D57;
+    color: #FFFFFF;
+    font-weight: 600;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .btn-accent:hover {
+    background: #9A7A4A;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  }
+
+  /* ============================================
+     SIMPLE SCROLL REVEALS
      ============================================ */
   
   .reveal {
     opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s var(--ease-smooth);
+    transform: translateY(20px);
+    transition: all 0.4s var(--ease-smooth);
   }
   
   .reveal.active {
     opacity: 1;
     transform: translateY(0);
   }
-  
-  .reveal-scale {
-    opacity: 0;
-    transform: scale(0.95);
-    transition: all 0.8s var(--ease-smooth);
-  }
-  
-  .reveal-scale.active {
-    opacity: 1;
-    transform: scale(1);
-  }
 
   /* ============================================
-     CARD EFFECTS
+     CLEAN CARD EFFECTS
      ============================================ */
   
   .card-hover {
-    transition: transform 0.5s var(--ease-smooth);
+    transition: box-shadow 0.2s var(--ease-smooth);
   }
   
   .card-hover:hover {
-    transform: translateY(-8px) scale(1.02);
-  }
-  
-  .card-3d {
-    transform-style: preserve-3d;
-    transition: transform 0.6s ease;
-  }
-  
-  .card-3d:hover {
-    transform: perspective(1000px) rotateY(5deg) translateZ(20px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   }
 
   /* ============================================
-     MAGNETIC EFFECT
+     CLEAN BACKGROUNDS
      ============================================ */
   
-  .magnetic {
-    transition: transform 0.3s var(--ease-elastic);
+  .bg-light-gray {
+    background: #F2F2F2;
+  }
+  
+  .bg-white {
+    background: #FFFFFF;
   }
 
   /* ============================================
-     BACKGROUND MESH
-     ============================================ */
-  
-  .bg-mesh {
-    background: 
-      radial-gradient(circle at 20% 50%, rgba(96, 165, 250, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(167, 139, 250, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 40% 20%, rgba(52, 211, 153, 0.08) 0%, transparent 50%);
-    animation: mesh-shift 20s ease infinite;
-  }
-  
-  @keyframes mesh-shift {
-    0%, 100% { background-position: 0% 0%, 100% 100%, 50% 0%; }
-    50% { background-position: 100% 100%, 0% 0%, 0% 100%; }
-  }
-
-  /* ============================================
-     TEXT EFFECTS
-     ============================================ */
-  
-  .text-glow {
-    text-shadow: 0 0 30px currentColor;
-  }
-
-  /* ============================================
-     PAGE TRANSITIONS
+     SIMPLE PAGE TRANSITIONS
      ============================================ */
   
   .page-enter {
     opacity: 0;
-    transform: translateY(30px) scale(0.98);
   }
   
   .page-enter-active {
     opacity: 1;
-    transform: translateY(0) scale(1);
-    transition: all 0.6s var(--ease-smooth);
+    transition: opacity 0.3s var(--ease-smooth);
   }
   
   .page-exit {
@@ -298,17 +161,16 @@
   
   .page-exit-active {
     opacity: 0;
-    transform: translateY(-30px) scale(1.02);
-    transition: all 0.4s var(--ease-smooth);
+    transition: opacity 0.2s var(--ease-smooth);
   }
 
   /* ============================================
-     LOADING SPINNER
+     SIMPLE SPINNER
      ============================================ */
   
   .spinner {
-    border: 3px solid rgba(96, 165, 250, 0.3);
-    border-top-color: #60a5fa;
+    border: 3px solid #E5E5E5;
+    border-top-color: #2B2B2B;
     border-radius: 50%;
     animation: spin 1s linear infinite;
   }
@@ -318,52 +180,20 @@
   }
 
   /* ============================================
-     SCROLL PROGRESS BAR
+     CLEAN INPUTS
      ============================================ */
   
-  .scroll-bar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    height: 3px;
-    background: linear-gradient(90deg, #60a5fa, #a78bfa, #34d399);
-    transform-origin: 0%;
-    z-index: 9999;
-  }
-
-  /* ============================================
-     PREMIUM INPUTS
-     ============================================ */
-  
-  .input-glass {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: all 0.3s ease;
+  .input-clean {
+    background: #FFFFFF;
+    border: 1px solid #E5E5E5;
+    transition: all 0.2s ease;
+    border-radius: 0.5rem;
+    padding: 0.75rem 1rem;
   }
   
-  .input-glass:focus {
-    background: rgba(255, 255, 255, 0.08);
-    border-color: rgba(96, 165, 250, 0.5);
-    box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.1);
+  .input-clean:focus {
+    border-color: #B08D57;
+    box-shadow: 0 0 0 3px rgba(176, 141, 87, 0.1);
     outline: none;
-  }
-
-  /* ============================================
-     CURSOR GLOW
-     ============================================ */
-  
-  .cursor-light {
-    pointer-events: none;
-    position: fixed;
-    width: 500px;
-    height: 500px;
-    border-radius: 50%;
-    background: radial-gradient(
-      circle,
-      rgba(96, 165, 250, 0.15) 0%,
-      transparent 70%
-    );
-    mix-blend-mode: screen;
-    z-index: 9999;
   }
 }

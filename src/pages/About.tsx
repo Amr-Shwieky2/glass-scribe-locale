@@ -23,19 +23,18 @@ const About: React.FC = () => {
               About
             </Badge>
             <h1 className="text-3xl lg:text-4xl font-semibold text-foreground">
-              Fusion Glassworks is a studio for light, structure and precision.
+              Shwaki Glassworks - Professional glass installation services.
             </h1>
             <p className="text-sm lg:text-base text-muted-foreground max-w-xl">
-              We combine engineering discipline with a designled approach to glass. From minimal interior partitions
-              to highrise envelopes, our teams manage detailing, fabrication and installation with the same level of
-              care.
+              We are a service-based glass installation business operating throughout Israel. With years of experience,
+              we provide professional on-site installations by appointment.
             </p>
             <p className="text-sm lg:text-base text-muted-foreground max-w-xl">
-              Every project is coordinated closely with architects, contractors and owners to ensure that lines remain
-              clean, tolerances are respected and the final space performs as beautifully as it looks.
+              No physical storefront - we come to you. Every project is coordinated closely with clients to ensure
+              quality installation and customer satisfaction.
             </p>
           </div>
-          <Card className="border-border/60 bg-gradient-to-br from-slate-900 to-slate-950 text-slate-50">
+          <Card className="border-border bg-primary text-white">
             <CardContent className="grid grid-cols-2 gap-5 p-6 lg:p-8">
               {stats.map((stat, index) => {
                 const Icon = stat.icon;

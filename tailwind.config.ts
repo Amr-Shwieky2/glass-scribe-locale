@@ -9,7 +9,11 @@ export default {
       center: true,
       padding: "2rem",
       screens: {
-        "2xl": "1400px",
+        "sm": "640px",
+        "md": "768px",
+        "lg": "1024px",
+        "xl": "1200px",
+        "2xl": "1200px",
       },
     },
     extend: {
@@ -66,6 +70,10 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      fontFamily: {
+        sans: ['Heebo', 'Assistant', 'Rubik', 'system-ui', '-apple-system', 'sans-serif'],
+        heading: ['Heebo', 'Assistant', 'Rubik', 'sans-serif'],
       },
       keyframes: {
         "accordion-down": {

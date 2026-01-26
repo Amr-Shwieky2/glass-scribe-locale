@@ -6,7 +6,8 @@ import { useTranslation } from 'react-i18next';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Phone, MessageCircle, Mail } from 'lucide-react';
+import { Phone, MessageCircle, Mail, Loader2 } from 'lucide-react';
+import { useContactPage, useSiteSettings } from '@/lib/strapi';
 
 const contactSchema = z.object({
   name: z.string().min(1, 'Required'),
@@ -19,6 +20,9 @@ type ContactValues = z.infer<typeof contactSchema>;
 
 const Contact: React.FC = () => {
   const { t } = useTranslation();
+  const { data: contactPage, isLoading: contactLoading } = useContactPage();
+  const { data: siteSettings, isLoading: settingsLoading } = useSiteSettings();
+  
   const {
     register,
     handleSubmit,
@@ -30,35 +34,59 @@ const Contact: React.FC = () => {
 
   const onSubmit = (values: ContactValues) => {
     // Simple mailto fallback; can be replaced with API later
-    const subject = encodeURIComponent('New inquiry from Fusion Glassworks website');
+    const subject = encodeURIComponent('New inquiry from website');
     const body = encodeURIComponent(
       `Name: ${values.name}\nPhone: ${values.phone}\nEmail: ${values.email}\n\nMessage:\n${values.message}`,
     );
-    window.location.href = `mailto:info@fusion-glassworks.com?subject=${subject}&body=${body}`;
+    const recipientEmail = siteSettings?.email || 'info@example.com';
+    window.location.href = `mailto:${recipientEmail}?subject=${subject}&body=${body}`;
     reset();
   };
+
+  if (contactLoading || settingsLoading) {
+    return (
+      <div className="py-16 lg:py-20 bg-white min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <Loader2 className="w-12 h-12 animate-spin mx-auto mb-4 text-primary" />
+          <p className="text-muted-foreground">{t('common.loading')}</p>
+        </div>
+      </div>
+    );
+  }
+
+  if (!contactPage || !siteSettings) {
+    return (
+      <div className="py-16 lg:py-20 bg-white min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <p className="text-muted-foreground">{t('common.error')}</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="py-16 lg:py-20 bg-white">
       <div className="container mx-auto px-4">
         <div className="mb-10 grid gap-8 lg:grid-cols-[1.1fr_minmax(0,1fr)] lg:items-start">
           <div className="space-y-4">
-            <h1 className="text-3xl lg:text-4xl font-semibold text-foreground">{t('contact.heading')}</h1>
+            <h1 className="text-3xl lg:text-4xl font-semibold text-foreground">{contactPage.pageTitle}</h1>
             <p className="text-sm lg:text-base text-muted-foreground max-w-xl">
-              {t('contact.description')}
+              {contactPage.description}
             </p>
+            
+            {/* Contact Details */}
             <div className="space-y-2 text-sm text-muted-foreground">
               <div className="flex items-center gap-2">
                 <Phone className="h-4 w-4 text-primary" />
-                <a href="tel:+972501234567" className="hover:text-primary">
-                  +972-50-123-4567
+                <a href={`tel:${siteSettings.phone}`} className="hover:text-primary">
+                  {siteSettings.phone}
                 </a>
               </div>
               <div className="flex items-center gap-2">
                 <MessageCircle className="h-4 w-4 text-primary" />
                 <button
                   type="button"
-                  onClick={() => window.open('https://wa.me/972501234567', '_blank')}
+                  onClick={() => window.open(`https://wa.me/${siteSettings.whatsApp}`, '_blank')}
                   className="hover:text-primary"
                 >
                   WhatsApp
@@ -66,50 +94,74 @@ const Contact: React.FC = () => {
               </div>
               <div className="flex items-center gap-2">
                 <Mail className="h-4 w-4 text-primary" />
-                <a href="mailto:info@fusion-glassworks.com" className="hover:text-primary">
-                  info@fusion-glassworks.com
+                <a href={`mailto:${siteSettings.email}`} className="hover:text-primary">
+                  {siteSettings.email}
                 </a>
               </div>
             </div>
+            
+            {/* Opening Hours */}
+            {contactPage.openingHours && (
+              <div className="pt-4">
+                <h3 className="text-sm font-semibold text-foreground mb-2">{t('contact.openingHours')}</h3>
+                <p className="text-sm text-muted-foreground whitespace-pre-line">{contactPage.openingHours}</p>
+              </div>
+            )}
+            
+            {/* Service Areas */}
+            {contactPage.serviceAreas && (
+              <div className="pt-2">
+                <h3 className="text-sm font-semibold text-foreground mb-2">{t('contact.serviceAreas')}</h3>
+                <p className="text-sm text-muted-foreground whitespace-pre-line">{contactPage.serviceAreas}</p>
+              </div>
+            )}
+            
+            {/* Address */}
+            {contactPage.addressText && (
+              <div className="pt-2">
+                <h3 className="text-sm font-semibold text-foreground mb-2">{t('contact.address')}</h3>
+                <p className="text-sm text-muted-foreground whitespace-pre-line">{contactPage.addressText}</p>
+              </div>
+            )}
           </div>
 
           <div className="glass-surface relative overflow-hidden p-6 lg:p-8">
             <div className="glass-highlight" />
             <form onSubmit={handleSubmit(onSubmit)} className="relative space-y-4">
               <div>
-                <label className="mb-1 block text-xs font-medium text-slate-100">{t('contact.form.name')}</label>
+                <label className="mb-1 block text-xs font-medium text-foreground">{t('contact.form.name')}</label>
                 <Input
                   {...register('name')}
-                  className="border-white/20 bg-slate-900/40 text-slate-50 placeholder:text-slate-400"
+                  className="border-border bg-white text-foreground placeholder:text-muted-foreground"
                   placeholder={t('contact.form.name_placeholder')}
                 />
                 {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>}
               </div>
               <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-slate-100">{t('contact.form.phone')}</label>
+                  <label className="mb-1 block text-xs font-medium text-foreground">{t('contact.form.phone')}</label>
                   <Input
                     {...register('phone')}
-                    className="border-white/20 bg-slate-900/40 text-slate-50 placeholder:text-slate-400"
+                    className="border-border bg-white text-foreground placeholder:text-muted-foreground"
                     placeholder={t('contact.form.phone_placeholder')}
                   />
                   {errors.phone && <p className="mt-1 text-xs text-red-400">{errors.phone.message}</p>}
                 </div>
                 <div>
-                  <label className="mb-1 block text-xs font-medium text-slate-100">{t('contact.form.email')}</label>
+                  <label className="mb-1 block text-xs font-medium text-foreground">{t('contact.form.email')}</label>
                   <Input
                     {...register('email')}
-                    className="border-white/20 bg-slate-900/40 text-slate-50 placeholder:text-slate-400"
+                    className="border-border bg-white text-foreground placeholder:text-muted-foreground"
                     placeholder={t('contact.form.email_placeholder')}
                   />
                   {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>}
                 </div>
               </div>
               <div>
-                <label className="mb-1 block text-xs font-medium text-slate-100">{t('contact.form.message')}</label>
+                <label className="mb-1 block text-xs font-medium text-foreground">{t('contact.form.message')}</label>
                 <Textarea
                   {...register('message')}
-                  className="min-h-[120px] border-white/20 bg-slate-900/40 text-slate-50 placeholder:text-slate-400"
+                  className="min-h-[120px] border-border bg-white text-foreground placeholder:text-muted-foreground"
                   placeholder={t('contact.form.message_placeholder')}
                 />
                 {errors.message && <p className="mt-1 text-xs text-red-400">{errors.message.message}</p>}
@@ -132,24 +184,45 @@ const Contact: React.FC = () => {
       </div>
 
       {/* Mobile sticky CTA bar */}
-      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-slate-800 bg-slate-950/95 backdrop-blur-md px-4 py-3 shadow-[0_-8px_30px_rgba(15,23,42,0.7)] md:hidden">
+      {/* Mobile sticky CTA bar */}
+      <div className="fixed inset-x-0 bottom-0 z-40 border-t border-border bg-white/95 backdrop-blur-md px-4 py-3 shadow-[0_-8px_30px_rgba(0,0,0,0.1)] md:hidden">
         <div className="mx-auto flex max-w-md items-center gap-3">
           <button
             type="button"
-            className="flex flex-1 items-center justify-center gap-2 rounded-full border border-slate-700 bg-slate-900/70 px-3 py-2 text-xs font-medium text-slate-100"
-            onClick={() => window.open('tel:+972501234567')}
+            className="flex flex-1 items-center justify-center gap-2 rounded-full border border-border bg-secondary px-3 py-2 text-xs font-medium text-foreground"
+            onClick={() => window.open(`tel:${siteSettings.phone}`)}
           >
             <Phone className="h-4 w-4" /> {t('contact.mobile_cta.call')}
           </button>
           <button
             type="button"
-            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-emerald-500 px-3 py-2 text-xs font-medium text-emerald-950"
-            onClick={() => window.open('https://wa.me/972501234567', '_blank')}
+            className="flex flex-1 items-center justify-center gap-2 rounded-full bg-accent px-3 py-2 text-xs font-medium text-white"
+            onClick={() => window.open(`https://wa.me/${siteSettings.whatsApp}`, '_blank')}
           >
             <MessageCircle className="h-4 w-4" /> {t('contact.mobile_cta.whatsapp')}
           </button>
         </div>
       </div>
+      
+      {/* Map Section - Conditional Render */}
+      {contactPage.mapEmbedUrl && (
+        <div className="mt-12">
+          <div className="container mx-auto px-4">
+            <div className="aspect-video w-full overflow-hidden rounded-lg">
+              <iframe
+                src={contactPage.mapEmbedUrl}
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title={t('contact.map')}
+              />
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from './Header';
 import Footer from './Footer';
+import MobileCTA from '@/components/MobileCTA';
 import { useLocation } from 'react-router-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -28,6 +29,7 @@ const Layout: React.FC<LayoutProps> = ({ children }) => {
           </motion.div>
         </AnimatePresence>
       </main>
+      <MobileCTA />
       <Footer />
     </div>
   );

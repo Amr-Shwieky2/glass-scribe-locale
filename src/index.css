@@ -6,109 +6,64 @@
 
 @layer base {
   :root {
-    /* Base colors - Clean professional palette */
-    --background: 0 0% 100%;
-    --foreground: 210 15% 15%;
+    /* Shwaki Glassworks Brand Colors */
+    /* White background, dark text, gold accents */
+    
+    /* Base colors - Clean white background */
+    --background: 0 0% 100%; /* #FFFFFF */
+    --foreground: 215 60% 16%; /* #0F2A44 - Navy */
 
     /* Card system */
-    --card: 0 0% 100%;
-    --card-foreground: 210 15% 15%;
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 215 60% 16%; /* Navy */
 
     /* Popover */
     --popover: 0 0% 100%;
-    --popover-foreground: 210 15% 15%;
+    --popover-foreground: 215 60% 16%;
 
-    /* Primary - Professional blue for trust */
-    --primary: 210 100% 45%;
+    /* Primary - Navy for professional look */
+    --primary: 215 60% 16%; /* #0F2A44 */
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 210 100% 40%;
+    --primary-hover: 215 60% 25%;
 
-    /* Secondary - Glass-like effects */
-    --secondary: 210 25% 96%;
-    --secondary-foreground: 210 15% 15%;
+    /* Secondary - Light gray */
+    --secondary: 0 0% 95%; /* #F2F2F2 */
+    --secondary-foreground: 215 60% 16%;
 
     /* Muted - Subtle backgrounds */
-    --muted: 210 20% 97%;
-    --muted-foreground: 210 10% 55%;
+    --muted: 0 0% 95%; /* #F2F2F2 */
+    --muted-foreground: 215 60% 16%;
 
-    /* Accent - Highlight color */
-    --accent: 35 100% 55%;
-    --accent-foreground: 0 0% 100%;
+    /* Accent - Gold from logo */
+    --accent: 43 62% 55%; /* #D4A647 - Logo Gold */
+    --accent-foreground: 0 0% 17%;
 
     /* Status colors */
-    --destructive: 0 84% 60%;
+    --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 100%;
-    --success: 142 76% 36%;
+    --success: 142 70% 35%;
     --success-foreground: 0 0% 100%;
 
     /* Interface elements */
-    --border: 210 20% 90%;
-    --input: 210 20% 95%;
-    --ring: 210 100% 45%;
+    --border: 0 0% 90%; /* Light gray border */
+    --input: 0 0% 95%;
+    --ring: 43 62% 55%; /* Logo Gold ring */
 
-    --radius: 0.75rem;
+    --radius: 0.5rem; /* Slightly rounded, not pill-shaped */
 
-    /* Glass industry specific tokens */
-    --glass-blue: 200 100% 85%;
-    --glass-shimmer: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0.1) 100%);
-    --hero-gradient: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(var(--primary-hover)) 100%);
-    --card-shadow: 0 4px 20px rgba(0,0,0,0.08);
-    --card-shadow-hover: 0 8px 30px rgba(0,0,0,0.12);
-    --cta-shadow: 0 4px 15px hsl(var(--primary) / 0.3);
+    /* Professional shadows - subtle */
+    --card-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.1);
+    --button-shadow: 0 2px 4px rgba(0,0,0,0.1);
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 215 60% 16%;
+    --sidebar-primary: 215 60% 16%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-accent: 0 0% 95%;
+    --sidebar-accent-foreground: 215 60% 16%;
+    --sidebar-border: 0 0% 90%;
+    --sidebar-ring: 43 62% 55%;
   }
 }
 
@@ -119,6 +74,10 @@
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Heebo', 'Assistant', 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 1.7;
   }
 
   /* RTL Support */
@@ -130,36 +89,96 @@
     direction: ltr;
   }
 
-  /* Typography */
+  /* Container and sections - Better spacing and max-width */
+  .container {
+    max-width: 1200px;
+  }
+
+  section {
+    margin-bottom: 0;
+  }
+
+  /* Improved readability for paragraphs */
+  .prose p, .text-prose {
+    max-width: 70ch;
+  }
+
+  /* Alternating section backgrounds */
+  section:nth-of-type(even) {
+    background: linear-gradient(to bottom, rgba(248, 250, 252, 0.5), rgba(248, 250, 252, 0.3));
+  }
+
+  /* Typography - Clean and strong with proper hierarchy */
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold;
+    font-family: 'Heebo', 'Assistant', 'Rubik', sans-serif;
+    color: hsl(var(--foreground));
+    line-height: 1.2;
   }
 
-  /* Glass effect utilities */
+  h1 {
+    font-weight: 700;
+    font-size: clamp(2.5rem, 5vw, 4.5rem); /* 40-72px */
+  }
+
+  h2 {
+    font-size: clamp(2rem, 4vw, 3rem); /* 32-48px */
+  }
+
+  h3 {
+    font-size: clamp(1.5rem, 3vw, 2rem); /* 24-32px */
+  }
+
+  h4 {
+    font-size: 1.25rem; /* 20px */
+  }
+
+  p {
+    font-size: 1rem; /* 16px */
+    line-height: 1.7;
+  }
+
+  .lead {
+    font-size: 1.125rem; /* 18px */
+    line-height: 1.8;
+  }
+
+  h2, h3 {
+    font-weight: 600;
+  }
+
+  /* Clean card styling */
   .glass-card {
-    backdrop-filter: blur(10px);
-    background: rgba(255, 255, 255, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    background: hsl(var(--card));
+    border: 1px solid hsl(var(--border));
+    box-shadow: var(--card-shadow);
   }
 
+  .glass-card:hover {
+    box-shadow: var(--card-shadow-hover);
+  }
+
+  /* Professional button styling */
   .cta-button {
-    box-shadow: var(--cta-shadow);
-    background: var(--hero-gradient);
-    transition: all 0.3s ease;
+    background: hsl(var(--primary));
+    color: hsl(var(--primary-foreground));
+    box-shadow: var(--button-shadow);
+    transition: all 0.2s ease;
+    border-radius: var(--radius);
   }
 
   .cta-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px hsl(var(--primary) / 0.4);
+    background: hsl(var(--primary-hover));
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
   }
 
-  /* Animation utilities */
+  /* Simple fade animation */
   .fade-in {
-    animation: fadeIn 0.6s ease-out;
+    animation: fadeIn 0.4s ease-out;
   }
 
   @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
+    from { opacity: 0; }
+    to { opacity: 1; }
   }
 }

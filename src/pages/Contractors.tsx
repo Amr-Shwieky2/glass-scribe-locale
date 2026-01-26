@@ -28,7 +28,7 @@ const Contractors: React.FC = () => {
   ];
 
   return (
-    <div className="py-16 lg:py-20 bg-slate-950 text-slate-50">
+    <div className="py-16 lg:py-20 bg-secondary text-foreground">
       <div className="container mx-auto px-4">
         <div className="mb-12 grid gap-8 lg:grid-cols-[1.1fr_minmax(0,1fr)] lg:items-end">
           <div className="space-y-3">
@@ -39,7 +39,7 @@ const Contractors: React.FC = () => {
               A glass partner for contractors & architects
             </h1>
             <p className="max-w-xl text-sm lg:text-base text-slate-300">
-              Fusion Glassworks supports GCs, builders and design teams with detailed coordination, technical expertise
+              Shwaki Glassworks supports contractors, builders and architects with professional glass installation services,
               and reliable onsite execution.
             </p>
           </div>
@@ -49,7 +49,7 @@ const Contractors: React.FC = () => {
               size="lg"
               className="cta-button inline-flex items-center gap-2 rounded-full bg-primary px-6 py-5 text-sm font-medium text-primary-foreground shadow-lg shadow-primary/40 hover:shadow-primary/60"
               onClick={() => {
-                window.location.href = 'mailto:estimating@fusion-glassworks.com?subject=Glass%20package%20for%20tender';
+                window.location.href = 'mailto:info@shwaki-glass.co.il?subject=Glass%20installation%20inquiry';
               }}
             >
               Email drawings
@@ -69,7 +69,7 @@ const Contractors: React.FC = () => {
                 viewport={{ once: true, margin: '-80px' }}
                 transition={{ duration: 0.4, delay: index * 0.06 }}
               >
-                <Card className="h-full border-slate-800 bg-slate-900/60">
+                <Card className="h-full border-border bg-white">
                   <CardContent className="flex flex-col gap-3 p-5">
                     <div className="flex h-10 w-10 items-center justify-center rounded-full bg-primary/15">
                       <Icon className="h-5 w-5 text-primary" />
@@ -83,7 +83,7 @@ const Contractors: React.FC = () => {
           })}
         </div>
 
-        <Card className="border-slate-800 bg-gradient-to-r from-slate-900 to-slate-900/60">
+        <Card className="border-border bg-secondary">
           <CardContent className="flex flex-col gap-4 p-5 lg:flex-row lg:items-center lg:justify-between">
             <div className="space-y-1">
               <div className="text-xs font-semibold uppercase tracking-[0.2em] text-primary/70">
@@ -97,7 +97,7 @@ const Contractors: React.FC = () => {
               </p>
             </div>
             <div className="flex flex-col gap-2 text-xs text-slate-300">
-              <span>estimating@fusion-glassworks.com</span>
+              <span>info@shwaki-glass.co.il</span>
               <span>+972-50-123-4567</span>
             </div>
           </CardContent>
