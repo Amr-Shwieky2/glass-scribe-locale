@@ -1,109 +1,148 @@
+/**
+ * Footer Component - Static Content
+ */
+
 import React from 'react';
-import { useTranslation } from 'react-i18next';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Clock } from 'lucide-react';
-import { useSiteSettings } from '@/lib/strapi/hooks';
-import { getStrapiImageUrl } from '@/lib/strapi/client';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import {
+  BUSINESS_INFO,
+  CONTACT_INFO,
+  SERVICES,
+  NAVIGATION,
+  FOOTER_CONTENT,
+  getLocalizedText,
+  type SupportedLocale,
+} from '@/data/business';
 
-const Footer = () => {
-  const { t } = useTranslation();
+const Footer: React.FC = () => {
   const { currentLanguage } = useLanguage();
-  const { data: siteSettings } = useSiteSettings();
+  const locale = currentLanguage as SupportedLocale;
 
-  // Get contact info from CMS or fallback
-  const phone = siteSettings?.phone || '+972-50-123-4567';
-  const email = siteSettings?.email || 'info@shwaki-glass.co.il';
-  const logoUrl = siteSettings?.logo?.url
-    ? getStrapiImageUrl(siteSettings.logo.url)
-    : '/logo.png';
-  const footerText = siteSettings?.footerText || t('footer.about_text');
-
-  const serviceAreas = [
-    'Tel Aviv', 'Jerusalem', 'Haifa', 'Herzliya', 'Petah Tikva', 'Ramat Gan'
-  ];
+  const handleWhatsApp = () => {
+    window.open(`https://wa.me/${CONTACT_INFO.whatsapp}`, '_blank');
+  };
 
   return (
-    <footer className="bg-secondary border-t border-border">
-      <div className="container mx-auto px-4 py-16 max-w-6xl">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          {/* About Column */}
-          <div className="space-y-4">
-            <img 
-              src={logoUrl} 
-              alt={siteSettings?.siteName || 'Shwaki Glassworks'} 
-              className="h-16 w-auto object-contain mb-4"
-            />
-            <p className="text-muted-foreground text-sm leading-relaxed">
-              {footerText}
+    <footer className="bg-brand-navy text-white">
+      {/* Main Footer Content */}
+      <div className="container mx-auto px-4 sm:px-6 py-10 sm:py-12 lg:py-16">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 lg:gap-12">
+          {/* Brand Section */}
+          <div className="sm:col-span-2 lg:col-span-1">
+            <div className="flex items-center gap-3 mb-4 sm:mb-6">
+              <img 
+                src="/logo.png" 
+                alt="Shwaki Brothers Logo"
+                className="w-12 h-12 sm:w-14 sm:h-14 object-contain"
+              />
+              <div>
+                <h3 className="font-bold text-base sm:text-lg">
+                  {getLocalizedText(BUSINESS_INFO.name, locale)}
+                </h3>
+              </div>
+            </div>
+            <p className="text-gray-400 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">
+              {getLocalizedText(FOOTER_CONTENT.description, locale)}
+            </p>
+            <p className="text-xs sm:text-sm text-gray-500">
+              {getLocalizedText(FOOTER_CONTENT.licensedBusiness, locale)}
             </p>
           </div>
 
-          {/* Contact Column */}
-          <div className="space-y-4">
-            <h3 className="font-semibold text-lg text-foreground">{t('footer.contact')}</h3>
-            <div className="space-y-3">
-              <div className="flex items-start space-x-3">
-                <Phone className="w-5 h-5 text-accent mt-0.5" />
-                <div>
-                  <a href={`tel:${phone}`} className="text-sm text-foreground hover:text-accent transition-colors block font-medium">
-                    {phone}
-                  </a>
-                  <span className="text-xs text-muted-foreground">Call anytime</span>
-                </div>
-              </div>
-              <div className="flex items-start space-x-3">
-                <Mail className="w-5 h-5 text-accent mt-0.5" />
-                <div>
-                  <a href={`mailto:${email}`} className="text-sm text-foreground hover:text-accent transition-colors block font-medium">
-                    {email}
-                  </a>
-                  <span className="text-xs text-muted-foreground">Email us</span>
-                </div>
-              </div>
-            </div>
+          {/* Quick Links */}
+          <div>
+            <h4 className="font-bold text-base sm:text-lg mb-4 sm:mb-6 text-brand-gold">
+              {getLocalizedText(FOOTER_CONTENT.quickLinks.title, locale)}
+            </h4>
+            <nav className="flex flex-col gap-2 sm:gap-3">
+              {NAVIGATION.items.map((item) => (
+                <Link
+                  key={item.href}
+                  to={item.href === '/' ? `/${currentLanguage}` : `/${currentLanguage}${item.href}`}
+                  className="text-gray-400 hover:text-brand-gold transition-colors text-sm sm:text-base py-1"
+                >
+                  {getLocalizedText(item.label, locale)}
+                </Link>
+              ))}
+            </nav>
           </div>
 
-          {/* Service Areas & Hours Column */}
-          <div className="space-y-6">
-            <div>
-              <h3 className="font-semibold text-lg text-foreground mb-3">{t('footer.areas')}</h3>
-              <p className="text-sm text-muted-foreground">
-                {serviceAreas.join(' • ')}
-              </p>
-            </div>
-            <div>
-              <h3 className="font-semibold text-lg text-foreground mb-3 flex items-center gap-2">
-                <Clock className="w-5 h-5 text-accent" />
-                {t('footer.hours')}
-              </h3>
-              <div className="text-sm text-muted-foreground space-y-1">
-                <div>Sun-Thu: 8:00-17:00</div>
-                <div>Friday: 8:00-14:00</div>
-                <div className="text-xs">Saturday: Closed</div>
+          {/* Services */}
+          <div>
+            <h4 className="font-bold text-base sm:text-lg mb-4 sm:mb-6 text-brand-gold">
+              {getLocalizedText(FOOTER_CONTENT.services.title, locale)}
+            </h4>
+            <nav className="flex flex-col gap-2 sm:gap-3">
+              {SERVICES.slice(0, 5).map((service) => (
+                <Link
+                  key={service.id}
+                  to={`/${currentLanguage}/services`}
+                  className="text-gray-400 hover:text-brand-gold transition-colors flex items-center gap-2 text-sm sm:text-base py-1"
+                >
+                  <span>{service.icon}</span>
+                  {getLocalizedText(service.title, locale)}
+                </Link>
+              ))}
+            </nav>
+          </div>
+
+          {/* Contact Info */}
+          <div>
+            <h4 className="font-bold text-base sm:text-lg mb-4 sm:mb-6 text-brand-gold">
+              {getLocalizedText(FOOTER_CONTENT.contact.title, locale)}
+            </h4>
+            <div className="space-y-3 sm:space-y-4">
+              <a
+                href={`tel:${CONTACT_INFO.phone.mobile}`}
+                className="flex items-center gap-3 text-gray-400 hover:text-brand-gold transition-colors text-sm sm:text-base py-1"
+              >
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-brand-gold flex-shrink-0" />
+                {CONTACT_INFO.phone.mobile}
+              </a>
+              <a
+                href={`tel:${CONTACT_INFO.phone.office}`}
+                className="flex items-center gap-3 text-gray-400 hover:text-brand-gold transition-colors text-sm sm:text-base py-1"
+              >
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-brand-gold flex-shrink-0" />
+                {CONTACT_INFO.phone.office}
+              </a>
+              <a
+                href={`mailto:${CONTACT_INFO.email}`}
+                className="flex items-center gap-3 text-gray-400 hover:text-brand-gold transition-colors text-sm sm:text-base py-1 break-all"
+              >
+                <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-brand-gold flex-shrink-0" />
+                {CONTACT_INFO.email}
+              </a>
+              <div className="flex items-center gap-3 text-gray-400 text-sm sm:text-base py-1">
+                <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-brand-gold flex-shrink-0" />
+                {getLocalizedText(BUSINESS_INFO.location, locale)}
               </div>
+              <button
+                onClick={handleWhatsApp}
+                className="flex items-center justify-center gap-2 sm:gap-3 text-brand-navy hover:text-brand-navy transition-colors mt-4 bg-brand-gold px-4 py-2.5 sm:py-2 rounded-lg hover:bg-brand-gold/90 w-full sm:w-auto text-sm sm:text-base font-medium"
+              >
+                <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
+                WhatsApp
+              </button>
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Bottom Bar */}
-        <div className="border-t border-border pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <div className="text-sm text-muted-foreground text-center md:text-left">
-            © {new Date().getFullYear()} Shwaki Glassworks (אחים שוואקי זכוכית). All rights reserved.
-          </div>
-          <div className="flex items-center gap-6">
-            <Link 
-              to={`/${currentLanguage}/privacy`} 
-              className="text-sm text-muted-foreground hover:text-accent transition-colors"
-            >
-              Privacy Policy
-            </Link>
-            <Link 
-              to={`/${currentLanguage}/terms`} 
-              className="text-sm text-muted-foreground hover:text-accent transition-colors"
-            >
-              Terms of Service
-            </Link>
+      {/* Bottom Bar */}
+      <div className="border-t border-gray-800">
+        <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-left">
+            <p className="text-gray-500 text-xs sm:text-sm">
+              {getLocalizedText(FOOTER_CONTENT.copyright, locale)}
+            </p>
+            <div className="flex items-center gap-4 sm:gap-6">
+              <span className="text-gray-500 text-xs sm:text-sm">
+                {getLocalizedText(BUSINESS_INFO.serviceArea, locale)}
+              </span>
+            </div>
           </div>
         </div>
       </div>

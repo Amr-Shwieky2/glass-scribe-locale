@@ -18,6 +18,12 @@ export default {
     },
     extend: {
       colors: {
+        // Brand Colors
+        brand: {
+          navy: '#0F2A44',
+          gold: '#C9A24D',
+          light: '#F2F2F2',
+        },
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",

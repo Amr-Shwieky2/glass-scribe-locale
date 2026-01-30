@@ -1,129 +1,145 @@
 /**
- * App Component
- * Root component with optimized code splitting and lazy loading
+ * @fileoverview Root Application Component
+ * @description Main application entry point with routing and providers.
+ * 
+ * ARCHITECTURE:
+ * - All content is static - no backend required
+ * - Text and data in /src/data/business.ts
+ * - Project images use Unsplash (replace with your own images)
  */
 
-import { lazy, Suspense } from "react";
-import { Toaster } from "@/components/ui/toaster";
-import { TooltipProvider } from "@/components/ui/tooltip";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { LanguageProvider } from "./contexts/LanguageContext";
-import { AdminAuthProvider } from "./contexts/AdminAuthContext";
-import Layout from "./components/layout/Layout";
-import { ProtectedAdminRoute } from "./components/admin/ProtectedAdminRoute";
+import { lazy, Suspense, type FC, type ReactNode } from 'react';
+import { Toaster } from '@/components/ui/toaster';
+import { TooltipProvider } from '@/components/ui/tooltip';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { LanguageProvider } from './contexts/LanguageContext';
+import Layout from './components/layout/Layout';
 
-// Lazy load pages for code splitting
-const HomeNew = lazy(() => import("./pages/HomeNew"));
-const Services = lazy(() => import("./pages/Services"));
-const Projects = lazy(() => import("./pages/Projects"));
-const Process = lazy(() => import("./pages/Process"));
-const Contractors = lazy(() => import("./pages/Contractors"));
-const About = lazy(() => import("./pages/About"));
-const Contact = lazy(() => import("./pages/Contact"));
-const NotFound = lazy(() => import("./pages/NotFound"));
+// =============================================================================
+// LAZY LOADED PAGES
+// =============================================================================
 
-const AdminLogin = lazy(() => import("./pages/admin/AdminLogin"));
-const AdminDashboard = lazy(() => import("./pages/admin/AdminDashboard"));
+// =============================================================================
+// LAZY LOADED PAGES
+// =============================================================================
 
-// Loading fallback component
-const PageLoader = () => (
-  <div className="min-h-screen flex items-center justify-center bg-white">
-    <div className="glass-morphism p-8 rounded-2xl">
-      <div className="flex flex-col items-center gap-4">
-        <div className="w-12 h-12 border-4 border-blue-400 border-t-transparent rounded-full animate-spin" />
-        <p className="text-white text-sm">Loading...</p>
+const Home = lazy(() => import('./pages/Home'));
+const Services = lazy(() => import('./pages/Services'));
+const Projects = lazy(() => import('./pages/Projects'));
+const Contractors = lazy(() => import('./pages/Contractors'));
+const About = lazy(() => import('./pages/About'));
+const Contact = lazy(() => import('./pages/Contact'));
+const NotFound = lazy(() => import('./pages/NotFound'));
+
+// =============================================================================
+// LOADING COMPONENT
+// =============================================================================
+
+const PageLoader: FC = () => (
+  <div className="min-h-screen flex items-center justify-center bg-brand-light">
+    <div className="flex flex-col items-center gap-6 px-4 text-center">
+      {/* Hamster Wheel Animation */}
+      <div aria-label="Loading animation" role="img" className="wheel-and-hamster">
+        <div className="wheel"></div>
+        <div className="hamster">
+          <div className="hamster__body">
+            <div className="hamster__head">
+              <div className="hamster__ear"></div>
+              <div className="hamster__eye"></div>
+              <div className="hamster__nose"></div>
+            </div>
+            <div className="hamster__limb hamster__limb--fr"></div>
+            <div className="hamster__limb hamster__limb--fl"></div>
+            <div className="hamster__limb hamster__limb--br"></div>
+            <div className="hamster__limb hamster__limb--bl"></div>
+            <div className="hamster__tail"></div>
+          </div>
+        </div>
+        <div className="spoke"></div>
+      </div>
+
+      {/* Business Info for slow connections */}
+      <div className="mt-4 space-y-3">
+        <img src="/logo.png" alt="Shwaki Brothers Glassworks" className="w-20 h-20 mx-auto" />
+        <h2 className="text-xl font-bold text-brand-navy">Shwaki Brothers Glassworks</h2>
+        <p className="text-brand-navy/70 text-sm">אחים שוואקי עבודות זכוכית</p>
+        
+        {/* Contact Info */}
+        <div className="flex flex-col sm:flex-row gap-3 justify-center mt-4">
+          <a 
+            href="tel:+972509666604" 
+            className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-brand-navy text-white rounded-full text-sm font-medium hover:bg-brand-navy/90 transition-colors"
+          >
+            📞 050-966-6604
+          </a>
+          <a 
+            href="https://wa.me/972509666604" 
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-brand-gold text-brand-navy rounded-full text-sm font-medium hover:bg-brand-gold/90 transition-colors"
+          >
+            💬 WhatsApp
+          </a>
+        </div>
+        
+        <p className="text-xs text-brand-navy/50 mt-2">Loading page...</p>
       </div>
     </div>
   </div>
 );
 
-const App = () => {
+// =============================================================================
+// ROUTE CONFIGURATION
+// =============================================================================
+
+const DEFAULT_LANGUAGE = 'en';
+
+interface RouteConfig {
+  path: string;
+  element: ReactNode;
+}
+
+const routes: RouteConfig[] = [
+  { path: '/:lang', element: <Home /> },
+  { path: '/:lang/services', element: <Services /> },
+  { path: '/:lang/projects', element: <Projects /> },
+  { path: '/:lang/contractors', element: <Contractors /> },
+  { path: '/:lang/about', element: <About /> },
+  { path: '/:lang/contact', element: <Contact /> },
+];
+
+// =============================================================================
+// APP COMPONENT
+// =============================================================================
+
+const App: FC = () => {
   return (
     <TooltipProvider>
       <Toaster />
       <BrowserRouter>
-        <AdminAuthProvider>
-          <LanguageProvider>
-            <Suspense fallback={<PageLoader />}>
-              <Routes>
-                {/* Admin routes */}
-                <Route path="/admin/login" element={<AdminLogin />} />
-                <Route
-                  path="/admin"
-                  element={(
-                    <ProtectedAdminRoute>
-                      <AdminDashboard />
-                    </ProtectedAdminRoute>
-                  )}
-                />
-
+        <LanguageProvider>
+          <Suspense fallback={<PageLoader />}>
+            <Routes>
               {/* Redirect root to default language */}
-              <Route path="/" element={<Navigate to="/en" replace />} />
-              
-              {/* Language-specific routes with lazy loading */}
               <Route
-                path="/:lang"
-                element={(
-                  <Layout>
-                    <HomeNew />
-                  </Layout>
-                )}
+                path="/"
+                element={<Navigate to={`/${DEFAULT_LANGUAGE}`} replace />}
               />
-              <Route
-                path="/:lang/services"
-                element={(
-                  <Layout>
-                    <Services />
-                  </Layout>
-                )}
-              />
-              <Route
-                path="/:lang/projects"
-                element={(
-                  <Layout>
-                    <Projects />
-                  </Layout>
-                )}
-              />
-              <Route
-                path="/:lang/contractors"
-                element={(
-                  <Layout>
-                    <Contractors />
-                  </Layout>
-                )}
-              />
-              <Route
-                path="/:lang/process"
-                element={(
-                  <Layout>
-                    <Process />
-                  </Layout>
-                )}
-              />
-              <Route
-                path="/:lang/about"
-                element={(
-                  <Layout>
-                    <About />
-                  </Layout>
-                )}
-              />
-              <Route
-                path="/:lang/contact"
-                element={(
-                  <Layout>
-                    <Contact />
-                  </Layout>
-                )}
-              />
-              
-              {/* Catch-all route */}
+
+              {/* Language-specific routes */}
+              {routes.map(({ path, element }) => (
+                <Route
+                  key={path}
+                  path={path}
+                  element={<Layout>{element}</Layout>}
+                />
+              ))}
+
+              {/* Catch-all 404 route */}
               <Route path="*" element={<NotFound />} />
-              </Routes>
-            </Suspense>
-          </LanguageProvider>
-        </AdminAuthProvider>
+            </Routes>
+          </Suspense>
+        </LanguageProvider>
       </BrowserRouter>
     </TooltipProvider>
   );

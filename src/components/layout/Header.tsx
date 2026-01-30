@@ -1,92 +1,69 @@
 /**
- * Header Component
- * Main navigation header with animated scroll effects and language switching
+ * Header Component - Static Navigation
+ * Uses static business data for all content
  */
 
-import React, { useState, useRef, useCallback, useMemo } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 import { useSpring, animated } from '@react-spring/web';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
-import { Menu, X, Phone, MessageCircle, Sparkles, Globe, ChevronDown } from 'lucide-react';
+import { Menu, X, Phone, MessageCircle, Globe, ChevronDown } from 'lucide-react';
 import { useScrollDetection } from '@/hooks/useScrollDetection';
 import { SPRING_CONFIGS } from '@/constants/animation';
-import { getWhatsAppLink, getPhoneLink } from '@/constants/contact';
-import { useSiteSettings } from '@/lib/strapi/hooks';
-import { getStrapiImageUrl } from '@/lib/strapi/client';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import type { NavigationItem } from '@/types';
+import {
+  BUSINESS_INFO,
+  CONTACT_INFO,
+  NAVIGATION,
+  getLocalizedText,
+  type SupportedLocale,
+} from '@/data/business';
 
-/**
- * Header component with animated navigation
- */
 const Header: React.FC = () => {
-  const { t } = useTranslation();
   const { switchLanguage, supportedLanguages, currentLanguage } = useLanguage();
+  const locale = currentLanguage as SupportedLocale;
   const location = useLocation();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const scrolled = useScrollDetection({ threshold: 20 });
-  const headerRef = useRef<HTMLElement>(null);
-  const { data: siteSettings } = useSiteSettings();
 
-  // Get contact info from CMS or fallback to defaults
-  const phone = siteSettings?.phone || '+972501234567';
-  const whatsApp = siteSettings?.whatsApp || '+972501234567';
-  const logoUrl = siteSettings?.logo?.url
-    ? getStrapiImageUrl(siteSettings.logo.url)
-    : '/logo.png';
-
-  // Navigation configuration
-  const navigation = useMemo<NavigationItem[]>(
-    () => [
-      { key: 'home', href: `/${currentLanguage}` },
-      { key: 'services', href: `/${currentLanguage}/services` },
-      { key: 'projects', href: `/${currentLanguage}/projects` },
-      { key: 'contractors', href: `/${currentLanguage}/contractors` },
-      { key: 'process', href: `/${currentLanguage}/process` },
-      { key: 'about', href: `/${currentLanguage}/about` },
-      { key: 'contact', href: `/${currentLanguage}/contact` },
-    ],
-    [currentLanguage]
+  // Navigation items from static data
+  const navigation = useMemo(
+    () => NAVIGATION.items.map(item => ({
+      href: item.href === '/' ? `/${currentLanguage}` : `/${currentLanguage}${item.href}`,
+      label: getLocalizedText(item.label, locale),
+    })),
+    [currentLanguage, locale]
   );
 
-  // Check if navigation item is active
   const isActive = useCallback(
     (href: string): boolean => location.pathname === href,
     [location.pathname]
   );
 
-  // Handle WhatsApp CTA
   const handleWhatsApp = useCallback(() => {
-    const message = t('hero.cta.whatsapp');
-    const link = `https://wa.me/${whatsApp.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
-    window.open(link, '_blank');
-  }, [t, whatsApp]);
+    const phone = CONTACT_INFO.whatsapp;
+    window.open(`https://wa.me/${phone}`, '_blank');
+  }, []);
 
-  // Handle phone call CTA
   const handlePhoneCall = useCallback(() => {
-    window.open(`tel:${phone}`, '_blank');
-  }, [phone]);
+    window.location.href = `tel:${CONTACT_INFO.phone.mobile}`;
+  }, []);
 
-  // Close mobile menu
   const closeMobileMenu = useCallback(() => {
     setIsMenuOpen(false);
   }, []);
 
-  // Advanced scroll effect with spring physics
   const headerSpring = useSpring({
     backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)',
-    backdropFilter: scrolled ? 'blur(16px) saturate(180%)' : 'blur(12px) saturate(150%)',
     boxShadow: scrolled
       ? '0 4px 12px rgba(0, 0, 0, 0.08)'
       : '0 2px 8px rgba(0, 0, 0, 0.04)',
-    transform: scrolled ? 'translateY(0px)' : 'translateY(0px)',
     config: SPRING_CONFIGS.smooth,
   });
 
@@ -95,53 +72,46 @@ const Header: React.FC = () => {
     config: SPRING_CONFIGS.wobbly,
   });
 
-
   return (
     <animated.header
-      ref={headerRef}
       style={headerSpring}
-      className="sticky top-0 left-0 right-0 z-50 transition-all duration-300"
-      aria-label="Main navigation"
+      className="sticky top-0 left-0 right-0 z-50 backdrop-blur-md"
     >
-      <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-20">
-          {/* Animated Logo */}
-          <Link
-            to={`/${currentLanguage}`}
-            className="group"
-            aria-label="Shwaki Glassworks home"
-          >
-            <animated.div
-              style={logoSpring}
-              className="flex items-center gap-3 transition-transform"
-            >
+      <div className="container mx-auto px-4 sm:px-6">
+        <div className="flex items-center justify-between h-16 sm:h-20">
+          {/* Logo */}
+          <Link to={`/${currentLanguage}`} className="group flex-shrink-0">
+            <animated.div style={logoSpring} className="flex items-center gap-2 sm:gap-3">
               <img 
-                src={logoUrl} 
-                alt={siteSettings?.siteName || 'Shwaki Glassworks'} 
-                className="h-12 w-auto object-contain"
+                src="/logo.png" 
+                alt="Shwaki Brothers Logo"
+                className="w-10 h-10 sm:w-12 sm:h-12 object-contain"
               />
+              <div className="hidden xs:block sm:block">
+                <span className="font-bold text-brand-navy text-sm sm:text-base">
+                  {getLocalizedText(BUSINESS_INFO.name, locale)}
+                </span>
+              </div>
             </animated.div>
           </Link>
 
-          {/* Desktop Navigation with Magnetic Effect */}
-          <nav className="hidden md:flex items-center gap-8" aria-label="Primary navigation">
+          {/* Desktop Navigation */}
+          <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
             {navigation.map((item) => (
               <Link
-                key={item.key}
+                key={item.href}
                 to={item.href}
-                className={`magnetic group relative text-sm font-medium transition-all duration-300 ${
+                className={`text-sm font-medium transition-all duration-300 relative group ${
                   isActive(item.href)
-                    ? 'text-accent font-semibold'
-                    : 'text-foreground hover:text-accent'
+                    ? 'text-brand-gold font-semibold'
+                    : 'text-brand-navy hover:text-brand-gold'
                 }`}
-                aria-current={isActive(item.href) ? 'page' : undefined}
               >
-                <span className="relative z-10">{t(`nav.${item.key}`)}</span>
+                {item.label}
                 <span
-                  className={`absolute bottom-0 left-0 h-0.5 bg-accent transition-all duration-300 ${
+                  className={`absolute -bottom-1 left-0 h-0.5 bg-brand-gold transition-all duration-300 ${
                     isActive(item.href) ? 'w-full' : 'w-0 group-hover:w-full'
                   }`}
-                  aria-hidden="true"
                 />
               </Link>
             ))}
@@ -149,28 +119,27 @@ const Header: React.FC = () => {
 
           {/* Desktop CTAs & Language */}
           <div className="flex items-center gap-3">
-            {/* Primary Contact CTA */}
             <div className="hidden md:flex items-center gap-2">
+              {/* Contact Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button
                     size="lg"
-                    className="bg-accent hover:bg-accent/90 text-white font-semibold px-6"
-                    aria-label="Contact options"
+                    className="bg-brand-gold hover:bg-brand-gold/90 text-brand-navy font-semibold px-6 rounded-full"
                   >
-                    <Phone className="w-4 h-4 mr-2" aria-hidden="true" />
-                    <span>{t('nav.contact')}</span>
-                    <ChevronDown className="w-4 h-4 ml-2" aria-hidden="true" />
+                    <Phone className="w-4 h-4 mr-2" />
+                    <span>{getLocalizedText(NAVIGATION.cta.label, locale)}</span>
+                    <ChevronDown className="w-4 h-4 ml-2" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuItem onClick={handlePhoneCall}>
                     <Phone className="w-4 h-4 mr-2" />
-                    {t('hero.cta.call')}
+                    {locale === 'he' ? 'התקשר עכשיו' : locale === 'ar' ? 'اتصل الآن' : 'Call Now'}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleWhatsApp}>
                     <MessageCircle className="w-4 h-4 mr-2" />
-                    {t('hero.cta.whatsapp')}
+                    WhatsApp
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -178,13 +147,8 @@ const Header: React.FC = () => {
               {/* Language Dropdown */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-foreground/70 hover:text-foreground"
-                    aria-label="Select language"
-                  >
-                    <Globe className="w-4 h-4 mr-1" aria-hidden="true" />
+                  <Button variant="ghost" size="sm" className="text-brand-navy">
+                    <Globe className="w-4 h-4 mr-1" />
                     <span className="text-xs font-medium">
                       {supportedLanguages.find(l => l.code === currentLanguage)?.nativeName}
                     </span>
@@ -195,7 +159,7 @@ const Header: React.FC = () => {
                     <DropdownMenuItem
                       key={lang.code}
                       onClick={() => switchLanguage(lang.code)}
-                      className={currentLanguage === lang.code ? 'bg-accent/10' : ''}
+                      className={currentLanguage === lang.code ? 'bg-brand-gold/10' : ''}
                     >
                       {lang.nativeName}
                     </DropdownMenuItem>
@@ -205,89 +169,75 @@ const Header: React.FC = () => {
             </div>
 
             {/* Mobile Menu Button */}
-            <button
+            <Button
+              variant="ghost"
+              size="icon"
+              className="lg:hidden"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
-              className="md:hidden glass-morphism p-3 rounded-xl hover:scale-110 transition-transform duration-300"
               aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-              aria-expanded={isMenuOpen}
-              aria-controls="mobile-menu"
             >
-              {isMenuOpen ? (
-                <X className="w-5 h-5 text-foreground" aria-hidden="true" />
-              ) : (
-                <Menu className="w-5 h-5 text-foreground" aria-hidden="true" />
-              )}
-            </button>
+              {isMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </Button>
           </div>
         </div>
-
-        {/* Mobile Navigation */}
-        {isMenuOpen && (
-          <nav
-            id="mobile-menu"
-            className="md:hidden py-6 space-y-4 animate-in slide-in-from-top duration-300"
-            aria-label="Mobile navigation"
-          >
-            {navigation.map((item) => (
-              <Link
-                key={item.key}
-                to={item.href}
-                onClick={closeMobileMenu}
-                className={`block text-base font-medium transition-colors ${
-                  isActive(item.href) ? 'text-accent' : 'text-foreground/80'
-                }`}
-                aria-current={isActive(item.href) ? 'page' : undefined}
-              >
-                {t(`nav.${item.key}`)}
-              </Link>
-            ))}
-            <div className="flex flex-col gap-3 pt-4 border-t border-border">
-              <Button
-                onClick={() => {
-                  handlePhoneCall();
-                  closeMobileMenu();
-                }}
-                variant="outline"
-                className="w-full justify-center"
-                aria-label="Call us"
-              >
-                <Phone className="w-4 h-4 mr-2" aria-hidden="true" />
-                <span>{t('hero.cta.call')}</span>
-              </Button>
-              <Button
-                onClick={() => {
-                  handleWhatsApp();
-                  closeMobileMenu();
-                }}
-                className="w-full justify-center bg-accent text-white hover:bg-accent/90"
-                aria-label="Contact via WhatsApp"
-              >
-                <MessageCircle className="w-4 h-4 mr-2" aria-hidden="true" />
-                <span>{t('hero.cta.whatsapp')}</span>
-              </Button>
-              <div className="pt-2 border-t border-border">
-                <div className="text-xs text-muted-foreground mb-2">{t('nav.language')}</div>
-                {supportedLanguages.map((lang) => (
-                  <button
-                    key={lang.code}
-                    onClick={() => {
-                      switchLanguage(lang.code);
-                      closeMobileMenu();
-                    }}
-                    className={`block w-full text-left px-3 py-2 text-sm rounded-md transition-colors ${
-                      currentLanguage === lang.code
-                        ? 'bg-accent/10 text-accent font-semibold'
-                        : 'text-foreground/70 hover:bg-accent/5'
-                    }`}
-                  >
-                    {lang.nativeName}
-                  </button>
-                ))}
-              </div>
-            </div>
-          </nav>
-        )}
       </div>
+
+      {/* Mobile Navigation */}
+      {isMenuOpen && (
+        <div className="lg:hidden bg-white border-t shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto">
+          <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
+            <nav className="flex flex-col gap-2 sm:gap-4">
+              {navigation.map((item) => (
+                <Link
+                  key={item.href}
+                  to={item.href}
+                  onClick={closeMobileMenu}
+                  className={`text-base sm:text-lg font-medium py-2 sm:py-3 px-2 rounded-lg transition-colors ${
+                    isActive(item.href) ? 'text-brand-gold bg-brand-gold/5' : 'text-brand-navy hover:bg-gray-50'
+                  }`}
+                >
+                  {item.label}
+                </Link>
+              ))}
+
+              {/* Mobile Language Selector */}
+              <div className="border-t pt-4 mt-2 sm:mt-4">
+                <p className="text-sm text-gray-500 mb-2 px-2">
+                  {locale === 'he' ? 'בחר שפה' : locale === 'ar' ? 'اختر اللغة' : 'Select Language'}
+                </p>
+                <div className="flex flex-wrap gap-2 px-2">
+                  {supportedLanguages.map((lang) => (
+                    <Button
+                      key={lang.code}
+                      variant={currentLanguage === lang.code ? 'default' : 'outline'}
+                      size="sm"
+                      className="flex-1 min-w-[80px]"
+                      onClick={() => {
+                        switchLanguage(lang.code);
+                        closeMobileMenu();
+                      }}
+                    >
+                      {lang.nativeName}
+                    </Button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Mobile Contact Buttons */}
+              <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-4 px-2">
+                <Button onClick={handlePhoneCall} className="flex-1 h-12" variant="outline">
+                  <Phone className="w-4 h-4 mr-2" />
+                  {locale === 'he' ? 'התקשר' : locale === 'ar' ? 'اتصل' : 'Call'}
+                </Button>
+                <Button onClick={handleWhatsApp} className="flex-1 h-12 bg-brand-gold hover:bg-brand-gold/90 text-brand-navy">
+                  <MessageCircle className="w-4 h-4 mr-2" />
+                  WhatsApp
+                </Button>
+              </div>
+            </nav>
+          </div>
+        </div>
+      )}
     </animated.header>
   );
 };

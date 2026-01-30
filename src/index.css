@@ -6,37 +6,36 @@
 
 @layer base {
   :root {
-    /* Shwaki Glassworks Brand Colors */
-    /* White background, dark text, gold accents */
+    /* Shwaki Brothers Glassworks Brand Colors */
+    /* Navy: #0F2A44 | Gold: #C9A24D | Light: #F2F2F2 */
     
-    /* Base colors - Clean white background */
-    --background: 0 0% 100%; /* #FFFFFF */
-    --foreground: 215 60% 16%; /* #0F2A44 - Navy */
+    /* Base colors */
+    --background: 0 0% 100%; /* White */
+    --foreground: 210 65% 16%; /* #0F2A44 Navy */
 
     /* Card system */
-    --card: 0 0% 100%; /* White */
-    --card-foreground: 215 60% 16%; /* Navy */
+    --card: 0 0% 100%;
+    --card-foreground: 210 65% 16%;
 
     /* Popover */
     --popover: 0 0% 100%;
-    --popover-foreground: 215 60% 16%;
+    --popover-foreground: 210 65% 16%;
 
-    /* Primary - Navy for professional look */
-    --primary: 215 60% 16%; /* #0F2A44 */
+    /* Primary - Navy #0F2A44 */
+    --primary: 210 65% 16%;
     --primary-foreground: 0 0% 100%;
-    --primary-hover: 215 60% 25%;
 
-    /* Secondary - Light gray */
-    --secondary: 0 0% 95%; /* #F2F2F2 */
-    --secondary-foreground: 215 60% 16%;
+    /* Secondary - Light Gray #F2F2F2 */
+    --secondary: 0 0% 95%;
+    --secondary-foreground: 210 65% 16%;
 
-    /* Muted - Subtle backgrounds */
-    --muted: 0 0% 95%; /* #F2F2F2 */
-    --muted-foreground: 215 60% 16%;
+    /* Muted */
+    --muted: 0 0% 95%;
+    --muted-foreground: 210 65% 16%;
 
-    /* Accent - Gold from logo */
-    --accent: 43 62% 55%; /* #D4A647 - Logo Gold */
-    --accent-foreground: 0 0% 17%;
+    /* Accent - Gold #C9A24D */
+    --accent: 41 52% 54%;
+    --accent-foreground: 210 65% 16%;
 
     /* Status colors */
     --destructive: 0 70% 50%;
@@ -45,25 +44,25 @@
     --success-foreground: 0 0% 100%;
 
     /* Interface elements */
-    --border: 0 0% 90%; /* Light gray border */
+    --border: 0 0% 90%;
     --input: 0 0% 95%;
-    --ring: 43 62% 55%; /* Logo Gold ring */
+    --ring: 41 52% 54%; /* Gold ring */
 
-    --radius: 0.5rem; /* Slightly rounded, not pill-shaped */
+    --radius: 0.5rem;
 
-    /* Professional shadows - subtle */
-    --card-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.1);
-    --button-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    /* Shadows */
+    --card-shadow: 0 2px 8px rgba(15,42,68,0.08);
+    --card-shadow-hover: 0 8px 24px rgba(15,42,68,0.12);
+    --button-shadow: 0 2px 4px rgba(15,42,68,0.15);
 
     --sidebar-background: 0 0% 100%;
-    --sidebar-foreground: 215 60% 16%;
-    --sidebar-primary: 215 60% 16%;
+    --sidebar-foreground: 210 65% 16%;
+    --sidebar-primary: 210 65% 16%;
     --sidebar-primary-foreground: 0 0% 100%;
     --sidebar-accent: 0 0% 95%;
-    --sidebar-accent-foreground: 215 60% 16%;
+    --sidebar-accent-foreground: 210 65% 16%;
     --sidebar-border: 0 0% 90%;
-    --sidebar-ring: 43 62% 55%;
+    --sidebar-ring: 41 52% 54%;
   }
 }
 
@@ -78,6 +77,8 @@
     font-weight: 400;
     font-size: 16px;
     line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   /* RTL Support */
@@ -89,9 +90,10 @@
     direction: ltr;
   }
 
-  /* Container and sections - Better spacing and max-width */
+  /* Container - Responsive padding */
   .container {
     max-width: 1200px;
+    @apply px-4 sm:px-6 lg:px-8;
   }
 
   section {
@@ -180,5 +182,920 @@
   @keyframes fadeIn {
     from { opacity: 0; }
     to { opacity: 1; }
+  }
+}
+
+/* =============================================================================
+   ANIMATED BUTTON STYLES
+   ============================================================================= */
+
+@layer components {
+  /* Gold Outline Button - Primary CTA Style */
+  .btn-animated-gold {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 28px;
+    font-size: 16px;
+    color: #C9A24D; /* Brand Gold */
+    border: 2px solid #C9A24D;
+    border-radius: 34px;
+    background-color: transparent;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .btn-animated-gold::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    background-color: #C9A24D;
+    transition: width 0.4s cubic-bezier(0.23, 1, 0.320, 1), height 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+
+  .btn-animated-gold:hover::before {
+    width: 300%;
+    height: 300%;
+  }
+
+  .btn-animated-gold:hover {
+    color: #0F2A44; /* Brand Navy text on hover */
+    scale: 1.02;
+    box-shadow: 0 0px 20px rgba(201, 162, 77, 0.4);
+  }
+
+  .btn-animated-gold:active {
+    scale: 1;
+  }
+
+  /* Navy Outline Button - Secondary CTA Style */
+  .btn-animated-navy {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 28px;
+    font-size: 16px;
+    color: #0F2A44; /* Brand Navy */
+    border: 2px solid #0F2A44;
+    border-radius: 34px;
+    background-color: transparent;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .btn-animated-navy::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    background-color: #0F2A44;
+    transition: width 0.4s cubic-bezier(0.23, 1, 0.320, 1), height 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+
+  .btn-animated-navy:hover::before {
+    width: 300%;
+    height: 300%;
+  }
+
+  .btn-animated-navy:hover {
+    color: #FFFFFF; /* White text on hover */
+    scale: 1.02;
+    box-shadow: 0 0px 20px rgba(15, 42, 68, 0.4);
+  }
+
+  .btn-animated-navy:active {
+    scale: 1;
+  }
+
+  /* Gold Filled Button - For dark backgrounds */
+  .btn-animated-gold-filled {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 28px;
+    font-size: 16px;
+    color: #0F2A44; /* Navy text */
+    border: 2px solid #C9A24D;
+    border-radius: 34px;
+    background-color: #C9A24D;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .btn-animated-gold-filled::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    background-color: #FFFFFF;
+    transition: width 0.4s cubic-bezier(0.23, 1, 0.320, 1), height 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+
+  .btn-animated-gold-filled:hover::before {
+    width: 300%;
+    height: 300%;
+  }
+
+  .btn-animated-gold-filled:hover {
+    color: #0F2A44;
+    scale: 1.02;
+    box-shadow: 0 0px 25px rgba(201, 162, 77, 0.5);
+    border-color: #FFFFFF;
+  }
+
+  .btn-animated-gold-filled:active {
+    scale: 1;
+  }
+
+  /* White Outline Button - For dark backgrounds */
+  .btn-animated-white {
+    cursor: pointer;
+    position: relative;
+    padding: 12px 28px;
+    font-size: 16px;
+    color: #FFFFFF;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    border-radius: 34px;
+    background-color: transparent;
+    font-weight: 600;
+    transition: all 0.3s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+    z-index: 1;
+  }
+
+  .btn-animated-white::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+    background-color: #FFFFFF;
+    transition: width 0.4s cubic-bezier(0.23, 1, 0.320, 1), height 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+  }
+
+  .btn-animated-white:hover::before {
+    width: 300%;
+    height: 300%;
+  }
+
+  .btn-animated-white:hover {
+    color: #0F2A44;
+    scale: 1.02;
+    box-shadow: 0 0px 20px rgba(255, 255, 255, 0.3);
+    border-color: #FFFFFF;
+  }
+
+  .btn-animated-white:active {
+    scale: 1;
+  }
+
+  /* Responsive button sizing */
+  .btn-animated-gold,
+  .btn-animated-navy,
+  .btn-animated-gold-filled,
+  .btn-animated-white {
+    @apply text-sm sm:text-base;
+    padding: 10px 20px;
+  }
+
+  @media (min-width: 640px) {
+    .btn-animated-gold,
+    .btn-animated-navy,
+    .btn-animated-gold-filled,
+    .btn-animated-white {
+      padding: 12px 28px;
+    }
+  }
+
+  /* =============================================================================
+     ANIMATED SERVICE CARD - Mac Window Style with Skew Effect
+     ============================================================================= */
+
+  .service-card-animated {
+    position: relative;
+    background: linear-gradient(135deg, #0F2A44 0%, #1a3a5c 50%, #0F2A44 100%);
+    border-radius: 16px;
+    backdrop-filter: blur(10px);
+    border-bottom: 3px solid rgba(201, 162, 77, 0.4);
+    border-left: 2px rgba(201, 162, 77, 0.3) outset;
+    box-shadow: -20px 25px 30px rgba(0, 0, 0, 0.25);
+    transform: skewX(-5deg);
+    transition: all 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    overflow: hidden;
+    cursor: pointer;
+    min-height: 280px;
+  }
+
+  .service-card-animated:hover {
+    transform: skewX(0deg) translateY(-10px);
+    box-shadow: 0 30px 50px rgba(0, 0, 0, 0.3);
+    border-bottom-color: rgba(201, 162, 77, 0.7);
+  }
+
+  .service-card-animated .card-inner {
+    transform: skewX(5deg);
+    transition: transform 0.4s cubic-bezier(0.23, 1, 0.320, 1);
+    height: 100%;
+  }
+
+  .service-card-animated:hover .card-inner {
+    transform: skewX(0deg);
+  }
+
+  /* Mac-style dots */
+  .service-card-dots {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    padding: 12px 16px;
+  }
+
+  .service-card-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    box-shadow: -3px 3px 5px rgba(0, 0, 0, 0.25);
+    transition: transform 0.3s ease;
+  }
+
+  .service-card-animated:hover .service-card-dot {
+    transform: scale(1.2);
+  }
+
+  .service-card-dot.red {
+    background-color: #ff605c;
+  }
+
+  .service-card-dot.yellow {
+    background-color: #ffbd44;
+  }
+
+  .service-card-dot.green {
+    background-color: #00ca4e;
+  }
+
+  /* Card content */
+  .service-card-animated .card-image {
+    position: relative;
+    height: 120px;
+    overflow: hidden;
+    margin: 0 16px;
+    border-radius: 8px;
+  }
+
+  .service-card-animated .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .service-card-animated:hover .card-image img {
+    transform: scale(1.1);
+  }
+
+  .service-card-animated .card-icon {
+    position: absolute;
+    bottom: 8px;
+    left: 8px;
+    font-size: 2rem;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+  }
+
+  .service-card-animated .card-content {
+    padding: 16px;
+    color: white;
+  }
+
+  .service-card-animated .card-title {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: #C9A24D;
+    margin-bottom: 8px;
+    text-shadow: -2px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  .service-card-animated .card-description {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+    line-height: 1.5;
+    margin-bottom: 12px;
+  }
+
+  .service-card-animated .card-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .service-card-animated .card-features li {
+    display: flex;
+    align-items: center;
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 6px;
+  }
+
+  .service-card-animated .card-features li::before {
+    content: '';
+    width: 6px;
+    height: 6px;
+    background-color: #C9A24D;
+    border-radius: 50%;
+    margin-right: 10px;
+    flex-shrink: 0;
+  }
+
+  /* Hover arrow indicator */
+  .service-card-animated .card-arrow {
+    position: absolute;
+    bottom: 16px;
+    right: 16px;
+    opacity: 0;
+    transform: translateX(-10px);
+    transition: all 0.3s ease;
+    color: #C9A24D;
+  }
+
+  .service-card-animated:hover .card-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 639px) {
+    .service-card-animated {
+      transform: skewX(-3deg);
+      min-height: 260px;
+      box-shadow: -10px 15px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .service-card-animated .card-inner {
+      transform: skewX(3deg);
+    }
+
+    .service-card-animated:hover {
+      transform: skewX(0deg) translateY(-5px);
+    }
+
+    .service-card-animated .card-image {
+      height: 100px;
+    }
+
+    .service-card-animated .card-title {
+      font-size: 1rem;
+    }
+  }
+}
+
+/* =============================================================================
+   RESPONSIVE UTILITIES & MOBILE OPTIMIZATION
+   ============================================================================= */
+
+@layer utilities {
+  /* Mobile-first section padding */
+  .section-padding {
+    @apply py-12 sm:py-16 md:py-20 lg:py-24;
+  }
+
+  /* Responsive text utilities */
+  .text-responsive-hero {
+    @apply text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl;
+  }
+
+  .text-responsive-title {
+    @apply text-2xl sm:text-3xl md:text-4xl lg:text-5xl;
+  }
+
+  .text-responsive-subtitle {
+    @apply text-base sm:text-lg md:text-xl;
+  }
+
+  .text-responsive-body {
+    @apply text-sm sm:text-base;
+  }
+
+  /* Mobile-friendly gaps */
+  .gap-responsive {
+    @apply gap-4 sm:gap-6 md:gap-8;
+  }
+
+  /* Safe area padding for notched devices */
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .safe-top {
+    padding-top: env(safe-area-inset-top, 0px);
+  }
+
+  /* Touch-friendly tap targets */
+  .touch-target {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Hide scrollbar but keep functionality */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Mobile card improvements */
+  .card-mobile {
+    @apply shadow-md sm:shadow-lg hover:shadow-lg sm:hover:shadow-xl;
+  }
+}
+
+/* =============================================================================
+   MOBILE-SPECIFIC OVERRIDES
+   ============================================================================= */
+
+@media (max-width: 639px) {
+  /* Reduce section padding on mobile */
+  section {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+  }
+
+  /* Smaller headings on mobile */
+  h1 {
+    font-size: clamp(1.75rem, 8vw, 2.5rem);
+    line-height: 1.15;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 5vw, 1.5rem);
+  }
+
+  /* Better paragraph spacing on mobile */
+  p {
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  /* Full-width buttons on mobile */
+  .btn-animated-gold,
+  .btn-animated-navy,
+  .btn-animated-gold-filled,
+  .btn-animated-white {
+    width: 100%;
+    justify-content: center;
+    padding: 14px 20px;
+    font-size: 15px;
+  }
+
+  /* Cards: reduce padding on mobile */
+  .p-6 {
+    padding: 1rem;
+  }
+
+  .p-8 {
+    padding: 1.25rem;
+  }
+
+  /* Grid adjustments for mobile */
+  .grid-cols-2 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+
+  /* Better spacing for contact info on mobile */
+  .flex-wrap.gap-8 {
+    gap: 0.75rem;
+  }
+}
+
+/* =============================================================================
+   TABLET (iPad) OPTIMIZATIONS
+   ============================================================================= */
+
+@media (min-width: 640px) and (max-width: 1023px) {
+  /* Tablet section padding */
+  section {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  /* Tablet typography */
+  h1 {
+    font-size: clamp(2rem, 6vw, 3rem);
+  }
+
+  h2 {
+    font-size: clamp(1.75rem, 5vw, 2.5rem);
+  }
+
+  /* Better grid for tablets - 2 columns instead of 3 */
+  .lg\:grid-cols-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .lg\:grid-cols-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Button sizing for tablet */
+  .btn-animated-gold,
+  .btn-animated-navy,
+  .btn-animated-gold-filled,
+  .btn-animated-white {
+    padding: 12px 24px;
+    font-size: 15px;
+  }
+}
+
+/* =============================================================================
+   LANDSCAPE MOBILE OPTIMIZATIONS  
+   ============================================================================= */
+
+@media (max-height: 500px) and (orientation: landscape) {
+  /* Reduce hero height on landscape mobile */
+  .min-h-\[90vh\] {
+    min-height: 70vh;
+  }
+
+  /* Smaller padding in landscape */
+  section {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+  }
+
+  /* Hide scroll indicator in landscape */
+  .animate-bounce {
+    display: none;
+  }
+}
+
+/* =============================================================================
+   TOUCH DEVICE OPTIMIZATIONS
+   ============================================================================= */
+
+@media (hover: none) and (pointer: coarse) {
+  /* Remove hover effects on touch devices - show filled state by default for CTAs */
+  .btn-animated-gold:active,
+  .btn-animated-navy:active,
+  .btn-animated-gold-filled:active,
+  .btn-animated-white:active {
+    scale: 0.98;
+    transition: scale 0.1s ease;
+  }
+
+  /* Increase tap target sizes */
+  button, a, [role="button"] {
+    min-height: 44px;
+  }
+
+  /* Better link spacing for touch */
+  nav a {
+    padding: 0.5rem 0;
+  }
+}
+
+/* =============================================================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .animate-bounce,
+  .animate-pulse {
+    animation: none;
+  }
+}
+
+/* Focus visible for keyboard navigation */
+:focus-visible {
+  outline: 2px solid #C9A24D;
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid #C9A24D;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .btn-animated-gold,
+  .btn-animated-navy {
+    border-width: 3px;
+  }
+
+  .text-brand-navy\/70,
+  .text-brand-navy\/60,
+  .text-gray-400,
+  .text-gray-500 {
+    opacity: 1;
+  }
+}
+
+/* Dark mode media query support (future-proofing) */
+@media (prefers-color-scheme: dark) {
+  /* Add dark mode styles here when needed */
+}
+
+/* =============================================================================
+   HAMSTER WHEEL LOADING ANIMATION
+   ============================================================================= */
+
+.wheel-and-hamster {
+  --dur: 1s;
+  position: relative;
+  width: 12em;
+  height: 12em;
+  font-size: 14px;
+}
+
+.wheel,
+.hamster,
+.hamster div,
+.spoke {
+  position: absolute;
+}
+
+.wheel,
+.spoke {
+  border-radius: 50%;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.wheel {
+  background: radial-gradient(100% 100% at center, hsla(0,0%,60%,0) 47.8%, hsl(0,0%,60%) 48%);
+  z-index: 2;
+}
+
+.hamster {
+  animation: hamster var(--dur) ease-in-out infinite;
+  top: 50%;
+  left: calc(50% - 3.5em);
+  width: 7em;
+  height: 3.75em;
+  transform: rotate(4deg) translate(-0.8em, 1.85em);
+  transform-origin: 50% 0;
+  z-index: 1;
+}
+
+.hamster__head {
+  animation: hamsterHead var(--dur) ease-in-out infinite;
+  background: hsl(30,90%,55%);
+  border-radius: 70% 30% 0 100% / 40% 25% 25% 60%;
+  box-shadow: 0 -0.25em 0 hsl(30,90%,80%) inset,
+    0.75em -1.55em 0 hsl(30,90%,90%) inset;
+  top: 0;
+  left: -2em;
+  width: 2.75em;
+  height: 2.5em;
+  transform-origin: 100% 50%;
+}
+
+.hamster__ear {
+  animation: hamsterEar var(--dur) ease-in-out infinite;
+  background: hsl(0,90%,85%);
+  border-radius: 50%;
+  box-shadow: -0.25em 0 hsl(30,90%,55%) inset;
+  top: -0.25em;
+  right: -0.25em;
+  width: 0.75em;
+  height: 0.75em;
+  transform-origin: 50% 75%;
+}
+
+.hamster__eye {
+  animation: hamsterEye var(--dur) linear infinite;
+  background-color: hsl(0,0%,0%);
+  border-radius: 50%;
+  top: 0.375em;
+  left: 1.25em;
+  width: 0.5em;
+  height: 0.5em;
+}
+
+.hamster__nose {
+  background: hsl(0,90%,75%);
+  border-radius: 35% 65% 85% 15% / 70% 50% 50% 30%;
+  top: 0.75em;
+  left: 0;
+  width: 0.2em;
+  height: 0.25em;
+}
+
+.hamster__body {
+  animation: hamsterBody var(--dur) ease-in-out infinite;
+  background: hsl(30,90%,90%);
+  border-radius: 50% 30% 50% 30% / 15% 60% 40% 40%;
+  box-shadow: 0.1em 0.75em 0 hsl(30,90%,55%) inset,
+    0.15em -0.5em 0 hsl(30,90%,80%) inset;
+  top: 0.25em;
+  left: 2em;
+  width: 4.5em;
+  height: 3em;
+  transform-origin: 17% 50%;
+  transform-style: preserve-3d;
+}
+
+.hamster__limb--fr,
+.hamster__limb--fl {
+  clip-path: polygon(0 0, 100% 0, 70% 80%, 60% 100%, 0% 100%, 40% 80%);
+  top: 2em;
+  left: 0.5em;
+  width: 1em;
+  height: 1.5em;
+  transform-origin: 50% 0;
+}
+
+.hamster__limb--fr {
+  animation: hamsterFRLimb var(--dur) linear infinite;
+  background: linear-gradient(hsl(30,90%,80%) 80%, hsl(0,90%,75%) 80%);
+  transform: rotate(15deg) translateZ(-1px);
+}
+
+.hamster__limb--fl {
+  animation: hamsterFLLimb var(--dur) linear infinite;
+  background: linear-gradient(hsl(30,90%,90%) 80%, hsl(0,90%,85%) 80%);
+  transform: rotate(15deg);
+}
+
+.hamster__limb--br,
+.hamster__limb--bl {
+  border-radius: 0.75em 0.75em 0 0;
+  clip-path: polygon(0 0, 100% 0, 100% 30%, 70% 90%, 70% 100%, 30% 100%, 40% 90%, 0% 30%);
+  top: 1em;
+  left: 2.8em;
+  width: 1.5em;
+  height: 2.5em;
+  transform-origin: 50% 30%;
+}
+
+.hamster__limb--br {
+  animation: hamsterBRLimb var(--dur) linear infinite;
+  background: linear-gradient(hsl(30,90%,80%) 90%, hsl(0,90%,75%) 90%);
+  transform: rotate(-25deg) translateZ(-1px);
+}
+
+.hamster__limb--bl {
+  animation: hamsterBLLimb var(--dur) linear infinite;
+  background: linear-gradient(hsl(30,90%,90%) 90%, hsl(0,90%,85%) 90%);
+  transform: rotate(-25deg);
+}
+
+.hamster__tail {
+  animation: hamsterTail var(--dur) linear infinite;
+  background: hsl(0,90%,85%);
+  border-radius: 0.25em 50% 50% 0.25em;
+  box-shadow: 0 -0.2em 0 hsl(0,90%,75%) inset;
+  top: 1.5em;
+  right: -0.5em;
+  width: 1em;
+  height: 0.5em;
+  transform: rotate(30deg) translateZ(-1px);
+  transform-origin: 0.25em 0.25em;
+}
+
+.spoke {
+  animation: spoke var(--dur) linear infinite;
+  background: radial-gradient(100% 100% at center, hsl(0,0%,60%) 4.8%, hsla(0,0%,60%,0) 5%),
+    linear-gradient(hsla(0,0%,55%,0) 46.9%, hsl(0,0%,65%) 47% 52.9%, hsla(0,0%,65%,0) 53%) 50% 50% / 99% 99% no-repeat;
+}
+
+/* Hamster Animations */
+@keyframes hamster {
+  from, to {
+    transform: rotate(4deg) translate(-0.8em, 1.85em);
+  }
+  50% {
+    transform: rotate(0) translate(-0.8em, 1.85em);
+  }
+}
+
+@keyframes hamsterHead {
+  from, 25%, 50%, 75%, to {
+    transform: rotate(0);
+  }
+  12.5%, 37.5%, 62.5%, 87.5% {
+    transform: rotate(8deg);
+  }
+}
+
+@keyframes hamsterEye {
+  from, 90%, to {
+    transform: scaleY(1);
+  }
+  95% {
+    transform: scaleY(0);
+  }
+}
+
+@keyframes hamsterEar {
+  from, 25%, 50%, 75%, to {
+    transform: rotate(0);
+  }
+  12.5%, 37.5%, 62.5%, 87.5% {
+    transform: rotate(12deg);
+  }
+}
+
+@keyframes hamsterBody {
+  from, 25%, 50%, 75%, to {
+    transform: rotate(0);
+  }
+  12.5%, 37.5%, 62.5%, 87.5% {
+    transform: rotate(-2deg);
+  }
+}
+
+@keyframes hamsterFRLimb {
+  from, 25%, 50%, 75%, to {
+    transform: rotate(50deg) translateZ(-1px);
+  }
+  12.5%, 37.5%, 62.5%, 87.5% {
+    transform: rotate(-30deg) translateZ(-1px);
+  }
+}
+
+@keyframes hamsterFLLimb {
+  from, 25%, 50%, 75%, to {
+    transform: rotate(-30deg);
+  }
+  12.5%, 37.5%, 62.5%, 87.5% {
+    transform: rotate(50deg);
+  }
+}
+
+@keyframes hamsterBRLimb {
+  from, 25%, 50%, 75%, to {
+    transform: rotate(-60deg) translateZ(-1px);
+  }
+  12.5%, 37.5%, 62.5%, 87.5% {
+    transform: rotate(20deg) translateZ(-1px);
+  }
+}
+
+@keyframes hamsterBLLimb {
+  from, 25%, 50%, 75%, to {
+    transform: rotate(20deg);
+  }
+  12.5%, 37.5%, 62.5%, 87.5% {
+    transform: rotate(-60deg);
+  }
+}
+
+@keyframes hamsterTail {
+  from, 25%, 50%, 75%, to {
+    transform: rotate(30deg) translateZ(-1px);
+  }
+  12.5%, 37.5%, 62.5%, 87.5% {
+    transform: rotate(10deg) translateZ(-1px);
+  }
+}
+
+@keyframes spoke {
+  from {
+    transform: rotate(0);
+  }
+  to {
+    transform: rotate(-1turn);
   }
 }

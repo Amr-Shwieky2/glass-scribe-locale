@@ -1,26 +1,21 @@
-import { createRoot } from "react-dom/client";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import App from "./App.tsx";
-import "./index.css";
-import "./i18n";
-import { validateEnv } from "./lib/env";
+/**
+ * Application Entry Point
+ * Main entry point for the React application.
+ */
 
-// Validate required environment variables before app starts
-validateEnv();
+import { createRoot } from 'react-dom/client';
+import App from './App';
+import './index.css';
+import './i18n';
 
-// Create QueryClient for data caching
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      staleTime: 5 * 60 * 1000, // 5 minutes
-      retry: 1,
-      refetchOnWindowFocus: false,
-    },
-  },
-});
+// =============================================================================
+// APP MOUNTING
+// =============================================================================
 
-createRoot(document.getElementById("root")!).render(
-  <QueryClientProvider client={queryClient}>
-    <App />
-  </QueryClientProvider>
-);
+const rootElement = document.getElementById('root');
+
+if (!rootElement) {
+  throw new Error('Root element not found');
+}
+
+createRoot(rootElement).render(<App />);

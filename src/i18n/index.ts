@@ -12,7 +12,8 @@ const resources = {
         view_all: "View All Services",
         get_quote: "Get Free Quote",
         call_now: "Call Now",
-        whatsapp: "WhatsApp"
+        whatsapp: "WhatsApp",
+        loading: "Loading..."
       },
       // Trust badges
       trust: {
@@ -143,8 +144,8 @@ const resources = {
           text: "They completed our store renovation on time and within budget. The storefront looks amazing and the quality is excellent."
         }
       },
-      // Trust Section
-      trust: {
+      // Trust Promises Section (detailed promises for homepage)
+      trustPromises: {
         title: "Our Promise to You",
         subtitle: "Quality work backed by guarantees and professional service",
         promises: {
@@ -244,6 +245,8 @@ const resources = {
         badge: "Portfolio",
         heading: "Completed projects by Shwaki Glassworks",
         description: "A selection of professional glass installation projects across Israel, showcasing quality workmanship and attention to detail.",
+        allProjects: "All Projects",
+        noProjects: "No projects found",
         view_details: "View details",
         items: {
           highrise: { title: "High-rise curtain wall", type: "Commercial tower" },
@@ -321,7 +324,8 @@ const resources = {
         view_all: "כל השירותים",
         get_quote: "קבל הצעת מחיר חינם",
         call_now: "התקשר עכשיו",
-        whatsapp: "WhatsApp"
+        whatsapp: "WhatsApp",
+        loading: "טוען..."
       },
       // Trust badges
       trust: {
@@ -449,8 +453,8 @@ const resources = {
           text: "הם השלימו את שיפוץ החנות בזמן ובתקציב. החזית נראית מדהים והאיכות מצוינת."
         }
       },
-      // Trust Section
-      trust: {
+      // Trust Promises Section (detailed promises for homepage)
+      trustPromises: {
         title: "ההבטחה שלנו אליך",
         subtitle: "עבודה איכותית מגובה באחריות ושירות מקצועי",
         promises: {
@@ -548,6 +552,8 @@ const resources = {
         badge: "תיק עבודות",
         heading: "פרויקטים שבוצעו על ידי אחים שוואקי זכוכית",
         description: "מבחר פרויקטים מקצועיים של התקנת זכוכית ברחבי ישראל, מציגים איכות ביצוע ותשומת לב לפרטים.",
+        allProjects: "כל הפרויקטים",
+        noProjects: "לא נמצאו פרויקטים",
         view_details: "הצג פרטים",
         items: {
           highrise: { title: "קיר מסך גורד שחקים", type: "מגדל מסחרי" },
@@ -625,7 +631,8 @@ const resources = {
         view_all: "جميع الخدمات",
         get_quote: "احصل على عرض مجاني",
         call_now: "اتصل الآن",
-        whatsapp: "واتساب"
+        whatsapp: "واتساب",
+        loading: "جار التحميل..."
       },
       // Trust badges
       trust: {
@@ -752,8 +759,8 @@ const resources = {
           text: "أكملوا تجديد متجرنا في الموعد وضمن الميزانية. الواجهة تبدو رائعة والجودة ممتازة."
         }
       },
-      // Trust Section
-      trust: {
+      // Trust Promises Section (detailed promises for homepage)
+      trustPromises: {
         title: "وعدنا لك",
         subtitle: "عمل عالي الجودة مدعوم بضمانات وخدمة احترافية",
         promises: {
@@ -850,6 +857,8 @@ const resources = {
         badge: "معرض الأعمال",
         heading: "مشاريع منجزة من قبل أخوة شواكي للزجاج",
         description: "مجموعة من مشاريع تركيب الزجاج المهنية في جميع أنحاء إسرائيل، تظهر جودة التنفيذ والاهتمام بالتفاصيل.",
+        allProjects: "جميع المشاريع",
+        noProjects: "لم يتم العثور على مشاريع",
         view_details: "عرض التفاصيل",
         items: {
           highrise: { title: "جدار ستاري لناطحة سحاب", type: "برج تجاري" },
