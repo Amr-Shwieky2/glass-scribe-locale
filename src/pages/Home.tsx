@@ -11,6 +11,8 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, Star, Phone, MessageCircle } from 'lucide-react';
 import HeroGallery from '@/components/HeroGallery';
+import { useFeaturedImages, useCloudinaryImages, getGalleryUrl, getThumbnailUrl } from '@/hooks/useCloudinaryImages';
+import { getCategoryFromPublicId, formatCategoryName } from '@/lib/cloudinary';
 import {
   BUSINESS_INFO,
   CONTACT_INFO,
@@ -23,8 +25,8 @@ import {
   type SupportedLocale,
 } from '@/data/business';
 
-// Static Featured Projects for Home Page
-const FEATURED_PROJECTS = [
+// Static fallback projects (used when Cloudinary has no featured images)
+const FALLBACK_PROJECTS = [
   {
     id: 1,
     title: { en: 'Modern Frameless Shower', he: 'מקלחון ללא מסגרת מודרני', ar: 'دش بدون إطار حديث' },
@@ -72,6 +74,9 @@ const FEATURED_PROJECTS = [
 const Home: React.FC = () => {
   const { currentLanguage } = useLanguage();
   const locale = currentLanguage as SupportedLocale;
+
+  // Fetch Cloudinary featured images
+  const { images: featuredImages, isLoading: featuredLoading } = useFeaturedImages({ limit: 6 });
 
   // WhatsApp handler
   const handleWhatsApp = useCallback(() => {
@@ -182,32 +187,65 @@ const Home: React.FC = () => {
             </p>
           </div>
 
-          {/* Featured Projects Grid - Static Data */}
+          {/* Featured Projects Grid - Cloudinary images with static fallback */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {FEATURED_PROJECTS.map((project) => (
-              <Link
-                key={project.id}
-                to={`/${currentLanguage}/projects`}
-                className="group relative overflow-hidden rounded-xl sm:rounded-2xl shadow-lg aspect-[4/3]"
-              >
-                <img
-                  src={project.image}
-                  alt={getLocalizedText(project.title, locale)}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                  onError={(e) => {
-                    (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800';
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
-                <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white">
-                  <span className="inline-block px-2 sm:px-3 py-1 bg-brand-gold/80 text-brand-navy rounded-full text-xs font-medium mb-2">
-                    {getLocalizedText(project.category.name, locale)}
-                  </span>
-                  <h3 className="text-lg sm:text-xl font-bold">{getLocalizedText(project.title, locale)}</h3>
-                  <p className="text-xs sm:text-sm text-white/70 mt-1">📍 {getLocalizedText(project.location, locale)}</p>
-                </div>
-              </Link>
-            ))}
+            {featuredImages.length > 0 ? (
+              // Show Cloudinary featured images
+              featuredImages.slice(0, 6).map((img) => {
+                const category = getCategoryFromPublicId(img.public_id);
+                const categoryLabel = category ? formatCategoryName(category) : 'Glass Works';
+                return (
+                  <Link
+                    key={img.public_id}
+                    to={`/${currentLanguage}/projects`}
+                    className="group relative overflow-hidden rounded-xl sm:rounded-2xl shadow-lg aspect-[4/3]"
+                  >
+                    <img
+                      src={getGalleryUrl(img.public_id)}
+                      alt={img.context?.custom?.alt || categoryLabel}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800';
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                    <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white">
+                      <span className="inline-block px-2 sm:px-3 py-1 bg-brand-gold/80 text-brand-navy rounded-full text-xs font-medium mb-2">
+                        {categoryLabel}
+                      </span>
+                      <h3 className="text-lg sm:text-xl font-bold">{img.context?.custom?.caption || categoryLabel}</h3>
+                    </div>
+                  </Link>
+                );
+              })
+            ) : (
+              // Fallback: static data
+              FALLBACK_PROJECTS.map((project) => (
+                <Link
+                  key={project.id}
+                  to={`/${currentLanguage}/projects`}
+                  className="group relative overflow-hidden rounded-xl sm:rounded-2xl shadow-lg aspect-[4/3]"
+                >
+                  <img
+                    src={project.image}
+                    alt={getLocalizedText(project.title, locale)}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    onError={(e) => {
+                      (e.target as HTMLImageElement).src = 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800';
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                  <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 text-white">
+                    <span className="inline-block px-2 sm:px-3 py-1 bg-brand-gold/80 text-brand-navy rounded-full text-xs font-medium mb-2">
+                      {getLocalizedText(project.category.name, locale)}
+                    </span>
+                    <h3 className="text-lg sm:text-xl font-bold">{getLocalizedText(project.title, locale)}</h3>
+                    <p className="text-xs sm:text-sm text-white/70 mt-1">📍 {getLocalizedText(project.location, locale)}</p>
+                  </div>
+                </Link>
+              ))
+            )}
           </div>
 
           <div className="text-center mt-8 sm:mt-10 lg:mt-12">

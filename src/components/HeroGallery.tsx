@@ -13,19 +13,20 @@
  * Motion Philosophy: Unhurried, deliberate, cinematic
  */
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import { motion, useInView, useAnimation, Variants } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ArrowRight, Phone, MessageCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { CONTACT_INFO, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data/business';
+import { useHeroImages, getHeroUrl } from '@/hooks/useCloudinaryImages';
 
 // =============================================================================
 // CONFIGURATION
 // =============================================================================
 
-// Gallery frames - curated glass work imagery
-const GALLERY_FRAMES = [
+// Fallback gallery frames (used when no Cloudinary hero images exist)
+const FALLBACK_FRAMES = [
   {
     id: 1,
     image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
@@ -393,7 +394,7 @@ const FloatingWrapper: React.FC<FloatingWrapperProps> = ({ children, index, clas
 // =============================================================================
 
 interface GalleryFrameProps {
-  frame: typeof GALLERY_FRAMES[0];
+  frame: { id: number; image: string; alt: string };
   index: number;
   isVisible: boolean;
   delay: number;
@@ -486,6 +487,25 @@ const HeroGallery: React.FC = () => {
   const [visibleElements, setVisibleElements] = useState<number>(0);
   
   const texts = TEXT_BLOCKS[locale] || TEXT_BLOCKS.en;
+
+  // Fetch hero images from Cloudinary (admin-uploaded)
+  const { images: heroImages } = useHeroImages();
+
+  // Build GALLERY_FRAMES: Cloudinary images first, then fill with fallbacks to always have 7
+  const GALLERY_FRAMES = useMemo(() => {
+    const cloudFrames = heroImages.map((img, i) => ({
+      id: i + 1,
+      image: getHeroUrl(img.public_id),
+      alt: img.context?.custom?.alt || `Glass work ${i + 1}`,
+    }));
+
+    // Merge: use Cloudinary images first, pad with fallbacks
+    const merged = [...cloudFrames];
+    for (let i = merged.length; i < 7; i++) {
+      merged.push(FALLBACK_FRAMES[i]);
+    }
+    return merged.slice(0, 7);
+  }, [heroImages]);
 
   // Timeline-based reveal sequence
   useEffect(() => {

@@ -10,6 +10,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import { Card, CardContent } from '@/components/ui/card';
 import { ArrowRight, Phone, MessageCircle, CheckCircle } from 'lucide-react';
 import AnimatedPageHeader from '@/components/AnimatedPageHeader';
+import { useCloudinaryImages, getThumbnailUrl as getCldThumbnail } from '@/hooks/useCloudinaryImages';
 import {
   SERVICES,
   CONTACT_INFO,
@@ -24,6 +25,35 @@ const Services: React.FC = () => {
   const { currentLanguage } = useLanguage();
   const locale = currentLanguage as SupportedLocale;
   const content = PAGE_CONTENT.services;
+
+  // Fetch all Cloudinary images — we'll pick one per service category
+  const { images: allCloudImages } = useCloudinaryImages(undefined, { limit: 100 });
+
+  // Build a map: service ID → first Cloudinary image URL
+  const serviceImageMap = React.useMemo(() => {
+    const map: Record<string, string> = {};
+    // Map service IDs to Cloudinary folder path fragments
+    const serviceToFolder: Record<string, string> = {
+      'shower-glass': 'shower-enclosures',
+      'glass-railings': 'glass-railings',
+      'mirrors': 'mirrors',
+      'glass-partitions': 'partitions',
+      'storefront-glass': 'storefronts',
+      'custom-glass': 'backsplashes',
+    };
+
+    for (const service of SERVICES) {
+      const folder = serviceToFolder[service.id];
+      if (!folder) continue;
+      const match = allCloudImages.find((img) =>
+        img.public_id.includes(`/${folder}/`)
+      );
+      if (match) {
+        map[service.id] = getCldThumbnail(match.public_id, 600);
+      }
+    }
+    return map;
+  }, [allCloudImages]);
 
   const handleWhatsApp = () => {
     const phone = CONTACT_INFO.whatsapp;
@@ -72,23 +102,29 @@ const Services: React.FC = () => {
               >
                 <CardContent className="p-0">
                   <div className="flex flex-col md:flex-row">
-                    {/* Image/Visual Section - Placeholder for service photos */}
-                    <div className="md:w-1/3 bg-gradient-to-br from-brand-navy to-brand-navy/80 p-6 sm:p-8 flex flex-col items-center justify-center relative min-h-[160px] sm:min-h-[200px]">
-                      {/* Service icon */}
-                      <span className="text-5xl sm:text-6xl mb-3 sm:mb-4">{service.icon}</span>
-                      
-                      {/* Image placeholder indicator */}
-                      <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4 bg-white/10 backdrop-blur-sm rounded-lg px-2 sm:px-3 py-1.5 sm:py-2 border border-white/20">
-                        <div className="flex items-center gap-2 text-white/70 text-xs">
-                          <svg className="w-3 h-3 sm:w-4 sm:h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-                          </svg>
-                          <span className="text-[10px] sm:text-xs">
-                            {locale === 'he' ? 'מקום לתמונת שירות' :
-                             locale === 'ar' ? 'مكان لصورة الخدمة' :
-                             'Service image here'}
-                          </span>
+                    {/* Image Section - Cloudinary or icon fallback */}
+                    <div className="md:w-1/3 bg-gradient-to-br from-brand-navy to-brand-navy/80 relative min-h-[160px] sm:min-h-[200px] overflow-hidden">
+                      {serviceImageMap[service.id] ? (
+                        <img
+                          src={serviceImageMap[service.id]}
+                          alt={getLocalizedText(service.title, locale)}
+                          className="w-full h-full object-cover absolute inset-0"
+                          loading="lazy"
+                          onError={(e) => {
+                            // Fallback to icon on error
+                            (e.target as HTMLImageElement).style.display = 'none';
+                          }}
+                        />
+                      ) : (
+                        <div className="flex flex-col items-center justify-center h-full p-6 sm:p-8">
+                          <span className="text-5xl sm:text-6xl mb-3 sm:mb-4">{service.icon}</span>
                         </div>
+                      )}
+                      {/* Gradient overlay for text readability */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-brand-navy/60 to-transparent" />
+                      {/* Service icon badge */}
+                      <div className="absolute bottom-3 right-3 w-10 h-10 sm:w-12 sm:h-12 bg-brand-gold/90 rounded-full flex items-center justify-center text-xl sm:text-2xl shadow-lg">
+                        {service.icon}
                       </div>
                     </div>
                     

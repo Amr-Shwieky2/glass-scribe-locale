@@ -13,6 +13,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { LanguageProvider } from './contexts/LanguageContext';
+import { AdminProvider } from './contexts/AdminContext';
 import Layout from './components/layout/Layout';
 
 // =============================================================================
@@ -29,6 +30,7 @@ const Projects = lazy(() => import('./pages/Projects'));
 const Contractors = lazy(() => import('./pages/Contractors'));
 const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
+const Admin = lazy(() => import('./pages/Admin'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
 // =============================================================================
@@ -117,29 +119,34 @@ const App: FC = () => {
     <TooltipProvider>
       <Toaster />
       <BrowserRouter>
-        <LanguageProvider>
-          <Suspense fallback={<PageLoader />}>
-            <Routes>
-              {/* Redirect root to default language */}
-              <Route
-                path="/"
-                element={<Navigate to={`/${DEFAULT_LANGUAGE}`} replace />}
-              />
-
-              {/* Language-specific routes */}
-              {routes.map(({ path, element }) => (
+        <AdminProvider>
+          <LanguageProvider>
+            <Suspense fallback={<PageLoader />}>
+              <Routes>
+                {/* Redirect root to default language */}
                 <Route
-                  key={path}
-                  path={path}
-                  element={<Layout>{element}</Layout>}
+                  path="/"
+                  element={<Navigate to={`/${DEFAULT_LANGUAGE}`} replace />}
                 />
-              ))}
 
-              {/* Catch-all 404 route */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </Suspense>
-        </LanguageProvider>
+                {/* Admin route (no layout, no language) */}
+                <Route path="/admin" element={<Admin />} />
+
+                {/* Language-specific routes */}
+                {routes.map(({ path, element }) => (
+                  <Route
+                    key={path}
+                    path={path}
+                    element={<Layout>{element}</Layout>}
+                  />
+                ))}
+
+                {/* Catch-all 404 route */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </Suspense>
+          </LanguageProvider>
+        </AdminProvider>
       </BrowserRouter>
     </TooltipProvider>
   );
