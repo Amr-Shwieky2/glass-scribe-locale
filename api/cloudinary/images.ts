@@ -78,7 +78,7 @@ export default async function handler(
 
     // Fetch all from all categories (recursive)
     if (all === 'true') {
-      expression = `folder:${BASE_FOLDER}/**`;
+      expression = `folder:${BASE_FOLDER}/*`;
     }
 
     // Execute search

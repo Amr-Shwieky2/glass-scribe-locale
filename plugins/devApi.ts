@@ -194,7 +194,7 @@ async function handleImages(req: IncomingMessage, res: ServerResponse) {
       expression = `folder:${BASE_FOLDER}/${category}`;
     }
     if (featured === 'true') expression += ' AND tags=featured';
-    if (all === 'true') expression = `folder:${BASE_FOLDER}/**`;
+    if (all === 'true') expression = `folder:${BASE_FOLDER}/*`;
 
     let search = c.search
       .expression(expression)
