@@ -196,6 +196,82 @@ export const SERVICES: ServiceData[] = [
       ar: ['طاولات زجاجية', 'ألواح زخرفية', 'واقيات رذاذ', 'تصاميم مخصصة'],
     },
   },
+  {
+    id: 'glass-doors',
+    icon: '🚪',
+    title: {
+      en: 'Glass Doors',
+      he: 'דלתות זכוכית',
+      ar: 'أبواب زجاجية',
+    },
+    description: {
+      en: 'Elegant glass doors for interiors and exteriors. Sliding, pivot, and hinged designs that add a modern touch to any entrance.',
+      he: 'דלתות זכוכית אלגנטיות לפנים ולחוץ. עיצובים הזזה, ציר ותלויים המוסיפים נגיעה מודרנית לכל כניסה.',
+      ar: 'أبواب زجاجية أنيقة للداخل والخارج. تصاميم منزلقة ومحورية ومفصلية تضيف لمسة عصرية لأي مدخل.',
+    },
+    features: {
+      en: ['Sliding doors', 'Pivot systems', 'Frosted options', 'Smart glass available'],
+      he: ['דלתות הזזה', 'מערכות ציר', 'אפשרויות חלבית', 'זכוכית חכמה זמינה'],
+      ar: ['أبواب منزلقة', 'أنظمة محورية', 'خيارات مصنفرة', 'زجاج ذكي متاح'],
+    },
+  },
+  {
+    id: 'backsplashes',
+    icon: '🎨',
+    title: {
+      en: 'Glass Backsplashes',
+      he: 'חיפוי זכוכית למטבח',
+      ar: 'واقيات زجاجية للمطبخ',
+    },
+    description: {
+      en: 'Stunning kitchen and bathroom backsplashes in tempered glass. Available in any color, with a seamless easy-to-clean finish.',
+      he: 'חיפויי זכוכית מרהיבים למטבחים ואמבטיות. זמינים בכל צבע, עם גימור חלק ונוח לניקוי.',
+      ar: 'واقيات زجاجية مذهلة للمطابخ والحمامات. متوفرة بأي لون، مع تشطيب سلس وسهل التنظيف.',
+    },
+    features: {
+      en: ['Any RAL color', 'Tempered safety glass', 'Seamless design', 'Heat resistant'],
+      he: ['כל צבע RAL', 'זכוכית מחוסמת בטיחותית', 'עיצוב חלק', 'עמיד בחום'],
+      ar: ['أي لون RAL', 'زجاج مقسى آمن', 'تصميم سلس', 'مقاوم للحرارة'],
+    },
+  },
+  {
+    id: 'shelves',
+    icon: '📐',
+    title: {
+      en: 'Glass Shelves',
+      he: 'מדפי זכוכית',
+      ar: 'رفوف زجاجية',
+    },
+    description: {
+      en: 'Custom glass shelving for retail displays, bathrooms, and living spaces. Clean, modern look with strong tempered glass.',
+      he: 'מדפי זכוכית מותאמים אישית לתצוגות חנויות, אמבטיות ומרחבי מגורים. מראה נקי ומודרני עם זכוכית מחוסמת חזקה.',
+      ar: 'أرفف زجاجية مخصصة لعروض المتاجر والحمامات والمساحات المعيشية. مظهر نظيف وعصري مع زجاج مقسى قوي.',
+    },
+    features: {
+      en: ['Custom sizes', 'Floating mounts', 'LED lighting options', 'Heavy-duty brackets'],
+      he: ['מידות מותאמות', 'תליה צפה', 'אפשרויות תאורת LED', 'תושבות כבדות'],
+      ar: ['أحجام مخصصة', 'تثبيت عائم', 'خيارات إضاءة LED', 'أقواس شديدة التحمل'],
+    },
+  },
+  {
+    id: 'lobbies',
+    icon: '🏛️',
+    title: {
+      en: 'Lobby Glass',
+      he: 'זכוכית ללובי',
+      ar: 'زجاج اللوبي',
+    },
+    description: {
+      en: 'Grand glass features for building lobbies and reception areas. Create an impressive first impression with our premium installations.',
+      he: 'אלמנטי זכוכית מרשימים ללובי בניינים ואזורי קבלה. צרו רושם ראשוני מרשים עם ההתקנות הפרימיום שלנו.',
+      ar: 'ميزات زجاجية فخمة لردهات المباني ومناطق الاستقبال. اخلق انطباعاً أولياً مميزاً مع تركيباتنا الفاخرة.',
+    },
+    features: {
+      en: ['Feature walls', 'Reception screens', 'Decorative panels', 'Lobby partitions'],
+      he: ['קירות ייחודיים', 'מסכי קבלה', 'פאנלים דקורטיביים', 'מחיצות לובי'],
+      ar: ['جدران مميزة', 'شاشات استقبال', 'ألواح زخرفية', 'فواصل اللوبي'],
+    },
+  },
 ];
 
 // =============================================================================

@@ -40,6 +40,10 @@ const Services: React.FC = () => {
       'glass-partitions': 'partitions',
       'storefront-glass': 'storefronts',
       'custom-glass': 'backsplashes',
+      'glass-doors': 'glass-doors',
+      'backsplashes': 'backsplashes',
+      'shelves': 'shelves',
+      'lobbies': 'lobbies',
     };
 
     for (const service of SERVICES) {

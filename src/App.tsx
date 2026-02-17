@@ -20,10 +20,6 @@ import Layout from './components/layout/Layout';
 // LAZY LOADED PAGES
 // =============================================================================
 
-// =============================================================================
-// LAZY LOADED PAGES
-// =============================================================================
-
 const Home = lazy(() => import('./pages/Home'));
 const Services = lazy(() => import('./pages/Services'));
 const Projects = lazy(() => import('./pages/Projects'));
