@@ -106,10 +106,12 @@ export function buildImageUrl(
   if (width) transformations.push(`w_${width}`);
   if (height) transformations.push(`h_${height}`);
 
-  // Crop and gravity
+  // Crop and gravity (gravity only applies to fill/thumb, not fit/scale)
   if (width || height) {
     transformations.push(`c_${crop}`);
-    transformations.push(`g_${gravity}`);
+    if (crop === 'fill' || crop === 'thumb') {
+      transformations.push(`g_${gravity}`);
+    }
   }
 
   // Effects
