@@ -189,12 +189,12 @@ async function handleImages(req: IncomingMessage, res: ServerResponse) {
     const limit = Math.min(parseInt(url.searchParams.get('limit') || '50', 10), 100);
     const cursor = url.searchParams.get('cursor');
 
-    let expression = `folder:${BASE_FOLDER}/*`;
+    let expression = `public_id:${BASE_FOLDER}/*`;
     if (category && VALID_CATEGORIES.includes(category)) {
-      expression = `folder:${BASE_FOLDER}/${category}`;
+      expression = `public_id:${BASE_FOLDER}/${category}/*`;
     }
     if (featured === 'true') expression += ' AND tags=featured';
-    if (all === 'true') expression = `folder:${BASE_FOLDER}/*`;
+    if (all === 'true') expression = `public_id:${BASE_FOLDER}/*`;
 
     let search = c.search
       .expression(expression)

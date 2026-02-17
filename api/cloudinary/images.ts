@@ -63,12 +63,13 @@ export default async function handler(
 
     const maxResults = Math.min(parseInt(limit, 10) || 50, 100);
 
-    // Build search expression
-    let expression = `folder:${BASE_FOLDER}/*`;
+    // Build search expression — use public_id prefix instead of folder
+    // because Cloudinary Dynamic Asset Folders stores the root as the folder
+    let expression = `public_id:${BASE_FOLDER}/*`;
 
     // Filter by category
     if (category && VALID_CATEGORIES.includes(category)) {
-      expression = `folder:${BASE_FOLDER}/${category}`;
+      expression = `public_id:${BASE_FOLDER}/${category}/*`;
     }
 
     // Filter by featured tag
@@ -78,7 +79,7 @@ export default async function handler(
 
     // Fetch all from all categories (recursive)
     if (all === 'true') {
-      expression = `folder:${BASE_FOLDER}/*`;
+      expression = `public_id:${BASE_FOLDER}/*`;
     }
 
     // Execute search
