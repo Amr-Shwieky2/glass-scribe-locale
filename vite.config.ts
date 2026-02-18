@@ -47,14 +47,9 @@ export default defineConfig(({ mode }) => ({
     // Use esbuild for minification (faster and built-in)
     minify: 'esbuild',
     target: 'esnext',
-    // Remove console logs in production
-    terserOptions: mode === 'production' ? {
-      compress: {
-        drop_console: true,
-        drop_debugger: true,
-      },
-    } : undefined,
   },
+  // Drop console.log and debugger in production
+  esbuild: mode === 'production' ? { drop: ['console', 'debugger'] } : undefined,
   // Optimize dependencies
   optimizeDeps: {
     include: [
