@@ -146,15 +146,15 @@ const Projects: React.FC = () => {
           <div className="flex flex-wrap justify-center gap-6 sm:gap-8 mt-6">
             <div className="text-center">
               <p className="text-3xl sm:text-4xl font-bold text-brand-gold">{images.length || '—'}</p>
-              <p className="text-sm text-gray-400">{locale === 'he' ? 'תמונות' : locale === 'ar' ? 'صور' : locale === 'ru' ? 'Фото' : 'Photos'}</p>
+              <p className="text-sm text-gray-400">{getLocalizedText(UI_STRINGS.projectPhotos, locale)}</p>
             </div>
             <div className="text-center">
               <p className="text-3xl sm:text-4xl font-bold text-brand-gold">{PROJECT_CATEGORIES.length}</p>
-              <p className="text-sm text-gray-400">{locale === 'he' ? 'קטגוריות' : locale === 'ar' ? 'فئات' : locale === 'ru' ? 'Категории' : 'Categories'}</p>
+              <p className="text-sm text-gray-400">{getLocalizedText(UI_STRINGS.projectCategories, locale)}</p>
             </div>
             <div className="text-center">
               <p className="text-3xl sm:text-4xl font-bold text-brand-gold">100%</p>
-              <p className="text-sm text-gray-400">{locale === 'he' ? 'שביעות רצון' : locale === 'ar' ? 'رضا' : locale === 'ru' ? 'Удовлетворённость' : 'Satisfaction'}</p>
+              <p className="text-sm text-gray-400">{getLocalizedText(UI_STRINGS.projectSatisfaction, locale)}</p>
             </div>
           </div>
         </div>
@@ -248,7 +248,7 @@ const Projects: React.FC = () => {
                         />
                         {featured && (
                           <span className="absolute top-2 left-2 px-2 py-1 bg-brand-gold text-brand-navy text-xs font-bold rounded-full">
-                            ⭐ {locale === 'he' ? 'מומלץ' : locale === 'ar' ? 'مميز' : locale === 'ru' ? 'Избранное' : 'Featured'}
+                            ⭐ {getLocalizedText(UI_STRINGS.projectFeatured, locale)}
                           </span>
                         )}
                       </div>
@@ -296,7 +296,7 @@ const Projects: React.FC = () => {
                     {/* Featured Badge */}
                     {featured && (
                       <span className="absolute top-3 left-3 px-2 py-1 bg-brand-gold text-brand-navy text-xs font-bold rounded-full">
-                        ⭐ {locale === 'he' ? 'מומלץ' : locale === 'ar' ? 'مميز' : locale === 'ru' ? 'Избранное' : 'Featured'}
+                        ⭐ {getLocalizedText(UI_STRINGS.projectFeatured, locale)}
                       </span>
                     )}
 
@@ -322,8 +322,7 @@ const Projects: React.FC = () => {
                 {getLocalizedText(content.noProjects, locale)}
               </h3>
               <p className="text-brand-navy/70 text-sm sm:text-base mb-6 sm:mb-8">
-                {locale === 'he' ? 'תמונות יעלו בקרוב. צרו קשר כדי לדבר על הפרויקט שלכם' :
-                 locale === 'ar' ? 'سيتم إضافة الصور قريباً. اتصل بنا للتحدث عن مشروعك' :                 locale === 'ru' ? 'Изображения появятся в ближайшее время. Свяжитесь с нами, чтобы обсудить ваш проект' :                 'Images coming soon. Contact us to discuss your project'}
+                {getLocalizedText(UI_STRINGS.projectComingSoon, locale)}
               </p>
               <button onClick={handleWhatsApp} className="btn-animated-gold-filled inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg">
                 <MessageCircle className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
@@ -393,16 +392,10 @@ const Projects: React.FC = () => {
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-brand-navy text-white">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
-            {locale === 'he' ? 'יש לכם פרויקט בראש?' :
-             locale === 'ar' ? 'هل لديك مشروع في ذهنك؟' :
-             locale === 'ru' ? 'Есть проект на примете?' :
-             'Have a Project in Mind?'}
+            {getLocalizedText(UI_STRINGS.ctaHaveProject, locale)}
           </h2>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto text-white/80">
-            {locale === 'he' ? 'נשמח לשמוע על הפרויקט שלכם ולספק הצעת מחיר ללא התחייבות' :
-             locale === 'ar' ? 'نحب أن نسمع عن مشروعك ونقدم عرض أسعار بدون التزام' :
-             locale === 'ru' ? 'Мы будем рады узнать о вашем проекте и предоставить расчёт без обязательств' :
-             'We\'d love to hear about your project and provide a no-obligation quote'}
+            {getLocalizedText(UI_STRINGS.ctaNoObligation, locale)}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <button

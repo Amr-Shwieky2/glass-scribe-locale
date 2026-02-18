@@ -172,16 +172,10 @@ const Services: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-12 lg:mb-16">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-brand-navy">
-              {locale === 'he' ? 'איך אנחנו עובדים' :
-               locale === 'ar' ? 'كيف نعمل' :
-               locale === 'ru' ? 'Как мы работаем' :
-               'How We Work'}
+              {getLocalizedText(UI_STRINGS.processHowWeWork, locale)}
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-2">
-              {locale === 'he' ? 'תהליך פשוט ושקוף מההתחלה ועד הסוף' :
-               locale === 'ar' ? 'عملية بسيطة وشفافة من البداية إلى النهاية' :
-               locale === 'ru' ? 'Простой и прозрачный процесс от начала до конца' :
-               'Simple and transparent process from start to finish'}
+              {getLocalizedText(UI_STRINGS.processSimple, locale)}
             </p>
           </div>
 
@@ -201,10 +195,7 @@ const Services: React.FC = () => {
                   />
                 </div>
                 <div className="font-medium text-brand-gold text-xs sm:text-sm mb-1">
-                  {locale === 'he' ? `שלב ${item.step}` :
-                   locale === 'ar' ? `الخطوة ${item.step}` :
-                   locale === 'ru' ? `Шаг ${item.step}` :
-                   `Step ${item.step}`}
+                  {`${getLocalizedText(UI_STRINGS.processStep, locale)} ${item.step}`}
                 </div>
                 <h3 className="font-bold text-brand-navy text-sm sm:text-base">
                   {getLocalizedText(item.title, locale)}
@@ -218,10 +209,7 @@ const Services: React.FC = () => {
               to={`/${currentLanguage}/contact`}
               className="btn-animated-gold-filled inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg"
             >
-              {locale === 'he' ? 'קבלו הצעת מחיר חינם' :
-               locale === 'ar' ? 'احصل على عرض أسعار مجاني' :
-               locale === 'ru' ? 'Получите бесплатный расчёт' :
-               'Get a Free Quote'}
+              {getLocalizedText(UI_STRINGS.processFreeQuote, locale)}
               <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
             </Link>
           </div>
@@ -232,16 +220,10 @@ const Services: React.FC = () => {
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-brand-navy text-white">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
-            {locale === 'he' ? 'מוכנים להתחיל?' :
-             locale === 'ar' ? 'مستعد للبدء؟' :
-             locale === 'ru' ? 'Готовы начать?' :
-             'Ready to Get Started?'}
+            {getLocalizedText(UI_STRINGS.ctaReadyToStart, locale)}
           </h2>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto opacity-90 px-2">
-            {locale === 'he' ? 'צרו קשר היום לייעוץ והצעת מחיר ללא עלות' :
-             locale === 'ar' ? 'اتصل بنا اليوم للحصول على استشارة وعرض أسعار مجاني' :
-             locale === 'ru' ? 'Свяжитесь с нами сегодня для бесплатной консультации и расчёта стоимости' :
-             'Contact us today for a free consultation and quote'}
+            {getLocalizedText(UI_STRINGS.ctaContactToday, locale)}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto">
             <button
@@ -255,10 +237,7 @@ const Services: React.FC = () => {
               to={`/${currentLanguage}/contact`}
               className="btn-animated-gold inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-base sm:text-lg"
             >
-              {locale === 'he' ? 'צרו קשר' :
-               locale === 'ar' ? 'اتصل بنا' :
-               locale === 'ru' ? 'Связаться с нами' :
-               'Contact Us'}
+              {getLocalizedText(UI_STRINGS.ctaContactUs, locale)}
             </Link>
           </div>
         </div>

@@ -54,7 +54,7 @@ const About: React.FC = () => {
                 <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-white rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6">
                   <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-gold">{BUSINESS_INFO.established}</p>
                   <p className="text-gray-600 text-sm sm:text-base">
-                    {locale === 'he' ? 'מאז' : locale === 'ar' ? 'منذ' : locale === 'ru' ? 'С' : 'Since'}
+                    {getLocalizedText(UI_STRINGS.aboutSince, locale)}
                   </p>
                 </div>
               </div>
@@ -62,10 +62,7 @@ const About: React.FC = () => {
               {/* Content */}
               <div className="mt-8 md:mt-0">
                 <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-brand-navy">
-                  {locale === 'he' ? 'הסיפור שלנו' :
-                   locale === 'ar' ? 'قصتنا' :
-                   locale === 'ru' ? 'Наша история' :
-                   'Our Story'}
+                  {getLocalizedText(UI_STRINGS.aboutOurStory, locale)}
                 </h2>
                 <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-4 sm:mb-6">
                   {getLocalizedText(content.story, locale)}
@@ -146,10 +143,7 @@ const About: React.FC = () => {
             </div>
             <h2 className="text-2xl sm:text-3xl font-bold mb-3 sm:mb-4 text-brand-navy">{BUSINESS_INFO.owner}</h2>
             <p className="text-lg sm:text-xl text-gray-600 mb-2">
-              {locale === 'he' ? 'בעלים ומנהל' :
-               locale === 'ar' ? 'المالك والمدير' :
-               locale === 'ru' ? 'Владелец и управляющий' :
-               'Owner & Manager'}
+              {getLocalizedText(UI_STRINGS.aboutOwnerTitle, locale)}
             </p>
             <p className="text-gray-500 text-sm sm:text-base">
               {getLocalizedText(BUSINESS_INFO.name, locale)}
@@ -175,25 +169,16 @@ const About: React.FC = () => {
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-brand-navy text-white">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
-            {locale === 'he' ? 'מוכנים לעבוד איתנו?' :
-             locale === 'ar' ? 'مستعد للعمل معنا؟' :
-             locale === 'ru' ? 'Готовы работать с нами?' :
-             'Ready to Work With Us?'}
+            {getLocalizedText(UI_STRINGS.ctaReadyToWork, locale)}
           </h2>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto text-white/80">
-            {locale === 'he' ? 'צרו קשר היום ונהפוך את החזון שלכם למציאות' :
-             locale === 'ar' ? 'اتصل بنا اليوم ودعنا نحول رؤيتك إلى واقع' :
-             locale === 'ru' ? 'Свяжитесь с нами сегодня, и мы воплотим ваше видение в реальность' :
-             'Contact us today and let\'s turn your vision into reality'}
+            {getLocalizedText(UI_STRINGS.ctaVisionToReality, locale)}
           </p>
           <Link 
             to={`/${currentLanguage}/contact`}
             className="btn-animated-gold-filled inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-base sm:text-lg"
           >
-            {locale === 'he' ? 'צרו קשר' :
-             locale === 'ar' ? 'اتصل بنا' :
-             locale === 'ru' ? 'Связаться с нами' :
-             'Contact Us'}
+            {getLocalizedText(UI_STRINGS.ctaContactUs, locale)}
             <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
           </Link>
         </div>

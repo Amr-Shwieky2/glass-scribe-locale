@@ -23,19 +23,13 @@ const Contractors: React.FC = () => {
   const content = PAGE_CONTENT.contractors;
 
   const handleWhatsApp = () => {
-    const message = locale === 'he' 
-      ? 'שלום, אני קבלן ומעוניין לדבר על שיתוף פעולה'
-      : locale === 'ar'
-      ? 'مرحباً، أنا مقاول وأود التحدث عن التعاون'
-      : locale === 'ru'
-      ? 'Здравствуйте, я подрядчик и хотел бы обсудить сотрудничество'
-      : 'Hello, I am a contractor and would like to discuss partnership';
+    const message = getLocalizedText(UI_STRINGS.contractorsWhatsappMessage, locale);
     window.open(`https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(message)}`, '_blank');
   };
 
   const handleEmail = () => {
     window.location.href = `mailto:${CONTACT_INFO.email}?subject=${encodeURIComponent(
-      locale === 'he' ? 'פנייה משותף עסקי' : locale === 'ar' ? 'استفسار من شريك تجاري' : locale === 'ru' ? 'Запрос от делового партнёра' : 'Business Partner Inquiry'
+      getLocalizedText(UI_STRINGS.contractorsEmailSubject, locale)
     )}`;
   };
 
@@ -107,7 +101,7 @@ const Contractors: React.FC = () => {
         <div className="max-w-3xl mx-auto text-center">
           <div className="inline-block mb-4 sm:mb-6 px-3 sm:px-4 py-1.5 sm:py-2 bg-white/10 backdrop-blur-sm rounded-full">
             <span className="text-xs sm:text-sm font-medium text-blue-300">
-              🏗️ {locale === 'he' ? 'שותפים עסקיים' : locale === 'ar' ? 'شركاء الأعمال' : locale === 'ru' ? 'Деловые партнёры' : 'Business Partners'}
+              🏗️ {getLocalizedText(UI_STRINGS.contractorsBadge, locale)}
             </span>
           </div>
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold mb-4 sm:mb-6 text-brand-gold">
@@ -132,7 +126,7 @@ const Contractors: React.FC = () => {
               className="border-white/30 text-white hover:bg-white/10 rounded-full px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg"
             >
               <Mail className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
-              {locale === 'he' ? 'שלחו אימייל' : locale === 'ar' ? 'أرسل بريداً إلكترونياً' : locale === 'ru' ? 'Отправить письмо' : 'Send Email'}
+              {getLocalizedText(UI_STRINGS.contractorsSendEmail, locale)}
             </Button>
           </div>
         </div>
@@ -143,16 +137,10 @@ const Contractors: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="text-center mb-8 sm:mb-12 md:mb-16">
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-900">
-              {locale === 'he' ? 'למה לעבוד איתנו' :
-               locale === 'ar' ? 'لماذا تعمل معنا' :
-               locale === 'ru' ? 'Почему стоит работать с нами' :
-               'Why Work With Us'}
+              {getLocalizedText(UI_STRINGS.contractorsWhyWork, locale)}
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
-              {locale === 'he' ? 'אנו מבינים את הצרכים של קבלנים ואדריכלים' :
-               locale === 'ar' ? 'نحن نفهم احتياجات المقاولين والمهندسين المعماريين' :
-               locale === 'ru' ? 'Мы понимаем потребности подрядчиков и архитекторов' :
-               'We understand the needs of contractors and architects'}
+              {getLocalizedText(UI_STRINGS.contractorsUnderstand, locale)}
             </p>
           </div>
 
@@ -185,10 +173,7 @@ const Contractors: React.FC = () => {
           <div className="max-w-4xl mx-auto">
             <div className="text-center mb-8 sm:mb-10 md:mb-12">
               <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-gray-900">
-                {locale === 'he' ? 'השירותים שלנו לקבלנים' :
-                 locale === 'ar' ? 'خدماتنا للمقاولين' :
-                 locale === 'ru' ? 'Наши услуги для подрядчиков' :
-                 'Our Services for Contractors'}
+                {getLocalizedText(UI_STRINGS.contractorsOurServices, locale)}
               </h2>
             </div>
 
@@ -209,10 +194,7 @@ const Contractors: React.FC = () => {
 
             <div className="text-center mt-8 sm:mt-10 md:mt-12">
               <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
-                {locale === 'he' ? 'שלחו לנו את השרטוטים והמפרטים שלכם לקבלת הצעת מחיר' :
-                 locale === 'ar' ? 'أرسل لنا رسوماتك ومواصفاتك للحصول على عرض أسعار' :
-                 locale === 'ru' ? 'Отправьте нам чертежи и спецификации для расчёта стоимости' :
-                 'Send us your drawings and specifications for a quote'}
+                {getLocalizedText(UI_STRINGS.contractorsSendDrawings, locale)}
               </p>
               <Button size="lg" onClick={handleEmail} className="rounded-full px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base">
                 <Mail className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
@@ -227,16 +209,10 @@ const Contractors: React.FC = () => {
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
-            {locale === 'he' ? 'בואו נעבוד יחד' :
-             locale === 'ar' ? 'دعنا نعمل معاً' :
-             locale === 'ru' ? 'Давайте работать вместе' :
-             'Let\'s Work Together'}
+            {getLocalizedText(UI_STRINGS.ctaLetsWorkTogether, locale)}
           </h2>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto opacity-90">
-            {locale === 'he' ? 'יצירת קשר פשוטה - שלחו לנו הודעה או התקשרו ונחזור אליכם תוך 24 שעות' :
-             locale === 'ar' ? 'التواصل بسيط - أرسل لنا رسالة أو اتصل وسنعود إليك خلال 24 ساعة' :
-             locale === 'ru' ? 'Связаться просто — напишите или позвоните, и мы ответим в течение 24 часов' :
-             'Getting in touch is simple - send us a message or call and we\'ll get back to you within 24 hours'}
+            {getLocalizedText(UI_STRINGS.ctaSimpleContact, locale)}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
             <Button

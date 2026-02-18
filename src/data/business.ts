@@ -1012,213 +1012,348 @@ export const UI_STRINGS = {
     ar: 'الصفحة التي تبحث عنها غير موجودة أو تم نقلها.',
     ru: 'Страница, которую вы ищете, не существует или была перемещена.',
   },
+
+  // =========================================================================
+  // CTA SECTION STRINGS
+  // =========================================================================
+
+  ctaReadyToTransform: {
+    en: 'Ready to Transform Your Space?',
+    he: 'מוכנים לשנות את המרחב שלכם?',
+    ar: 'مستعد لتحويل مساحتك؟',
+    ru: 'Готовы преобразить ваше пространство?',
+  },
+  ctaContactToday: {
+    en: 'Contact us today for a free consultation and quote',
+    he: 'צרו קשר היום לייעוץ והצעת מחיר ללא עלות',
+    ar: 'اتصل بنا اليوم للحصول على استشارة وعرض أسعار مجاني',
+    ru: 'Свяжитесь с нами сегодня для бесплатной консультации и расчёта стоимости',
+  },
+  ctaContactUs: {
+    en: 'Contact Us',
+    he: 'צרו קשר',
+    ar: 'اتصل بنا',
+    ru: 'Связаться с нами',
+  },
+
+  // About CTA
+  ctaReadyToWork: {
+    en: 'Ready to Work With Us?',
+    he: 'מוכנים לעבוד איתנו?',
+    ar: 'مستعد للعمل معنا؟',
+    ru: 'Готовы работать с нами?',
+  },
+  ctaVisionToReality: {
+    en: 'Contact us today and let\'s turn your vision into reality',
+    he: 'צרו קשר היום ונהפוך את החזון שלכם למציאות',
+    ar: 'اتصل بنا اليوم ودعنا نحول رؤيتك إلى واقع',
+    ru: 'Свяжитесь с нами сегодня, и мы воплотим ваше видение в реальность',
+  },
+
+  // Projects CTA
+  ctaHaveProject: {
+    en: 'Have a Project in Mind?',
+    he: 'יש לכם פרויקט בראש?',
+    ar: 'هل لديك مشروع في ذهنك؟',
+    ru: 'Есть проект на примете?',
+  },
+  ctaNoObligation: {
+    en: 'We\'d love to hear about your project and provide a no-obligation quote',
+    he: 'נשמח לשמוע על הפרויקט שלכם ולספק הצעת מחיר ללא התחייבות',
+    ar: 'نحب أن نسمع عن مشروعك ونقدم عرض أسعار بدون التزام',
+    ru: 'Мы будем рады узнать о вашем проекте и предоставить расчёт без обязательств',
+  },
+
+  // Services CTA
+  ctaReadyToStart: {
+    en: 'Ready to Get Started?',
+    he: 'מוכנים להתחיל?',
+    ar: 'مستعد للبدء؟',
+    ru: 'Готовы начать?',
+  },
+
+  // Contractors CTA
+  ctaLetsWorkTogether: {
+    en: 'Let\'s Work Together',
+    he: 'בואו נעבוד יחד',
+    ar: 'دعنا نعمل معاً',
+    ru: 'Давайте работать вместе',
+  },
+  ctaSimpleContact: {
+    en: 'Getting in touch is simple - send us a message or call and we\'ll get back to you within 24 hours',
+    he: 'יצירת קשר פשוטה - שלחו לנו הודעה או התקשרו ונחזור אליכם תוך 24 שעות',
+    ar: 'التواصل بسيط - أرسل لنا رسالة أو اتصل وسنعود إليك خلال 24 ساعة',
+    ru: 'Связаться просто — напишите или позвоните, и мы ответим в течение 24 часов',
+  },
+
+  // =========================================================================
+  // INSTAGRAM STRINGS
+  // =========================================================================
+
+  instagramView: {
+    en: 'View on Instagram',
+    he: 'צפה באינסטגרם',
+    ar: 'شاهد على إنستغرام',
+    ru: 'Смотреть в Instagram',
+  },
+  instagramFollow: {
+    en: 'Follow Us on Instagram',
+    he: 'עקבו אחרינו באינסטגרם',
+    ar: 'تابعونا على إنستغرام',
+    ru: 'Подписывайтесь на нас в Instagram',
+  },
+
+  // =========================================================================
+  // PROJECTS PAGE STRINGS
+  // =========================================================================
+
+  projectPhotos: {
+    en: 'Photos',
+    he: 'תמונות',
+    ar: 'صور',
+    ru: 'Фото',
+  },
+  projectCategories: {
+    en: 'Categories',
+    he: 'קטגוריות',
+    ar: 'فئات',
+    ru: 'Категории',
+  },
+  projectSatisfaction: {
+    en: 'Satisfaction',
+    he: 'שביעות רצון',
+    ar: 'رضا',
+    ru: 'Удовлетворённость',
+  },
+  projectComingSoon: {
+    en: 'Images coming soon. Contact us to discuss your project',
+    he: 'תמונות יעלו בקרוב. צרו קשר כדי לדבר על הפרויקט שלכם',
+    ar: 'سيتم إضافة الصور قريباً. اتصل بنا للتحدث عن مشروعك',
+    ru: 'Изображения появятся в ближайшее время. Свяжитесь с нами, чтобы обсудить ваш проект',
+  },
+  projectFeatured: {
+    en: 'Featured',
+    he: 'מומלץ',
+    ar: 'مميز',
+    ru: 'Избранное',
+  },
+
+  // =========================================================================
+  // ABOUT PAGE STRINGS
+  // =========================================================================
+
+  aboutOurStory: {
+    en: 'Our Story',
+    he: 'הסיפור שלנו',
+    ar: 'قصتنا',
+    ru: 'Наша история',
+  },
+  aboutSince: {
+    en: 'Since',
+    he: 'מאז',
+    ar: 'منذ',
+    ru: 'С',
+  },
+  aboutOwnerTitle: {
+    en: 'Owner & Manager',
+    he: 'בעלים ומנהל',
+    ar: 'المالك والمدير',
+    ru: 'Владелец и управляющий',
+  },
+
+  // =========================================================================
+  // CONTACT PAGE STRINGS
+  // =========================================================================
+
+  contactGetInTouch: {
+    en: 'Get in Touch',
+    he: 'פרטי התקשרות',
+    ar: 'معلومات الاتصال',
+    ru: 'Свяжитесь с нами',
+  },
+  contactPhone: {
+    en: 'Phone',
+    he: 'טלפון',
+    ar: 'هاتف',
+    ru: 'Телефон',
+  },
+  contactEmail: {
+    en: 'Email',
+    he: 'אימייל',
+    ar: 'بريد إلكتروني',
+    ru: 'Эл. почта',
+  },
+  contactLocation: {
+    en: 'Location',
+    he: 'מיקום',
+    ar: 'الموقع',
+    ru: 'Местоположение',
+  },
+  contactWorkingHours: {
+    en: 'Working Hours',
+    he: 'שעות פעילות',
+    ar: 'ساعات العمل',
+    ru: 'Рабочие часы',
+  },
+  contactWhatsappMessage: {
+    en: 'Message Us on WhatsApp',
+    he: 'שלחו הודעה בוואטסאפ',
+    ar: 'أرسل رسالة على واتساب',
+    ru: 'Напишите нам в WhatsApp',
+  },
+  contactThankYou: {
+    en: 'Thank You!',
+    he: 'תודה!',
+    ar: 'شكراً!',
+    ru: 'Спасибо!',
+  },
+  contactSendAnother: {
+    en: 'Send Another Message',
+    he: 'שלחו הודעה נוספת',
+    ar: 'أرسل رسالة أخرى',
+    ru: 'Отправить ещё сообщение',
+  },
+  contactSendMessage: {
+    en: 'Send Us a Message',
+    he: 'שלחו לנו הודעה',
+    ar: 'أرسل لنا رسالة',
+    ru: 'Напишите нам',
+  },
+  contactSelectService: {
+    en: 'Select a service',
+    he: 'בחרו שירות',
+    ar: 'اختر خدمة',
+    ru: 'Выберите услугу',
+  },
+
+  // =========================================================================
+  // SERVICES PROCESS STRINGS
+  // =========================================================================
+
+  processStep: {
+    en: 'Step',
+    he: 'שלב',
+    ar: 'الخطوة',
+    ru: 'Шаг',
+  },
+  processHowWeWork: {
+    en: 'How We Work',
+    he: 'איך אנחנו עובדים',
+    ar: 'كيف نعمل',
+    ru: 'Как мы работаем',
+  },
+  processSimple: {
+    en: 'Simple and transparent process from start to finish',
+    he: 'תהליך פשוט ושקוף מההתחלה ועד הסוף',
+    ar: 'عملية بسيطة وشفافة من البداية إلى النهاية',
+    ru: 'Простой и прозрачный процесс от начала до конца',
+  },
+  processFreeQuote: {
+    en: 'Get a Free Quote',
+    he: 'קבלו הצעת מחיר חינם',
+    ar: 'احصل على عرض أسعار مجاني',
+    ru: 'Получите бесплатный расчёт',
+  },
+
+  // =========================================================================
+  // CONTRACTORS PAGE STRINGS
+  // =========================================================================
+
+  contractorsBadge: {
+    en: 'Business Partners',
+    he: 'שותפים עסקיים',
+    ar: 'شركاء الأعمال',
+    ru: 'Деловые партнёры',
+  },
+  contractorsSendEmail: {
+    en: 'Send Email',
+    he: 'שלחו אימייל',
+    ar: 'أرسل بريداً إلكترونياً',
+    ru: 'Отправить письмо',
+  },
+  contractorsWhyWork: {
+    en: 'Why Work With Us',
+    he: 'למה לעבוד איתנו',
+    ar: 'لماذا تعمل معنا',
+    ru: 'Почему стоит работать с нами',
+  },
+  contractorsUnderstand: {
+    en: 'We understand the needs of contractors and architects',
+    he: 'אנו מבינים את הצרכים של קבלנים ואדריכלים',
+    ar: 'نحن نفهم احتياجات المقاولين والمهندسين المعماريين',
+    ru: 'Мы понимаем потребности подрядчиков и архитекторов',
+  },
+  contractorsOurServices: {
+    en: 'Our Services for Contractors',
+    he: 'השירותים שלנו לקבלנים',
+    ar: 'خدماتنا للمقاولين',
+    ru: 'Наши услуги для подрядчиков',
+  },
+  contractorsSendDrawings: {
+    en: 'Send us your drawings and specifications for a quote',
+    he: 'שלחו לנו את השרטוטים והמפרטים שלכם לקבלת הצעת מחיר',
+    ar: 'أرسل لنا رسوماتك ومواصفاتك للحصول على عرض أسعار',
+    ru: 'Отправьте нам чертежи и спецификации для расчёта стоимости',
+  },
+  contractorsWhatsappMessage: {
+    en: 'Hello, I am a contractor and would like to discuss partnership',
+    he: 'שלום, אני קבלן ומעוניין לדבר על שיתוף פעולה',
+    ar: 'مرحباً، أنا مقاول وأود التحدث عن التعاون',
+    ru: 'Здравствуйте, я подрядчик и хотел бы обсудить сотрудничество',
+  },
+  contractorsEmailSubject: {
+    en: 'Business Partner Inquiry',
+    he: 'פנייה משותף עסקי',
+    ar: 'استفسار من شريك تجاري',
+    ru: 'Запрос от делового партнёра',
+  },
+
+  // =========================================================================
+  // MOBILE CTA STRINGS
+  // =========================================================================
+
+  mobileCTACall: {
+    en: 'Call Now',
+    he: 'התקשר עכשיו',
+    ar: 'اتصل الآن',
+    ru: 'Позвонить',
+  },
+
+  // =========================================================================
+  // HERO / HEADER STRINGS
+  // =========================================================================
+
+  heroViewWork: {
+    en: 'View Our Work',
+    he: 'צפו בעבודות',
+    ar: 'شاهد أعمالنا',
+    ru: 'Смотреть работы',
+  },
+  heroLocation: {
+    en: 'Jerusalem, Israel',
+    he: 'ירושלים, ישראל',
+    ar: 'القدس، إسرائيل',
+    ru: 'Иерусалим, Израиль',
+  },
+  heroServingAll: {
+    en: 'Serving all of Israel',
+    he: 'משרתים את כל ישראל',
+    ar: 'نخدم جميع أنحاء إسرائيل',
+    ru: 'Обслуживаем всю территорию Израиля',
+  },
+  headerSelectLanguage: {
+    en: 'Select Language',
+    he: 'בחר שפה',
+    ar: 'اختر اللغة',
+    ru: 'Выбрать язык',
+  },
+  headerCallShort: {
+    en: 'Call',
+    he: 'התקשר',
+    ar: 'اتصل',
+    ru: 'Позвонить',
+  },
 } as const;
-
-// =============================================================================
-// SAMPLE PROJECTS (Placeholder for real images)
-// =============================================================================
-
-export interface SampleProjectData {
-  id: string;
-  title: { en: string; he: string; ar: string; ru: string };
-  category: { en: string; he: string; ar: string; ru: string };
-  description: { en: string; he: string; ar: string; ru: string };
-  image: string | null; // Will be null until you add real images
-  placeholderText: { en: string; he: string; ar: string; ru: string }; // Shows what image should go here
-}
-
-export const SAMPLE_PROJECTS: SampleProjectData[] = [
-  {
-    id: 'project-1',
-    title: {
-      en: 'Luxury Shower Enclosure',
-      he: 'מארז מקלחת יוקרתי',
-      ar: 'حاوية دش فاخرة',
-      ru: 'Роскошная душевая кабина',
-    },
-    category: {
-      en: 'Shower Glass',
-      he: 'זכוכית למקלחות',
-      ar: 'زجاج الدش',
-      ru: 'Душевое стекло',
-    },
-    description: {
-      en: 'Custom frameless shower for a Tel Aviv penthouse',
-      he: 'מקלחון ללא מסגרת מותאם אישית לפנטהאוז בתל אביב',
-      ar: 'حاوية دش بدون إطار مخصصة لشقة بنتهاوس في تل أبيب',
-      ru: 'Безрамная душевая кабина на заказ для пентхауса в Тель-Авиве',
-    },
-    image: null, // Add: /shower-project-1.jpg
-    placeholderText: {
-      en: 'Add shower enclosure photo',
-      he: 'הוסף תמונת מקלחון',
-      ar: 'أضف صورة حاوية الدش',
-      ru: 'Добавить фото душевой кабины',
-    },
-  },
-  {
-    id: 'project-2',
-    title: {
-      en: 'Balcony Glass Railing',
-      he: 'מעקה זכוכית למרפסת',
-      ar: 'درابزين زجاجي للشرفة',
-      ru: 'Стеклянное ограждение балкона',
-    },
-    category: {
-      en: 'Glass Railings',
-      he: 'מעקות זכוכית',
-      ar: 'درابزين زجاجي',
-      ru: 'Стеклянные ограждения',
-    },
-    description: {
-      en: 'Modern glass railing with sea view in Haifa',
-      he: 'מעקה זכוכית מודרני עם נוף לים בחיפה',
-      ar: 'درابزين زجاجي حديث مع إطلالة على البحر في حيفا',
-      ru: 'Современное стеклянное ограждение с видом на море в Хайфе',
-    },
-    image: null, // Add: /railing-project-1.jpg
-    placeholderText: {
-      en: 'Add glass railing photo',
-      he: 'הוסף תמונת מעקה',
-      ar: 'أضف صورة الدرابزين',
-      ru: 'Добавить фото ограждения',
-    },
-  },
-  {
-    id: 'project-3',
-    title: {
-      en: 'Office Glass Partitions',
-      he: 'מחיצות זכוכית למשרד',
-      ar: 'فواصل زجاجية للمكتب',
-      ru: 'Офисные стеклянные перегородки',
-    },
-    category: {
-      en: 'Glass Partitions',
-      he: 'מחיצות זכוכית',
-      ar: 'فواصل زجاجية',
-      ru: 'Стеклянные перегородки',
-    },
-    description: {
-      en: 'Modern workspace design for a Jerusalem startup',
-      he: 'עיצוב מרחב עבודה מודרני לסטארטאפ בירושלים',
-      ar: 'تصميم مساحة عمل حديثة لشركة ناشئة في القدس',
-      ru: 'Современный офис для стартапа в Иерусалиме',
-    },
-    image: null, // Add: /partition-project-1.jpg
-    placeholderText: {
-      en: 'Add office partition photo',
-      he: 'הוסף תמונת מחיצה',
-      ar: 'أضف صورة فاصل مكتبي',
-      ru: 'Добавить фото перегородки',
-    },
-  },
-  {
-    id: 'project-4',
-    title: {
-      en: 'Custom Wall Mirror',
-      he: 'מראה קיר מותאמת',
-      ar: 'مرآة حائط مخصصة',
-      ru: 'Настенное зеркало на заказ',
-    },
-    category: {
-      en: 'Mirrors',
-      he: 'מראות',
-      ar: 'مرايا',
-      ru: 'Зеркала',
-    },
-    description: {
-      en: 'Large decorative mirror for a luxury home in Ramat Gan',
-      he: 'מראה דקורטיבית גדולה לבית יוקרתי ברמת גן',
-      ar: 'مرآة زخرفية كبيرة لمنزل فاخر في رمات غان',
-      ru: 'Большое декоративное зеркало для дома в Рамат-Гане',
-    },
-    image: null, // Add: /mirror-project-1.jpg
-    placeholderText: {
-      en: 'Add mirror photo',
-      he: 'הוסף תמונת מראה',
-      ar: 'أضف صورة مرآة',
-      ru: 'Добавить фото зеркала',
-    },
-  },
-  {
-    id: 'project-5',
-    title: {
-      en: 'Restaurant Storefront',
-      he: 'חזית מסעדה',
-      ar: 'واجهة مطعم',
-      ru: 'Витрина ресторана',
-    },
-    category: {
-      en: 'Storefront Glass',
-      he: 'חזיתות זכוכית',
-      ar: 'واجهات زجاجية',
-      ru: 'Витринное стекло',
-    },
-    description: {
-      en: 'Full glass storefront for a café in Jaffa',
-      he: 'חזית זכוכית מלאה לבית קפה ביפו',
-      ar: 'واجهة زجاجية كاملة لمقهى في يافا',
-      ru: 'Полностью стеклянная витрина для кафе в Яффо',
-    },
-    image: null, // Add: /storefront-project-1.jpg
-    placeholderText: {
-      en: 'Add storefront photo',
-      he: 'הוסף תמונת חזית',
-      ar: 'أضف صورة واجهة',
-      ru: 'Добавить фото витрины',
-    },
-  },
-  {
-    id: 'project-6',
-    title: {
-      en: 'Glass Table Top',
-      he: 'משטח שולחן זכוכית',
-      ar: 'سطح طاولة زجاجي',
-      ru: 'Стеклянная столешница',
-    },
-    category: {
-      en: 'Custom Glass',
-      he: 'זכוכית מותאמת',
-      ar: 'زجاج مخصص',
-      ru: 'Стекло на заказ',
-    },
-    description: {
-      en: 'Custom tempered glass dining table',
-      he: 'שולחן אוכל זכוכית מחוסמת מותאם אישית',
-      ar: 'طاولة طعام من الزجاج المقسى المخصص',
-      ru: 'Обеденный стол из закалённого стекла на заказ',
-    },
-    image: null, // Add: /table-project-1.jpg
-    placeholderText: {
-      en: 'Add glass table photo',
-      he: 'הוסף תמונת שולחן',
-      ar: 'أضف صورة طاولة',
-      ru: 'Добавить фото стола',
-    },
-  },
-];
-
-// =============================================================================
-// GALLERY PLACEHOLDERS (For real work photos)
-// =============================================================================
-
-export interface GalleryPlaceholder {
-  id: string;
-  image: string | null;
-  category: { en: string; he: string; ar: string; ru: string };
-  placeholderText: { en: string; he: string; ar: string; ru: string };
-}
-
-export const GALLERY_PLACEHOLDERS: GalleryPlaceholder[] = [
-  { id: 'g1', image: null, category: { en: 'Showers', he: 'מקלחונים', ar: 'دشات', ru: 'Душевые' }, placeholderText: { en: 'Shower work photo', he: 'תמונת עבודת מקלחון', ar: 'صورة عمل الدش', ru: 'Фото работы — душевая' } },
-  { id: 'g2', image: null, category: { en: 'Railings', he: 'מעקות', ar: 'درابزين', ru: 'Ограждения' }, placeholderText: { en: 'Railing work photo', he: 'תמונת עבודת מעקה', ar: 'صورة عمل الدرابزين', ru: 'Фото работы — ограждение' } },
-  { id: 'g3', image: null, category: { en: 'Mirrors', he: 'מראות', ar: 'مرايا', ru: 'Зеркала' }, placeholderText: { en: 'Mirror work photo', he: 'תמונת עבודת מראה', ar: 'صورة عمل المرآة', ru: 'Фото работы — зеркало' } },
-  { id: 'g4', image: null, category: { en: 'Partitions', he: 'מחיצות', ar: 'فواصل', ru: 'Перегородки' }, placeholderText: { en: 'Partition work photo', he: 'תמונת עבודת מחיצה', ar: 'صورة عمل الفاصل', ru: 'Фото работы — перегородка' } },
-  { id: 'g5', image: null, category: { en: 'Storefronts', he: 'חזיתות', ar: 'واجهات', ru: 'Витрины' }, placeholderText: { en: 'Storefront work photo', he: 'תמונת עבודת חזית', ar: 'صورة عمل الواجهة', ru: 'Фото работы — витрина' } },
-  { id: 'g6', image: null, category: { en: 'Custom', he: 'מותאם', ar: 'مخصص', ru: 'На заказ' }, placeholderText: { en: 'Custom work photo', he: 'תמונת עבודה מותאמת', ar: 'صورة عمل مخصص', ru: 'Фото работы — на заказ' } },
-  { id: 'g7', image: null, category: { en: 'Showers', he: 'מקלחונים', ar: 'دشات', ru: 'Душевые' }, placeholderText: { en: 'Shower detail photo', he: 'תמונת פרט מקלחון', ar: 'صورة تفصيل الدش', ru: 'Детали работы — душевая' } },
-  { id: 'g8', image: null, category: { en: 'Railings', he: 'מעקות', ar: 'درابزين', ru: 'Ограждения' }, placeholderText: { en: 'Railing detail photo', he: 'תמונת פרט מעקה', ar: 'صورة تفصيل الدرابزين', ru: 'Детали работы — ограждение' } },
-];
 
 // =============================================================================
 // HELPER FUNCTION

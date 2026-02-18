@@ -1,9 +1,10 @@
 /**
  * Layout Component
- * Main layout wrapper with Header, Footer, and Mobile CTA
+ * Main layout wrapper with Header, Footer, and Mobile CTA.
+ * RTL direction is handled by LanguageContext — no duplication here.
  */
 
-import React, { type ReactNode } from 'react';
+import { type FC, type ReactNode } from 'react';
 import Header from './Header';
 import Footer from './Footer';
 import MobileCTA from '../MobileCTA';
@@ -13,23 +14,13 @@ interface LayoutProps {
   children: ReactNode;
 }
 
-const Layout: React.FC<LayoutProps> = ({ children }) => {
-  const { currentLanguage } = useLanguage();
-  
-  // Set document direction based on language
-  const isRTL = currentLanguage === 'he' || currentLanguage === 'ar';
-  
-  React.useEffect(() => {
-    document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
-    document.documentElement.lang = currentLanguage;
-  }, [isRTL, currentLanguage]);
+const Layout: FC<LayoutProps> = ({ children }) => {
+  const { isRTL } = useLanguage();
 
   return (
     <div className={`min-h-screen flex flex-col ${isRTL ? 'rtl' : 'ltr'}`}>
       <Header />
-      <main className="flex-1">
-        {children}
-      </main>
+      <main className="flex-1">{children}</main>
       <Footer />
       <MobileCTA />
     </div>

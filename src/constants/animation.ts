@@ -29,17 +29,6 @@ export const SCROLL_TRIGGER_DEFAULTS = {
 } as const;
 
 /**
- * Animation durations (in milliseconds)
- */
-export const ANIMATION_DURATION = {
-  fast: 200,
-  normal: 300,
-  slow: 500,
-  slower: 700,
-  slowest: 1000,
-} as const;
-
-/**
  * Scroll detection threshold
  */
 export const SCROLL_THRESHOLD = 20;

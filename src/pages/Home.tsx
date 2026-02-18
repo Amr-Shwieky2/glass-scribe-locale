@@ -157,7 +157,7 @@ const Home: React.FC = () => {
                   className="flex items-center justify-center gap-2 py-3 text-sm font-medium text-brand-navy hover:text-brand-gold transition-colors"
                 >
                   <ExternalLink className="w-4 h-4" />
-                  {locale === 'he' ? 'צפה באינסטגרם' : locale === 'ar' ? 'شاهد على إنستغرام' : locale === 'ru' ? 'Смотреть в Instagram' : 'View on Instagram'}
+                  {getLocalizedText(UI_STRINGS.instagramView, locale)}
                 </a>
               </div>
             ))}
@@ -171,7 +171,7 @@ const Home: React.FC = () => {
               rel="noopener noreferrer"
               className="btn-animated-navy inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg"
             >
-              {locale === 'he' ? 'עקבו אחרינו באינסטגרם' : locale === 'ar' ? 'تابعونا على إنستغرام' : locale === 'ru' ? 'Подписывайтесь на нас в Instagram' : 'Follow Us on Instagram'}
+              {getLocalizedText(UI_STRINGS.instagramFollow, locale)}
               <ExternalLink className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
             </a>
           </div>
@@ -182,16 +182,10 @@ const Home: React.FC = () => {
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-brand-navy text-white">
         <div className="container mx-auto px-4 sm:px-6 text-center">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-4 sm:mb-6 text-brand-gold">
-            {locale === 'he' ? 'מוכנים לשנות את המרחב שלכם?' :
-             locale === 'ar' ? 'مستعد لتحويل مساحتك؟' :
-             locale === 'ru' ? 'Готовы преобразить ваше пространство?' :
-             'Ready to Transform Your Space?'}
+            {getLocalizedText(UI_STRINGS.ctaReadyToTransform, locale)}
           </h2>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 lg:mb-10 max-w-2xl mx-auto text-white/80 px-2">
-            {locale === 'he' ? 'צרו קשר היום לייעוץ והצעת מחיר ללא עלות' :
-             locale === 'ar' ? 'اتصل بنا اليوم للحصول على استشارة وعرض أسعار مجاني' :
-             locale === 'ru' ? 'Свяжитесь с нами сегодня для бесплатной консультации и расчёта стоимости' :
-             'Contact us today for a free consultation and quote'}
+            {getLocalizedText(UI_STRINGS.ctaContactToday, locale)}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-lg sm:max-w-none mx-auto">
             <button
@@ -205,10 +199,7 @@ const Home: React.FC = () => {
               to={`/${currentLanguage}/contact`}
               className="btn-animated-gold inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-base sm:text-lg"
             >
-              {locale === 'he' ? 'צרו קשר' :
-               locale === 'ar' ? 'اتصل بنا' :
-               locale === 'ru' ? 'Связаться с нами' :
-               'Contact Us'}
+              {getLocalizedText(UI_STRINGS.ctaContactUs, locale)}
               <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
             </Link>
           </div>

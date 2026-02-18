@@ -933,7 +933,7 @@ const HeroGallery: React.FC = () => {
               to={`/${currentLanguage}/projects`}
               className="hero-cta-tertiary inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-brand-gold font-medium hover:text-white transition-colors duration-300"
             >
-              {locale === 'he' ? 'צפו בעבודות' : locale === 'ar' ? 'شاهد أعمالنا' : locale === 'ru' ? 'Смотреть работы' : 'View Our Work'}
+              {getLocalizedText(UI_STRINGS.heroViewWork, locale)}
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
@@ -944,9 +944,9 @@ const HeroGallery: React.FC = () => {
               {CONTACT_INFO.phone}
             </a>
             <span className="hidden sm:inline">•</span>
-            <span>{locale === 'he' ? 'ירושלים, ישראל' : locale === 'ar' ? 'القدس، إسرائيل' : locale === 'ru' ? 'Иерусалим, Израиль' : 'Jerusalem, Israel'}</span>
+            <span>{getLocalizedText(UI_STRINGS.heroLocation, locale)}</span>
             <span className="hidden sm:inline">•</span>
-            <span>{locale === 'he' ? 'משרתים את כל ישראל' : locale === 'ar' ? 'نخدم جميع أنحاء إسرائيل' : locale === 'ru' ? 'Обслуживаем всю территорию Израиля' : 'Serving all of Israel'}</span>
+            <span>{getLocalizedText(UI_STRINGS.heroServingAll, locale)}</span>
           </div>
         </motion.div>
       </div>

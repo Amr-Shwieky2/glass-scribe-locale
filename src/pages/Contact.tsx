@@ -23,6 +23,7 @@ import {
   BUSINESS_INFO,
   SERVICES,
   PAGE_CONTENT,
+  UI_STRINGS,
   getLocalizedText,
   type SupportedLocale,
 } from '@/data/business';
@@ -97,10 +98,7 @@ const Contact: React.FC = () => {
             {/* Contact Information */}
             <div>
               <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-brand-navy">
-                {locale === 'he' ? 'פרטי התקשרות' :
-                 locale === 'ar' ? 'معلومات الاتصال' :
-                 locale === 'ru' ? 'Свяжитесь с нами' :
-                 'Get in Touch'}
+                {getLocalizedText(UI_STRINGS.contactGetInTouch, locale)}
               </h2>
 
               <div className="space-y-4 sm:space-y-6">
@@ -113,7 +111,7 @@ const Contact: React.FC = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-brand-navy mb-1 sm:mb-2 text-sm sm:text-base">
-                          {locale === 'he' ? 'טלפון' : locale === 'ar' ? 'هاتف' : locale === 'ru' ? 'Телефон' : 'Phone'}
+                          {getLocalizedText(UI_STRINGS.contactPhone, locale)}
                         </h3>
                         <a href={`tel:${CONTACT_INFO.phoneIntl}`} className="block text-brand-navy/70 hover:text-brand-gold transition-colors text-sm sm:text-base">
                           {CONTACT_INFO.phone}
@@ -132,7 +130,7 @@ const Contact: React.FC = () => {
                       </div>
                       <div className="min-w-0">
                         <h3 className="font-bold text-brand-navy mb-1 sm:mb-2 text-sm sm:text-base">
-                          {locale === 'he' ? 'אימייל' : locale === 'ar' ? 'بريد إلكتروني' : locale === 'ru' ? 'Эл. почта' : 'Email'}
+                          {getLocalizedText(UI_STRINGS.contactEmail, locale)}
                         </h3>
                         <a href={`mailto:${CONTACT_INFO.email}`} className="text-brand-navy/70 hover:text-brand-gold transition-colors text-sm sm:text-base break-all">
                           {CONTACT_INFO.email}
@@ -151,7 +149,7 @@ const Contact: React.FC = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-brand-navy mb-1 sm:mb-2 text-sm sm:text-base">
-                          {locale === 'he' ? 'מיקום' : locale === 'ar' ? 'الموقع' : locale === 'ru' ? 'Местоположение' : 'Location'}
+                          {getLocalizedText(UI_STRINGS.contactLocation, locale)}
                         </h3>
                         <p className="text-gray-600 text-sm sm:text-base">
                           {getLocalizedText(BUSINESS_INFO.location, locale)}
@@ -173,7 +171,7 @@ const Contact: React.FC = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-brand-navy mb-1 sm:mb-2 text-sm sm:text-base">
-                          {locale === 'he' ? 'שעות פעילות' : locale === 'ar' ? 'ساعات العمل' : locale === 'ru' ? 'Рабочие часы' : 'Working Hours'}
+                          {getLocalizedText(UI_STRINGS.contactWorkingHours, locale)}
                         </h3>
                         <p className="text-gray-600 text-sm sm:text-base">
                           {getLocalizedText(CONTACT_INFO.workingHours, locale)}
@@ -191,10 +189,7 @@ const Contact: React.FC = () => {
                   className="btn-animated-gold-filled w-full inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg"
                 >
                   <MessageCircle className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
-                  {locale === 'he' ? 'שלחו הודעה בוואטסאפ' :
-                   locale === 'ar' ? 'أرسل رسالة على واتساب' :
-                   locale === 'ru' ? 'Напишите нам в WhatsApp' :
-                   'Message Us on WhatsApp'}
+                  {getLocalizedText(UI_STRINGS.contactWhatsappMessage, locale)}
                 </button>
                 <p className="text-center text-gray-500 text-sm mt-3">
                   {getLocalizedText(CONTACT_INFO.responseTime, locale)}
@@ -212,10 +207,7 @@ const Contact: React.FC = () => {
                         <CheckCircle className="w-6 h-6 sm:w-8 sm:h-8 text-green-600" />
                       </div>
                       <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
-                        {locale === 'he' ? 'תודה!' :
-                         locale === 'ar' ? 'شكراً!' :
-                         locale === 'ru' ? 'Спасибо!' :
-                         'Thank You!'}
+                        {getLocalizedText(UI_STRINGS.contactThankYou, locale)}
                       </h3>
                       <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
                         {getLocalizedText(content.form.success, locale)}
@@ -224,19 +216,13 @@ const Contact: React.FC = () => {
                         onClick={() => setIsSubmitted(false)} 
                         className="btn-animated-navy inline-flex items-center justify-center px-5 sm:px-6 py-2.5 sm:py-3 text-sm sm:text-base"
                       >
-                        {locale === 'he' ? 'שלחו הודעה נוספת' :
-                         locale === 'ar' ? 'أرسل رسالة أخرى' :
-                         locale === 'ru' ? 'Отправить ещё сообщение' :
-                         'Send Another Message'}
+                        {getLocalizedText(UI_STRINGS.contactSendAnother, locale)}
                       </button>
                     </div>
                   ) : (
                     <>
                       <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-brand-navy">
-                        {locale === 'he' ? 'שלחו לנו הודעה' :
-                         locale === 'ar' ? 'أرسل لنا رسالة' :
-                         locale === 'ru' ? 'Напишите нам' :
-                         'Send Us a Message'}
+                        {getLocalizedText(UI_STRINGS.contactSendMessage, locale)}
                       </h2>
                       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                         <div>
@@ -281,7 +267,7 @@ const Contact: React.FC = () => {
                             onValueChange={(value) => setFormState({ ...formState, service: value })}
                           >
                             <SelectTrigger className="mt-1.5 sm:mt-2 h-10 sm:h-11 text-sm sm:text-base">
-                              <SelectValue placeholder={locale === 'he' ? 'בחרו שירות' : locale === 'ar' ? 'اختر خدمة' : locale === 'ru' ? 'Выберите услугу' : 'Select a service'} />
+                              <SelectValue placeholder={getLocalizedText(UI_STRINGS.contactSelectService, locale)} />
                             </SelectTrigger>
                             <SelectContent>
                               {SERVICES.map((service) => (

@@ -7,7 +7,7 @@ import { Phone, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { CONTACT_INFO, type SupportedLocale } from '@/data/business';
+import { CONTACT_INFO, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data/business';
 
 const MobileCTA: React.FC = () => {
   const { currentLanguage } = useLanguage();
@@ -41,7 +41,7 @@ const MobileCTA: React.FC = () => {
   };
 
   const labels = {
-    call: locale === 'he' ? 'התקשר עכשיו' : locale === 'ar' ? 'اتصل الآن' : locale === 'ru' ? 'Позвонить' : 'Call Now',
+    call: getLocalizedText(UI_STRINGS.mobileCTACall, locale),
     whatsapp: 'WhatsApp',
   };
 
