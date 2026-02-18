@@ -16,8 +16,8 @@ const Home: React.FC = () => {
   const locale = currentLanguage as SupportedLocale;
 
   const handleWhatsApp = useCallback(() => {
-    window.open(`https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent('Hello, I would like to inquire about your services')}`, '_blank');
-  }, []);
+    window.open(`https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(getLocalizedText(UI_STRINGS.whatsappServiceInquiry, locale))}`, '_blank');
+  }, [locale]);
 
   return (
     <div className="min-h-screen">

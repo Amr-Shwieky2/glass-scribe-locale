@@ -35,7 +35,7 @@ const Services: React.FC = () => {
   }, [allCloudImages]);
 
   const handleWhatsApp = () => {
-    window.open(`https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent('Hello, I would like to inquire about your services')}`, '_blank');
+    window.open(`https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(getLocalizedText(UI_STRINGS.whatsappServiceInquiry, locale))}`, '_blank');
   };
 
   return (

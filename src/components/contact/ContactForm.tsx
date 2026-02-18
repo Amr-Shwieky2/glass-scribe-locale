@@ -8,10 +8,18 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Send, Loader2, CheckCircle } from 'lucide-react';
 import { CONTACT_INFO, SERVICES, PAGE_CONTENT, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
 
+type ContactFormState = {
+  name: string;
+  email: string;
+  phone: string;
+  service: string;
+  message: string;
+};
+
 const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
   const content = PAGE_CONTENT.contact;
   const t = (k: Record<string, string>) => getLocalizedText(k, locale);
-  const [form, setForm] = useState({ name: '', email: '', phone: '', service: '', message: '' });
+  const [form, setForm] = useState<ContactFormState>({ name: '', email: '', phone: '', service: '', message: '' });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
 
@@ -24,11 +32,11 @@ const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
     setSubmitted(true);
   };
 
-  const up = (key: string) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setForm({ ...form, [key]: e.target.value });
-  const field = (id: string, label: Record<string, string>, type = 'text') => (
+  const up = (key: keyof ContactFormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => setForm({ ...form, [key]: e.target.value });
+  const field = (id: keyof ContactFormState, label: Record<string, string>, type = 'text') => (
     <div>
       <Label htmlFor={id} className="text-sm sm:text-base">{t(label)}</Label>
-      <Input id={id} type={type} required value={(form as any)[id]} onChange={up(id)} className="mt-1.5 sm:mt-2 h-10 sm:h-11 text-sm sm:text-base" />
+      <Input id={id} type={type} required value={form[id]} onChange={up(id)} className="mt-1.5 sm:mt-2 h-10 sm:h-11 text-sm sm:text-base" />
     </div>
   );
 

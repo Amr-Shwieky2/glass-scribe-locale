@@ -145,7 +145,6 @@ function checkAuth(req: IncomingMessage): boolean {
 // =============================================================================
 
 async function handleLogin(req: JsonRequest, res: ServerResponse) {
-  console.log('[Dev API] Login request received');
   if (req.method !== 'POST') return json(res, 405, { error: 'Method not allowed' });
 
   const pw = process.env.ADMIN_PASSWORD;
@@ -157,7 +156,6 @@ async function handleLogin(req: JsonRequest, res: ServerResponse) {
 
   const body = req.body || {};
   const password = body.password as string | undefined;
-  console.log('[Dev API] Body parsed, password present:', !!password);
 
   if (!password) return json(res, 400, { error: 'Password is required' });
 
@@ -165,11 +163,9 @@ async function handleLogin(req: JsonRequest, res: ServerResponse) {
   const h2 = createHash('sha256').update(pw).digest('hex');
 
   if (h1 !== h2) {
-    console.log('[Dev API] Invalid password');
     return json(res, 401, { error: 'Invalid password' });
   }
 
-  console.log('[Dev API] Login success ✅');
   json(res, 200, { success: true, token: tk });
 }
 
@@ -326,12 +322,6 @@ export default function devApiPlugin(): Plugin {
       server.middlewares.use(jsonBodyParser);
       server.middlewares.use(apiRouter);
 
-      console.log('\n  ✅ Dev API routes active:');
-      console.log('     POST /api/auth/login');
-      console.log('     GET  /api/cloudinary/images');
-      console.log('     POST /api/cloudinary/delete');
-      console.log('     POST /api/cloudinary/tag');
-      console.log('     GET  /api/health\n');
     },
   };
 }

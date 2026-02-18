@@ -14,7 +14,7 @@ interface HeroCTAProps {
 const HeroCTA: React.FC<HeroCTAProps> = ({ locale, currentLanguage, ctaVisible }) => {
   const handleWhatsApp = () => {
     const phone = CONTACT_INFO.whatsapp;
-    const message = encodeURIComponent('Hello, I would like to inquire about your services');
+    const message = encodeURIComponent(getLocalizedText(UI_STRINGS.whatsappServiceInquiry, locale));
     window.open(`https://wa.me/${phone}?text=${message}`, '_blank');
   };
 

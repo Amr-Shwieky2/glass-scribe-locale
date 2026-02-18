@@ -39,7 +39,7 @@ const Projects: React.FC = () => {
     return match ? getLocalizedText(match.name, locale) : cldCat.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   };
 
-  const handleWhatsApp = () => window.open(`https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent('Hello, I would like to inquire about a project')}`, '_blank');
+  const handleWhatsApp = () => window.open(`https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(getLocalizedText(UI_STRINGS.whatsappProjectInquiry, locale))}`, '_blank');
   const handlePrev = () => { const i = previewIndex === 0 ? images.length - 1 : previewIndex - 1; setPreviewIndex(i); setPreviewImage(images[i]); };
   const handleNext = () => { const i = previewIndex === images.length - 1 ? 0 : previewIndex + 1; setPreviewIndex(i); setPreviewImage(images[i]); };
   const openPreview = (img: CloudinaryImage, idx: number) => { setPreviewImage(img); setPreviewIndex(idx); };

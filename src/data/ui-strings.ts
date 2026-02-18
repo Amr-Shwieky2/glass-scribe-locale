@@ -348,6 +348,18 @@ export const UI_STRINGS = {
     ar: 'أرسل لنا رسوماتك ومواصفاتك للحصول على عرض أسعار',
     ru: 'Отправьте нам чертежи и спецификации для расчёта стоимости',
   },
+whatsappServiceInquiry: {
+    en: 'Hello, I would like to inquire about your services',
+    he: 'שלום, אני מעוניין לברר לגבי השירותים שלכם',
+    ar: 'مرحباً، أود الاستفسار عن خدماتكم',
+    ru: 'Здравствуйте, я хотел бы узнать о ваших услугах',
+  },
+  whatsappProjectInquiry: {
+    en: 'Hello, I would like to inquire about a project',
+    he: 'שלום, אני מעוניין לברר לגבי פרויקט',
+    ar: 'مرحباً، أود الاستفسار عن مشروع',
+    ru: 'Здравствуйте, я хотел бы узнать о проекте',
+  },
   contractorsWhatsappMessage: {
     en: 'Hello, I am a contractor and would like to discuss partnership',
     he: 'שלום, אני קבלן ומעוניין לדבר על שיתוף פעולה',
