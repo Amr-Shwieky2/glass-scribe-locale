@@ -5,7 +5,7 @@
  */
 
 import { useCallback } from 'react';
-import { CONTACT_INFO } from '@/data/business';
+import { CONTACT_INFO } from '@/data';
 
 /**
  * Returns a memoized handler that opens WhatsApp with an optional message.

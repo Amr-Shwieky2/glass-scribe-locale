@@ -7,7 +7,7 @@ import { Phone, MessageCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useState, useEffect } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { CONTACT_INFO, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data/business';
+import { CONTACT_INFO, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
 
 const MobileCTA: React.FC = () => {
   const { currentLanguage } = useLanguage();
