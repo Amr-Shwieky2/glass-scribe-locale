@@ -85,7 +85,7 @@ const Services: React.FC = () => {
               {getLocalizedText(UI_STRINGS.getQuote, locale)}
             </button>
             <a 
-              href={`tel:${CONTACT_INFO.phone.mobile}`}
+              href={`tel:${CONTACT_INFO.phoneIntl}`}
               className="btn-animated-gold inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg"
             >
               <Phone className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
@@ -174,21 +174,23 @@ const Services: React.FC = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-3 sm:mb-4 text-brand-navy">
               {locale === 'he' ? 'איך אנחנו עובדים' :
                locale === 'ar' ? 'كيف نعمل' :
+               locale === 'ru' ? 'Как мы работаем' :
                'How We Work'}
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto px-2">
               {locale === 'he' ? 'תהליך פשוט ושקוף מההתחלה ועד הסוף' :
                locale === 'ar' ? 'عملية بسيطة وشفافة من البداية إلى النهاية' :
+               locale === 'ru' ? 'Простой и прозрачный процесс от начала до конца' :
                'Simple and transparent process from start to finish'}
             </p>
           </div>
 
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 md:gap-8 max-w-4xl mx-auto">
             {[
-              { step: 1, title: { en: 'Consultation', he: 'ייעוץ', ar: 'استشارة' }, image: '/phone-support.png' },
-              { step: 2, title: { en: 'Measurement', he: 'מדידה', ar: 'قياس' }, image: '/measurement.png' },
-              { step: 3, title: { en: 'Quote', he: 'הצעת מחיר', ar: 'عرض أسعار' }, image: '/admin-work.png' },
-              { step: 4, title: { en: 'Installation', he: 'התקנה', ar: 'تركيب' }, image: '/installation.png' },
+              { step: 1, title: { en: 'Consultation', he: 'ייעוץ', ar: 'استشارة', ru: 'Консультация' }, image: '/phone-support.png' },
+              { step: 2, title: { en: 'Measurement', he: 'מדידה', ar: 'قياس', ru: 'Замер' }, image: '/measurement.png' },
+              { step: 3, title: { en: 'Quote', he: 'הצעת מחיר', ar: 'عرض أسعار', ru: 'Расчёт' }, image: '/admin-work.png' },
+              { step: 4, title: { en: 'Installation', he: 'התקנה', ar: 'تركيب', ru: 'Монтаж' }, image: '/installation.png' },
             ].map((item, index) => (
               <div key={item.step} className="text-center">
                 <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto bg-brand-light rounded-xl sm:rounded-2xl flex items-center justify-center mb-2 sm:mb-4 shadow-lg overflow-hidden">
@@ -201,6 +203,7 @@ const Services: React.FC = () => {
                 <div className="font-medium text-brand-gold text-xs sm:text-sm mb-1">
                   {locale === 'he' ? `שלב ${item.step}` :
                    locale === 'ar' ? `الخطوة ${item.step}` :
+                   locale === 'ru' ? `Шаг ${item.step}` :
                    `Step ${item.step}`}
                 </div>
                 <h3 className="font-bold text-brand-navy text-sm sm:text-base">
@@ -217,6 +220,7 @@ const Services: React.FC = () => {
             >
               {locale === 'he' ? 'קבלו הצעת מחיר חינם' :
                locale === 'ar' ? 'احصل على عرض أسعار مجاني' :
+               locale === 'ru' ? 'Получите бесплатный расчёт' :
                'Get a Free Quote'}
               <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
             </Link>
@@ -230,11 +234,13 @@ const Services: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
             {locale === 'he' ? 'מוכנים להתחיל?' :
              locale === 'ar' ? 'مستعد للبدء؟' :
+             locale === 'ru' ? 'Готовы начать?' :
              'Ready to Get Started?'}
           </h2>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto opacity-90 px-2">
             {locale === 'he' ? 'צרו קשר היום לייעוץ והצעת מחיר ללא עלות' :
              locale === 'ar' ? 'اتصل بنا اليوم للحصول على استشارة وعرض أسعار مجاني' :
+             locale === 'ru' ? 'Свяжитесь с нами сегодня для бесплатной консультации и расчёта стоимости' :
              'Contact us today for a free consultation and quote'}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center max-w-md sm:max-w-none mx-auto">
@@ -251,6 +257,7 @@ const Services: React.FC = () => {
             >
               {locale === 'he' ? 'צרו קשר' :
                locale === 'ar' ? 'اتصل بنا' :
+               locale === 'ru' ? 'Связаться с нами' :
                'Contact Us'}
             </Link>
           </div>

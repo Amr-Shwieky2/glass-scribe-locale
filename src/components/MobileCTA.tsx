@@ -37,11 +37,11 @@ const MobileCTA: React.FC = () => {
   };
 
   const handlePhoneCall = () => {
-    window.location.href = `tel:${CONTACT_INFO.phone.mobile}`;
+    window.location.href = `tel:${CONTACT_INFO.phoneIntl}`;
   };
 
   const labels = {
-    call: locale === 'he' ? 'התקשר עכשיו' : locale === 'ar' ? 'اتصل الآن' : 'Call Now',
+    call: locale === 'he' ? 'התקשר עכשיו' : locale === 'ar' ? 'اتصل الآن' : locale === 'ru' ? 'Позвонить' : 'Call Now',
     whatsapp: 'WhatsApp',
   };
 

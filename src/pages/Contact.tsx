@@ -99,6 +99,7 @@ const Contact: React.FC = () => {
               <h2 className="text-2xl sm:text-3xl font-bold mb-6 sm:mb-8 text-brand-navy">
                 {locale === 'he' ? 'פרטי התקשרות' :
                  locale === 'ar' ? 'معلومات الاتصال' :
+                 locale === 'ru' ? 'Свяжитесь с нами' :
                  'Get in Touch'}
               </h2>
 
@@ -112,13 +113,10 @@ const Contact: React.FC = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-brand-navy mb-1 sm:mb-2 text-sm sm:text-base">
-                          {locale === 'he' ? 'טלפון' : locale === 'ar' ? 'هاتف' : 'Phone'}
+                          {locale === 'he' ? 'טלפון' : locale === 'ar' ? 'هاتف' : locale === 'ru' ? 'Телефон' : 'Phone'}
                         </h3>
-                        <a href={`tel:${CONTACT_INFO.phone.mobile}`} className="block text-brand-navy/70 hover:text-brand-gold transition-colors text-sm sm:text-base">
-                          {locale === 'he' ? 'נייד' : locale === 'ar' ? 'جوال' : 'Mobile'}: {CONTACT_INFO.phone.mobile}
-                        </a>
-                        <a href={`tel:${CONTACT_INFO.phone.office}`} className="block text-brand-navy/70 hover:text-brand-gold transition-colors text-sm sm:text-base">
-                          {locale === 'he' ? 'משרד' : locale === 'ar' ? 'مكتب' : 'Office'}: {CONTACT_INFO.phone.office}
+                        <a href={`tel:${CONTACT_INFO.phoneIntl}`} className="block text-brand-navy/70 hover:text-brand-gold transition-colors text-sm sm:text-base">
+                          {CONTACT_INFO.phone}
                         </a>
                       </div>
                     </div>
@@ -134,7 +132,7 @@ const Contact: React.FC = () => {
                       </div>
                       <div className="min-w-0">
                         <h3 className="font-bold text-brand-navy mb-1 sm:mb-2 text-sm sm:text-base">
-                          {locale === 'he' ? 'אימייל' : locale === 'ar' ? 'بريد إلكتروني' : 'Email'}
+                          {locale === 'he' ? 'אימייל' : locale === 'ar' ? 'بريد إلكتروني' : locale === 'ru' ? 'Эл. почта' : 'Email'}
                         </h3>
                         <a href={`mailto:${CONTACT_INFO.email}`} className="text-brand-navy/70 hover:text-brand-gold transition-colors text-sm sm:text-base break-all">
                           {CONTACT_INFO.email}
@@ -153,7 +151,7 @@ const Contact: React.FC = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-brand-navy mb-1 sm:mb-2 text-sm sm:text-base">
-                          {locale === 'he' ? 'מיקום' : locale === 'ar' ? 'الموقع' : 'Location'}
+                          {locale === 'he' ? 'מיקום' : locale === 'ar' ? 'الموقع' : locale === 'ru' ? 'Местоположение' : 'Location'}
                         </h3>
                         <p className="text-gray-600 text-sm sm:text-base">
                           {getLocalizedText(BUSINESS_INFO.location, locale)}
@@ -175,7 +173,7 @@ const Contact: React.FC = () => {
                       </div>
                       <div>
                         <h3 className="font-bold text-brand-navy mb-1 sm:mb-2 text-sm sm:text-base">
-                          {locale === 'he' ? 'שעות פעילות' : locale === 'ar' ? 'ساعات العمل' : 'Working Hours'}
+                          {locale === 'he' ? 'שעות פעילות' : locale === 'ar' ? 'ساعات العمل' : locale === 'ru' ? 'Рабочие часы' : 'Working Hours'}
                         </h3>
                         <p className="text-gray-600 text-sm sm:text-base">
                           {getLocalizedText(CONTACT_INFO.workingHours, locale)}
@@ -195,6 +193,7 @@ const Contact: React.FC = () => {
                   <MessageCircle className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
                   {locale === 'he' ? 'שלחו הודעה בוואטסאפ' :
                    locale === 'ar' ? 'أرسل رسالة على واتساب' :
+                   locale === 'ru' ? 'Напишите нам в WhatsApp' :
                    'Message Us on WhatsApp'}
                 </button>
                 <p className="text-center text-gray-500 text-sm mt-3">
@@ -215,6 +214,7 @@ const Contact: React.FC = () => {
                       <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-3 sm:mb-4">
                         {locale === 'he' ? 'תודה!' :
                          locale === 'ar' ? 'شكراً!' :
+                         locale === 'ru' ? 'Спасибо!' :
                          'Thank You!'}
                       </h3>
                       <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">
@@ -226,6 +226,7 @@ const Contact: React.FC = () => {
                       >
                         {locale === 'he' ? 'שלחו הודעה נוספת' :
                          locale === 'ar' ? 'أرسل رسالة أخرى' :
+                         locale === 'ru' ? 'Отправить ещё сообщение' :
                          'Send Another Message'}
                       </button>
                     </div>
@@ -234,6 +235,7 @@ const Contact: React.FC = () => {
                       <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-brand-navy">
                         {locale === 'he' ? 'שלחו לנו הודעה' :
                          locale === 'ar' ? 'أرسل لنا رسالة' :
+                         locale === 'ru' ? 'Напишите нам' :
                          'Send Us a Message'}
                       </h2>
                       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
@@ -279,7 +281,7 @@ const Contact: React.FC = () => {
                             onValueChange={(value) => setFormState({ ...formState, service: value })}
                           >
                             <SelectTrigger className="mt-1.5 sm:mt-2 h-10 sm:h-11 text-sm sm:text-base">
-                              <SelectValue placeholder={locale === 'he' ? 'בחרו שירות' : locale === 'ar' ? 'اختر خدمة' : 'Select a service'} />
+                              <SelectValue placeholder={locale === 'he' ? 'בחרו שירות' : locale === 'ar' ? 'اختر خدمة' : locale === 'ru' ? 'Выберите услугу' : 'Select a service'} />
                             </SelectTrigger>
                             <SelectContent>
                               {SERVICES.map((service) => (

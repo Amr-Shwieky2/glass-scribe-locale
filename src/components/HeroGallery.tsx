@@ -90,6 +90,14 @@ const TEXT_BLOCKS = {
     { main: 'حيث الرؤية', accent: 'تلتقي بالحرفة' },
     { main: 'حلول', accent: 'زجاجية متميزة' },
   ],
+  ru: [
+    { main: 'Создано', accent: 'с точностью' },
+    { main: 'Каждое пространство', accent: 'преображено' },
+    { main: 'Свет,', accent: 'возвышенный' },
+    { main: 'Ясность', accent: 'в каждой детали' },
+    { main: 'Где видение', accent: 'встречает мастерство' },
+    { main: 'Премиум', accent: 'стеклянные решения' },
+  ],
 };
 
 // Animation timing
@@ -554,7 +562,7 @@ const HeroGallery: React.FC = () => {
   };
 
   const handleCall = () => {
-    window.location.href = `tel:${CONTACT_INFO.phone.mobile}`;
+    window.location.href = `tel:${CONTACT_INFO.phoneIntl}`;
   };
 
   const ctaVisible = visibleElements >= 10;
@@ -925,20 +933,20 @@ const HeroGallery: React.FC = () => {
               to={`/${currentLanguage}/projects`}
               className="hero-cta-tertiary inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-brand-gold font-medium hover:text-white transition-colors duration-300"
             >
-              {locale === 'he' ? 'צפו בעבודות' : locale === 'ar' ? 'شاهد أعمالنا' : 'View Our Work'}
+              {locale === 'he' ? 'צפו בעבודות' : locale === 'ar' ? 'شاهد أعمالنا' : locale === 'ru' ? 'Смотреть работы' : 'View Our Work'}
               <ArrowRight className="w-5 h-5" />
             </Link>
           </div>
 
           {/* Contact Info */}
           <div className="mt-6 flex flex-wrap justify-center lg:justify-start gap-4 sm:gap-6 text-white/50 text-sm">
-            <a href={`tel:${CONTACT_INFO.phone.mobile}`} className="hover:text-white transition-colors">
-              {CONTACT_INFO.phone.mobile}
+            <a href={`tel:${CONTACT_INFO.phoneIntl}`} className="hover:text-white transition-colors">
+              {CONTACT_INFO.phone}
             </a>
             <span className="hidden sm:inline">•</span>
-            <span>{locale === 'he' ? 'ירושלים, ישראל' : locale === 'ar' ? 'القدس، إسرائيل' : 'Jerusalem, Israel'}</span>
+            <span>{locale === 'he' ? 'ירושלים, ישראל' : locale === 'ar' ? 'القدس، إسرائيل' : locale === 'ru' ? 'Иерусалим, Израиль' : 'Jerusalem, Israel'}</span>
             <span className="hidden sm:inline">•</span>
-            <span>{locale === 'he' ? 'משרתים את כל ישראל' : locale === 'ar' ? 'نخدم جميع أنحاء إسرائيل' : 'Serving all of Israel'}</span>
+            <span>{locale === 'he' ? 'משרתים את כל ישראל' : locale === 'ar' ? 'نخدم جميع أنحاء إسرائيل' : locale === 'ru' ? 'Обслуживаем всю территорию Израиля' : 'Serving all of Israel'}</span>
           </div>
         </motion.div>
       </div>

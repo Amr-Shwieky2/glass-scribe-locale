@@ -95,18 +95,11 @@ const Footer: React.FC = () => {
             </h4>
             <div className="space-y-3 sm:space-y-4">
               <a
-                href={`tel:${CONTACT_INFO.phone.mobile}`}
+                href={`tel:${CONTACT_INFO.phoneIntl}`}
                 className="flex items-center gap-3 text-gray-400 hover:text-brand-gold transition-colors text-sm sm:text-base py-1"
               >
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-brand-gold flex-shrink-0" />
-                {CONTACT_INFO.phone.mobile}
-              </a>
-              <a
-                href={`tel:${CONTACT_INFO.phone.office}`}
-                className="flex items-center gap-3 text-gray-400 hover:text-brand-gold transition-colors text-sm sm:text-base py-1"
-              >
-                <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-brand-gold flex-shrink-0" />
-                {CONTACT_INFO.phone.office}
+                {CONTACT_INFO.phone}
               </a>
               <a
                 href={`mailto:${CONTACT_INFO.email}`}

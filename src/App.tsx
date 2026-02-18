@@ -90,7 +90,7 @@ const PageLoader: FC = () => (
 // ROUTE CONFIGURATION
 // =============================================================================
 
-const DEFAULT_LANGUAGE = 'en';
+const DEFAULT_LANGUAGE = 'he';
 
 interface RouteConfig {
   path: string;

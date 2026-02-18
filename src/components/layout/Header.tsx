@@ -52,7 +52,7 @@ const Header: React.FC = () => {
   }, []);
 
   const handlePhoneCall = useCallback(() => {
-    window.location.href = `tel:${CONTACT_INFO.phone.mobile}`;
+    window.location.href = `tel:${CONTACT_INFO.phoneIntl}`;
   }, []);
 
   const closeMobileMenu = useCallback(() => {
@@ -135,7 +135,7 @@ const Header: React.FC = () => {
                 <DropdownMenuContent align="end" className="w-48">
                   <DropdownMenuItem onClick={handlePhoneCall}>
                     <Phone className="w-4 h-4 mr-2" />
-                    {locale === 'he' ? 'התקשר עכשיו' : locale === 'ar' ? 'اتصل الآن' : 'Call Now'}
+                    {locale === 'he' ? 'התקשר עכשיו' : locale === 'ar' ? 'اتصل الآن' : locale === 'ru' ? 'Позвонить' : 'Call Now'}
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleWhatsApp}>
                     <MessageCircle className="w-4 h-4 mr-2" />
@@ -203,7 +203,7 @@ const Header: React.FC = () => {
               {/* Mobile Language Selector */}
               <div className="border-t pt-4 mt-2 sm:mt-4">
                 <p className="text-sm text-gray-500 mb-2 px-2">
-                  {locale === 'he' ? 'בחר שפה' : locale === 'ar' ? 'اختر اللغة' : 'Select Language'}
+                  {locale === 'he' ? 'בחר שפה' : locale === 'ar' ? 'اختر اللغة' : locale === 'ru' ? 'Выбрать язык' : 'Select Language'}
                 </p>
                 <div className="flex flex-wrap gap-2 px-2">
                   {supportedLanguages.map((lang) => (
@@ -227,7 +227,7 @@ const Header: React.FC = () => {
               <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mt-4 px-2">
                 <Button onClick={handlePhoneCall} className="flex-1 h-12" variant="outline">
                   <Phone className="w-4 h-4 mr-2" />
-                  {locale === 'he' ? 'התקשר' : locale === 'ar' ? 'اتصل' : 'Call'}
+                  {locale === 'he' ? 'התקשר' : locale === 'ar' ? 'اتصل' : locale === 'ru' ? 'Позвонить' : 'Call'}
                 </Button>
                 <Button onClick={handleWhatsApp} className="flex-1 h-12 bg-brand-gold hover:bg-brand-gold/90 text-brand-navy">
                   <MessageCircle className="w-4 h-4 mr-2" />

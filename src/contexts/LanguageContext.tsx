@@ -57,9 +57,10 @@ interface LanguageContextValue {
  * List of supported languages with display names.
  */
 const SUPPORTED_LANGUAGES: SupportedLanguage[] = [
-  { code: 'en', name: 'English', nativeName: 'EN' },
   { code: 'he', name: 'Hebrew', nativeName: 'עברית' },
+  { code: 'en', name: 'English', nativeName: 'EN' },
   { code: 'ar', name: 'Arabic', nativeName: 'العربية' },
+  { code: 'ru', name: 'Russian', nativeName: 'RU' },
 ] as const;
 
 /**

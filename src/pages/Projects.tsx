@@ -12,7 +12,7 @@ import { Button } from '@/components/ui/button';
 import { Phone, MessageCircle, Grid, List, X, ChevronLeft, ChevronRight, Calendar } from 'lucide-react';
 import AnimatedPageHeader from '@/components/AnimatedPageHeader';
 import { useCloudinaryImages, getGalleryUrl, getThumbnailUrl } from '@/hooks/useCloudinaryImages';
-import { getCategoryFromPublicId, formatCategoryName, type CloudinaryImage } from '@/lib/cloudinary';
+import { getCategoryFromPublicId, type CloudinaryImage } from '@/lib/cloudinary';
 import {
   CONTACT_INFO,
   PAGE_CONTENT,
@@ -28,22 +28,22 @@ import {
 interface ProjectCategory {
   id: string;
   cloudinaryFolder: string;
-  name: { en: string; he: string; ar: string };
+  name: { en: string; he: string; ar: string; ru: string };
   slug: string;
   icon: string;
 }
 
 // Categories with mapping to Cloudinary folder names
 const PROJECT_CATEGORIES: ProjectCategory[] = [
-  { id: 'shower-glass', cloudinaryFolder: 'shower-enclosures', name: { en: 'Shower Glass', he: 'מקלחונים', ar: 'زجاج الدش' }, slug: 'shower-glass', icon: '🚿' },
-  { id: 'glass-railings', cloudinaryFolder: 'glass-railings', name: { en: 'Glass Railings', he: 'מעקות זכוכית', ar: 'درابزين زجاجي' }, slug: 'glass-railings', icon: '🏠' },
-  { id: 'mirrors', cloudinaryFolder: 'mirrors', name: { en: 'Mirrors', he: 'מראות', ar: 'مرايا' }, slug: 'mirrors', icon: '🪞' },
-  { id: 'glass-partitions', cloudinaryFolder: 'partitions', name: { en: 'Glass Partitions', he: 'מחיצות זכוכית', ar: 'فواصل زجاجية' }, slug: 'glass-partitions', icon: '🏢' },
-  { id: 'storefront', cloudinaryFolder: 'storefronts', name: { en: 'Storefront Glass', he: 'חזיתות חנויות', ar: 'واجهات المتاجر' }, slug: 'storefront', icon: '🏪' },
-  { id: 'glass-doors', cloudinaryFolder: 'glass-doors', name: { en: 'Glass Doors', he: 'דלתות זכוכית', ar: 'أبواب زجاجية' }, slug: 'glass-doors', icon: '🚪' },
-  { id: 'backsplashes', cloudinaryFolder: 'backsplashes', name: { en: 'Backsplashes', he: 'חיפויי קיר', ar: 'واجهات خلفية' }, slug: 'backsplashes', icon: '✨' },
-  { id: 'shelves', cloudinaryFolder: 'shelves', name: { en: 'Glass Shelves', he: 'מדפי זכוכית', ar: 'أرفف زجاجية' }, slug: 'shelves', icon: '📐' },
-  { id: 'lobbies', cloudinaryFolder: 'lobbies', name: { en: 'Lobby Glass', he: 'זכוכית לובי', ar: 'زجاج اللوبي' }, slug: 'lobbies', icon: '🏛️' },
+  { id: 'shower-glass', cloudinaryFolder: 'shower-enclosures', name: { en: 'Shower Glass', he: 'מקלחונים', ar: 'زجاج الدش', ru: 'Душевое стекло' }, slug: 'shower-glass', icon: '🚿' },
+  { id: 'glass-railings', cloudinaryFolder: 'glass-railings', name: { en: 'Glass Railings', he: 'מעקות זכוכית', ar: 'درابزين زجاجي', ru: 'Стеклянные ограждения' }, slug: 'glass-railings', icon: '🏠' },
+  { id: 'mirrors', cloudinaryFolder: 'mirrors', name: { en: 'Mirrors', he: 'מראות', ar: 'مرايا', ru: 'Зеркала' }, slug: 'mirrors', icon: '🪞' },
+  { id: 'glass-partitions', cloudinaryFolder: 'partitions', name: { en: 'Glass Partitions', he: 'מחיצות זכוכית', ar: 'فواصل زجاجية', ru: 'Стеклянные перегородки' }, slug: 'glass-partitions', icon: '🏢' },
+  { id: 'storefront', cloudinaryFolder: 'storefronts', name: { en: 'Storefront Glass', he: 'חזיתות חנויות', ar: 'واجهات المتاجر', ru: 'Витринное стекло' }, slug: 'storefront', icon: '🏪' },
+  { id: 'glass-doors', cloudinaryFolder: 'glass-doors', name: { en: 'Glass Doors', he: 'דלתות זכוכית', ar: 'أبواب زجاجية', ru: 'Стеклянные двери' }, slug: 'glass-doors', icon: '🚪' },
+  { id: 'backsplashes', cloudinaryFolder: 'backsplashes', name: { en: 'Backsplashes', he: 'חיפויי קיר', ar: 'واجهات خلفية', ru: 'Стеклянные фартуки' }, slug: 'backsplashes', icon: '✨' },
+  { id: 'shelves', cloudinaryFolder: 'shelves', name: { en: 'Glass Shelves', he: 'מדפי זכוכית', ar: 'أرفف زجاجية', ru: 'Стеклянные полки' }, slug: 'shelves', icon: '📐' },
+  { id: 'lobbies', cloudinaryFolder: 'lobbies', name: { en: 'Lobby Glass', he: 'זכוכית לובי', ar: 'زجاج اللوبي', ru: 'Стекло для лобби' }, slug: 'lobbies', icon: '🏛️' },
 ];
 
 // =============================================================================
@@ -95,11 +95,15 @@ const Projects: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
-  // Get category display info for a Cloudinary image
+  // Get category display info for a Cloudinary image (localized)
   const getImageCategory = (img: CloudinaryImage) => {
     const cldCat = getCategoryFromPublicId(img.public_id);
-    if (cldCat) return formatCategoryName(cldCat);
-    return '';
+    if (!cldCat) return '';
+    // Find matching PROJECT_CATEGORY by cloudinaryFolder and return localized name
+    const match = PROJECT_CATEGORIES.find(c => c.cloudinaryFolder === cldCat);
+    if (match) return getLocalizedText(match.name, locale);
+    // Fallback: capitalize the folder name
+    return cldCat.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   };
 
   // Get human-friendly label for a category ID
@@ -142,15 +146,15 @@ const Projects: React.FC = () => {
           <div className="flex flex-wrap justify-center gap-6 sm:gap-8 mt-6">
             <div className="text-center">
               <p className="text-3xl sm:text-4xl font-bold text-brand-gold">{images.length || '—'}</p>
-              <p className="text-sm text-gray-400">{locale === 'he' ? 'תמונות' : locale === 'ar' ? 'صور' : 'Photos'}</p>
+              <p className="text-sm text-gray-400">{locale === 'he' ? 'תמונות' : locale === 'ar' ? 'صور' : locale === 'ru' ? 'Фото' : 'Photos'}</p>
             </div>
             <div className="text-center">
               <p className="text-3xl sm:text-4xl font-bold text-brand-gold">{PROJECT_CATEGORIES.length}</p>
-              <p className="text-sm text-gray-400">{locale === 'he' ? 'קטגוריות' : locale === 'ar' ? 'فئات' : 'Categories'}</p>
+              <p className="text-sm text-gray-400">{locale === 'he' ? 'קטגוריות' : locale === 'ar' ? 'فئات' : locale === 'ru' ? 'Категории' : 'Categories'}</p>
             </div>
             <div className="text-center">
               <p className="text-3xl sm:text-4xl font-bold text-brand-gold">100%</p>
-              <p className="text-sm text-gray-400">{locale === 'he' ? 'שביעות רצון' : locale === 'ar' ? 'رضا' : 'Satisfaction'}</p>
+              <p className="text-sm text-gray-400">{locale === 'he' ? 'שביעות רצון' : locale === 'ar' ? 'رضا' : locale === 'ru' ? 'Удовлетворённость' : 'Satisfaction'}</p>
             </div>
           </div>
         </div>
@@ -244,7 +248,7 @@ const Projects: React.FC = () => {
                         />
                         {featured && (
                           <span className="absolute top-2 left-2 px-2 py-1 bg-brand-gold text-brand-navy text-xs font-bold rounded-full">
-                            ⭐ {locale === 'he' ? 'מומלץ' : locale === 'ar' ? 'مميز' : 'Featured'}
+                            ⭐ {locale === 'he' ? 'מומלץ' : locale === 'ar' ? 'مميز' : locale === 'ru' ? 'Избранное' : 'Featured'}
                           </span>
                         )}
                       </div>
@@ -292,7 +296,7 @@ const Projects: React.FC = () => {
                     {/* Featured Badge */}
                     {featured && (
                       <span className="absolute top-3 left-3 px-2 py-1 bg-brand-gold text-brand-navy text-xs font-bold rounded-full">
-                        ⭐ {locale === 'he' ? 'מומלץ' : locale === 'ar' ? 'مميز' : 'Featured'}
+                        ⭐ {locale === 'he' ? 'מומלץ' : locale === 'ar' ? 'مميز' : locale === 'ru' ? 'Избранное' : 'Featured'}
                       </span>
                     )}
 
@@ -319,8 +323,7 @@ const Projects: React.FC = () => {
               </h3>
               <p className="text-brand-navy/70 text-sm sm:text-base mb-6 sm:mb-8">
                 {locale === 'he' ? 'תמונות יעלו בקרוב. צרו קשר כדי לדבר על הפרויקט שלכם' :
-                 locale === 'ar' ? 'سيتم إضافة الصور قريباً. اتصل بنا للتحدث عن مشروعك' :
-                 'Images coming soon. Contact us to discuss your project'}
+                 locale === 'ar' ? 'سيتم إضافة الصور قريباً. اتصل بنا للتحدث عن مشروعك' :                 locale === 'ru' ? 'Изображения появятся в ближайшее время. Свяжитесь с нами, чтобы обсудить ваш проект' :                 'Images coming soon. Contact us to discuss your project'}
               </p>
               <button onClick={handleWhatsApp} className="btn-animated-gold-filled inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg">
                 <MessageCircle className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
@@ -392,11 +395,13 @@ const Projects: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
             {locale === 'he' ? 'יש לכם פרויקט בראש?' :
              locale === 'ar' ? 'هل لديك مشروع في ذهنك؟' :
+             locale === 'ru' ? 'Есть проект на примете?' :
              'Have a Project in Mind?'}
           </h2>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto text-white/80">
             {locale === 'he' ? 'נשמח לשמוע על הפרויקט שלכם ולספק הצעת מחיר ללא התחייבות' :
              locale === 'ar' ? 'نحب أن نسمع عن مشروعك ونقدم عرض أسعار بدون التزام' :
+             locale === 'ru' ? 'Мы будем рады узнать о вашем проекте и предоставить расчёт без обязательств' :
              'We\'d love to hear about your project and provide a no-obligation quote'}
           </p>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center">
@@ -408,11 +413,11 @@ const Projects: React.FC = () => {
               {getLocalizedText(UI_STRINGS.whatsapp, locale)}
             </button>
             <a
-              href={`tel:${CONTACT_INFO.phone.mobile}`}
+              href={`tel:${CONTACT_INFO.phoneIntl}`}
               className="btn-animated-gold inline-flex items-center justify-center px-6 sm:px-8 md:px-10 py-3 sm:py-4 text-base sm:text-lg"
             >
               <Phone className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
-              {CONTACT_INFO.phone.mobile}
+              {CONTACT_INFO.phone}
             </a>
           </div>
         </div>

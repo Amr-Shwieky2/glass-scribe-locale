@@ -54,7 +54,7 @@ const About: React.FC = () => {
                 <div className="absolute -bottom-4 -right-4 sm:-bottom-6 sm:-right-6 bg-white rounded-xl sm:rounded-2xl shadow-xl p-4 sm:p-6">
                   <p className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-gold">{BUSINESS_INFO.established}</p>
                   <p className="text-gray-600 text-sm sm:text-base">
-                    {locale === 'he' ? 'מאז' : locale === 'ar' ? 'منذ' : 'Since'}
+                    {locale === 'he' ? 'מאז' : locale === 'ar' ? 'منذ' : locale === 'ru' ? 'С' : 'Since'}
                   </p>
                 </div>
               </div>
@@ -64,6 +64,7 @@ const About: React.FC = () => {
                 <h2 className="text-2xl sm:text-3xl font-bold mb-4 sm:mb-6 text-brand-navy">
                   {locale === 'he' ? 'הסיפור שלנו' :
                    locale === 'ar' ? 'قصتنا' :
+                   locale === 'ru' ? 'Наша история' :
                    'Our Story'}
                 </h2>
                 <p className="text-base sm:text-lg text-gray-600 leading-relaxed mb-4 sm:mb-6">
@@ -71,10 +72,10 @@ const About: React.FC = () => {
                 </p>
                 <div className="space-y-2 sm:space-y-3">
                   {[
-                    { en: 'Licensed and insured business', he: 'עסק מורשה ומבוטח', ar: 'عمل مرخص ومؤمن' },
-                    { en: 'Expert craftsmen with years of experience', he: 'אומנים מומחים עם שנות ניסיון', ar: 'حرفيون خبراء بسنوات من الخبرة' },
-                    { en: 'Premium quality materials only', he: 'חומרים איכותיים בלבד', ar: 'مواد عالية الجودة فقط' },
-                    { en: 'Customer satisfaction guarantee', he: 'ערבות לשביעות רצון הלקוח', ar: 'ضمان رضا العملاء' },
+                    { en: 'Licensed and insured business', he: 'עסק מורשה ומבוטח', ar: 'عمل مرخص ومؤمن', ru: 'Лицензированный и застрахованный бизнес' },
+                    { en: 'Expert craftsmen with years of experience', he: 'אומנים מומחים עם שנות ניסיון', ar: 'حرفيون خبراء بسنوات من الخبرة', ru: 'Опытные мастера с многолетним стажем' },
+                    { en: 'Premium quality materials only', he: 'חומרים איכותיים בלבד', ar: 'مواد عالية الجودة فقط', ru: 'Только материалы премиум-качества' },
+                    { en: 'Customer satisfaction guarantee', he: 'ערבות לשביעות רצון הלקוח', ar: 'ضمان رضا العملاء', ru: 'Гарантия удовлетворённости клиентов' },
                   ].map((item, i) => (
                     <div key={i} className="flex items-center gap-2 sm:gap-3">
                       <CheckCircle className="w-4 h-4 sm:w-5 sm:h-5 text-brand-gold flex-shrink-0" />
@@ -147,6 +148,7 @@ const About: React.FC = () => {
             <p className="text-lg sm:text-xl text-gray-600 mb-2">
               {locale === 'he' ? 'בעלים ומנהל' :
                locale === 'ar' ? 'المالك والمدير' :
+               locale === 'ru' ? 'Владелец и управляющий' :
                'Owner & Manager'}
             </p>
             <p className="text-gray-500 text-sm sm:text-base">
@@ -158,11 +160,11 @@ const About: React.FC = () => {
                 {getLocalizedText(UI_STRINGS.whatsapp, locale)}
               </button>
               <a 
-                href={`tel:${CONTACT_INFO.phone.mobile}`}
+                href={`tel:${CONTACT_INFO.phoneIntl}`}
                 className="btn-animated-navy inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg"
               >
                 <Phone className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
-                {CONTACT_INFO.phone.mobile}
+                {CONTACT_INFO.phone}
               </a>
             </div>
           </div>
@@ -175,11 +177,13 @@ const About: React.FC = () => {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold mb-4 sm:mb-6">
             {locale === 'he' ? 'מוכנים לעבוד איתנו?' :
              locale === 'ar' ? 'مستعد للعمل معنا؟' :
+             locale === 'ru' ? 'Готовы работать с нами?' :
              'Ready to Work With Us?'}
           </h2>
           <p className="text-base sm:text-lg md:text-xl mb-6 sm:mb-8 max-w-2xl mx-auto text-white/80">
             {locale === 'he' ? 'צרו קשר היום ונהפוך את החזון שלכם למציאות' :
              locale === 'ar' ? 'اتصل بنا اليوم ودعنا نحول رؤيتك إلى واقع' :
+             locale === 'ru' ? 'Свяжитесь с нами сегодня, и мы воплотим ваше видение в реальность' :
              'Contact us today and let\'s turn your vision into reality'}
           </p>
           <Link 
@@ -188,6 +192,7 @@ const About: React.FC = () => {
           >
             {locale === 'he' ? 'צרו קשר' :
              locale === 'ar' ? 'اتصل بنا' :
+             locale === 'ru' ? 'Связаться с нами' :
              'Contact Us'}
             <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
           </Link>
