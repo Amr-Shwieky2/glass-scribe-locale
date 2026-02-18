@@ -32,9 +32,8 @@ export default defineConfig(({ mode }) => ({
         manualChunks: {
           // Vendor chunks for better caching
           'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'animation-vendor': ['gsap', '@react-spring/web', 'framer-motion'],
+          'animation-vendor': ['@react-spring/web', 'framer-motion'],
           'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-slot'],
-          'form-vendor': ['react-hook-form', 'zod'],
           'i18n-vendor': ['i18next', 'react-i18next'],
         },
       },
@@ -56,7 +55,6 @@ export default defineConfig(({ mode }) => ({
       'react',
       'react-dom',
       'react-router-dom',
-      'gsap',
       '@react-spring/web',
       'framer-motion',
     ],
