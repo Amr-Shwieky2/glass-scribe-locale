@@ -17,7 +17,7 @@ const AdminDashboard: FC = () => {
   const {
     images, isLoading, selectedCategory, setSelectedCategory,
     showUploadPicker, setShowUploadPicker,
-    handleDelete, handleToggleFeatured, handleUpload, openUploadWidget,
+    handleDelete, handleToggleFeatured, handleToggleServiceCard, handleToggleHeroImage, handleUpload, openUploadWidget,
   } = useAdminImages();
 
   const [previewImage, setPreviewImage] = useState<CloudinaryImage | null>(null);
@@ -43,7 +43,7 @@ const AdminDashboard: FC = () => {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
             {images.map((image) => (
-              <ImageCard key={image.public_id} image={image} onDelete={(id) => setDeleteConfirm(id)} onToggleFeatured={handleToggleFeatured} onPreview={setPreviewImage} />
+              <ImageCard key={image.public_id} image={image} onDelete={(id) => setDeleteConfirm(id)} onToggleFeatured={handleToggleFeatured} onToggleServiceCard={handleToggleServiceCard} onToggleHeroImage={handleToggleHeroImage} onPreview={setPreviewImage} />
             ))}
           </div>
         )}

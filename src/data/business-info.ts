@@ -1,8 +1,8 @@
 export const BUSINESS_INFO = {
   name: {
     en: 'Shwaki Brothers Glassworks',
-    he: 'אחים שווקי עבודות זכוכית',
-    ar: 'إخوة شواقي للزجاج',
+    he: 'אחים שוואקי זכוכית',
+    ar: 'شويكي اخوان للزوجاج',
     ru: 'Братья Шваки — Стеклянные работы',
   },
   owner: 'Mohammad Shwaki',

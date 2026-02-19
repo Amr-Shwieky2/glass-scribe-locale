@@ -1,0 +1,13 @@
+/* TEAM */
+Company: Shwaki Brothers Glassworks - אחים שוואקי זכוכית
+Location: Israel
+Contact: info@shwakiglassworks.com
+
+/* SITE */
+Last update: 2026/02/19
+Language: Hebrew, English, Arabic, Russian
+Doctype: HTML5
+IDE: VS Code
+Framework: React + TypeScript + Vite
+Hosting: Vercel
+CDN: Cloudinary

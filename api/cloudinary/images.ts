@@ -56,6 +56,7 @@ export default async function handler(
     const {
       category,
       featured,
+      tag,
       all,
       limit = '50',
       cursor,
@@ -77,9 +78,17 @@ export default async function handler(
       expression += ' AND tags=featured';
     }
 
+    // Filter by custom tag (e.g., service-card)
+    if (tag) {
+      expression += ` AND tags=${tag}`;
+    }
+
     // Fetch all from all categories (recursive)
     if (all === 'true') {
       expression = `public_id:${BASE_FOLDER}/*`;
+      if (tag) {
+        expression += ` AND tags=${tag}`;
+      }
     }
 
     // Execute search

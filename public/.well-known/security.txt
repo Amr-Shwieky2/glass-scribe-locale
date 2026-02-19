@@ -1,0 +1,10 @@
+# Security Policy for Shwaki Brothers Glassworks
+# אחים שוואקי זכוכית
+
+Contact: mailto:security@shwakiglassworks.com
+Expires: 2027-02-19T00:00:00.000Z
+Preferred-Languages: he, en, ar, ru
+Canonical: https://shwakiglassworks.com/.well-known/security.txt
+
+# We appreciate responsible disclosure of security vulnerabilities.
+# Please report any security issues to our security team.

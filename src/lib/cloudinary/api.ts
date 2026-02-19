@@ -46,3 +46,28 @@ export async function fetchAllImages(): Promise<CloudinaryResponse> {
   }
   return response.json();
 }
+
+export async function fetchServiceCardImages(): Promise<CloudinaryResponse> {
+  const params = new URLSearchParams();
+  params.set('tag', 'service-card');
+  params.set('all', 'true');
+
+  const response = await fetch(`/api/cloudinary/images?${params.toString()}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch service card images: ${response.statusText}`);
+  }
+  return response.json();
+}
+
+export async function fetchHeroGalleryImages(): Promise<CloudinaryResponse> {
+  const params = new URLSearchParams();
+  params.set('tag', 'hero-gallery');
+  params.set('all', 'true');
+  params.set('limit', '10');
+
+  const response = await fetch(`/api/cloudinary/images?${params.toString()}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch hero gallery images: ${response.statusText}`);
+  }
+  return response.json();
+}

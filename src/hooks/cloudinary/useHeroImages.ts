@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import type { CloudinaryImage } from '@/lib/cloudinary';
-import { fetchHeroImages } from '@/lib/cloudinary';
+import { fetchHeroImages, fetchHeroGalleryImages } from '@/lib/cloudinary';
 import { getCached, setCache, imageCache } from './cache';
 
 interface UseCloudinaryResult {
@@ -19,7 +19,7 @@ export function useHeroImages(
   const [error, setError] = useState<string | null>(null);
   const mountedRef = useRef(true);
   const [refreshKey, setRefreshKey] = useState(0);
-  const cacheKey = 'hero:10';
+  const cacheKey = 'hero-gallery:10';
 
   useEffect(() => { mountedRef.current = true; return () => { mountedRef.current = false; }; }, []);
 
@@ -34,9 +34,17 @@ export function useHeroImages(
 
     const doFetch = async () => {
       try {
-        const response = await fetchHeroImages();
+        // First try to fetch images with hero-gallery tag
+        const heroGalleryResponse = await fetchHeroGalleryImages();
+        let imgs = heroGalleryResponse.resources || [];
+        
+        // If no hero-gallery tagged images, fall back to hero folder
+        if (imgs.length === 0) {
+          const heroFolderResponse = await fetchHeroImages();
+          imgs = heroFolderResponse.resources || [];
+        }
+        
         if (!cancelled && mountedRef.current) {
-          const imgs = response.resources || [];
           setImages(imgs);
           setCache(cacheKey, imgs);
         }

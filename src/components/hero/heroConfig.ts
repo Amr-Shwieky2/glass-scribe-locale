@@ -93,10 +93,10 @@ export const TEXT_BLOCKS = {
 // =============================================================================
 
 export const TIMING = {
-  initialDelay: 0.3,
-  frameDuration: 1.0,
-  textDuration: 0.8,
-  staggerDelay: 0.6,
+  initialDelay: 0.15,
+  frameDuration: 0.6,
+  textDuration: 0.5,
+  staggerDelay: 0.35,
   motifDuration: 20,
 };
 

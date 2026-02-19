@@ -23,6 +23,12 @@ export const UI_STRINGS = {
     ar: 'عرض الكل',
     ru: 'Смотреть все',
   },
+  viewProjects: {
+    en: 'View Projects',
+    he: 'צפה בפרויקטים',
+    ar: 'عرض المشاريع',
+    ru: 'Смотреть проекты',
+  },
   learnMore: {
     en: 'Learn More',
     he: 'למידע נוסף',

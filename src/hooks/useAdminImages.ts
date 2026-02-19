@@ -8,6 +8,8 @@ import {
   fetchAllImages,
   deleteImage,
   toggleFeatured,
+  toggleServiceCard,
+  toggleHeroImage,
   formatCategoryName,
 } from '@/lib/cloudinary';
 import { useToast } from '@/hooks/use-toast';
@@ -77,6 +79,40 @@ export function useAdminImages() {
     }
   };
 
+  const handleToggleServiceCard = async (publicId: string, isServiceCard: boolean) => {
+    if (!token) return;
+    try {
+      await toggleServiceCard(publicId, isServiceCard, token);
+      setImages((prev) =>
+        prev.map((img) =>
+          img.public_id === publicId
+            ? { ...img, tags: isServiceCard ? [...(img.tags || []), 'service-card'] : (img.tags || []).filter((t) => t !== 'service-card') }
+            : img
+        )
+      );
+      toast({ title: isServiceCard ? 'Set as Service Card' : 'Removed as Service Card', description: `Image ${isServiceCard ? 'set as' : 'removed as'} service card.` });
+    } catch {
+      toast({ title: 'Error', description: 'Failed to update service card.', variant: 'destructive' });
+    }
+  };
+
+  const handleToggleHeroImage = async (publicId: string, isHeroImage: boolean) => {
+    if (!token) return;
+    try {
+      await toggleHeroImage(publicId, isHeroImage, token);
+      setImages((prev) =>
+        prev.map((img) =>
+          img.public_id === publicId
+            ? { ...img, tags: isHeroImage ? [...(img.tags || []), 'hero-gallery'] : (img.tags || []).filter((t) => t !== 'hero-gallery') }
+            : img
+        )
+      );
+      toast({ title: isHeroImage ? 'Added to Hero' : 'Removed from Hero', description: `Image ${isHeroImage ? 'added to' : 'removed from'} hero gallery.` });
+    } catch {
+      toast({ title: 'Error', description: 'Failed to update hero image.', variant: 'destructive' });
+    }
+  };
+
   const openUploadWidget = (category: ServiceCategory) => {
     setShowUploadPicker(false);
     const widget = window.cloudinary?.createUploadWidget(
@@ -110,6 +146,6 @@ export function useAdminImages() {
   return {
     images, isLoading, selectedCategory, setSelectedCategory,
     showUploadPicker, setShowUploadPicker,
-    handleDelete, handleToggleFeatured, handleUpload, openUploadWidget,
+    handleDelete, handleToggleFeatured, handleToggleServiceCard, handleToggleHeroImage, handleUpload, openUploadWidget,
   };
 }
