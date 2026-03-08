@@ -7,7 +7,7 @@ import { useLanguage } from '@/contexts/LanguageContext';
 import type { SupportedLocale } from '@/data';
 import { useHeroImages, getHeroUrl } from '@/hooks/cloudinary';
 import { useHeroTimeline } from '@/hooks/useHeroTimeline';
-import { FALLBACK_FRAMES, TEXT_BLOCKS } from './hero/heroConfig';
+import { TEXT_BLOCKS } from './hero/heroConfig';
 import AmbientMotif from './hero/AmbientMotif';
 import HeroBackground from './hero/HeroBackground';
 import DesktopGallery from './hero/DesktopGallery';
@@ -25,8 +25,12 @@ const HeroGallery: React.FC = () => {
   const { getFrameVisibility, getTextVisibility, getFrameDelay, getTextDelay, ctaVisible } = useHeroTimeline(isInView);
 
   const frames = useMemo(() => {
-    const cloud = heroImages.map((img, i) => ({ id: i + 1, image: getHeroUrl(img.public_id), alt: img.context?.custom?.alt || `Glass work ${i + 1}` }));
-    for (let i = cloud.length; i < 7; i++) cloud.push(FALLBACK_FRAMES[i]);
+    // Use only Cloudinary images, no fallback to static images
+    const cloud = heroImages.map((img, i) => ({ 
+      id: i + 1, 
+      image: getHeroUrl(img.public_id), 
+      alt: img.context?.custom?.alt || `Glass work ${i + 1}` 
+    }));
     return cloud.slice(0, 7);
   }, [heroImages]);
 

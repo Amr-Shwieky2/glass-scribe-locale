@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import type { CloudinaryImage } from '@/lib/cloudinary';
-import { fetchHeroImages, fetchHeroGalleryImages } from '@/lib/cloudinary';
+import { fetchHeroImages, fetchHeroGalleryImages, fetchHeroPositionImages } from '@/lib/cloudinary';
 import { getCached, setCache, imageCache } from './cache';
 
 interface UseCloudinaryResult {
@@ -9,6 +9,15 @@ interface UseCloudinaryResult {
   error: string | null;
   refresh: () => void;
 }
+
+// Get hero position from image tags (hero-1, hero-2, etc.)
+const getHeroPosition = (image: CloudinaryImage): number | null => {
+  const heroTag = image.tags?.find(tag => /^hero-[1-7]$/.test(tag));
+  if (heroTag) {
+    return parseInt(heroTag.split('-')[1], 10);
+  }
+  return null;
+};
 
 export function useHeroImages(
   options: { enabled?: boolean } = {}
@@ -19,7 +28,7 @@ export function useHeroImages(
   const [error, setError] = useState<string | null>(null);
   const mountedRef = useRef(true);
   const [refreshKey, setRefreshKey] = useState(0);
-  const cacheKey = 'hero-gallery:10';
+  const cacheKey = 'hero-positions:7';
 
   useEffect(() => { mountedRef.current = true; return () => { mountedRef.current = false; }; }, []);
 
@@ -34,11 +43,26 @@ export function useHeroImages(
 
     const doFetch = async () => {
       try {
-        // First try to fetch images with hero-gallery tag
-        const heroGalleryResponse = await fetchHeroGalleryImages();
-        let imgs = heroGalleryResponse.resources || [];
+        // First try to fetch images with hero position tags (hero-1 to hero-7)
+        const heroPositionResponse = await fetchHeroPositionImages();
+        let imgs = heroPositionResponse.resources || [];
         
-        // If no hero-gallery tagged images, fall back to hero folder
+        // Sort images by their position tag
+        if (imgs.length > 0) {
+          imgs = imgs
+            .map(img => ({ img, pos: getHeroPosition(img) }))
+            .filter(({ pos }) => pos !== null)
+            .sort((a, b) => (a.pos as number) - (b.pos as number))
+            .map(({ img }) => img);
+        }
+        
+        // If no position-tagged images, fall back to hero-gallery tag
+        if (imgs.length === 0) {
+          const heroGalleryResponse = await fetchHeroGalleryImages();
+          imgs = heroGalleryResponse.resources || [];
+        }
+        
+        // If still no images, fall back to hero folder
         if (imgs.length === 0) {
           const heroFolderResponse = await fetchHeroImages();
           imgs = heroFolderResponse.resources || [];

@@ -10,6 +10,8 @@ import { LanguageProvider } from './contexts/LanguageContext';
 import { AdminProvider } from './contexts/AdminContext';
 import Layout from './components/layout/Layout';
 import PageLoader from './components/PageLoader';
+import AccessibilityWidget from './components/accessibility/AccessibilityWidget';
+import CookieConsent from './components/CookieConsent';
 
 const Home = lazy(() => import('./pages/Home'));
 const Services = lazy(() => import('./pages/Services'));
@@ -17,6 +19,8 @@ const Projects = lazy(() => import('./pages/Projects'));
 const Contractors = lazy(() => import('./pages/Contractors'));
 const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
+const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
+const TermsOfUse = lazy(() => import('./pages/TermsOfUse'));
 const Admin = lazy(() => import('./pages/Admin'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -31,6 +35,8 @@ const routes: RouteConfig[] = [
   { path: '/:lang/contractors', element: <Contractors /> },
   { path: '/:lang/about', element: <About /> },
   { path: '/:lang/contact', element: <Contact /> },
+  { path: '/:lang/privacy', element: <PrivacyPolicy /> },
+  { path: '/:lang/terms', element: <TermsOfUse /> },
 ];
 
 const App: FC = () => (
@@ -39,6 +45,8 @@ const App: FC = () => (
     <BrowserRouter>
       <AdminProvider>
         <LanguageProvider>
+          <AccessibilityWidget />
+          <CookieConsent />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Navigate to={`/${DEFAULT_LANGUAGE}`} replace />} />

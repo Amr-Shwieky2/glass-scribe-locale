@@ -11,43 +11,7 @@ import type { Variants } from 'framer-motion';
 // FALLBACK GALLERY FRAMES
 // =============================================================================
 
-export const FALLBACK_FRAMES = [
-  {
-    id: 1,
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800&q=80',
-    alt: 'Premium glass installation'
-  },
-  {
-    id: 2,
-    image: 'https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=800&q=80',
-    alt: 'Modern shower enclosure'
-  },
-  {
-    id: 3,
-    image: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?w=800&q=80',
-    alt: 'Glass railing with view'
-  },
-  {
-    id: 4,
-    image: 'https://images.unsplash.com/photo-1600566753086-00f18fb6b3ea?w=800&q=80',
-    alt: 'Light through glass'
-  },
-  {
-    id: 5,
-    image: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=800&q=80',
-    alt: 'Modern storefront'
-  },
-  {
-    id: 6,
-    image: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&q=80',
-    alt: 'Office glass partition'
-  },
-  {
-    id: 7,
-    image: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?w=800&q=80',
-    alt: 'Finished installation'
-  },
-];
+export const FALLBACK_FRAMES: { id: number; image: string; alt: string }[] = [];
 
 // =============================================================================
 // TEXT BLOCKS — the narrative

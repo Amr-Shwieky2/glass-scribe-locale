@@ -89,3 +89,111 @@ export async function toggleHeroImage(
     throw new Error(error.message || 'Failed to update hero image');
   }
 }
+
+// =============================================================================
+// HERO POSITION MANAGEMENT (hero-1, hero-2, ..., hero-7)
+// =============================================================================
+
+export async function setHeroPosition(
+  publicId: string,
+  position: number,
+  adminToken: string
+): Promise<void> {
+  if (position < 1 || position > 7) {
+    throw new Error('Hero position must be between 1 and 7');
+  }
+
+  const response = await fetch('/api/cloudinary/tag', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${adminToken}`,
+    },
+    body: JSON.stringify({
+      publicId,
+      tag: `hero-${position}`,
+      action: 'add',
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Failed to set hero position');
+  }
+}
+
+export async function removeHeroPosition(
+  publicId: string,
+  position: number,
+  adminToken: string
+): Promise<void> {
+  const response = await fetch('/api/cloudinary/tag', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${adminToken}`,
+    },
+    body: JSON.stringify({
+      publicId,
+      tag: `hero-${position}`,
+      action: 'remove',
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Failed to remove hero position');
+  }
+}
+
+// =============================================================================
+// SERVICE CARD IMAGE MANAGEMENT (service-card-{serviceId})
+// =============================================================================
+
+export async function setServiceCardImage(
+  publicId: string,
+  serviceId: string,
+  adminToken: string
+): Promise<void> {
+  const response = await fetch('/api/cloudinary/tag', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${adminToken}`,
+    },
+    body: JSON.stringify({
+      publicId,
+      tag: `service-card-${serviceId}`,
+      action: 'add',
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Failed to set service card image');
+  }
+}
+
+export async function removeServiceCardImage(
+  publicId: string,
+  serviceId: string,
+  adminToken: string
+): Promise<void> {
+  const response = await fetch('/api/cloudinary/tag', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${adminToken}`,
+    },
+    body: JSON.stringify({
+      publicId,
+      tag: `service-card-${serviceId}`,
+      action: 'remove',
+    }),
+  });
+
+  if (!response.ok) {
+    const error = await response.json();
+    throw new Error(error.message || 'Failed to remove service card image');
+  }
+}

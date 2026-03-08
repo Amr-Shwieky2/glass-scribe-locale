@@ -19,6 +19,40 @@ const MobileGallery: React.FC<MobileGalleryProps> = ({
   getFrameDelay,
   getTextDelay,
 }) => {
+  // If no frames available, show only text content
+  if (frames.length === 0) {
+    return (
+      <div className="lg:hidden flex flex-col gap-6 py-8">
+        {/* Hero Title - Mobile */}
+        <motion.div
+          className="text-center mb-4"
+          variants={textVariants}
+          initial="hidden"
+          animate={getTextVisibility(0) ? 'visible' : 'hidden'}
+          transition={{ delay: getTextDelay(0) }}
+        >
+          <h1 className="text-3xl sm:text-4xl font-light text-white mb-2">
+            {texts[0].main}
+            <span className="block text-brand-gold font-medium">{texts[0].accent}</span>
+          </h1>
+        </motion.div>
+
+        {/* Brand Statement - Mobile */}
+        <motion.div
+          className="text-center py-6"
+          variants={textVariants}
+          initial="hidden"
+          animate={getTextVisibility(5) ? 'visible' : 'hidden'}
+          transition={{ delay: getTextDelay(5) }}
+        >
+          <p className="text-xl text-white/80 font-light">
+            {texts[5].main} <span className="text-brand-gold font-medium">{texts[5].accent}</span>
+          </p>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
     <div className="lg:hidden flex flex-col gap-6 py-8">
       {/* Hero Title - Mobile */}

@@ -2,6 +2,7 @@ export const CONTACT_INFO = {
   phone: '058-502-2264',
   phoneIntl: '+972585022264',
   email: 'info@shwakiglassworks.com',
+  privacyEmail: 'privacy@shwakiglassworks.com',
   whatsapp: '+972585022264',
   workingHours: {
     en: 'Sunday - Thursday: 8:00 AM - 6:00 PM | Friday: 8:00 AM - 2:00 PM',

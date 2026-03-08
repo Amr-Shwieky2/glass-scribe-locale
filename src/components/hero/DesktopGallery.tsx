@@ -38,6 +38,11 @@ const DesktopGallery: React.FC<DesktopGalleryProps> = ({
   getFrameDelay,
   getTextDelay,
 }) => {
+  // If no frames available, don't render the gallery grid
+  if (frames.length === 0) {
+    return null;
+  }
+
   return (
     <>
       {/* Desktop Layout - Asymmetric Gallery Grid with Continuous Motion */}

@@ -9,9 +9,32 @@ import FooterLinks from './FooterLinks';
 import FooterContact from './FooterContact';
 import { BUSINESS_INFO, FOOTER_CONTENT, getLocalizedText, type SupportedLocale } from '@/data';
 
+// Legal links labels
+const LEGAL_LINKS = {
+  privacy: {
+    he: 'מדיניות פרטיות',
+    en: 'Privacy Policy',
+    ar: 'سياسة الخصوصية',
+    ru: 'Политика конфиденциальности',
+  },
+  terms: {
+    he: 'תנאי שימוש',
+    en: 'Terms of Use',
+    ar: 'شروط الاستخدام',
+    ru: 'Условия использования',
+  },
+  contact: {
+    he: 'צור קשר',
+    en: 'Contact',
+    ar: 'اتصل بنا',
+    ru: 'Контакты',
+  },
+};
+
 const Footer: React.FC = () => {
   const { currentLanguage } = useLanguage();
   const locale = currentLanguage as SupportedLocale;
+  const t = (obj: Record<string, string>) => getLocalizedText(obj, locale);
 
   return (
     <footer className="bg-brand-navy text-white">
@@ -36,7 +59,26 @@ const Footer: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6 py-4 sm:py-6">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3 sm:gap-4 text-center sm:text-left">
             <p className="text-gray-500 text-xs sm:text-sm">{getLocalizedText(FOOTER_CONTENT.copyright, locale)}</p>
-            <div className="flex items-center gap-4 sm:gap-6">
+            <div className="flex items-center gap-4 sm:gap-6 flex-wrap justify-center">
+              {/* Legal Links */}
+              <Link 
+                to={`/${currentLanguage}/privacy`}
+                className="text-gray-400 hover:text-brand-gold transition-colors text-xs sm:text-sm"
+              >
+                {t(LEGAL_LINKS.privacy)}
+              </Link>
+              <Link 
+                to={`/${currentLanguage}/terms`}
+                className="text-gray-400 hover:text-brand-gold transition-colors text-xs sm:text-sm"
+              >
+                {t(LEGAL_LINKS.terms)}
+              </Link>
+              <Link 
+                to={`/${currentLanguage}/contact`}
+                className="text-gray-400 hover:text-brand-gold transition-colors text-xs sm:text-sm"
+              >
+                {t(LEGAL_LINKS.contact)}
+              </Link>
               <span className="text-gray-500 text-xs sm:text-sm">{getLocalizedText(BUSINESS_INFO.serviceArea, locale)}</span>
               <Link to="/admin" className="text-gray-700 hover:text-gray-500 transition-colors" aria-label="Admin" title="Admin">
                 <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

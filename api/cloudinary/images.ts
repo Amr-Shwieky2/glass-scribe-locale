@@ -58,6 +58,8 @@ export default async function handler(
       featured,
       tag,
       all,
+      heroPositions,
+      serviceCards,
       limit = '50',
       cursor,
     } = req.query as Record<string, string>;
@@ -89,6 +91,16 @@ export default async function handler(
       if (tag) {
         expression += ` AND tags=${tag}`;
       }
+    }
+
+    // Fetch images with hero position tags (hero-1, hero-2, ..., hero-7)
+    if (heroPositions === 'true') {
+      expression = `public_id:${BASE_FOLDER}/* AND (tags=hero-1 OR tags=hero-2 OR tags=hero-3 OR tags=hero-4 OR tags=hero-5 OR tags=hero-6 OR tags=hero-7)`;
+    }
+
+    // Fetch images with service-card-* tags
+    if (serviceCards === 'true') {
+      expression = `public_id:${BASE_FOLDER}/* AND tags:service-card-*`;
     }
 
     // Execute search

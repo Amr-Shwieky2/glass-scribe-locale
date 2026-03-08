@@ -11,6 +11,8 @@ import ImageCard from './ImageCard';
 import CategoryPicker from './CategoryPicker';
 import ImagePreviewDialog from './ImagePreviewDialog';
 import DeleteConfirmDialog from './DeleteConfirmDialog';
+import HeroGalleryManager from './HeroGalleryManager';
+import ServiceCardManager from './ServiceCardManager';
 
 const AdminDashboard: FC = () => {
   const { logout } = useAdmin();
@@ -22,6 +24,8 @@ const AdminDashboard: FC = () => {
 
   const [previewImage, setPreviewImage] = useState<CloudinaryImage | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [showHeroManager, setShowHeroManager] = useState(false);
+  const [showServiceCardManager, setShowServiceCardManager] = useState(false);
 
   const onConfirmDelete = async (id: string) => { await handleDelete(id); setDeleteConfirm(null); };
 
@@ -29,6 +33,22 @@ const AdminDashboard: FC = () => {
     <div className="min-h-screen bg-brand-light">
       <AdminHeader onLogout={logout} />
       <main className="container mx-auto px-4 py-8">
+        {/* Home Page Image Managers */}
+        <div className="flex flex-wrap gap-3 mb-6">
+          <Button
+            onClick={() => setShowHeroManager(true)}
+            className="bg-purple-600 hover:bg-purple-700 text-white"
+          >
+            🏠 Manage Hero Gallery (7 Images)
+          </Button>
+          <Button
+            onClick={() => setShowServiceCardManager(true)}
+            className="bg-green-600 hover:bg-green-700 text-white"
+          >
+            🏷️ Manage Service Cards
+          </Button>
+        </div>
+
         <AdminControls selectedCategory={selectedCategory} onCategoryChange={setSelectedCategory} onUpload={handleUpload} />
         <AdminStats images={images} />
         {isLoading ? (
@@ -51,6 +71,8 @@ const AdminDashboard: FC = () => {
       <CategoryPicker open={showUploadPicker} onOpenChange={setShowUploadPicker} onSelect={openUploadWidget} />
       <ImagePreviewDialog image={previewImage} onClose={() => setPreviewImage(null)} />
       <DeleteConfirmDialog publicId={deleteConfirm} onConfirm={onConfirmDelete} onCancel={() => setDeleteConfirm(null)} />
+      <HeroGalleryManager open={showHeroManager} onOpenChange={setShowHeroManager} />
+      <ServiceCardManager open={showServiceCardManager} onOpenChange={setShowServiceCardManager} />
     </div>
   );
 };

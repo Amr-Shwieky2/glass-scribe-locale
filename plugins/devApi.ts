@@ -266,6 +266,93 @@ async function handleTag(req: JsonRequest, res: ServerResponse) {
 }
 
 // =============================================================================
+// POST /api/telegram/send
+// =============================================================================
+
+async function handleTelegramSend(req: JsonRequest, res: ServerResponse) {
+  if (req.method !== 'POST') return json(res, 405, { error: 'Method not allowed' });
+
+  try {
+    const body = req.body || {};
+    const { name, email, phone, service, message, website } = body as {
+      name: string;
+      email: string;
+      phone: string;
+      service?: string;
+      message: string;
+      website?: string;
+    };
+
+    // Honeypot check - if website field is filled, it's a bot
+    if (website && website.length > 0) {
+      console.log('[Dev API] Honeypot triggered - bot detected');
+      return json(res, 200, { success: true, message: 'Message sent successfully' });
+    }
+
+    // Validate required fields
+    if (!name || !email || !phone || !message) {
+      return json(res, 400, { error: 'Missing required fields' });
+    }
+
+    // Basic validation
+    if (name.length < 2) return json(res, 400, { error: 'Name too short' });
+    if (message.length < 10) return json(res, 400, { error: 'Message too short' });
+
+    const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+    const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
+
+    if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+      console.error('[Dev API] Telegram credentials not configured');
+      return json(res, 500, { error: 'Telegram not configured' });
+    }
+
+    // Format message for Telegram
+    const telegramMessage = `
+🔔 *פנייה חדשה מהאתר*
+━━━━━━━━━━━━━━━━━━
+
+👤 *שם:* ${name}
+📧 *אימייל:* ${email}
+📱 *טלפון:* ${phone}
+🛠️ *שירות:* ${service || 'לא צוין'}
+
+💬 *הודעה:*
+${message}
+
+━━━━━━━━━━━━━━━━━━
+🕐 ${new Date().toLocaleString('he-IL', { timeZone: 'Asia/Jerusalem' })}
+    `.trim();
+
+    // Send to Telegram
+    const telegramResponse = await fetch(
+      `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: TELEGRAM_CHAT_ID,
+          text: telegramMessage,
+          parse_mode: 'Markdown',
+        }),
+      }
+    );
+
+    const telegramResult = await telegramResponse.json();
+
+    if (!telegramResponse.ok) {
+      console.error('[Dev API] Telegram error:', telegramResult);
+      return json(res, 500, { error: 'Failed to send message' });
+    }
+
+    console.log('[Dev API] Telegram message sent successfully');
+    json(res, 200, { success: true, message: 'Message sent successfully' });
+  } catch (error) {
+    console.error('[Dev API] Telegram error:', error);
+    json(res, 500, { error: 'Internal server error' });
+  }
+}
+
+// =============================================================================
 // API ROUTER MIDDLEWARE
 // =============================================================================
 
@@ -303,6 +390,7 @@ function apiRouter(req: JsonRequest, res: ServerResponse, next: Connect.NextFunc
   if (url.startsWith('/api/cloudinary/images')) return handle(handleImages);
   if (url.startsWith('/api/cloudinary/delete')) return handle(handleDelete);
   if (url.startsWith('/api/cloudinary/tag'))    return handle(handleTag);
+  if (url.startsWith('/api/telegram/send'))     return handle(handleTelegramSend);
 
   next();
 }

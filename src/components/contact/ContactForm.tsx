@@ -5,8 +5,9 @@ import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Send, Loader2, CheckCircle } from 'lucide-react';
-import { CONTACT_INFO, SERVICES, PAGE_CONTENT, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
+import { Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { SERVICES, PAGE_CONTENT, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
 
 type ContactFormState = {
   name: string;
@@ -14,6 +15,9 @@ type ContactFormState = {
   phone: string;
   service: string;
   message: string;
+  consent: boolean;
+  // Honeypot field for spam protection (should remain empty)
+  website: string;
 };
 
 // Security: Sanitize user input to prevent XSS and injection attacks
@@ -38,12 +42,28 @@ const isValidPhone = (phone: string): boolean => {
   return phoneRegex.test(phone);
 };
 
+// Consent checkbox labels
+const CONSENT_LABELS = {
+  he: 'אני מסכים/ה שהמידע שלי ישמש ליצירת קשר בנוגע לפנייתי.',
+  en: 'I agree that my data will be used to contact me regarding my request.',
+  ar: 'أوافق على استخدام بياناتي للتواصل معي بخصوص طلبي.',
+  ru: 'Я согласен, что мои данные будут использоваться для связи со мной по моему запросу.',
+};
+
+const PRIVACY_LINK_LABELS = {
+  he: 'מדיניות פרטיות',
+  en: 'Privacy Policy',
+  ar: 'سياسة الخصوصية',
+  ru: 'Политика конфиденциальности',
+};
+
 const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
   const content = PAGE_CONTENT.contact;
   const t = (k: Record<string, string>) => getLocalizedText(k, locale);
-  const [form, setForm] = useState<ContactFormState>({ name: '', email: '', phone: '', service: '', message: '' });
+  const [form, setForm] = useState<ContactFormState>({ name: '', email: '', phone: '', service: '', message: '', consent: false, website: '' });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [submitError, setSubmitError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Partial<ContactFormState>>({});
 
   const validateForm = (): boolean => {
@@ -69,9 +89,23 @@ const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    // Honeypot check - if filled, it's a bot
+    if (form.website) {
+      // Silently fail for bots
+      setSubmitted(true);
+      return;
+    }
+    
     if (!validateForm()) return;
     
+    // Check consent
+    if (!form.consent) {
+      setSubmitError(locale === 'he' ? 'יש לאשר את הסכמתך לשימוש במידע' : 'Please accept the consent to proceed');
+      return;
+    }
+    
     setSubmitting(true);
+    setSubmitError(null);
     
     // Sanitize all inputs before sending
     const sanitizedForm = {
@@ -82,10 +116,27 @@ const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
       message: sanitizeInput(form.message),
     };
     
-    const msg = `*New Inquiry from Website*\n---------------------------\n*Name:* ${sanitizedForm.name}\n*Email:* ${sanitizedForm.email}\n*Phone:* ${sanitizedForm.phone}\n*Service:* ${sanitizedForm.service}\n*Message:* ${sanitizedForm.message}`;
-    window.open(`https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(msg)}`, '_blank');
-    setSubmitting(false);
-    setSubmitted(true);
+    try {
+      // Send to Telegram via API
+      const response = await fetch('/api/telegram/send', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(sanitizedForm),
+      });
+      
+      const result = await response.json();
+      
+      if (response.ok && result.success) {
+        setSubmitted(true);
+        setForm({ name: '', email: '', phone: '', service: '', message: '' });
+      } else {
+        setSubmitError(result.error || 'Failed to send message');
+      }
+    } catch {
+      setSubmitError('Network error. Please try again.');
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const up = (key: keyof ContactFormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -122,6 +173,14 @@ const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
   return (
     <Card className="border-0 shadow-xl"><CardContent className="p-4 sm:p-6 md:p-8">
       <h2 className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 text-brand-navy">{t(UI_STRINGS.contactSendMessage)}</h2>
+      
+      {submitError && (
+        <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg flex items-center gap-2 text-red-700">
+          <AlertCircle className="w-5 h-5 flex-shrink-0" />
+          <span className="text-sm">{submitError}</span>
+        </div>
+      )}
+      
       <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
         {field('name', content.form.name)}{field('email', content.form.email, 'email')}{field('phone', content.form.phone, 'tel')}
         <div>
@@ -144,7 +203,44 @@ const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
           />
           {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
         </div>
-        <Button type="submit" size="lg" className="w-full py-4 sm:py-6 text-base sm:text-lg bg-brand-navy hover:bg-brand-navy/90" disabled={submitting}>
+        
+        {/* Honeypot field - hidden from users, catches bots */}
+        <div className="hidden" aria-hidden="true">
+          <Label htmlFor="website">Website (leave empty)</Label>
+          <Input 
+            id="website" 
+            type="text" 
+            value={form.website} 
+            onChange={(e) => setForm({ ...form, website: e.target.value })}
+            tabIndex={-1}
+            autoComplete="off"
+          />
+        </div>
+        
+        {/* Consent Checkbox - Required for Israeli Privacy Law compliance */}
+        <div className="bg-gray-50 rounded-lg p-4">
+          <label className="flex items-start gap-3 cursor-pointer">
+            <input
+              type="checkbox"
+              checked={form.consent}
+              onChange={(e) => setForm({ ...form, consent: e.target.checked })}
+              className="mt-1 w-5 h-5 rounded border-gray-300 text-brand-navy focus:ring-brand-gold"
+              required
+            />
+            <span className="text-sm text-gray-700 leading-relaxed">
+              {CONSENT_LABELS[locale]} {' '}
+              <Link 
+                to={`/${locale}/privacy`} 
+                className="text-brand-gold hover:underline font-medium"
+                target="_blank"
+              >
+                {PRIVACY_LINK_LABELS[locale]}
+              </Link>
+            </span>
+          </label>
+        </div>
+        
+        <Button type="submit" size="lg" className="w-full py-4 sm:py-6 text-base sm:text-lg bg-brand-navy hover:bg-brand-navy/90" disabled={submitting || !form.consent}>
           {submitting ? <><Loader2 className="mr-2 w-4 h-4 sm:w-5 sm:h-5 animate-spin" />{t(content.form.sending)}</> : <><Send className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />{t(content.form.submit)}</>}
         </Button>
       </form>

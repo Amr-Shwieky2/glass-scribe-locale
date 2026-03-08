@@ -11,7 +11,6 @@ export const SERVICES: ServiceData[] = [
   {
     id: 'shower-glass',
     icon: '🚿',
-    image: '/services/shower-glass.jpg',
     title: {
       en: 'Shower Glass',
       he: 'זכוכית למקלחות',
@@ -34,7 +33,6 @@ export const SERVICES: ServiceData[] = [
   {
     id: 'glass-railings',
     icon: '🏗️',
-    image: '/services/glass-railings.jpg',
     title: {
       en: 'Glass Railings',
       he: 'מעקות זכוכית',
@@ -57,7 +55,6 @@ export const SERVICES: ServiceData[] = [
   {
     id: 'mirrors',
     icon: '🪞',
-    image: '/services/mirrors.jpg',
     title: {
       en: 'Mirrors',
       he: 'מראות',
@@ -80,7 +77,6 @@ export const SERVICES: ServiceData[] = [
   {
     id: 'glass-partitions',
     icon: '🏢',
-    image: '/services/glass-partitions.jpg',
     title: {
       en: 'Glass Partitions',
       he: 'מחיצות זכוכית',
@@ -103,7 +99,6 @@ export const SERVICES: ServiceData[] = [
   {
     id: 'storefront-glass',
     icon: '🏪',
-    image: '/services/storefront-glass.jpg',
     title: {
       en: 'Storefront Glass',
       he: 'חזיתות זכוכית',
@@ -126,7 +121,6 @@ export const SERVICES: ServiceData[] = [
   {
     id: 'custom-glass',
     icon: '✨',
-    image: '/services/custom-glass.jpg',
     title: {
       en: 'Custom Glass Works',
       he: 'עבודות זכוכית מותאמות',

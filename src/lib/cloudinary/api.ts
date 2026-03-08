@@ -71,3 +71,33 @@ export async function fetchHeroGalleryImages(): Promise<CloudinaryResponse> {
   }
   return response.json();
 }
+
+/**
+ * Fetch images with hero position tags (hero-1, hero-2, ..., hero-7)
+ */
+export async function fetchHeroPositionImages(): Promise<CloudinaryResponse> {
+  const params = new URLSearchParams();
+  params.set('heroPositions', 'true');
+  params.set('all', 'true');
+
+  const response = await fetch(`/api/cloudinary/images?${params.toString()}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch hero position images: ${response.statusText}`);
+  }
+  return response.json();
+}
+
+/**
+ * Fetch images with service-card-{serviceId} tags
+ */
+export async function fetchServiceCardTagImages(): Promise<CloudinaryResponse> {
+  const params = new URLSearchParams();
+  params.set('serviceCards', 'true');
+  params.set('all', 'true');
+
+  const response = await fetch(`/api/cloudinary/images?${params.toString()}`);
+  if (!response.ok) {
+    throw new Error(`Failed to fetch service card images: ${response.statusText}`);
+  }
+  return response.json();
+}
