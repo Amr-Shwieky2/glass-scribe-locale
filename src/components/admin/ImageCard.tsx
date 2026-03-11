@@ -2,12 +2,14 @@ import { type FC } from 'react';
 import {
   type CloudinaryImage,
   getThumbnailUrl,
-  formatCategoryName,
   getCategoryFromPublicId,
   isFeatured,
+  type ServiceCategory,
 } from '@/lib/cloudinary';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { ADMIN_STRINGS, getAdminText, type AdminLocale } from '@/data/admin-strings';
 
 const isServiceCard = (image: CloudinaryImage) =>
   image.tags?.includes('service-card') ?? false;
@@ -32,6 +34,15 @@ const ImageCard: FC<ImageCardProps> = ({
   onToggleHeroImage,
   onPreview,
 }) => {
+  const { currentLanguage } = useLanguage();
+  const locale = currentLanguage as AdminLocale;
+  const t = (strings: Record<string, string>) => getAdminText(strings, locale);
+  
+  const getCategoryName = (category: ServiceCategory | string): string => {
+    const categoryStrings = ADMIN_STRINGS.categories[category as keyof typeof ADMIN_STRINGS.categories];
+    return categoryStrings ? t(categoryStrings) : category;
+  };
+
   const featured = isFeatured(image);
   const serviceCard = isServiceCard(image);
   const heroGallery = isHeroGallery(image);
@@ -55,17 +66,17 @@ const ImageCard: FC<ImageCardProps> = ({
       <div className="absolute top-2 left-2 flex flex-col gap-1">
         {featured && (
           <Badge className="bg-brand-gold text-brand-navy">
-            ⭐ Featured
+            {t(ADMIN_STRINGS.imageCard.featuredBadge)}
           </Badge>
         )}
         {serviceCard && (
           <Badge className="bg-green-500 text-white">
-            🏷️ Service Card
+            {t(ADMIN_STRINGS.imageCard.serviceCardBadge)}
           </Badge>
         )}
         {heroGallery && (
           <Badge className="bg-purple-500 text-white">
-            🏠 Hero
+            {t(ADMIN_STRINGS.imageCard.heroBadge)}
           </Badge>
         )}
       </div>
@@ -79,7 +90,7 @@ const ImageCard: FC<ImageCardProps> = ({
             className="bg-white/10 border-white text-white hover:bg-white hover:text-brand-navy"
             onClick={() => onPreview(image)}
           >
-            👁️ View
+            {t(ADMIN_STRINGS.imageCard.view)}
           </Button>
           <Button
             size="sm"
@@ -91,7 +102,7 @@ const ImageCard: FC<ImageCardProps> = ({
             }`}
             onClick={() => onToggleFeatured(image.public_id, !featured)}
           >
-            {featured ? '⭐ Unfeat' : '☆ Feature'}
+            {featured ? t(ADMIN_STRINGS.imageCard.unfeature) : t(ADMIN_STRINGS.imageCard.feature)}
           </Button>
         </div>
         <div className="flex gap-2">
@@ -105,7 +116,7 @@ const ImageCard: FC<ImageCardProps> = ({
             }`}
             onClick={() => onToggleServiceCard(image.public_id, !serviceCard)}
           >
-            {serviceCard ? '🏷️ Unset' : '🏷️ Card'}
+            {serviceCard ? t(ADMIN_STRINGS.imageCard.unsetCard) : t(ADMIN_STRINGS.imageCard.setCard)}
           </Button>
           <Button
             size="sm"
@@ -117,7 +128,7 @@ const ImageCard: FC<ImageCardProps> = ({
             }`}
             onClick={() => onToggleHeroImage(image.public_id, !heroGallery)}
           >
-            {heroGallery ? '🏠 Unhero' : '🏠 Hero'}
+            {heroGallery ? t(ADMIN_STRINGS.imageCard.unsetHero) : t(ADMIN_STRINGS.imageCard.setHero)}
           </Button>
         </div>
         <Button
@@ -125,7 +136,7 @@ const ImageCard: FC<ImageCardProps> = ({
           variant="destructive"
           onClick={() => onDelete(image.public_id)}
         >
-          🗑️ Delete
+          {t(ADMIN_STRINGS.imageCard.delete)}
         </Button>
       </div>
 
@@ -133,7 +144,7 @@ const ImageCard: FC<ImageCardProps> = ({
       <div className="p-2 text-xs text-brand-navy/60">
         <div className="flex items-center gap-1 mb-1">
           <span className="inline-block px-1.5 py-0.5 bg-brand-gold/20 text-brand-navy rounded text-[10px] font-medium">
-            {formatCategoryName(getCategoryFromPublicId(image.public_id) || 'hero')}
+            {getCategoryName(getCategoryFromPublicId(image.public_id) || 'hero')}
           </span>
         </div>
         {image.width}×{image.height} • {image.format.toUpperCase()}

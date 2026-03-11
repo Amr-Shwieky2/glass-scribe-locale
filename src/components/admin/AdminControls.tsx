@@ -1,6 +1,8 @@
 import type { FC } from 'react';
-import { SERVICE_CATEGORIES, type ServiceCategory, formatCategoryName } from '@/lib/cloudinary';
+import { SERVICE_CATEGORIES, type ServiceCategory } from '@/lib/cloudinary';
 import { Button } from '@/components/ui/button';
+import { useLanguage } from '@/contexts/LanguageContext';
+import { ADMIN_STRINGS, getAdminText, type AdminLocale } from '@/data/admin-strings';
 
 interface AdminControlsProps {
   selectedCategory: ServiceCategory | 'all';
@@ -13,6 +15,15 @@ const AdminControls: FC<AdminControlsProps> = ({
   onCategoryChange,
   onUpload,
 }) => {
+  const { currentLanguage } = useLanguage();
+  const locale = currentLanguage as AdminLocale;
+  const t = (strings: Record<string, string>) => getAdminText(strings, locale);
+  
+  const getCategoryName = (category: ServiceCategory): string => {
+    const categoryStrings = ADMIN_STRINGS.categories[category as keyof typeof ADMIN_STRINGS.categories];
+    return categoryStrings ? t(categoryStrings) : category;
+  };
+
   return (
     <div className="flex flex-wrap gap-4 mb-8 items-center justify-between">
       {/* Category Filter */}
@@ -27,7 +38,7 @@ const AdminControls: FC<AdminControlsProps> = ({
           }
           onClick={() => onCategoryChange('all')}
         >
-          All Images
+          {t(ADMIN_STRINGS.controls.allImages)}
         </Button>
         {SERVICE_CATEGORIES.map((category) => (
           <Button
@@ -41,7 +52,7 @@ const AdminControls: FC<AdminControlsProps> = ({
             }
             onClick={() => onCategoryChange(category)}
           >
-            {formatCategoryName(category)}
+            {getCategoryName(category)}
           </Button>
         ))}
       </div>
@@ -51,7 +62,7 @@ const AdminControls: FC<AdminControlsProps> = ({
         className="bg-brand-gold hover:bg-brand-gold/90 text-brand-navy"
         onClick={onUpload}
       >
-        📤 Upload to {selectedCategory === 'all' ? '...' : formatCategoryName(selectedCategory)}
+        {t(ADMIN_STRINGS.controls.uploadTo)} {selectedCategory === 'all' ? '...' : getCategoryName(selectedCategory)}
       </Button>
     </div>
   );

@@ -1,9 +1,11 @@
 import { useState, type FC } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import type { CloudinaryImage } from '@/lib/cloudinary';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { useAdminImages } from '@/hooks/useAdminImages';
+import { ADMIN_STRINGS, getAdminText, type AdminLocale } from '@/data/admin-strings';
 import AdminHeader from './AdminHeader';
 import AdminControls from './AdminControls';
 import AdminStats from './AdminStats';
@@ -16,6 +18,10 @@ import ServiceCardManager from './ServiceCardManager';
 
 const AdminDashboard: FC = () => {
   const { logout } = useAdmin();
+  const { currentLanguage } = useLanguage();
+  const locale = currentLanguage as AdminLocale;
+  const t = (strings: Record<string, string>) => getAdminText(strings, locale);
+  
   const {
     images, isLoading, selectedCategory, setSelectedCategory,
     showUploadPicker, setShowUploadPicker,
@@ -39,13 +45,13 @@ const AdminDashboard: FC = () => {
             onClick={() => setShowHeroManager(true)}
             className="bg-purple-600 hover:bg-purple-700 text-white"
           >
-            🏠 Manage Hero Gallery (7 Images)
+            {t(ADMIN_STRINGS.dashboard.manageHeroGallery)}
           </Button>
           <Button
             onClick={() => setShowServiceCardManager(true)}
             className="bg-green-600 hover:bg-green-700 text-white"
           >
-            🏷️ Manage Service Cards
+            {t(ADMIN_STRINGS.dashboard.manageServiceCards)}
           </Button>
         </div>
 
@@ -56,9 +62,9 @@ const AdminDashboard: FC = () => {
         ) : images.length === 0 ? (
           <Card className="text-center py-20"><CardContent>
             <div className="text-6xl mb-4">📷</div>
-            <h3 className="text-xl font-bold text-brand-navy mb-2">No Images Yet</h3>
-            <p className="text-brand-navy/60 mb-6">Upload your first images to get started.</p>
-            <Button className="bg-brand-gold hover:bg-brand-gold/90 text-brand-navy" onClick={handleUpload}>📤 Upload Images</Button>
+            <h3 className="text-xl font-bold text-brand-navy mb-2">{t(ADMIN_STRINGS.dashboard.noImagesYet)}</h3>
+            <p className="text-brand-navy/60 mb-6">{t(ADMIN_STRINGS.dashboard.uploadFirst)}</p>
+            <Button className="bg-brand-gold hover:bg-brand-gold/90 text-brand-navy" onClick={handleUpload}>{t(ADMIN_STRINGS.dashboard.uploadImages)}</Button>
           </CardContent></Card>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">

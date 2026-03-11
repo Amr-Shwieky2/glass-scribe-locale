@@ -1,16 +1,22 @@
 import { useState, type FC } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ADMIN_STRINGS, getAdminText, type AdminLocale } from '@/data/admin-strings';
 
 const LoginForm: FC = () => {
   const { login } = useAdmin();
+  const { currentLanguage } = useLanguage();
+  const locale = currentLanguage as AdminLocale;
   const { toast } = useToast();
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+
+  const t = (strings: Record<string, string>) => getAdminText(strings, locale);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -20,8 +26,8 @@ const LoginForm: FC = () => {
 
     if (!result.success) {
       toast({
-        title: 'Login Failed',
-        description: result.error || 'Invalid password',
+        title: t(ADMIN_STRINGS.login.failed),
+        description: result.error || t(ADMIN_STRINGS.login.invalidPassword),
         variant: 'destructive',
       });
     }
@@ -38,21 +44,21 @@ const LoginForm: FC = () => {
             alt="Shwaki Brothers"
             className="w-20 h-20 mx-auto mb-4"
           />
-          <CardTitle className="text-2xl text-brand-navy">Admin Login</CardTitle>
+          <CardTitle className="text-2xl text-brand-navy">{t(ADMIN_STRINGS.login.title)}</CardTitle>
           <p className="text-brand-navy/60 text-sm mt-2">
-            Shwaki Brothers Glassworks
+            {t(ADMIN_STRINGS.login.subtitle)}
           </p>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
-              <Label htmlFor="password">Password</Label>
+              <Label htmlFor="password">{t(ADMIN_STRINGS.login.password)}</Label>
               <Input
                 id="password"
                 type="password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter admin password"
+                placeholder={t(ADMIN_STRINGS.login.passwordPlaceholder)}
                 required
                 autoComplete="current-password"
               />
@@ -62,7 +68,7 @@ const LoginForm: FC = () => {
               className="w-full bg-brand-gold hover:bg-brand-gold/90 text-brand-navy"
               disabled={isLoading}
             >
-              {isLoading ? 'Logging in...' : 'Login'}
+              {isLoading ? t(ADMIN_STRINGS.login.loggingIn) : t(ADMIN_STRINGS.login.loginButton)}
             </Button>
           </form>
         </CardContent>
