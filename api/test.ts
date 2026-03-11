@@ -29,10 +29,33 @@ export default async function handler(
       cloudinaryError = e instanceof Error ? e.message : String(e);
     }
     
+    // Test 4: Try importing security module
+    let securityOK = false;
+    let securityError = null;
+    try {
+      const security = await import('./lib/security');
+      securityOK = !!security.handleCORS;
+    } catch (e) {
+      securityError = e instanceof Error ? e.message : String(e);
+    }
+    
+    // Test 5: Try crypto
+    let cryptoOK = false;
+    let cryptoError = null;
+    try {
+      const { createHash } = await import('crypto');
+      const hash = createHash('sha256').update('test').digest('hex');
+      cryptoOK = hash.length > 0;
+    } catch (e) {
+      cryptoError = e instanceof Error ? e.message : String(e);
+    }
+    
     return res.status(200).json({
       step1,
       env: { hasCloudName, hasApiKey, hasApiSecret },
       cloudinary: { ok: cloudinaryOK, error: cloudinaryError },
+      security: { ok: securityOK, error: securityError },
+      crypto: { ok: cryptoOK, error: cryptoError },
     });
   } catch (error) {
     return res.status(500).json({
