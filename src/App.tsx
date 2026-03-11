@@ -4,6 +4,7 @@
 
 import { lazy, Suspense, type FC, type ReactNode } from 'react';
 import { Analytics } from '@vercel/analytics/react';
+import { SpeedInsights } from '@vercel/speed-insights/react';
 import { Toaster } from '@/components/ui/toaster';
 import { TooltipProvider } from '@/components/ui/tooltip';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
@@ -57,6 +58,7 @@ const GalleryRedirect: FC = () => {
 const App: FC = () => (
   <TooltipProvider>
     <Analytics />
+    <SpeedInsights />
     <Toaster />
     <BrowserRouter>
       <AdminProvider>

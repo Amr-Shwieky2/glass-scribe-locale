@@ -75,11 +75,16 @@ const PAGE_SEO: Record<string, Record<SupportedLocale, { title: string; descript
   },
 };
 
+// Cloudinary-based OG image - using a hero image with optimal social media dimensions
+// The image is from the hero gallery, cropped to 1200x630 for optimal OG display
+const CLOUDINARY_CLOUD = 'dc1q8upxt';
+const OG_IMAGE = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/c_fill,w_1200,h_630,g_auto,q_auto,f_jpg/shwaki-glassworks/hero/1`;
+
 const SEOHead: React.FC<SEOProps> = ({
   title,
   description,
   keywords,
-  image = `${BASE_URL}/og-image.jpg`,
+  image = OG_IMAGE,
   type = 'website',
   noindex = false,
 }) => {
