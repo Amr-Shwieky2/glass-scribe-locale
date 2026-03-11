@@ -18,13 +18,64 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { timingSafeEqual, createHash } from 'crypto';
-import {
-  handleCORS,
-  addSecurityHeaders,
-  getClientIP,
-  logSecurityEvent,
-  sanitizeString,
-} from '../security';
+
+// =============================================================================
+// INLINE SECURITY UTILITIES (for Vercel bundling)
+// =============================================================================
+
+const ALLOWED_ORIGINS = [
+  'https://shwakiglassworks.com',
+  'https://www.shwakiglassworks.com',
+  process.env.NODE_ENV === 'development' ? 'http://localhost:5173' : '',
+  process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : '',
+].filter(Boolean);
+
+function handleCORS(req: VercelRequest, res: VercelResponse): boolean {
+  const origin = req.headers.origin;
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.setHeader('Access-Control-Max-Age', '86400');
+  res.setHeader('Vary', 'Origin');
+  if (req.method === 'OPTIONS') { res.status(204).end(); return false; }
+  return true;
+}
+
+function addSecurityHeaders(res: VercelResponse): void {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+}
+
+function getClientIP(req: VercelRequest): string {
+  const forwarded = req.headers['x-forwarded-for'];
+  if (typeof forwarded === 'string') return forwarded.split(',')[0].trim();
+  return (req.headers['x-real-ip'] as string) || 'unknown';
+}
+
+function sanitizeString(input: unknown, maxLength = 1000): string {
+  if (typeof input !== 'string') return '';
+  if (input.length > maxLength * 2) return '';
+  // eslint-disable-next-line no-control-regex
+  const controlCharRegex = /[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g;
+  return input
+    .replace(/<[^>]*>/g, '')
+    .replace(/javascript:/gi, '')
+    .replace(/data:/gi, '')
+    .replace(/vbscript:/gi, '')
+    .replace(/on\w+\s*=/gi, '')
+    .replace(/expression\s*\(/gi, '')
+    .replace(controlCharRegex, '')
+    .replace(/[\u200B-\u200F\u2028-\u202F]/g, '')
+    .trim()
+    .slice(0, maxLength);
+}
 
 // =============================================================================
 // CONFIGURATION
@@ -181,10 +232,12 @@ export default async function handler(
   res.setHeader('X-RateLimit-Reset', Math.ceil(rateLimit.resetIn / 1000).toString());
 
   if (!rateLimit.allowed) {
-    logSecurityEvent('rate_limit', clientIP, { 
+    console.log(JSON.stringify({ 
+      event: 'rate_limit', 
+      ip: clientIP.slice(0, 16),
       endpoint: 'auth/login',
       lockedOut: rateLimit.lockedOut,
-    });
+    }));
     
     const minutes = Math.ceil(rateLimit.resetIn / 60000);
     return res.status(429).json({
@@ -206,14 +259,14 @@ export default async function handler(
     // Validate password exists and is a string
     if (!password || typeof password !== 'string') {
       recordAttempt(clientIP);
-      logSecurityEvent('auth_attempt', clientIP, { result: 'missing_password' });
+      console.log(JSON.stringify({ event: 'auth_attempt', ip: clientIP.slice(0, 16), result: 'missing_password' }));
       return res.status(400).json({ error: 'Password is required' });
     }
 
     // Limit password length to prevent DoS (long input = expensive hash)
     if (password.length > 128) {
       recordAttempt(clientIP);
-      logSecurityEvent('auth_attempt', clientIP, { result: 'password_too_long' });
+      console.log(JSON.stringify({ event: 'auth_attempt', ip: clientIP.slice(0, 16), result: 'password_too_long' }));
       return res.status(400).json({ error: 'Invalid password' });
     }
 
@@ -223,7 +276,7 @@ export default async function handler(
     // Timing-safe password comparison
     if (!verifyPassword(sanitizedPassword, ADMIN_PASSWORD)) {
       recordAttempt(clientIP);
-      logSecurityEvent('auth_failure', clientIP, { endpoint: 'auth/login' });
+      console.log(JSON.stringify({ event: 'auth_failure', ip: clientIP.slice(0, 16), endpoint: 'auth/login' }));
       
       // Generic error message (don't reveal if account exists)
       return res.status(401).json({ error: 'Invalid credentials' });
@@ -231,7 +284,7 @@ export default async function handler(
 
     // Success - clear rate limit
     clearRateLimit(clientIP);
-    logSecurityEvent('auth_success', clientIP, { endpoint: 'auth/login' });
+    console.log(JSON.stringify({ event: 'auth_success', ip: clientIP.slice(0, 16), endpoint: 'auth/login' }));
 
     // Return the admin token
     return res.status(200).json({
