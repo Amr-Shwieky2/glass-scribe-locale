@@ -13,16 +13,100 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { v2 as cloudinary } from 'cloudinary';
-import {
-  handleCORS,
-  addSecurityHeaders,
-  getClientIP,
-  logSecurityEvent,
-  checkRateLimit,
-  addRateLimitHeaders,
-  RATE_LIMITS,
-  sanitizeString,
-} from '../security';
+
+// =============================================================================
+// INLINE SECURITY UTILITIES (for Vercel bundling)
+// =============================================================================
+
+const RATE_LIMITS = {
+  api: { window: 60 * 1000, max: 30 },
+} as const;
+
+const ALLOWED_ORIGINS = [
+  'https://shwakiglassworks.com',
+  'https://www.shwakiglassworks.com',
+  process.env.NODE_ENV === 'development' ? 'http://localhost:5173' : '',
+  process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : '',
+].filter(Boolean);
+
+function handleCORS(req: VercelRequest, res: VercelResponse): boolean {
+  const origin = req.headers.origin;
+  if (origin && ALLOWED_ORIGINS.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
+  }
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  res.setHeader('Access-Control-Max-Age', '86400');
+  res.setHeader('Vary', 'Origin');
+  if (req.method === 'OPTIONS') {
+    res.status(204).end();
+    return false;
+  }
+  return true;
+}
+
+function addSecurityHeaders(res: VercelResponse): void {
+  res.setHeader('X-Content-Type-Options', 'nosniff');
+  res.setHeader('X-Frame-Options', 'DENY');
+  res.setHeader('X-XSS-Protection', '1; mode=block');
+  res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+}
+
+function getClientIP(req: VercelRequest): string {
+  const forwarded = req.headers['x-forwarded-for'];
+  if (typeof forwarded === 'string') return forwarded.split(',')[0].trim();
+  return (req.headers['x-real-ip'] as string) || 'unknown';
+}
+
+function sanitizeString(input: unknown, maxLength = 1000): string {
+  if (typeof input !== 'string') return '';
+  if (input.length > maxLength * 2) return '';
+  // eslint-disable-next-line no-control-regex
+  const controlCharRegex = /[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g;
+  return input
+    .replace(/<[^>]*>/g, '')
+    .replace(/javascript:/gi, '')
+    .replace(/data:/gi, '')
+    .replace(/vbscript:/gi, '')
+    .replace(/on\w+\s*=/gi, '')
+    .replace(/expression\s*\(/gi, '')
+    .replace(controlCharRegex, '')
+    .replace(/[\u200B-\u200F\u2028-\u202F]/g, '')
+    .trim()
+    .slice(0, maxLength);
+}
+
+const rateLimitStore = new Map<string, { count: number; resetTime: number }>();
+
+function checkRateLimit(ip: string, type: keyof typeof RATE_LIMITS = 'api'): { allowed: boolean; remaining: number; resetIn: number } {
+  const config = RATE_LIMITS[type];
+  const key = `${type}:${ip}`;
+  const now = Date.now();
+  if (Math.random() < 0.1) {
+    for (const [k, v] of rateLimitStore.entries()) {
+      if (now > v.resetTime) rateLimitStore.delete(k);
+    }
+  }
+  const record = rateLimitStore.get(key);
+  if (!record || now > record.resetTime) {
+    rateLimitStore.set(key, { count: 1, resetTime: now + config.window });
+    return { allowed: true, remaining: config.max - 1, resetIn: config.window };
+  }
+  if (record.count >= config.max) {
+    return { allowed: false, remaining: 0, resetIn: record.resetTime - now };
+  }
+  record.count++;
+  return { allowed: true, remaining: config.max - record.count, resetIn: record.resetTime - now };
+}
+
+function addRateLimitHeaders(res: VercelResponse, limit: { remaining: number; resetIn: number }, max: number): void {
+  res.setHeader('X-RateLimit-Limit', max.toString());
+  res.setHeader('X-RateLimit-Remaining', Math.max(0, limit.remaining).toString());
+  res.setHeader('X-RateLimit-Reset', Math.ceil(limit.resetIn / 1000).toString());
+}
 
 // =============================================================================
 // CONFIGURATION
@@ -82,7 +166,7 @@ export default async function handler(
   addRateLimitHeaders(res, rateLimit, RATE_LIMITS.api.max);
   
   if (!rateLimit.allowed) {
-    logSecurityEvent('rate_limit', clientIP, { endpoint: 'cloudinary/images' });
+    console.log(JSON.stringify({ event: 'rate_limit', ip: clientIP.slice(0, 16), endpoint: 'cloudinary/images' }));
     return res.status(429).json({ error: 'Too many requests' });
   }
 
