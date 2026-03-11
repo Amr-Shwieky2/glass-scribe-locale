@@ -67,8 +67,8 @@ src/
 
 ## 📞 Contact
 
-- **Phone:** 050-966-6604
-- **WhatsApp:** +972509666604
+- **Phone:** 058-502-2264
+- **WhatsApp:** +972585022264
 - **Location:** Israel (serving all areas)
 
 ## 📄 License
