@@ -85,7 +85,7 @@ const AdminHeader: FC<AdminHeaderProps> = ({ onLogout }) => {
           <Button
             variant="outline"
             size="sm"
-            className="border-white/30 text-white hover:bg-white/10"
+            className="border-red-400 text-red-400 hover:bg-red-500 hover:text-white hover:border-red-500"
             onClick={onLogout}
           >
             {t(ADMIN_STRINGS.header.logout)}
