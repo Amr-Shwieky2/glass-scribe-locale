@@ -33,7 +33,7 @@ export default async function handler(
     let securityOK = false;
     let securityError = null;
     try {
-      const security = await import('./lib/security');
+      const security = await import('./security');
       securityOK = !!security.handleCORS;
     } catch (e) {
       securityError = e instanceof Error ? e.message : String(e);

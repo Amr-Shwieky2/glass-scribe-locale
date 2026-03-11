@@ -15,34 +15,13 @@
     }
   ],
   "functions": {
-    "api/cloudinary/images.ts": {
-      "maxDuration": 10,
-      "includeFiles": "api/lib/security.ts"
-    },
-    "api/cloudinary/delete.ts": {
-      "maxDuration": 10,
-      "includeFiles": "api/lib/security.ts"
-    },
-    "api/cloudinary/tag.ts": {
-      "maxDuration": 10,
-      "includeFiles": "api/lib/security.ts"
-    },
-    "api/auth/login.ts": {
-      "maxDuration": 10,
-      "includeFiles": "api/lib/security.ts"
-    },
-    "api/telegram/send.ts": {
-      "maxDuration": 10,
-      "includeFiles": "api/lib/security.ts"
-    },
-    "api/csrf/token.ts": {
-      "maxDuration": 10,
-      "includeFiles": "api/lib/security.ts"
-    },
-    "api/test.ts": {
-      "maxDuration": 10,
-      "includeFiles": "api/lib/security.ts"
-    }
+    "api/cloudinary/images.ts": { "maxDuration": 10 },
+    "api/cloudinary/delete.ts": { "maxDuration": 10 },
+    "api/cloudinary/tag.ts": { "maxDuration": 10 },
+    "api/auth/login.ts": { "maxDuration": 10 },
+    "api/telegram/send.ts": { "maxDuration": 10 },
+    "api/csrf/token.ts": { "maxDuration": 10 },
+    "api/test.ts": { "maxDuration": 10 }
   },
   "headers": [
     {

@@ -24,7 +24,7 @@ import {
   getClientIP,
   logSecurityEvent,
   sanitizeString,
-} from '../lib/security';
+} from '../security';
 
 // =============================================================================
 // CONFIGURATION

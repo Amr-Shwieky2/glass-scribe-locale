@@ -22,7 +22,7 @@ import {
   addRateLimitHeaders,
   RATE_LIMITS,
   sanitizeString,
-} from '../lib/security';
+} from '../security';
 
 // =============================================================================
 // CONFIGURATION

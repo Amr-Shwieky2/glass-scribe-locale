@@ -14,7 +14,7 @@ import {
   generateCSRFToken,
   getCSRFCookieOptions,
   RATE_LIMITS,
-} from '../lib/security';
+} from '../security';
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   // Add security headers

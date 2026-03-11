@@ -18,7 +18,7 @@ import {
   isValidPhone,
   detectSuspiciousInput,
   validateCSRFToken,
-} from '../lib/security';
+} from '../security';
 
 // =============================================================================
 // CONFIGURATION

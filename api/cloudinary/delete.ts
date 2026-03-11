@@ -23,7 +23,7 @@ import {
   addRateLimitHeaders,
   RATE_LIMITS,
   detectSuspiciousInput,
-} from '../lib/security';
+} from '../security';
 
 // =============================================================================
 // CONFIGURATION
