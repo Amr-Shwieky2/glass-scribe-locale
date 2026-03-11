@@ -13,6 +13,8 @@ import { CONTACT_INFO, UI_STRINGS, SERVICES, getLocalizedText, type SupportedLoc
 import SEOHead from '@/components/SEOHead';
 import AnimatedPageHeader from '@/components/AnimatedPageHeader';
 import GoogleReviews from '@/components/home/GoogleReviews';
+import LocationJsonLd from '@/components/LocationJsonLd';
+import Breadcrumbs from '@/components/Breadcrumbs';
 
 // Location data with comprehensive content
 const LOCATIONS = {
@@ -50,6 +52,12 @@ const LOCATIONS = {
       en: 'glass installation Jerusalem, glazier Jerusalem, shower glass Jerusalem, glass railings Jerusalem, mirror installation Jerusalem',
       he: 'התקנת זכוכית ירושלים, זגג ירושלים, מקלחונים ירושלים, מעקות זכוכית ירושלים, התקנת מראות ירושלים',
     },
+    seoMetaDescription: {
+      en: 'Glass installation services in Jerusalem - shower enclosures, glass railings, mirrors. Serving Ein Kerem, Talpiot, German Colony. Free measurement. Call now!',
+      he: 'שירותי התקנת זכוכית בירושלים - מקלחונים, מעקות זכוכית, מראות. עין כרם, תלפיות, המושבה הגרמנית. מדידה חינם. התקשרו עכשיו!',
+      ar: 'خدمات تركيب الزجاج في القدس - حواجز الدش، الدرابزين الزجاجي، المرايا. قياسات مجانية. اتصل الآن!',
+      ru: 'Услуги по установке стекла в Иерусалиме - душевые кабины, стеклянные ограждения, зеркала. Бесплатные замеры. Звоните!',
+    },
   },
   'tel-aviv': {
     slug: 'tel-aviv',
@@ -84,6 +92,12 @@ const LOCATIONS = {
     seoKeywords: {
       en: 'glass installation Tel Aviv, glazier Tel Aviv, shower glass Tel Aviv, glass railings Tel Aviv, frameless shower Tel Aviv',
       he: 'התקנת זכוכית תל אביב, זגג תל אביב, מקלחונים תל אביב, מעקות זכוכית תל אביב, מקלחון ללא מסגרת תל אביב',
+    },
+    seoMetaDescription: {
+      en: 'Glass installation services in Tel Aviv - frameless showers, glass railings, mirrors. Serving Florentin, Neve Tzedek, Ramat Aviv. Free measurement. Call now!',
+      he: 'שירותי התקנת זכוכית בתל אביב - מקלחונים ללא מסגרת, מעקות זכוכית, מראות. פלורנטין, נווה צדק, רמת אביב. מדידה חינם!',
+      ar: 'خدمات تركيب الزجاج في تل أبيب - دش بدون إطار، درابزين زجاجي، مرايا. قياسات مجانية. اتصل الآن!',
+      ru: 'Установка стекла в Тель-Авиве - безрамные душевые, стеклянные ограждения, зеркала. Бесплатные замеры. Звоните!',
     },
   },
   haifa: {
@@ -120,6 +134,12 @@ const LOCATIONS = {
       en: 'glass installation Haifa, glazier Haifa, shower glass Haifa, glass railings Haifa, coastal glass installation',
       he: 'התקנת זכוכית חיפה, זגג חיפה, מקלחונים חיפה, מעקות זכוכית חיפה',
     },
+    seoMetaDescription: {
+      en: 'Glass installation services in Haifa - sea-resistant showers, glass railings, mirrors. Serving Carmel, Hadar, Krayot. Free measurement. Call now!',
+      he: 'שירותי התקנת זכוכית בחיפה - מקלחונים עמידים בים, מעקות זכוכית, מראות. הכרמל, הדר, קריות. מדידה חינם!',
+      ar: 'خدمات تركيب الزجاج في حيفا - دش مقاوم للملح، درابزين زجاجي، مرايا. قياسات مجانية. اتصل الآن!',
+      ru: 'Установка стекла в Хайфе - морестойкие душевые, стеклянные ограждения, зеркала. Бесплатные замеры. Звоните!',
+    },
   },
   'beer-sheva': {
     slug: 'beer-sheva',
@@ -154,6 +174,12 @@ const LOCATIONS = {
     seoKeywords: {
       en: 'glass installation Beer Sheva, glazier Beer Sheva, shower glass Beer Sheva, glass railings Negev',
       he: 'התקנת זכוכית באר שבע, זגג באר שבע, מקלחונים באר שבע, מעקות זכוכית נגב',
+    },
+    seoMetaDescription: {
+      en: 'Glass installation services in Beer Sheva - heat-resistant showers, glass railings, mirrors. Serving Omer, Meitar, Dimona. Free measurement. Call now!',
+      he: 'שירותי התקנת זכוכית בבאר שבע - מקלחונים עמידים בחום, מעקות זכוכית, מראות. עומר, מיתר, דימונה. מדידה חינם!',
+      ar: 'خدمات تركيب الزجاج في بئر السبع - دش مقاوم للحرارة، درابزين زجاجي، مرايا. قياسات مجانية. اتصل الآن!',
+      ru: 'Установка стекла в Беэр-Шеве - термостойкие душевые, стеклянные ограждения, зеркала. Бесплатные замеры. Звоните!',
     },
   },
 };
@@ -295,8 +321,14 @@ const LocationPage: React.FC = () => {
     <>
       <SEOHead 
         title={`${getLocalizedText(locationData.heroTitle, locale)} | ${locale === 'he' ? 'אחים שוואקי זכוכית' : 'Shwaki Brothers'}`}
-        description={getLocalizedText(locationData.heroSubtitle, locale)}
+        description={getLocalizedText(locationData.seoMetaDescription, locale)}
         keywords={locationData.seoKeywords[locale === 'he' || locale === 'ar' ? 'he' : 'en']}
+      />
+      
+      {/* Location-specific JSON-LD Schema */}
+      <LocationJsonLd 
+        city={locationSlug as string} 
+        cityName={getLocalizedText(locationData.name, locale)} 
       />
 
       {/* Hero Section */}
@@ -312,6 +344,15 @@ const LocationPage: React.FC = () => {
       </AnimatedPageHeader>
 
       <div className="min-h-screen bg-white">
+        {/* Breadcrumbs */}
+        <div className="container mx-auto px-4 sm:px-6">
+          <Breadcrumbs 
+            items={[
+              { label: getLocalizedText(locationData.name, locale) }
+            ]}
+          />
+        </div>
+
         {/* Stats Bar */}
         <section className="bg-brand-navy py-6">
           <div className="container mx-auto px-4 sm:px-6">

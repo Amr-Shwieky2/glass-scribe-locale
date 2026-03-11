@@ -95,6 +95,55 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  
+  <!-- HEBREW LOCATION PAGES -->
+  <url>
+    <loc>https://shwakiglassworks.com/he/jerusalem</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shwakiglassworks.com/he/jerusalem"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://shwakiglassworks.com/he/tel-aviv</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shwakiglassworks.com/he/tel-aviv"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://shwakiglassworks.com/he/haifa</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/haifa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/haifa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shwakiglassworks.com/he/haifa"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://shwakiglassworks.com/he/beer-sheva</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://shwakiglassworks.com/he/beer-sheva"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
   <!-- =================================================================== -->
   <!-- ENGLISH PAGES -->
@@ -186,6 +235,51 @@
     <lastmod>2026-03-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  
+  <!-- ENGLISH LOCATION PAGES -->
+  <url>
+    <loc>https://shwakiglassworks.com/en/jerusalem</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/jerusalem"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://shwakiglassworks.com/en/tel-aviv</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/tel-aviv"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://shwakiglassworks.com/en/haifa</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/haifa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/haifa"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://shwakiglassworks.com/en/beer-sheva</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/beer-sheva"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
   <!-- =================================================================== -->
@@ -279,6 +373,51 @@
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
+  
+  <!-- ARABIC LOCATION PAGES -->
+  <url>
+    <loc>https://shwakiglassworks.com/ar/jerusalem</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/jerusalem"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://shwakiglassworks.com/ar/tel-aviv</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/tel-aviv"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://shwakiglassworks.com/ar/haifa</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/haifa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/haifa"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://shwakiglassworks.com/ar/beer-sheva</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/beer-sheva"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
 
   <!-- =================================================================== -->
   <!-- RUSSIAN PAGES -->
@@ -370,6 +509,51 @@
     <lastmod>2026-03-08</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
+  </url>
+  
+  <!-- RUSSIAN LOCATION PAGES -->
+  <url>
+    <loc>https://shwakiglassworks.com/ru/jerusalem</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/jerusalem"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://shwakiglassworks.com/ru/tel-aviv</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/tel-aviv"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://shwakiglassworks.com/ru/haifa</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/haifa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/haifa"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  
+  <url>
+    <loc>https://shwakiglassworks.com/ru/beer-sheva</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://shwakiglassworks.com/he/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://shwakiglassworks.com/en/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://shwakiglassworks.com/ar/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://shwakiglassworks.com/ru/beer-sheva"/>
+    <lastmod>2026-03-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
 </urlset>
