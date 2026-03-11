@@ -12,6 +12,7 @@ import Layout from './components/layout/Layout';
 import PageLoader from './components/PageLoader';
 import AccessibilityWidget from './components/accessibility/AccessibilityWidget';
 import CookieConsent from './components/CookieConsent';
+import JsonLdSchema from './components/JsonLdSchema';
 
 const Home = lazy(() => import('./pages/Home'));
 const Services = lazy(() => import('./pages/Services'));
@@ -21,6 +22,7 @@ const About = lazy(() => import('./pages/About'));
 const Contact = lazy(() => import('./pages/Contact'));
 const PrivacyPolicy = lazy(() => import('./pages/PrivacyPolicy'));
 const TermsOfUse = lazy(() => import('./pages/TermsOfUse'));
+const LocationPage = lazy(() => import('./pages/LocationPage'));
 const Admin = lazy(() => import('./pages/Admin'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -37,6 +39,12 @@ const routes: RouteConfig[] = [
   { path: '/:lang/contact', element: <Contact /> },
   { path: '/:lang/privacy', element: <PrivacyPolicy /> },
   { path: '/:lang/terms', element: <TermsOfUse /> },
+  // Location-specific landing pages for local SEO
+  { path: '/:lang/location/:location', element: <LocationPage /> },
+  { path: '/:lang/jerusalem', element: <LocationPage /> },
+  { path: '/:lang/tel-aviv', element: <LocationPage /> },
+  { path: '/:lang/haifa', element: <LocationPage /> },
+  { path: '/:lang/beer-sheva', element: <LocationPage /> },
 ];
 
 const App: FC = () => (
@@ -47,6 +55,7 @@ const App: FC = () => (
         <LanguageProvider>
           <AccessibilityWidget />
           <CookieConsent />
+          <JsonLdSchema />
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Navigate to={`/${DEFAULT_LANGUAGE}`} replace />} />

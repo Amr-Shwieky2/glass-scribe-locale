@@ -50,6 +50,18 @@
         {
           "key": "X-Download-Options",
           "value": "noopen"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'none'; connect-src 'self' https://api.telegram.org https://api.cloudinary.com; frame-ancestors 'none'; base-uri 'self'; form-action 'self'"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=31536000; includeSubDomains; preload"
+        },
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
         }
       ]
     },

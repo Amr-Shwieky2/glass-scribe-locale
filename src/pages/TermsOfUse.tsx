@@ -7,7 +7,7 @@ import React from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Link } from 'react-router-dom';
 import { FileText, Copyright, Shield, AlertTriangle, ArrowLeft, ArrowRight } from 'lucide-react';
-import { BUSINESS_INFO, getLocalizedText, type SupportedLocale } from '@/data';
+import { BUSINESS_INFO, CONTACT_INFO, getLocalizedText, type SupportedLocale } from '@/data';
 
 const TERMS_CONTENT = {
   title: {
@@ -264,11 +264,11 @@ const TermsOfUse: React.FC = () => {
           <div className="space-y-2">
             <p className="flex items-center gap-2">
               <span className="text-brand-gold">📧</span>
-              <a href={`mailto:${BUSINESS_INFO.email}`} className="hover:text-brand-gold transition-colors">{BUSINESS_INFO.email}</a>
+              <a href={`mailto:${CONTACT_INFO.email}`} className="hover:text-brand-gold transition-colors">{CONTACT_INFO.email}</a>
             </p>
             <p className="flex items-center gap-2">
               <span className="text-brand-gold">📱</span>
-              <a href={`tel:${BUSINESS_INFO.phone}`} className="hover:text-brand-gold transition-colors">{BUSINESS_INFO.phone}</a>
+              <a href={`tel:${CONTACT_INFO.phoneIntl}`} className="hover:text-brand-gold transition-colors">{CONTACT_INFO.phone}</a>
             </p>
           </div>
         </div>

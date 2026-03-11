@@ -22,12 +22,14 @@ export const RATE_LIMITS = {
 } as const;
 
 /** Suspicious patterns for detection */
+/* eslint-disable no-control-regex */
 const SUSPICIOUS_PATTERNS = [
   /(<script|<\/script|javascript:|data:|vbscript:)/gi,
   /(\$\{|\{\{|<%|%>|<\?)/gi,  // Template injection
   /(union\s+select|drop\s+table|delete\s+from|insert\s+into)/gi,  // SQL injection
-  /(\.\.[\/\\]|\x00)/gi,  // Path traversal & null bytes
+  /(\.\.[\\/]|\x00)/gi,  // Path traversal & null bytes
 ];
+/* eslint-enable no-control-regex */
 
 // =============================================================================
 // INPUT SANITIZATION
@@ -409,4 +411,93 @@ export function isValidPhone(phone: string): boolean {
   if (typeof phone !== 'string') return false;
   const phoneRegex = /^[\d\s\-+()]{7,20}$/;
   return phoneRegex.test(phone);
+}
+
+// =============================================================================
+// CSRF PROTECTION (Double-Submit Cookie Pattern)
+// =============================================================================
+
+/** CSRF token store (in production, use Redis or similar) */
+const csrfTokenStore = new Map<string, { token: string; expires: number }>();
+
+/** CSRF token validity duration (30 minutes) */
+const CSRF_TOKEN_VALIDITY = 30 * 60 * 1000;
+
+/**
+ * Generate a new CSRF token for a client
+ * @param sessionId - Session identifier (can be IP-based for stateless)
+ * @returns Generated CSRF token
+ */
+export function generateCSRFToken(sessionId: string): string {
+  const token = generateSecureToken(32);
+  const expires = Date.now() + CSRF_TOKEN_VALIDITY;
+  
+  csrfTokenStore.set(sessionId, { token, expires });
+  
+  // Cleanup expired tokens periodically
+  if (Math.random() < 0.1) {
+    const now = Date.now();
+    for (const [key, value] of csrfTokenStore.entries()) {
+      if (now > value.expires) csrfTokenStore.delete(key);
+    }
+  }
+  
+  return token;
+}
+
+/**
+ * Validate CSRF token using timing-safe comparison
+ * @param sessionId - Session identifier
+ * @param providedToken - Token provided by client
+ * @returns true if token is valid
+ */
+export function validateCSRFToken(sessionId: string, providedToken: string): boolean {
+  if (!providedToken || typeof providedToken !== 'string') return false;
+  
+  const stored = csrfTokenStore.get(sessionId);
+  if (!stored) return false;
+  
+  // Check if expired
+  if (Date.now() > stored.expires) {
+    csrfTokenStore.delete(sessionId);
+    return false;
+  }
+  
+  // Timing-safe comparison
+  const isValid = secureCompare(providedToken, stored.token);
+  
+  // Invalidate token after use (one-time use)
+  if (isValid) {
+    csrfTokenStore.delete(sessionId);
+  }
+  
+  return isValid;
+}
+
+/**
+ * Get CSRF cookie settings for secure cookie
+ */
+export function getCSRFCookieOptions(): string {
+  const isProduction = process.env.NODE_ENV === 'production';
+  return [
+    'Path=/',
+    `Max-Age=${CSRF_TOKEN_VALIDITY / 1000}`,
+    isProduction ? 'Secure' : '',
+    'HttpOnly',
+    'SameSite=Strict',
+  ].filter(Boolean).join('; ');
+}
+
+/**
+ * Set secure session cookie options
+ */
+export function getSecureSessionCookieOptions(maxAge: number = 24 * 60 * 60): string {
+  const isProduction = process.env.NODE_ENV === 'production';
+  return [
+    'Path=/',
+    `Max-Age=${maxAge}`,
+    isProduction ? 'Secure' : '',
+    'HttpOnly',
+    'SameSite=Strict',
+  ].filter(Boolean).join('; ');
 }

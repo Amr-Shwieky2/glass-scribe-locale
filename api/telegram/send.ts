@@ -1,7 +1,7 @@
 /**
  * Telegram Bot API - Send Message Endpoint
  * Receives contact form submissions and sends to Telegram bot
- * HIGH SECURITY: Rate limiting, input validation, honeypot, suspicious pattern detection
+ * HIGH SECURITY: Rate limiting, input validation, honeypot, CSRF, suspicious pattern detection
  */
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
@@ -17,6 +17,7 @@ import {
   isValidEmail,
   isValidPhone,
   detectSuspiciousInput,
+  validateCSRFToken,
 } from '../lib/security';
 
 // =============================================================================
@@ -68,7 +69,16 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
   }
 
   try {
-    const { name, email, phone, service, message, website } = req.body;
+    const { name, email, phone, service, message, website, csrfToken } = req.body;
+
+    // CSRF Token Validation
+    const userAgent = req.headers['user-agent'] || '';
+    const sessionId = `${clientIP}:${userAgent.slice(0, 50)}`;
+    
+    if (!csrfToken || !validateCSRFToken(sessionId, csrfToken)) {
+      logSecurityEvent('blocked', clientIP, { reason: 'csrf_invalid', endpoint: 'telegram/send' });
+      return res.status(403).json({ error: 'Security validation failed. Please refresh and try again.' });
+    }
 
     // Honeypot check - if website field is filled, it's a bot
     if (website && website.length > 0) {

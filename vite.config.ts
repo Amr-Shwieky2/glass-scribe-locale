@@ -16,6 +16,9 @@ export default defineConfig(({ mode }) => ({
       'Referrer-Policy': 'strict-origin-when-cross-origin',
     },
   },
+  // SECURITY: Only expose VITE_ prefixed env variables to client
+  // This prevents secrets like TELEGRAM_BOT_TOKEN, ADMIN_PASSWORD from leaking
+  envPrefix: 'VITE_',
   plugins: [
     react(),
     // Local API routes during development (login, images, delete, tag)

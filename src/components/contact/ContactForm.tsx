@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -18,6 +18,8 @@ type ContactFormState = {
   consent: boolean;
   // Honeypot field for spam protection (should remain empty)
   website: string;
+  // CSRF token for security
+  csrfToken: string;
 };
 
 // Security: Sanitize user input to prevent XSS and injection attacks
@@ -60,11 +62,28 @@ const PRIVACY_LINK_LABELS = {
 const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
   const content = PAGE_CONTENT.contact;
   const t = (k: Record<string, string>) => getLocalizedText(k, locale);
-  const [form, setForm] = useState<ContactFormState>({ name: '', email: '', phone: '', service: '', message: '', consent: false, website: '' });
+  const [form, setForm] = useState<ContactFormState>({ name: '', email: '', phone: '', service: '', message: '', consent: false, website: '', csrfToken: '' });
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [errors, setErrors] = useState<Partial<ContactFormState>>({});
+
+  // Fetch CSRF token on component mount
+  const fetchCSRFToken = useCallback(async () => {
+    try {
+      const response = await fetch('/api/csrf/token');
+      if (response.ok) {
+        const data = await response.json();
+        setForm(prev => ({ ...prev, csrfToken: data.token }));
+      }
+    } catch (error) {
+      console.error('Failed to fetch CSRF token:', error);
+    }
+  }, []);
+
+  useEffect(() => {
+    fetchCSRFToken();
+  }, [fetchCSRFToken]);
 
   const validateForm = (): boolean => {
     const newErrors: Partial<ContactFormState> = {};
@@ -114,6 +133,7 @@ const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
       phone: sanitizeInput(form.phone),
       service: sanitizeInput(form.service),
       message: sanitizeInput(form.message),
+      csrfToken: form.csrfToken, // Include CSRF token
     };
     
     try {
@@ -128,12 +148,16 @@ const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
       
       if (response.ok && result.success) {
         setSubmitted(true);
-        setForm({ name: '', email: '', phone: '', service: '', message: '' });
+        setForm({ name: '', email: '', phone: '', service: '', message: '', consent: false, website: '', csrfToken: '' });
       } else {
         setSubmitError(result.error || 'Failed to send message');
+        // Refresh CSRF token on error
+        fetchCSRFToken();
       }
     } catch {
       setSubmitError('Network error. Please try again.');
+      // Refresh CSRF token on error
+      fetchCSRFToken();
     } finally {
       setSubmitting(false);
     }
@@ -216,6 +240,9 @@ const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
             autoComplete="off"
           />
         </div>
+        
+        {/* CSRF Token - hidden security field */}
+        <input type="hidden" name="csrf_token" value={form.csrfToken} />
         
         {/* Consent Checkbox - Required for Israeli Privacy Law compliance */}
         <div className="bg-gray-50 rounded-lg p-4">
