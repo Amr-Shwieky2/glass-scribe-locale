@@ -48,6 +48,12 @@ const routes: RouteConfig[] = [
   { path: '/:lang/beer-sheva', element: <LocationPage /> },
 ];
 
+// Gallery redirect component
+const GalleryRedirect: FC = () => {
+  const lang = window.location.pathname.split('/')[1] || DEFAULT_LANGUAGE;
+  return <Navigate to={`/${lang}/projects`} replace />;
+};
+
 const App: FC = () => (
   <TooltipProvider>
     <Analytics />
@@ -61,6 +67,8 @@ const App: FC = () => (
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Navigate to={`/${DEFAULT_LANGUAGE}`} replace />} />
+              {/* Gallery redirects to Projects */}
+              <Route path="/:lang/gallery" element={<GalleryRedirect />} />
               {/* Admin routes - both with and without language prefix */}
               <Route path="/admin" element={<Navigate to={`/${DEFAULT_LANGUAGE}/admin`} replace />} />
               <Route path="/:lang/admin" element={<Admin />} />

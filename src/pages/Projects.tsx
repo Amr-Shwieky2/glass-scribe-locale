@@ -8,9 +8,33 @@ import ProjectGridItem from '@/components/projects/ProjectGridItem';
 import ProjectListItem from '@/components/projects/ProjectListItem';
 import ImagePreviewModal from '@/components/projects/ImagePreviewModal';
 import ProjectsCTA from '@/components/projects/ProjectsCTA';
+import SEOHead from '@/components/SEOHead';
 import { useCloudinaryImages } from '@/hooks/cloudinary';
 import { getCategoryFromPublicId, type CloudinaryImage } from '@/lib/cloudinary';
 import { CONTACT_INFO, PAGE_CONTENT, UI_STRINGS, getLocalizedText, PROJECT_CATEGORIES, type SupportedLocale } from '@/data';
+
+const SEO_CONTENT: Record<SupportedLocale, { title: string; description: string; keywords: string }> = {
+  he: {
+    title: 'גלריית עבודות זכוכית | מקלחונים, מעקות, מראות | אחים שוואקי',
+    description: 'צפו בגלריית עבודות הזכוכית שלנו - מקלחונים מעוצבים, מעקות זכוכית, מראות, חזיתות חנויות ועוד. עבודות איכותיות ברחבי ישראל.',
+    keywords: 'גלריית מקלחונים, תמונות מעקות זכוכית, עבודות זכוכית, פרויקטים מקלחונים, התקנת מקלחון',
+  },
+  en: {
+    title: 'Glass Projects Gallery | Showers, Railings, Mirrors | Shwaki Brothers',
+    description: 'View our glass work gallery - designer shower enclosures, glass railings, mirrors, storefronts and more. Quality installations across Israel.',
+    keywords: 'glass gallery, shower photos, glass railing projects, glass installations, mirror gallery',
+  },
+  ar: {
+    title: 'معرض أعمال الزجاج | دش زجاجي، درابزين، مرايا | إخوة شواكي',
+    description: 'شاهد معرض أعمال الزجاج لدينا - حمامات زجاجية، درابزين زجاجي، مرايا وواجهات متاجر. أعمال عالية الجودة في جميع أنحاء إسرائيل.',
+    keywords: 'معرض زجاج، صور دش زجاجي، مشاريع درابزين زجاج، تركيب زجاج',
+  },
+  ru: {
+    title: 'Галерея стеклянных работ | Душевые, Ограждения, Зеркала | Братья Швакьи',
+    description: 'Смотрите галерею наших стеклянных работ - дизайнерские душевые кабины, стеклянные ограждения, зеркала, витрины магазинов. Качественные работы по всему Израилю.',
+    keywords: 'галерея стекла, фото душевых, проекты стеклянных ограждений, установка стекла',
+  },
+};
 
 const Projects: React.FC = () => {
   const { currentLanguage } = useLanguage();
@@ -44,8 +68,11 @@ const Projects: React.FC = () => {
   const handleNext = () => { const i = previewIndex === images.length - 1 ? 0 : previewIndex + 1; setPreviewIndex(i); setPreviewImage(images[i]); };
   const openPreview = (img: CloudinaryImage, idx: number) => { setPreviewImage(img); setPreviewIndex(idx); };
 
+  const seo = SEO_CONTENT[locale] || SEO_CONTENT.he;
+
   return (
     <div className="min-h-screen">
+      <SEOHead title={seo.title} description={seo.description} keywords={seo.keywords} />
       <ProjectsHeader locale={locale} title={content.title} subtitle={content.subtitle} imageCount={images.length} />
       <ProjectFilters selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} viewMode={viewMode} onViewModeChange={setViewMode} locale={locale} allCategoriesText={content.allCategories} />
       <section className="py-8 sm:py-10 md:py-12 bg-brand-light">
