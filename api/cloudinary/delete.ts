@@ -1,6 +1,7 @@
 /**
  * @fileoverview Cloudinary Delete API
  * @description Delete images from Cloudinary (admin only).
+ * HIGH SECURITY: Timing-safe auth, input validation, rate limiting
  * 
  * BODY:
  * - publicId: The public ID of the image to delete
@@ -11,6 +12,18 @@
 
 import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { v2 as cloudinary } from 'cloudinary';
+import {
+  verifyAdminAuth,
+  sanitizePublicId,
+  handleCORS,
+  addSecurityHeaders,
+  getClientIP,
+  logSecurityEvent,
+  checkRateLimit,
+  addRateLimitHeaders,
+  RATE_LIMITS,
+  detectSuspiciousInput,
+} from '../lib/security';
 
 // =============================================================================
 // CONFIGURATION
@@ -23,23 +36,6 @@ cloudinary.config({
   secure: true,
 });
 
-const ADMIN_TOKEN = process.env.ADMIN_TOKEN;
-
-// =============================================================================
-// AUTH HELPER
-// =============================================================================
-
-function verifyAuth(req: VercelRequest): boolean {
-  const authHeader = req.headers.authorization;
-  
-  if (!authHeader || !authHeader.startsWith('Bearer ')) {
-    return false;
-  }
-
-  const token = authHeader.substring(7);
-  return token === ADMIN_TOKEN;
-}
-
 // =============================================================================
 // HANDLER
 // =============================================================================
@@ -48,25 +44,51 @@ export default async function handler(
   req: VercelRequest,
   res: VercelResponse
 ) {
+  // Add security headers
+  addSecurityHeaders(res);
+  
+  // Handle CORS
+  if (!handleCORS(req, res)) return;
+
   // Only allow POST requests
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
-  // Verify admin authentication
-  if (!verifyAuth(req)) {
+  const clientIP = getClientIP(req);
+
+  // Check rate limit
+  const rateLimit = checkRateLimit(clientIP, 'api');
+  addRateLimitHeaders(res, rateLimit, RATE_LIMITS.api.max);
+  
+  if (!rateLimit.allowed) {
+    logSecurityEvent('rate_limit', clientIP, { endpoint: 'cloudinary/delete' });
+    return res.status(429).json({ error: 'Too many requests' });
+  }
+
+  // Verify admin authentication (timing-safe)
+  if (!verifyAdminAuth(req)) {
+    logSecurityEvent('auth_failure', clientIP, { endpoint: 'cloudinary/delete' });
     return res.status(401).json({ error: 'Unauthorized' });
   }
 
   try {
     const { publicId } = req.body;
 
-    if (!publicId || typeof publicId !== 'string') {
+    // Detect suspicious input patterns
+    if (typeof publicId === 'string' && detectSuspiciousInput(publicId)) {
+      logSecurityEvent('suspicious_input', clientIP, { endpoint: 'cloudinary/delete' });
+      return res.status(400).json({ error: 'Invalid input detected' });
+    }
+
+    // Validate and sanitize publicId
+    const sanitizedPublicId = sanitizePublicId(publicId);
+    if (!sanitizedPublicId) {
       return res.status(400).json({ error: 'Missing or invalid publicId' });
     }
 
     // Delete from Cloudinary
-    const result = await cloudinary.uploader.destroy(publicId);
+    const result = await cloudinary.uploader.destroy(sanitizedPublicId);
 
     if (result.result !== 'ok') {
       return res.status(400).json({
@@ -75,15 +97,16 @@ export default async function handler(
       });
     }
 
+    logSecurityEvent('auth_success', clientIP, { action: 'delete', publicId: sanitizedPublicId });
+
     return res.status(200).json({
       success: true,
-      publicId,
+      publicId: sanitizedPublicId,
     });
   } catch (error) {
     console.error('Cloudinary delete error:', error);
     return res.status(500).json({
       error: 'Failed to delete image',
-      message: error instanceof Error ? error.message : 'Unknown error',
     });
   }
 }
