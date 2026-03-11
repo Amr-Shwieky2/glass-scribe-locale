@@ -7,10 +7,19 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ADMIN_STRINGS, getAdminText, type AdminLocale } from '@/data/admin-strings';
+import { Globe } from 'lucide-react';
+
+// Language display names
+const LANG_NAMES: Record<string, string> = {
+  he: 'עברית',
+  en: 'English',
+  ar: 'العربية',
+  ru: 'Русский',
+};
 
 const LoginForm: FC = () => {
   const { login } = useAdmin();
-  const { currentLanguage } = useLanguage();
+  const { currentLanguage, switchLanguage, supportedLanguages } = useLanguage();
   const locale = currentLanguage as AdminLocale;
   const { toast } = useToast();
   const [password, setPassword] = useState('');
@@ -36,7 +45,27 @@ const LoginForm: FC = () => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-brand-light p-4">
+    <div className="min-h-screen flex items-center justify-center bg-brand-light p-4 relative">
+      {/* Language Switcher - Top Right */}
+      <div className="absolute top-4 right-4 flex items-center gap-2">
+        <Globe className="w-4 h-4 text-brand-navy/60" />
+        <div className="flex rounded-lg overflow-hidden border border-gray-200 bg-white shadow-sm">
+          {supportedLanguages.map((lang) => (
+            <button
+              key={lang.code}
+              onClick={() => switchLanguage(lang.code)}
+              className={`px-3 py-1.5 text-sm font-medium transition-colors ${
+                currentLanguage === lang.code
+                  ? 'bg-brand-gold text-brand-navy'
+                  : 'text-gray-600 hover:bg-gray-100'
+              }`}
+            >
+              {LANG_NAMES[lang.code]?.slice(0, 2) || lang.code.toUpperCase()}
+            </button>
+          ))}
+        </div>
+      </div>
+
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <img
