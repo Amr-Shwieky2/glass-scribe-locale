@@ -50,7 +50,9 @@ const App: FC = () => (
           <Suspense fallback={<PageLoader />}>
             <Routes>
               <Route path="/" element={<Navigate to={`/${DEFAULT_LANGUAGE}`} replace />} />
-              <Route path="/admin" element={<Admin />} />
+              {/* Admin routes - both with and without language prefix */}
+              <Route path="/admin" element={<Navigate to={`/${DEFAULT_LANGUAGE}/admin`} replace />} />
+              <Route path="/:lang/admin" element={<Admin />} />
               {routes.map(({ path, element }) => (
                 <Route key={path} path={path} element={<Layout>{element}</Layout>} />
               ))}
