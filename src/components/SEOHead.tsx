@@ -131,10 +131,13 @@ const SEOHead: React.FC<SEOProps> = ({
     setMeta('og:description', finalDescription, true);
     setMeta('og:url', currentUrl, true);
     setMeta('og:image', image, true);
+    setMeta('og:image:width', '1200', true);
+    setMeta('og:image:height', '630', true);
     setMeta('og:type', type, true);
     setMeta('og:locale', locale === 'he' ? 'he_IL' : locale === 'ar' ? 'ar_SA' : locale === 'ru' ? 'ru_RU' : 'en_US', true);
 
     // Twitter
+    setMeta('twitter:card', 'summary_large_image');
     setMeta('twitter:title', finalTitle);
     setMeta('twitter:description', finalDescription);
     setMeta('twitter:image', image);
