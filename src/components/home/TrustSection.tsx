@@ -1,78 +1,65 @@
 /**
- * Trust Section - Social Proof & Authority Signals
- * Implements trust indicators as recommended in UI/UX strategy
+ * Trust Section - Authority Signals & Why Choose Us
+ * Shows genuine value propositions without fake statistics
  */
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Star, Shield, Award, Clock, CheckCircle, Users, MapPin, Sparkles } from 'lucide-react';
+import { Shield, Award, CheckCircle, MapPin, Clock, Sparkles, Ruler, Truck } from 'lucide-react';
 import { getLocalizedText, type SupportedLocale } from '@/data';
 
 interface TrustSectionProps {
   locale: SupportedLocale;
 }
 
-// Trust badges content
+// Trust badges content - only TRUE facts
 const TRUST_CONTENT = {
   title: {
-    en: 'Why 500+ Customers Trust Us',
-    he: 'למה יותר מ-500 לקוחות סומכים עלינו',
-    ar: 'لماذا يثق بنا أكثر من 500 عميل',
-    ru: 'Почему нам доверяют более 500 клиентов',
+    en: 'Why Choose Us',
+    he: 'למה לבחור בנו',
+    ar: 'لماذا تختارنا',
+    ru: 'Почему выбирают нас',
   },
   subtitle: {
-    en: 'Israel\'s Leading Glass Installation Experts Since 2010',
-    he: 'מומחי התקנת זכוכית המובילים בישראל מאז 2010',
-    ar: 'خبراء تركيب الزجاج الرائدين في إسرائيل منذ 2010',
-    ru: 'Ведущие эксперты по установке стекла в Израиле с 2010 года',
+    en: 'Professional Glass Installation Services Across Israel',
+    he: 'שירותי התקנת זכוכית מקצועיים בכל רחבי ישראל',
+    ar: 'خدمات تركيب زجاج احترافية في جميع أنحاء إسرائيل',
+    ru: 'Профессиональные услуги по установке стекла по всему Израилю',
   },
 };
 
-const STATS = [
+// Only TRUE value propositions - no fake numbers
+const BADGES = [
   {
-    icon: Users,
-    value: '500+',
-    label: {
-      en: 'Projects Completed',
-      he: 'פרויקטים שהושלמו',
-      ar: 'مشروع مكتمل',
-      ru: 'Выполненных проектов',
+    icon: Ruler,
+    title: {
+      en: 'Free Measurement',
+      he: 'מדידה חינם',
+      ar: 'قياس مجاني',
+      ru: 'Бесплатный замер',
     },
-  },
-  {
-    icon: Clock,
-    value: '15+',
-    label: {
-      en: 'Years Experience',
-      he: 'שנות ניסיון',
-      ar: 'سنوات الخبرة',
-      ru: 'Лет опыта',
+    description: {
+      en: 'On-site consultation at no cost',
+      he: 'ייעוץ באתר ללא עלות',
+      ar: 'استشارة في الموقع بدون تكلفة',
+      ru: 'Консультация на месте бесплатно',
     },
-  },
-  {
-    icon: Star,
-    value: '4.9',
-    label: {
-      en: 'Google Rating',
-      he: 'דירוג גוגל',
-      ar: 'تقييم جوجل',
-      ru: 'Рейтинг Google',
-    },
-    suffix: '/5',
   },
   {
     icon: MapPin,
-    value: '100%',
-    label: {
+    title: {
       en: 'Nationwide Service',
       he: 'שירות בכל הארץ',
       ar: 'خدمة في جميع أنحاء البلاد',
       ru: 'По всей стране',
     },
+    description: {
+      en: 'We serve all areas in Israel',
+      he: 'אנו משרתים את כל האזורים בישראל',
+      ar: 'نخدم جميع المناطق في إسرائيل',
+      ru: 'Работаем во всех регионах Израиля',
+    },
   },
-];
-
-const BADGES = [
   {
     icon: Shield,
     title: {
@@ -81,32 +68,86 @@ const BADGES = [
       ar: 'مرخص ومؤمن',
       ru: 'Лицензия и страховка',
     },
+    description: {
+      en: 'Full liability coverage',
+      he: 'כיסוי אחריות מלא',
+      ar: 'تغطية مسؤولية كاملة',
+      ru: 'Полное страхование',
+    },
   },
   {
     icon: Award,
     title: {
-      en: 'Premium Quality Glass',
-      he: 'זכוכית באיכות פרימיום',
-      ar: 'زجاج بجودة عالية',
-      ru: 'Стекло премиум качества',
+      en: 'Premium Quality',
+      he: 'איכות פרימיום',
+      ar: 'جودة عالية',
+      ru: 'Премиум качество',
+    },
+    description: {
+      en: 'Top-grade tempered glass',
+      he: 'זכוכית מחוסמת מהשורה הראשונה',
+      ar: 'زجاج مقسى من الدرجة الأولى',
+      ru: 'Закаленное стекло высшего качества',
     },
   },
   {
-    icon: CheckCircle,
+    icon: Clock,
     title: {
-      en: 'Free Measurement',
-      he: 'מדידה חינם',
-      ar: 'قياس مجاني',
-      ru: 'Бесплатный замер',
+      en: 'Fast Response',
+      he: 'מענה מהיר',
+      ar: 'استجابة سريعة',
+      ru: 'Быстрый отклик',
+    },
+    description: {
+      en: 'Quote within 24 hours',
+      he: 'הצעת מחיר תוך 24 שעות',
+      ar: 'عرض سعر خلال 24 ساعة',
+      ru: 'Расчет в течение 24 часов',
     },
   },
   {
     icon: Sparkles,
     title: {
-      en: '2-Year Warranty',
-      he: 'אחריות לשנתיים',
-      ar: 'ضمان لمدة سنتين',
-      ru: 'Гарантия 2 года',
+      en: 'Warranty Included',
+      he: 'אחריות כלולה',
+      ar: 'ضمان شامل',
+      ru: 'Гарантия включена',
+    },
+    description: {
+      en: 'Quality guaranteed',
+      he: 'איכות מובטחת',
+      ar: 'جودة مضمونة',
+      ru: 'Качество гарантировано',
+    },
+  },
+  {
+    icon: Truck,
+    title: {
+      en: 'Professional Installation',
+      he: 'התקנה מקצועית',
+      ar: 'تركيب احترافي',
+      ru: 'Профессиональный монтаж',
+    },
+    description: {
+      en: 'Expert team, clean finish',
+      he: 'צוות מומחים, גמר נקי',
+      ar: 'فريق خبراء، تشطيب نظيف',
+      ru: 'Команда экспертов, чистая работа',
+    },
+  },
+  {
+    icon: CheckCircle,
+    title: {
+      en: 'Custom Solutions',
+      he: 'פתרונות מותאמים',
+      ar: 'حلول مخصصة',
+      ru: 'Индивидуальные решения',
+    },
+    description: {
+      en: 'Tailored to your needs',
+      he: 'מותאם לצרכים שלכם',
+      ar: 'مصممة حسب احتياجاتك',
+      ru: 'Под ваши потребности',
     },
   },
 ];
@@ -122,74 +163,31 @@ const TrustSection: React.FC<TrustSectionProps> = ({ locale }) => {
           <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy mb-2 sm:mb-3">
             {t(TRUST_CONTENT.title)}
           </h2>
-          <p className="text-base sm:text-lg text-brand-navy/60">
+          <p className="text-base sm:text-lg text-brand-navy/60 max-w-2xl mx-auto">
             {t(TRUST_CONTENT.subtitle)}
           </p>
         </div>
 
-        {/* Stats Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 mb-8 sm:mb-12">
-          {STATS.map((stat, index) => (
+        {/* Trust Badges Grid */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6">
+          {BADGES.map((badge, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="text-center p-4 sm:p-6 bg-brand-light rounded-xl"
+              transition={{ delay: index * 0.05 }}
+              className="text-center p-4 sm:p-6 bg-brand-light rounded-xl hover:shadow-md transition-shadow"
             >
-              <stat.icon className="w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-3 text-brand-gold" />
-              <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-navy">
-                {stat.value}
-                {stat.suffix && <span className="text-lg sm:text-xl text-brand-navy/50">{stat.suffix}</span>}
-              </div>
-              <div className="text-sm sm:text-base text-brand-navy/70 mt-1">
-                {t(stat.label)}
-              </div>
-            </motion.div>
-          ))}
-        </div>
-
-        {/* Trust Badges */}
-        <div className="flex flex-wrap justify-center gap-3 sm:gap-4">
-          {BADGES.map((badge, index) => (
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
-              className="flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-3 bg-brand-navy/5 rounded-full"
-            >
-              <badge.icon className="w-4 h-4 sm:w-5 sm:h-5 text-brand-gold" />
-              <span className="text-sm sm:text-base font-medium text-brand-navy">
+              <badge.icon className="w-8 h-8 sm:w-10 sm:h-10 mx-auto mb-3 text-brand-gold" />
+              <h3 className="text-sm sm:text-base font-semibold text-brand-navy mb-1">
                 {t(badge.title)}
-              </span>
+              </h3>
+              <p className="text-xs sm:text-sm text-brand-navy/60">
+                {t(badge.description)}
+              </p>
             </motion.div>
           ))}
-        </div>
-
-        {/* Google Reviews Badge */}
-        <div className="mt-8 sm:mt-10 flex justify-center">
-          <a
-            href="https://g.page/r/shwaki-glassworks/review"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-3 px-6 py-3 bg-white border-2 border-brand-navy/10 rounded-xl hover:border-brand-gold/50 transition-colors group"
-          >
-            <div className="flex items-center">
-              {[1, 2, 3, 4, 5].map((_, i) => (
-                <Star
-                  key={i}
-                  className={`w-5 h-5 ${i < 5 ? 'text-yellow-400 fill-yellow-400' : 'text-gray-300'}`}
-                />
-              ))}
-            </div>
-            <div className="text-left">
-              <div className="text-sm font-semibold text-brand-navy">4.9/5</div>
-              <div className="text-xs text-brand-navy/60">Google Reviews</div>
-            </div>
-          </a>
         </div>
       </div>
     </section>

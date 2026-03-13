@@ -12,7 +12,6 @@ import TrustSection from '@/components/home/TrustSection';
 import HomeServices from '@/components/home/HomeServices';
 import WhyChooseUs from '@/components/home/WhyChooseUs';
 import ProcessSection from '@/components/home/ProcessSection';
-import GoogleReviews from '@/components/home/GoogleReviews';
 import FAQSection from '@/components/home/FAQSection';
 import HomeTestimonials from '@/components/home/HomeTestimonials';
 import { CONTACT_INFO, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
@@ -67,9 +66,6 @@ const Home: React.FC = () => {
       
       {/* Our Process - AI-friendly structured content */}
       <ProcessSection locale={locale} />
-      
-      {/* Google Reviews - Social Proof */}
-      <GoogleReviews locale={locale} />
       
       {/* Social Proof - Instagram Reels */}
       <HomeTestimonials locale={locale} />

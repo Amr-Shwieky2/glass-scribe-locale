@@ -1,9 +1,16 @@
 import React from 'react';
-import { Phone, Mail, MapPin, MessageCircle } from 'lucide-react';
+import { Phone, Mail, MapPin, MessageCircle, Instagram, Facebook } from 'lucide-react';
 import {
   BUSINESS_INFO, CONTACT_INFO, FOOTER_CONTENT,
   getLocalizedText, type SupportedLocale,
 } from '@/data';
+
+// Social media links
+const SOCIAL_LINKS = {
+  instagram: 'https://www.instagram.com/shwaki_glassworks/',
+  facebook: 'https://www.facebook.com/profile.php?id=100063765481345',
+  google: 'https://g.page/r/shwaki-glassworks',
+};
 
 interface FooterContactProps {
   locale: SupportedLocale;
@@ -39,6 +46,39 @@ const FooterContact: React.FC<FooterContactProps> = ({ locale }) => {
           <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
           WhatsApp
         </button>
+        
+        {/* Social Media Links */}
+        <div className="flex items-center gap-4 mt-4 pt-4 border-t border-gray-700">
+          <a
+            href={SOCIAL_LINKS.instagram}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-brand-gold transition-colors"
+            aria-label="Instagram"
+          >
+            <Instagram className="w-5 h-5 sm:w-6 sm:h-6" />
+          </a>
+          <a
+            href={SOCIAL_LINKS.facebook}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-brand-gold transition-colors"
+            aria-label="Facebook"
+          >
+            <Facebook className="w-5 h-5 sm:w-6 sm:h-6" />
+          </a>
+          <a
+            href={SOCIAL_LINKS.google}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-brand-gold transition-colors"
+            aria-label="Google Business"
+          >
+            <svg className="w-5 h-5 sm:w-6 sm:h-6" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/>
+            </svg>
+          </a>
+        </div>
       </div>
     </div>
   );

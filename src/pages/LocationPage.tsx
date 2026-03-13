@@ -8,11 +8,10 @@ import React, { useMemo } from 'react';
 import { useParams, Link, Navigate, useLocation } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { MapPin, Phone, MessageCircle, CheckCircle, Star, Clock, ArrowRight, Shield } from 'lucide-react';
+import { MapPin, Phone, MessageCircle, CheckCircle, Clock, ArrowRight, Shield } from 'lucide-react';
 import { CONTACT_INFO, UI_STRINGS, SERVICES, getLocalizedText, type SupportedLocale } from '@/data';
 import SEOHead from '@/components/SEOHead';
 import AnimatedPageHeader from '@/components/AnimatedPageHeader';
-import GoogleReviews from '@/components/home/GoogleReviews';
 import LocationJsonLd from '@/components/LocationJsonLd';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
@@ -365,13 +364,13 @@ const LocationPage: React.FC = () => {
               </div>
               <div className="text-center">
                 <div className="flex items-center justify-center gap-1 text-3xl font-bold text-brand-gold">
-                  4.9 <Star className="w-6 h-6 fill-brand-gold" />
+                  <MapPin className="w-6 h-6" />
                 </div>
-                <div className="text-sm text-white/70">Google Rating</div>
+                <div className="text-sm text-white/70">{locale === 'he' ? 'שירות בכל הארץ' : 'Nationwide Service'}</div>
               </div>
               <div className="text-center">
-                <div className="text-3xl font-bold text-brand-gold">15+</div>
-                <div className="text-sm text-white/70">{locale === 'he' ? 'שנות ניסיון' : 'Years Experience'}</div>
+                <div className="text-3xl font-bold text-brand-gold">24h</div>
+                <div className="text-sm text-white/70">{locale === 'he' ? 'מענה מהיר' : 'Fast Response'}</div>
               </div>
             </div>
           </div>
@@ -572,9 +571,6 @@ const LocationPage: React.FC = () => {
             </div>
           </div>
         </section>
-
-        {/* Google Reviews */}
-        <GoogleReviews locale={locale} limit={3} />
 
         {/* Final CTA */}
         <section className="py-16 bg-gradient-to-br from-brand-navy to-brand-navy/95 text-white">

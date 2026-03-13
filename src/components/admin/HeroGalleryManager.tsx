@@ -1,6 +1,6 @@
 /**
- * Hero Gallery Manager
- * Allows admin to select and order the 7 hero images
+ * Hero Gallery Manager - Simplified Version
+ * Easy-to-use interface for selecting 7 hero images
  */
 import { useState, useEffect, type FC } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
@@ -12,7 +12,6 @@ import {
 } from '@/lib/cloudinary';
 import { setHeroPosition, removeHeroPosition } from '@/lib/cloudinary/admin-api';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
   Dialog,
   DialogContent,
@@ -40,7 +39,7 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
   const [allImages, setAllImages] = useState<CloudinaryImage[]>([]);
   const [heroSlots, setHeroSlots] = useState<(CloudinaryImage | null)[]>(Array(7).fill(null));
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedSlot, setSelectedSlot] = useState<number | null>(null);
+  const [selectedImage, setSelectedImage] = useState<CloudinaryImage | null>(null);
   const [isSaving, setIsSaving] = useState(false);
 
   // Load all images and organize hero slots
@@ -74,53 +73,53 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
     loadImages();
   }, [open, toast]);
 
-  const handleSelectImage = async (image: CloudinaryImage) => {
-    if (selectedSlot === null || !token) return;
+  // Assign selected image to a slot
+  const handleAssignToSlot = async (slotIndex: number) => {
+    if (!selectedImage || !token) return;
     
     setIsSaving(true);
     try {
       // Remove the image from any existing hero position
-      const existingPos = getHeroPosition(image);
+      const existingPos = getHeroPosition(selectedImage);
       if (existingPos) {
-        await removeHeroPosition(image.public_id, existingPos, token);
+        await removeHeroPosition(selectedImage.public_id, existingPos, token);
       }
 
       // Remove current image from this slot if any
-      const currentImage = heroSlots[selectedSlot];
+      const currentImage = heroSlots[slotIndex];
       if (currentImage) {
-        await removeHeroPosition(currentImage.public_id, selectedSlot + 1, token);
+        await removeHeroPosition(currentImage.public_id, slotIndex + 1, token);
       }
 
       // Set new image to this position
-      await setHeroPosition(image.public_id, selectedSlot + 1, token);
+      await setHeroPosition(selectedImage.public_id, slotIndex + 1, token);
 
       // Update local state
       const newSlots = [...heroSlots];
-      // Clear the old position if image was moved from another slot
       if (existingPos) {
         newSlots[existingPos - 1] = null;
       }
-      newSlots[selectedSlot] = image;
+      newSlots[slotIndex] = selectedImage;
       setHeroSlots(newSlots);
 
       // Update image tags in allImages
       setAllImages(prev => prev.map(img => {
-        if (img.public_id === image.public_id) {
+        if (img.public_id === selectedImage.public_id) {
           const newTags = (img.tags || []).filter(t => !/^hero-[1-7]$/.test(t));
-          newTags.push(`hero-${selectedSlot + 1}`);
+          newTags.push(`hero-${slotIndex + 1}`);
           return { ...img, tags: newTags };
         }
         if (img.public_id === currentImage?.public_id) {
-          return { ...img, tags: (img.tags || []).filter(t => t !== `hero-${selectedSlot + 1}`) };
+          return { ...img, tags: (img.tags || []).filter(t => t !== `hero-${slotIndex + 1}`) };
         }
         return img;
       }));
 
-      toast({ title: 'Success', description: `Image set to Hero position ${selectedSlot + 1}` });
-      setSelectedSlot(null);
+      toast({ title: '✅ Done!', description: `Image set to position ${slotIndex + 1}` });
+      setSelectedImage(null);
     } catch (error) {
       console.error('Failed to set hero position:', error);
-      toast({ title: 'Error', description: 'Failed to update hero position', variant: 'destructive' });
+      toast({ title: 'Error', description: 'Failed to update', variant: 'destructive' });
     } finally {
       setIsSaving(false);
     }
@@ -146,7 +145,7 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
         return img;
       }));
 
-      toast({ title: 'Removed', description: `Image removed from Hero position ${slotIndex + 1}` });
+      toast({ title: '🗑️ Removed', description: `Image removed from position ${slotIndex + 1}` });
     } catch (error) {
       console.error('Failed to remove hero position:', error);
       toast({ title: 'Error', description: 'Failed to remove from position', variant: 'destructive' });
@@ -155,119 +154,163 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
     }
   };
 
-  // Filter images that are not already in hero slots (for selection)
-  const availableImages = allImages.filter(img => {
-    const pos = getHeroPosition(img);
-    return !pos || pos === (selectedSlot !== null ? selectedSlot + 1 : 0);
-  });
+  // Count how many slots are filled
+  const filledSlots = heroSlots.filter(Boolean).length;
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
+      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-xl font-bold text-brand-navy">
-            🏠 Manage Hero Gallery (7 Images)
+          <DialogTitle className="text-2xl font-bold text-brand-navy flex items-center gap-3">
+            🏠 Hero Gallery
+            <span className="text-sm font-normal bg-brand-gold/20 text-brand-gold px-3 py-1 rounded-full">
+              {filledSlots}/7 images
+            </span>
           </DialogTitle>
         </DialogHeader>
 
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-t-2 border-b-2 border-brand-gold" />
-          </div>
-        ) : selectedSlot !== null ? (
-          /* Image Selection View */
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-semibold text-brand-navy">
-                Select image for Position {selectedSlot + 1}
-              </h3>
-              <Button variant="outline" onClick={() => setSelectedSlot(null)}>
-                ← Back
-              </Button>
-            </div>
-            <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-h-[60vh] overflow-y-auto">
-              {availableImages.map(image => (
-                <button
-                  key={image.public_id}
-                  onClick={() => handleSelectImage(image)}
-                  disabled={isSaving}
-                  className="relative aspect-square rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-all disabled:opacity-50"
-                >
-                  <img
-                    src={getThumbnailUrl(image.public_id, 200)}
-                    alt={image.context?.custom?.alt || 'Image'}
-                    className="w-full h-full object-cover"
-                  />
-                </button>
-              ))}
-            </div>
+            <div className="animate-spin rounded-full h-10 w-10 border-t-3 border-b-3 border-brand-gold" />
           </div>
         ) : (
-          /* Hero Slots Grid View */
-          <div className="space-y-4">
-            <p className="text-sm text-brand-navy/70">
-              Click on a slot to select an image for that position. These 7 images will appear in the hero section on the home page.
-            </p>
-            <div className="grid grid-cols-4 gap-4">
-              {/* Main large image - position 1 */}
-              <Card className="col-span-2 row-span-2 border-2 border-dashed border-brand-gold/50">
-                <CardHeader className="py-2 px-3">
-                  <CardTitle className="text-sm font-medium text-brand-gold">Position 1 (Main)</CardTitle>
-                </CardHeader>
-                <CardContent className="p-2">
-                  {heroSlots[0] ? (
-                    <div className="relative aspect-square rounded-lg overflow-hidden group">
-                      <img
-                        src={getThumbnailUrl(heroSlots[0].public_id, 400)}
-                        alt="Hero 1"
-                        className="w-full h-full object-cover"
-                      />
-                      <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                        <Button size="sm" onClick={() => setSelectedSlot(0)}>Change</Button>
-                        <Button size="sm" variant="destructive" onClick={() => handleRemoveFromSlot(0)}>Remove</Button>
-                      </div>
-                    </div>
-                  ) : (
-                    <button
-                      onClick={() => setSelectedSlot(0)}
-                      className="w-full aspect-square rounded-lg bg-brand-light border-2 border-dashed border-brand-navy/20 flex items-center justify-center text-4xl hover:border-brand-gold transition-colors"
-                    >
-                      +
-                    </button>
-                  )}
-                </CardContent>
-              </Card>
+          <div className="space-y-6">
+            {/* Instructions */}
+            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-blue-800">
+              <p className="font-medium text-lg mb-1">📋 How to use:</p>
+              <ol className="list-decimal list-inside space-y-1 text-sm">
+                <li><strong>Click an image</strong> from the gallery below to select it</li>
+                <li><strong>Click a position box</strong> (1-7) above to place the image there</li>
+                <li>Click ❌ on any position to remove an image</li>
+              </ol>
+            </div>
 
-              {/* Positions 2-7 */}
-              {[1, 2, 3, 4, 5, 6].map(index => (
-                <Card key={index} className="border border-brand-navy/20">
-                  <CardHeader className="py-1 px-2">
-                    <CardTitle className="text-xs font-medium text-brand-navy/70">Position {index + 1}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="p-2">
-                    {heroSlots[index] ? (
-                      <div className="relative aspect-square rounded-lg overflow-hidden group">
+            {/* Selected Image Preview */}
+            {selectedImage && (
+              <div className="bg-green-50 border-2 border-green-400 rounded-lg p-4 flex items-center gap-4">
+                <img
+                  src={getThumbnailUrl(selectedImage.public_id, 120)}
+                  alt="Selected"
+                  className="w-24 h-24 object-cover rounded-lg shadow-lg"
+                />
+                <div className="flex-1">
+                  <p className="font-bold text-green-800 text-lg">✅ Image Selected!</p>
+                  <p className="text-green-700">Now click a position (1-7) below to place this image</p>
+                </div>
+                <Button 
+                  variant="outline" 
+                  onClick={() => setSelectedImage(null)}
+                  className="text-red-600 border-red-300 hover:bg-red-50"
+                >
+                  Cancel
+                </Button>
+              </div>
+            )}
+
+            {/* Current 7 Hero Positions */}
+            <div>
+              <h3 className="text-lg font-bold text-brand-navy mb-3">
+                📍 Hero Positions (click to {selectedImage ? 'place image' : 'remove'})
+              </h3>
+              <div className="grid grid-cols-7 gap-2">
+                {heroSlots.map((slot, index) => (
+                  <div key={index} className="relative">
+                    <div className="text-center text-xs font-bold text-brand-navy/70 mb-1">
+                      {index + 1}
+                    </div>
+                    {slot ? (
+                      <div 
+                        className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all cursor-pointer group ${
+                          selectedImage 
+                            ? 'border-green-400 hover:border-green-600 hover:shadow-lg' 
+                            : 'border-brand-gold'
+                        }`}
+                        onClick={() => selectedImage ? handleAssignToSlot(index) : null}
+                      >
                         <img
-                          src={getThumbnailUrl(heroSlots[index]!.public_id, 200)}
+                          src={getThumbnailUrl(slot.public_id, 150)}
                           alt={`Hero ${index + 1}`}
                           className="w-full h-full object-cover"
                         />
-                        <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-1">
-                          <Button size="sm" className="text-xs px-2 py-1" onClick={() => setSelectedSlot(index)}>Edit</Button>
-                          <Button size="sm" variant="destructive" className="text-xs px-2 py-1" onClick={() => handleRemoveFromSlot(index)}>✕</Button>
-                        </div>
+                        {!selectedImage && (
+                          <button
+                            onClick={() => handleRemoveFromSlot(index)}
+                            disabled={isSaving}
+                            className="absolute top-1 right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600 disabled:opacity-50"
+                          >
+                            ✕
+                          </button>
+                        )}
+                        {selectedImage && (
+                          <div className="absolute inset-0 bg-green-500/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="bg-green-600 text-white px-2 py-1 rounded text-xs font-bold">
+                              Replace
+                            </span>
+                          </div>
+                        )}
                       </div>
                     ) : (
                       <button
-                        onClick={() => setSelectedSlot(index)}
-                        className="w-full aspect-square rounded-lg bg-brand-light border-2 border-dashed border-brand-navy/20 flex items-center justify-center text-2xl hover:border-brand-gold transition-colors"
+                        onClick={() => selectedImage ? handleAssignToSlot(index) : null}
+                        disabled={!selectedImage || isSaving}
+                        className={`w-full aspect-square rounded-lg border-2 border-dashed flex items-center justify-center text-2xl transition-all ${
+                          selectedImage 
+                            ? 'border-green-400 bg-green-50 text-green-600 hover:bg-green-100 hover:border-green-600 cursor-pointer' 
+                            : 'border-gray-300 bg-gray-50 text-gray-400 cursor-not-allowed'
+                        }`}
                       >
                         +
                       </button>
                     )}
-                  </CardContent>
-                </Card>
-              ))}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* All Images Gallery */}
+            <div>
+              <h3 className="text-lg font-bold text-brand-navy mb-3">
+                🖼️ All Images (click to select)
+              </h3>
+              <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3 max-h-[40vh] overflow-y-auto p-2 bg-gray-50 rounded-lg">
+                {allImages.map(image => {
+                  const heroPos = getHeroPosition(image);
+                  const isSelected = selectedImage?.public_id === image.public_id;
+                  
+                  return (
+                    <button
+                      key={image.public_id}
+                      onClick={() => setSelectedImage(isSelected ? null : image)}
+                      disabled={isSaving}
+                      className={`relative aspect-square rounded-lg overflow-hidden transition-all disabled:opacity-50 ${
+                        isSelected 
+                          ? 'ring-4 ring-green-500 scale-105 shadow-xl' 
+                          : heroPos 
+                            ? 'ring-2 ring-brand-gold' 
+                            : 'border-2 border-transparent hover:border-brand-gold hover:scale-105'
+                      }`}
+                    >
+                      <img
+                        src={getThumbnailUrl(image.public_id, 150)}
+                        alt={image.context?.custom?.alt || 'Image'}
+                        className="w-full h-full object-cover"
+                      />
+                      {heroPos && (
+                        <div className="absolute top-1 left-1 w-5 h-5 bg-brand-gold text-white rounded-full flex items-center justify-center text-xs font-bold shadow">
+                          {heroPos}
+                        </div>
+                      )}
+                      {isSelected && (
+                        <div className="absolute inset-0 bg-green-500/20 flex items-center justify-center">
+                          <span className="bg-green-600 text-white px-2 py-1 rounded text-xs font-bold">
+                            ✓ Selected
+                          </span>
+                        </div>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
           </div>
         )}

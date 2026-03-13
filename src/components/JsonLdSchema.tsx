@@ -123,7 +123,9 @@ const JsonLdSchema: React.FC = () => {
       ],
       sameAs: [
         `https://wa.me/${CONTACT_INFO.whatsapp}`,
-        'https://www.instagram.com/shwakiglassworks/',
+        'https://www.instagram.com/shwaki_glassworks/',
+        'https://www.facebook.com/profile.php?id=100063765481345',
+        'https://g.page/r/shwaki-glassworks',
       ],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
@@ -138,21 +140,10 @@ const JsonLdSchema: React.FC = () => {
           position: index + 1,
         })),
       },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.9',
-        reviewCount: '150',
-        bestRating: '5',
-        worstRating: '1',
-      },
       image: [
         'https://shwakiglassworks.com/og-image.jpg',
       ],
       foundingDate: BUSINESS_INFO.established,
-      numberOfEmployees: {
-        '@type': 'QuantitativeValue',
-        value: '10-20',
-      },
     };
 
     // FAQ schema (for home page and services page)

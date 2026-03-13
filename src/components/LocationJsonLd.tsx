@@ -137,7 +137,9 @@ const LocationJsonLd: React.FC<LocationJsonLdProps> = ({ city, cityName }) => {
       ],
       sameAs: [
         `https://wa.me/${CONTACT_INFO.whatsapp}`,
-        'https://www.instagram.com/shwakiglassworks/',
+        'https://www.instagram.com/shwaki_glassworks/',
+        'https://www.facebook.com/profile.php?id=100063765481345',
+        'https://g.page/r/shwaki-glassworks',
       ],
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
@@ -157,13 +159,6 @@ const LocationJsonLd: React.FC<LocationJsonLdProps> = ({ city, cityName }) => {
           },
           position: index + 1,
         })),
-      },
-      aggregateRating: {
-        '@type': 'AggregateRating',
-        ratingValue: '4.9',
-        reviewCount: getReviewCount(city),
-        bestRating: '5',
-        worstRating: '1',
       },
       image: [
         'https://shwakiglassworks.com/og-image.jpg',
@@ -277,17 +272,6 @@ function getWikidataId(city: string): string {
     'beer-sheva': 'Q165305',
   };
   return ids[city] || 'Q801';
-}
-
-// Helper to get approximate review count per city
-function getReviewCount(city: string): string {
-  const counts: Record<string, string> = {
-    jerusalem: '45',
-    'tel-aviv': '62',
-    haifa: '28',
-    'beer-sheva': '20',
-  };
-  return counts[city] || '30';
 }
 
 export default LocationJsonLd;
