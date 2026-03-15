@@ -1,6 +1,6 @@
 /**
- * Hero Gallery Manager - Simplified Version
- * Easy-to-use interface for selecting 7 hero images
+ * Hero Gallery Manager - Easy Admin Version
+ * Big images, simple drag workflow
  */
 import { useState, useEffect, type FC } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
@@ -33,14 +33,22 @@ const getHeroPosition = (image: CloudinaryImage): number | null => {
   return null;
 };
 
+interface PendingChange {
+  type: 'add' | 'remove';
+  publicId: string;
+  position: number;
+}
+
 const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange }) => {
   const { token } = useAdmin();
   const { toast } = useToast();
   const [allImages, setAllImages] = useState<CloudinaryImage[]>([]);
   const [heroSlots, setHeroSlots] = useState<(CloudinaryImage | null)[]>(Array(7).fill(null));
+  const [originalSlots, setOriginalSlots] = useState<(CloudinaryImage | null)[]>(Array(7).fill(null));
   const [isLoading, setIsLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<CloudinaryImage | null>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [pendingChanges, setPendingChanges] = useState<PendingChange[]>([]);
 
   // Load all images and organize hero slots
   useEffect(() => {
@@ -48,6 +56,7 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
     
     const loadImages = async () => {
       setIsLoading(true);
+      setPendingChanges([]);
       try {
         const response = await fetchAllImages();
         const images = response.resources || [];
@@ -62,9 +71,10 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
           }
         });
         setHeroSlots(slots);
+        setOriginalSlots([...slots]);
       } catch (error) {
         console.error('Failed to load images:', error);
-        toast({ title: 'Error', description: 'Failed to load images', variant: 'destructive' });
+        toast({ title: 'שגיאה', description: 'נכשל בטעינת תמונות', variant: 'destructive' });
       } finally {
         setIsLoading(false);
       }
@@ -73,178 +83,247 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
     loadImages();
   }, [open, toast]);
 
-  // Assign selected image to a slot
-  const handleAssignToSlot = async (slotIndex: number) => {
-    if (!selectedImage || !token) return;
+  // Assign selected image to a slot (local only - no API call yet)
+  const handleAssignToSlot = (slotIndex: number) => {
+    if (!selectedImage) return;
+    
+    const newSlots = [...heroSlots];
+    
+    // Find if this image is already in another slot
+    const existingSlotIndex = newSlots.findIndex(
+      slot => slot?.public_id === selectedImage.public_id
+    );
+    
+    // If moving from another slot, clear that slot
+    if (existingSlotIndex !== -1 && existingSlotIndex !== slotIndex) {
+      newSlots[existingSlotIndex] = null;
+    }
+    
+    // Place image in new slot
+    newSlots[slotIndex] = selectedImage;
+    setHeroSlots(newSlots);
+    setSelectedImage(null);
+    
+    toast({ title: '✅ בוצע', description: `תמונה הועברה למיקום ${slotIndex + 1}. לחץ "שמור שינויים" לסיום` });
+  };
+
+  const handleRemoveFromSlot = (slotIndex: number) => {
+    const newSlots = [...heroSlots];
+    newSlots[slotIndex] = null;
+    setHeroSlots(newSlots);
+    toast({ title: '🗑️ הוסר', description: `תמונה הוסרה ממיקום ${slotIndex + 1}. לחץ "שמור שינויים" לסיום` });
+  };
+
+  // Check if there are unsaved changes
+  const hasChanges = JSON.stringify(heroSlots.map(s => s?.public_id)) !== 
+                     JSON.stringify(originalSlots.map(s => s?.public_id));
+
+  // Save all changes to the server
+  const handleSaveChanges = async () => {
+    if (!token) return;
     
     setIsSaving(true);
     try {
-      // Remove the image from any existing hero position
-      const existingPos = getHeroPosition(selectedImage);
-      if (existingPos) {
-        await removeHeroPosition(selectedImage.public_id, existingPos, token);
+      // Find what changed
+      const changes: PendingChange[] = [];
+      
+      // Check each slot
+      for (let i = 0; i < 7; i++) {
+        const original = originalSlots[i];
+        const current = heroSlots[i];
+        
+        // If original had an image that's no longer there
+        if (original && (!current || current.public_id !== original.public_id)) {
+          changes.push({ type: 'remove', publicId: original.public_id, position: i + 1 });
+        }
+        
+        // If current has an image that wasn't there originally
+        if (current && (!original || current.public_id !== original.public_id)) {
+          // Also check if this image needs to be removed from its old position
+          const oldPos = getHeroPosition(current);
+          if (oldPos && oldPos !== i + 1) {
+            changes.push({ type: 'remove', publicId: current.public_id, position: oldPos });
+          }
+          changes.push({ type: 'add', publicId: current.public_id, position: i + 1 });
+        }
       }
-
-      // Remove current image from this slot if any
-      const currentImage = heroSlots[slotIndex];
-      if (currentImage) {
-        await removeHeroPosition(currentImage.public_id, slotIndex + 1, token);
+      
+      // Apply all changes
+      for (const change of changes) {
+        if (change.type === 'remove') {
+          await removeHeroPosition(change.publicId, change.position, token);
+        } else {
+          await setHeroPosition(change.publicId, change.position, token);
+        }
       }
-
-      // Set new image to this position
-      await setHeroPosition(selectedImage.public_id, slotIndex + 1, token);
-
-      // Update local state
-      const newSlots = [...heroSlots];
-      if (existingPos) {
-        newSlots[existingPos - 1] = null;
-      }
-      newSlots[slotIndex] = selectedImage;
-      setHeroSlots(newSlots);
-
+      
+      // Update original slots to match current
+      setOriginalSlots([...heroSlots]);
+      
       // Update image tags in allImages
       setAllImages(prev => prev.map(img => {
-        if (img.public_id === selectedImage.public_id) {
-          const newTags = (img.tags || []).filter(t => !/^hero-[1-7]$/.test(t));
-          newTags.push(`hero-${slotIndex + 1}`);
-          return { ...img, tags: newTags };
+        const newSlotIndex = heroSlots.findIndex(s => s?.public_id === img.public_id);
+        const newTags = (img.tags || []).filter(t => !/^hero-[1-7]$/.test(t));
+        if (newSlotIndex !== -1) {
+          newTags.push(`hero-${newSlotIndex + 1}`);
         }
-        if (img.public_id === currentImage?.public_id) {
-          return { ...img, tags: (img.tags || []).filter(t => t !== `hero-${slotIndex + 1}`) };
-        }
-        return img;
+        return { ...img, tags: newTags };
       }));
-
-      toast({ title: '✅ Done!', description: `Image set to position ${slotIndex + 1}` });
-      setSelectedImage(null);
+      
+      toast({ title: '✅ נשמר!', description: 'כל השינויים נשמרו בהצלחה' });
     } catch (error) {
-      console.error('Failed to set hero position:', error);
-      toast({ title: 'Error', description: 'Failed to update', variant: 'destructive' });
+      console.error('Failed to save changes:', error);
+      toast({ title: 'שגיאה', description: 'נכשל בשמירת שינויים', variant: 'destructive' });
     } finally {
       setIsSaving(false);
     }
   };
 
-  const handleRemoveFromSlot = async (slotIndex: number) => {
-    if (!token) return;
-    const image = heroSlots[slotIndex];
-    if (!image) return;
-
-    setIsSaving(true);
-    try {
-      await removeHeroPosition(image.public_id, slotIndex + 1, token);
-
-      const newSlots = [...heroSlots];
-      newSlots[slotIndex] = null;
-      setHeroSlots(newSlots);
-
-      setAllImages(prev => prev.map(img => {
-        if (img.public_id === image.public_id) {
-          return { ...img, tags: (img.tags || []).filter(t => t !== `hero-${slotIndex + 1}`) };
-        }
-        return img;
-      }));
-
-      toast({ title: '🗑️ Removed', description: `Image removed from position ${slotIndex + 1}` });
-    } catch (error) {
-      console.error('Failed to remove hero position:', error);
-      toast({ title: 'Error', description: 'Failed to remove from position', variant: 'destructive' });
-    } finally {
-      setIsSaving(false);
-    }
+  // Cancel all changes
+  const handleCancelChanges = () => {
+    setHeroSlots([...originalSlots]);
+    setSelectedImage(null);
+    toast({ title: '↩️ בוטל', description: 'השינויים בוטלו' });
   };
 
   // Count how many slots are filled
   const filledSlots = heroSlots.filter(Boolean).length;
 
   return (
-    <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-4xl max-h-[90vh] overflow-y-auto">
+    <Dialog open={open} onOpenChange={(newOpen) => {
+      if (!newOpen && hasChanges) {
+        if (confirm('יש שינויים שלא נשמרו. האם אתה בטוח שברצונך לצאת?')) {
+          onOpenChange(false);
+        }
+      } else {
+        onOpenChange(newOpen);
+      }
+    }}>
+      <DialogContent className="max-w-6xl max-h-[95vh] overflow-y-auto">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-brand-navy flex items-center gap-3">
-            🏠 Hero Gallery
+          <DialogTitle className="text-2xl font-bold text-brand-navy flex items-center gap-3 flex-wrap">
+            <span>🏠 גלריית ראשי</span>
             <span className="text-sm font-normal bg-brand-gold/20 text-brand-gold px-3 py-1 rounded-full">
-              {filledSlots}/7 images
+              {filledSlots}/7 תמונות
             </span>
+            {hasChanges && (
+              <span className="text-sm font-normal bg-orange-100 text-orange-600 px-3 py-1 rounded-full animate-pulse">
+                ⚠️ יש שינויים שלא נשמרו
+              </span>
+            )}
           </DialogTitle>
         </DialogHeader>
 
         {isLoading ? (
           <div className="flex items-center justify-center py-12">
-            <div className="animate-spin rounded-full h-10 w-10 border-t-3 border-b-3 border-brand-gold" />
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-b-4 border-brand-gold" />
           </div>
         ) : (
           <div className="space-y-6">
+            {/* Save/Cancel Buttons - Always visible when there are changes */}
+            {hasChanges && (
+              <div className="bg-orange-50 border-2 border-orange-300 rounded-xl p-4 flex items-center justify-between gap-4 sticky top-0 z-10">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">⚠️</span>
+                  <span className="font-bold text-orange-800">יש לך שינויים שלא נשמרו!</span>
+                </div>
+                <div className="flex gap-3">
+                  <Button 
+                    variant="outline" 
+                    onClick={handleCancelChanges}
+                    disabled={isSaving}
+                    className="border-red-300 text-red-600 hover:bg-red-50"
+                  >
+                    ❌ בטל שינויים
+                  </Button>
+                  <Button 
+                    onClick={handleSaveChanges}
+                    disabled={isSaving}
+                    className="bg-green-600 hover:bg-green-700 text-white font-bold px-6"
+                  >
+                    {isSaving ? (
+                      <span className="flex items-center gap-2">
+                        <span className="animate-spin">⏳</span> שומר...
+                      </span>
+                    ) : (
+                      '💾 שמור שינויים'
+                    )}
+                  </Button>
+                </div>
+              </div>
+            )}
+
             {/* Instructions */}
-            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 text-blue-800">
-              <p className="font-medium text-lg mb-1">📋 How to use:</p>
-              <ol className="list-decimal list-inside space-y-1 text-sm">
-                <li><strong>Click an image</strong> from the gallery below to select it</li>
-                <li><strong>Click a position box</strong> (1-7) above to place the image there</li>
-                <li>Click ❌ on any position to remove an image</li>
+            <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+              <p className="font-bold text-blue-800 text-lg mb-2">📋 :איך להשתמש</p>
+              <ol className="list-decimal list-inside space-y-1 text-blue-700 text-right" dir="rtl">
+                <li><strong>לחץ על תמונה</strong> מהגלריה למטה כדי לבחור אותה</li>
+                <li><strong>לחץ על מיקום</strong> (1-7) כדי למקם את התמונה שם</li>
+                <li>לחץ על ❌ כדי להסיר תמונה ממיקום</li>
+                <li><strong className="text-green-700">לחץ "שמור שינויים"</strong> כדי לשמור את השינויים!</li>
               </ol>
             </div>
 
             {/* Selected Image Preview */}
             {selectedImage && (
-              <div className="bg-green-50 border-2 border-green-400 rounded-lg p-4 flex items-center gap-4">
+              <div className="bg-green-50 border-2 border-green-400 rounded-xl p-4 flex items-center gap-4">
                 <img
-                  src={getThumbnailUrl(selectedImage.public_id, 120)}
+                  src={getThumbnailUrl(selectedImage.public_id, 200)}
                   alt="Selected"
-                  className="w-24 h-24 object-cover rounded-lg shadow-lg"
+                  className="w-32 h-32 object-cover rounded-lg shadow-lg"
                 />
-                <div className="flex-1">
-                  <p className="font-bold text-green-800 text-lg">✅ Image Selected!</p>
-                  <p className="text-green-700">Now click a position (1-7) below to place this image</p>
+                <div className="flex-1 text-right" dir="rtl">
+                  <p className="font-bold text-green-800 text-xl">✅ תמונה נבחרה!</p>
+                  <p className="text-green-700 text-lg">עכשיו לחץ על מיקום (1-7) למטה כדי למקם את התמונה</p>
                 </div>
                 <Button 
                   variant="outline" 
                   onClick={() => setSelectedImage(null)}
-                  className="text-red-600 border-red-300 hover:bg-red-50"
+                  className="text-red-600 border-red-300 hover:bg-red-50 text-lg px-6"
                 >
-                  Cancel
+                  ביטול
                 </Button>
               </div>
             )}
 
-            {/* Current 7 Hero Positions */}
+            {/* Current 7 Hero Positions - BIGGER */}
             <div>
-              <h3 className="text-lg font-bold text-brand-navy mb-3">
-                📍 Hero Positions (click to {selectedImage ? 'place image' : 'remove'})
+              <h3 className="text-xl font-bold text-brand-navy mb-4 text-right" dir="rtl">
+                📍 מיקומי גלריה (לחץ כדי {selectedImage ? 'למקם' : 'להסיר'})
               </h3>
-              <div className="grid grid-cols-7 gap-2">
+              <div className="grid grid-cols-4 md:grid-cols-7 gap-3">
                 {heroSlots.map((slot, index) => (
                   <div key={index} className="relative">
-                    <div className="text-center text-xs font-bold text-brand-navy/70 mb-1">
+                    <div className="text-center text-lg font-bold text-brand-navy mb-2">
                       {index + 1}
                     </div>
                     {slot ? (
                       <div 
-                        className={`relative aspect-square rounded-lg overflow-hidden border-2 transition-all cursor-pointer group ${
+                        className={`relative aspect-square rounded-xl overflow-hidden border-3 transition-all cursor-pointer group shadow-lg ${
                           selectedImage 
-                            ? 'border-green-400 hover:border-green-600 hover:shadow-lg' 
-                            : 'border-brand-gold'
+                            ? 'border-green-400 hover:border-green-600 hover:shadow-2xl hover:scale-105' 
+                            : 'border-brand-gold hover:border-red-400'
                         }`}
                         onClick={() => selectedImage ? handleAssignToSlot(index) : null}
                       >
                         <img
-                          src={getThumbnailUrl(slot.public_id, 150)}
+                          src={getThumbnailUrl(slot.public_id, 300)}
                           alt={`Hero ${index + 1}`}
                           className="w-full h-full object-cover"
                         />
                         {!selectedImage && (
                           <button
-                            onClick={() => handleRemoveFromSlot(index)}
+                            onClick={(e) => { e.stopPropagation(); handleRemoveFromSlot(index); }}
                             disabled={isSaving}
-                            className="absolute top-1 right-1 w-6 h-6 bg-red-500 text-white rounded-full flex items-center justify-center text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-600 disabled:opacity-50"
+                            className="absolute top-2 right-2 w-8 h-8 bg-red-500 text-white rounded-full flex items-center justify-center text-sm font-bold shadow-lg hover:bg-red-600 hover:scale-110 transition-all disabled:opacity-50"
                           >
                             ✕
                           </button>
                         )}
                         {selectedImage && (
-                          <div className="absolute inset-0 bg-green-500/30 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                            <span className="bg-green-600 text-white px-2 py-1 rounded text-xs font-bold">
-                              Replace
+                          <div className="absolute inset-0 bg-green-500/40 flex items-center justify-center">
+                            <span className="bg-green-600 text-white px-3 py-2 rounded-lg text-sm font-bold shadow-lg">
+                              החלף
                             </span>
                           </div>
                         )}
@@ -253,10 +332,10 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
                       <button
                         onClick={() => selectedImage ? handleAssignToSlot(index) : null}
                         disabled={!selectedImage || isSaving}
-                        className={`w-full aspect-square rounded-lg border-2 border-dashed flex items-center justify-center text-2xl transition-all ${
+                        className={`w-full aspect-square rounded-xl border-3 border-dashed flex items-center justify-center text-4xl transition-all ${
                           selectedImage 
-                            ? 'border-green-400 bg-green-50 text-green-600 hover:bg-green-100 hover:border-green-600 cursor-pointer' 
-                            : 'border-gray-300 bg-gray-50 text-gray-400 cursor-not-allowed'
+                            ? 'border-green-400 bg-green-50 text-green-600 hover:bg-green-100 hover:border-green-600 hover:scale-105 cursor-pointer shadow-lg' 
+                            : 'border-gray-300 bg-gray-100 text-gray-400 cursor-not-allowed'
                         }`}
                       >
                         +
@@ -267,14 +346,14 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
               </div>
             </div>
 
-            {/* All Images Gallery */}
+            {/* All Images Gallery - MUCH BIGGER */}
             <div>
-              <h3 className="text-lg font-bold text-brand-navy mb-3">
-                🖼️ All Images (click to select)
+              <h3 className="text-xl font-bold text-brand-navy mb-4 text-right" dir="rtl">
+                🖼️ כל התמונות (לחץ לבחירה)
               </h3>
-              <div className="grid grid-cols-4 sm:grid-cols-5 md:grid-cols-6 gap-3 max-h-[40vh] overflow-y-auto p-2 bg-gray-50 rounded-lg">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 max-h-[50vh] overflow-y-auto p-3 bg-gray-50 rounded-xl">
                 {allImages.map(image => {
-                  const heroPos = getHeroPosition(image);
+                  const heroPos = heroSlots.findIndex(s => s?.public_id === image.public_id) + 1;
                   const isSelected = selectedImage?.public_id === image.public_id;
                   
                   return (
@@ -282,28 +361,28 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
                       key={image.public_id}
                       onClick={() => setSelectedImage(isSelected ? null : image)}
                       disabled={isSaving}
-                      className={`relative aspect-square rounded-lg overflow-hidden transition-all disabled:opacity-50 ${
+                      className={`relative aspect-square rounded-xl overflow-hidden transition-all disabled:opacity-50 shadow-md hover:shadow-xl ${
                         isSelected 
-                          ? 'ring-4 ring-green-500 scale-105 shadow-xl' 
-                          : heroPos 
-                            ? 'ring-2 ring-brand-gold' 
+                          ? 'ring-4 ring-green-500 scale-105 shadow-2xl' 
+                          : heroPos > 0
+                            ? 'ring-3 ring-brand-gold' 
                             : 'border-2 border-transparent hover:border-brand-gold hover:scale-105'
                       }`}
                     >
                       <img
-                        src={getThumbnailUrl(image.public_id, 150)}
-                        alt={image.context?.custom?.alt || 'Image'}
+                        src={getThumbnailUrl(image.public_id, 300)}
+                        alt={image.context?.custom?.alt || 'תמונה'}
                         className="w-full h-full object-cover"
                       />
-                      {heroPos && (
-                        <div className="absolute top-1 left-1 w-5 h-5 bg-brand-gold text-white rounded-full flex items-center justify-center text-xs font-bold shadow">
+                      {heroPos > 0 && (
+                        <div className="absolute top-2 left-2 w-8 h-8 bg-brand-gold text-white rounded-full flex items-center justify-center text-lg font-bold shadow-lg">
                           {heroPos}
                         </div>
                       )}
                       {isSelected && (
-                        <div className="absolute inset-0 bg-green-500/20 flex items-center justify-center">
-                          <span className="bg-green-600 text-white px-2 py-1 rounded text-xs font-bold">
-                            ✓ Selected
+                        <div className="absolute inset-0 bg-green-500/30 flex items-center justify-center">
+                          <span className="bg-green-600 text-white px-4 py-2 rounded-lg text-lg font-bold shadow-lg">
+                            ✓ נבחר
                           </span>
                         </div>
                       )}
@@ -312,6 +391,27 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
                 })}
               </div>
             </div>
+
+            {/* Bottom Save Button */}
+            {hasChanges && (
+              <div className="flex justify-center gap-4 pt-4 border-t">
+                <Button 
+                  variant="outline" 
+                  onClick={handleCancelChanges}
+                  disabled={isSaving}
+                  className="border-red-300 text-red-600 hover:bg-red-50 text-lg px-8 py-3"
+                >
+                  ❌ בטל
+                </Button>
+                <Button 
+                  onClick={handleSaveChanges}
+                  disabled={isSaving}
+                  className="bg-green-600 hover:bg-green-700 text-white font-bold text-lg px-8 py-3"
+                >
+                  {isSaving ? '⏳ שומר...' : '💾 שמור שינויים'}
+                </Button>
+              </div>
+            )}
           </div>
         )}
       </DialogContent>

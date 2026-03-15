@@ -139,7 +139,7 @@ cloudinary.config({
 });
 
 // Allowed tag prefixes for safety
-const ALLOWED_TAG_PREFIXES = ['hero-', 'service-card-', 'featured'];
+const ALLOWED_TAG_PREFIXES = ['hero-', 'service-card', 'featured'];
 
 function isAllowedTag(tag: string): boolean {
   return ALLOWED_TAG_PREFIXES.some(prefix => tag === prefix || tag.startsWith(prefix));
