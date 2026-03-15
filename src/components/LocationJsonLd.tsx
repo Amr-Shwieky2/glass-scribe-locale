@@ -74,7 +74,7 @@ const LocationJsonLd: React.FC<LocationJsonLdProps> = ({ city, cityName }) => {
     const locationBusinessSchema = {
       '@context': 'https://schema.org',
       '@type': 'LocalBusiness',
-      '@id': `https://shwakiglassworks.com/${locale}/${city}#business`,
+      '@id': `https://www.shwakiglassworks.com/${locale}/${city}#business`,
       name: `${getLocalizedText(BUSINESS_INFO.name, locale)} - ${localizedCityName}`,
       alternateName: [
         `Shwaki Brothers Glassworks ${CITY_NAMES[city]?.en}`,
@@ -84,7 +84,7 @@ const LocationJsonLd: React.FC<LocationJsonLdProps> = ({ city, cityName }) => {
       description: locale === 'he'
         ? `שירותי התקנת זכוכית מקצועיים ב${localizedCityName} - מקלחונים, מעקות זכוכית, מראות, חזיתות. מדידה חינם, אחריות שנתיים.`
         : `Professional glass installation services in ${CITY_NAMES[city]?.en} - shower enclosures, glass railings, mirrors, storefronts. Free measurement, 2-year warranty.`,
-      url: `https://shwakiglassworks.com/${locale}/${city}`,
+      url: `https://www.shwakiglassworks.com/${locale}/${city}`,
       telephone: CONTACT_INFO.phoneIntl,
       email: CONTACT_INFO.email,
       address: {
@@ -161,7 +161,7 @@ const LocationJsonLd: React.FC<LocationJsonLdProps> = ({ city, cityName }) => {
         })),
       },
       image: [
-        'https://shwakiglassworks.com/og-image.jpg',
+        'https://www.shwakiglassworks.com/og-image.jpg',
       ],
       foundingDate: BUSINESS_INFO.established,
     };
@@ -175,13 +175,13 @@ const LocationJsonLd: React.FC<LocationJsonLdProps> = ({ city, cityName }) => {
           '@type': 'ListItem',
           position: 1,
           name: locale === 'he' ? 'בית' : 'Home',
-          item: `https://shwakiglassworks.com/${locale}`,
+          item: `https://www.shwakiglassworks.com/${locale}`,
         },
         {
           '@type': 'ListItem',
           position: 2,
           name: localizedCityName,
-          item: `https://shwakiglassworks.com/${locale}/${city}`,
+          item: `https://www.shwakiglassworks.com/${locale}/${city}`,
         },
       ],
     };
@@ -193,7 +193,7 @@ const LocationJsonLd: React.FC<LocationJsonLdProps> = ({ city, cityName }) => {
       serviceType: 'Glass Installation',
       provider: {
         '@type': 'LocalBusiness',
-        '@id': `https://shwakiglassworks.com/${locale}/${city}#business`,
+        '@id': `https://www.shwakiglassworks.com/${locale}/${city}#business`,
         name: `${getLocalizedText(BUSINESS_INFO.name, locale)} - ${localizedCityName}`,
       },
       areaServed: {

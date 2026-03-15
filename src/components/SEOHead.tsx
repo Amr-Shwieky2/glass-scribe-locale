@@ -17,7 +17,7 @@ interface SEOProps {
   noindex?: boolean;
 }
 
-const BASE_URL = 'https://shwakiglassworks.com';
+const BASE_URL = 'https://www.shwakiglassworks.com';
 
 const DEFAULT_SEO: Record<SupportedLocale, { title: string; description: string; keywords: string }> = {
   he: {

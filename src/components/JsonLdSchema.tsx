@@ -81,13 +81,13 @@ const JsonLdSchema: React.FC = () => {
     const localBusinessSchema = {
       '@context': 'https://schema.org',
       '@type': 'LocalBusiness',
-      '@id': 'https://shwakiglassworks.com/#business',
+      '@id': 'https://www.shwakiglassworks.com/#business',
       name: getLocalizedText(BUSINESS_INFO.name, locale),
       alternateName: ['Shwaki Brothers Glassworks', 'אחים שוואקי זכוכית', 'شويكي اخوان للزوجاج'],
       description: locale === 'he' 
         ? 'מומחים להתקנת זכוכית בישראל - מקלחונים, מעקות זכוכית, מראות, חזיתות חנויות. מדידה חינם, אחריות שנתיים.'
         : 'Professional glass installation in Israel - shower enclosures, glass railings, mirrors, storefronts. Free measurement, 2-year warranty.',
-      url: 'https://shwakiglassworks.com',
+      url: 'https://www.shwakiglassworks.com',
       telephone: CONTACT_INFO.phoneIntl,
       email: CONTACT_INFO.email,
       address: {
@@ -141,7 +141,7 @@ const JsonLdSchema: React.FC = () => {
         })),
       },
       image: [
-        'https://shwakiglassworks.com/og-image.jpg',
+        'https://www.shwakiglassworks.com/og-image.jpg',
       ],
       foundingDate: BUSINESS_INFO.established,
     };
@@ -166,12 +166,12 @@ const JsonLdSchema: React.FC = () => {
       '@type': 'WebSite',
       name: 'Shwaki Brothers Glassworks',
       alternateName: 'אחים שוואקי זכוכית',
-      url: 'https://shwakiglassworks.com',
+      url: 'https://www.shwakiglassworks.com',
       potentialAction: {
         '@type': 'SearchAction',
         target: {
           '@type': 'EntryPoint',
-          urlTemplate: 'https://shwakiglassworks.com/search?q={search_term_string}',
+          urlTemplate: 'https://www.shwakiglassworks.com/search?q={search_term_string}',
         },
         'query-input': 'required name=search_term_string',
       },
@@ -187,13 +187,13 @@ const JsonLdSchema: React.FC = () => {
           '@type': 'ListItem',
           position: 1,
           name: locale === 'he' ? 'בית' : 'Home',
-          item: `https://shwakiglassworks.com/${locale}`,
+          item: `https://www.shwakiglassworks.com/${locale}`,
         },
         ...(page !== 'home' ? [{
           '@type': 'ListItem',
           position: 2,
           name: page.charAt(0).toUpperCase() + page.slice(1),
-          item: `https://shwakiglassworks.com/${locale}/${page}`,
+          item: `https://www.shwakiglassworks.com/${locale}/${page}`,
         }] : []),
       ],
     };

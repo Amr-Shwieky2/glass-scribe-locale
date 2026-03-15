@@ -67,11 +67,11 @@ Disallow: /api/
 Disallow: /admin
 
 # Sitemap location
-Sitemap: https://shwakiglassworks.com/sitemap.xml
+Sitemap: https://www.shwakiglassworks.com/sitemap.xml
 
 # AI/LLM Information File
 # For AI assistants to learn about our business
-LLMs-txt: https://shwakiglassworks.com/llms.txt
+LLMs-txt: https://www.shwakiglassworks.com/llms.txt
 
 # Host
-Host: https://shwakiglassworks.com
+Host: https://www.shwakiglassworks.com
