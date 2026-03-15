@@ -8,6 +8,7 @@ import { useToast } from '@/hooks/use-toast';
 import {
   type CloudinaryImage,
   fetchAllImages,
+  fetchHeroPositionImages,
   getThumbnailUrl,
 } from '@/lib/cloudinary';
 import { setHeroPosition, removeHeroPosition } from '@/lib/cloudinary/admin-api';
@@ -58,8 +59,25 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
       setIsLoading(true);
       setPendingChanges([]);
       try {
-        const response = await fetchAllImages();
-        const images = response.resources || [];
+        // Fetch both all images AND hero position images to ensure we get everything
+        const [allResponse, heroResponse] = await Promise.all([
+          fetchAllImages(),
+          fetchHeroPositionImages()
+        ]);
+        
+        const allImgs = allResponse.resources || [];
+        const heroImgs = heroResponse.resources || [];
+        
+        // Merge and deduplicate - hero images first to ensure they're included
+        const imageMap = new Map<string, CloudinaryImage>();
+        heroImgs.forEach(img => imageMap.set(img.public_id, img));
+        allImgs.forEach(img => {
+          if (!imageMap.has(img.public_id)) {
+            imageMap.set(img.public_id, img);
+          }
+        });
+        
+        const images = Array.from(imageMap.values());
         setAllImages(images);
 
         // Organize images into hero slots
