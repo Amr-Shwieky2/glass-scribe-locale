@@ -75,10 +75,10 @@ export const ADMIN_STRINGS = {
   // Dashboard
   dashboard: {
     manageHeroGallery: {
-      he: '🏠 נהל גלריית ראשי (7 תמונות)',
-      en: '🏠 Manage Hero Gallery (7 Images)',
-      ar: '🏠 إدارة معرض الصفحة الرئيسية (7 صور)',
-      ru: '🏠 Управление галереей (7 изображений)',
+      he: '🖼️ נהל תמונת ראשי',
+      en: '🖼️ Manage Hero Image',
+      ar: '🖼️ إدارة صورة الصفحة الرئيسية',
+      ru: '🖼️ Управление главным изображением',
     },
     manageServiceCards: {
       he: '🏷️ נהל כרטיסי שירות',

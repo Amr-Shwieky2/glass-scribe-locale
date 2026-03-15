@@ -7,7 +7,7 @@ import React, { useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ArrowRight, MessageCircle, Phone } from 'lucide-react';
-import HeroGallery from '@/components/HeroGallery';
+import HeroSection from '@/components/HeroSection';
 import TrustSection from '@/components/home/TrustSection';
 import HomeServices from '@/components/home/HomeServices';
 import WhyChooseUs from '@/components/home/WhyChooseUs';
@@ -52,8 +52,8 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      {/* Hero Section */}
-      <HeroGallery />
+      {/* Hero Section - Single Image with Animation */}
+      <HeroSection />
       
       {/* Trust Signals - Immediately after hero for credibility */}
       <TrustSection locale={locale} />
