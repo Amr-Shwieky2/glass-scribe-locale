@@ -2,16 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Critical: Font fallback to prevent CLS */
-@font-face {
-  font-family: 'Heebo-fallback';
-  src: local('Arial Hebrew'), local('Arial');
-  font-display: swap;
-  ascent-override: 95%;
-  descent-override: 25%;
-  line-gap-override: 0%;
-}
-
 /* Glass Installation Company Design System - Professional & Trust-Building */
 
 @layer base {

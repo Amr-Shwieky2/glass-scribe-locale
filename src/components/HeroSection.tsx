@@ -47,23 +47,12 @@ const HeroSection: React.FC = () => {
   const heroImage = heroImages[0];
   const imageUrl = heroImage ? getHeroUrl(heroImage.public_id) : null;
 
-  // Preload image with fetchpriority
+  // Preload image
   useEffect(() => {
     if (imageUrl) {
-      const link = document.createElement('link');
-      link.rel = 'preload';
-      link.as = 'image';
-      link.href = imageUrl;
-      link.fetchPriority = 'high';
-      document.head.appendChild(link);
-      
       const img = new Image();
       img.src = imageUrl;
       img.onload = () => setImageLoaded(true);
-      
-      return () => {
-        document.head.removeChild(link);
-      };
     }
   }, [imageUrl]);
 
@@ -72,24 +61,19 @@ const HeroSection: React.FC = () => {
       ref={containerRef} 
       className="relative h-screen overflow-hidden bg-brand-navy"
     >
-      {/* Background Image with Ken Burns Effect */}
+      {/* Background Image */}
       <AnimatePresence>
         {imageUrl && imageLoaded && (
           <motion.div
             className="absolute inset-0"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.8 }}
+            transition={{ duration: 0.5 }}
           >
             <img
               src={imageUrl}
               alt="Premium glass work"
               className="w-full h-full object-cover"
-              width="1920"
-              height="1080"
-              fetchPriority="high"
-              decoding="async"
-              style={{ transform: 'scale(1.02)' }}
             />
             {/* Gradient Overlays */}
             <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/90 via-brand-navy/60 to-transparent" />

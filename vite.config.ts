@@ -32,27 +32,9 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
-          // Core React - loaded immediately
-          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
-            return 'react-core';
-          }
-          // Router - loaded immediately
-          if (id.includes('node_modules/react-router')) {
-            return 'router';
-          }
-          // Animation libraries - can be deferred
-          if (id.includes('framer-motion') || id.includes('@react-spring')) {
-            return 'animation';
-          }
-          // UI components - lazy load
-          if (id.includes('@radix-ui') || id.includes('lucide-react')) {
-            return 'ui';
-          }
-          // i18n - loaded on demand
-          if (id.includes('i18next')) {
-            return 'i18n';
-          }
+        manualChunks: {
+          'vendor': ['react', 'react-dom', 'react-router-dom'],
+          'animations': ['framer-motion', '@react-spring/web'],
         },
       },
     },
