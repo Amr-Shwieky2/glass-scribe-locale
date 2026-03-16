@@ -43,7 +43,7 @@ const Footer: React.FC = () => {
           {/* Brand Section */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
-              <img src="/logo-64.png" alt="Shwaki Brothers Logo" className="w-12 h-12 sm:w-14 sm:h-14 object-contain" />
+              <img src="/logo-64.png" alt="Shwaki Brothers Logo" width="56" height="56" className="w-12 h-12 sm:w-14 sm:h-14 object-contain" />
               <div><h3 className="font-bold text-base sm:text-lg text-white">{getLocalizedText(BUSINESS_INFO.name, locale)}</h3></div>
             </div>
             <p className="text-gray-300 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">{getLocalizedText(FOOTER_CONTENT.description, locale)}</p>
