@@ -69,9 +69,5 @@ Disallow: /admin
 # Sitemap location
 Sitemap: https://www.shwakiglassworks.com/sitemap.xml
 
-# AI/LLM Information File
-# For AI assistants to learn about our business
-LLMs-txt: https://www.shwakiglassworks.com/llms.txt
-
 # Host
 Host: https://www.shwakiglassworks.com

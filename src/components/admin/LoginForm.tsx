@@ -69,7 +69,7 @@ const LoginForm: FC = () => {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <img
-            src="/logo.png"
+            src="/logo-128.png"
             alt="Shwaki Brothers"
             className="w-20 h-20 mx-auto mb-4"
           />

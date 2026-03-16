@@ -64,6 +64,7 @@ const HomeTestimonials: React.FC<HomeTestimonialsProps> = ({ locale }) => {
                 href={`https://www.instagram.com/reel/${reelId}/`}
                 target="_blank"
                 rel="noopener noreferrer"
+                aria-label="View on Instagram"
                 className="absolute bottom-3 right-3 flex items-center gap-1.5 py-2 px-3 bg-white hover:bg-brand-gold rounded-full text-xs font-medium text-brand-navy shadow-lg transition-all hover:scale-105 z-10"
               >
                 <Instagram className="w-4 h-4" />

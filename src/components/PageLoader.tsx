@@ -25,7 +25,7 @@ const PageLoader: FC = () => (
 
       {/* Business Info for slow connections */}
       <div className="mt-4 space-y-3">
-        <img src="/logo.png" alt="Shwaki Brothers Glassworks" className="w-20 h-20 mx-auto" />
+        <img src="/logo-128.png" alt="Shwaki Brothers Glassworks" className="w-20 h-20 mx-auto" />
         <h2 className="text-xl font-bold text-brand-navy">Shwaki Brothers Glassworks</h2>
         <p className="text-brand-navy/70 text-sm">אחים שוואקי עבודות זכוכית</p>
 

@@ -148,7 +148,7 @@ const CookieConsent: React.FC = () => {
             </div>
             <div className="flex-1">
               <h3 className="font-bold text-brand-navy text-lg mb-2">{labels.title}</h3>
-              <p className="text-gray-600 text-sm mb-4">{labels.description}</p>
+              <p className="text-gray-700 text-sm mb-4">{labels.description}</p>
               
               {/* Settings Panel */}
               {showSettings && (
@@ -217,7 +217,7 @@ const CookieConsent: React.FC = () => {
                 )}
                 <a
                   href={`/${currentLanguage}/privacy`}
-                  className="px-4 py-2 text-brand-gold hover:underline text-sm font-medium"
+                  className="px-4 py-2 text-brand-navy hover:text-brand-gold hover:underline text-sm font-medium"
                 >
                   {labels.privacyPolicy}
                 </a>

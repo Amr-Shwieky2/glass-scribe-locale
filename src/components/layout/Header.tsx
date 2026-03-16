@@ -63,7 +63,7 @@ const Header: React.FC = () => {
         <div className="flex items-center justify-between h-16 sm:h-20">
           <Link to={`/${currentLanguage}`} className="group flex-shrink-0">
             <animated.div style={logoSpring} className="flex items-center gap-2 sm:gap-3">
-              <img src="/logo.png" alt="Shwaki Brothers Logo" className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
+              <img src="/logo-64.png" alt="Shwaki Brothers Logo" className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
               <div className="hidden xs:block sm:block">
                 <span className="font-bold text-brand-navy text-sm sm:text-base">{getLocalizedText(BUSINESS_INFO.name, locale)}</span>
               </div>

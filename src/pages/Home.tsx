@@ -100,7 +100,7 @@ const Home: React.FC = () => {
             </button>
             <button 
               onClick={handleCall}
-              className="inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-base sm:text-lg bg-white/10 backdrop-blur-sm text-white font-medium rounded-full border border-white/20 hover:bg-white/20 transition-all duration-300"
+              className="inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-base sm:text-lg bg-white/20 backdrop-blur-sm text-white font-bold rounded-full border-2 border-white/40 hover:bg-white/30 transition-all duration-300"
             >
               <Phone className="mr-2 w-5 h-5" />
               {getLocalizedText(CTA_CONTENT.callNow, locale)}
