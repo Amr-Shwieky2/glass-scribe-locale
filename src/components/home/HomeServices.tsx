@@ -38,11 +38,15 @@ const HomeServices: React.FC<HomeServicesProps> = ({ locale, currentLanguage }) 
                 to={`/${currentLanguage}/projects?category=${service.id}`} 
                 className="group relative block rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 aspect-[4/5] sm:aspect-[3/4]"
               >
-                {/* Full-size background image */}
+                {/* Full-size background image with lazy loading */}
                 {serviceImage ? (
                   <img 
                     src={serviceImage} 
                     alt={getLocalizedText(service.title, locale)}
+                    loading="lazy"
+                    decoding="async"
+                    width="600"
+                    height="800"
                     className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
                   />
                 ) : (

@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Critical: Font fallback to prevent CLS */
+@font-face {
+  font-family: 'Heebo-fallback';
+  src: local('Arial Hebrew'), local('Arial');
+  font-display: swap;
+  ascent-override: 95%;
+  descent-override: 25%;
+  line-gap-override: 0%;
+}
+
 /* Glass Installation Company Design System - Professional & Trust-Building */
 
 @layer base {
@@ -73,7 +83,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Heebo', 'Assistant', 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: 'Heebo', 'Heebo-fallback', 'Assistant', 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 1.7;

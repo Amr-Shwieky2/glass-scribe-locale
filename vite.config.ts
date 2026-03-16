@@ -32,26 +32,51 @@ export default defineConfig(({ mode }) => ({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          // Vendor chunks for better caching
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
-          'animation-vendor': ['@react-spring/web', 'framer-motion'],
-          'ui-vendor': ['@radix-ui/react-dialog', '@radix-ui/react-dropdown-menu', '@radix-ui/react-slot'],
-          'i18n-vendor': ['i18next', 'react-i18next'],
+        manualChunks: (id) => {
+          // Core React - loaded immediately
+          if (id.includes('node_modules/react/') || id.includes('node_modules/react-dom/')) {
+            return 'react-core';
+          }
+          // Router - loaded immediately
+          if (id.includes('node_modules/react-router')) {
+            return 'router';
+          }
+          // Animation libraries - can be deferred
+          if (id.includes('framer-motion') || id.includes('@react-spring')) {
+            return 'animation';
+          }
+          // UI components - lazy load
+          if (id.includes('@radix-ui') || id.includes('lucide-react')) {
+            return 'ui';
+          }
+          // i18n - loaded on demand
+          if (id.includes('i18next')) {
+            return 'i18n';
+          }
         },
       },
     },
-    chunkSizeWarningLimit: 600,
+    chunkSizeWarningLimit: 500,
     // Disable source maps in production for security
     sourcemap: mode === 'development',
     // Optimize CSS
     cssCodeSplit: true,
     // Use esbuild for minification (faster and built-in)
     minify: 'esbuild',
-    target: 'esnext',
+    target: 'es2020',
+    // Reduce bundle size
+    reportCompressedSize: false,
+    // Tree shake better
+    modulePreload: {
+      polyfill: false,
+    },
   },
   // Drop console.log and debugger in production
-  esbuild: mode === 'production' ? { drop: ['console', 'debugger'] } : undefined,
+  esbuild: mode === 'production' ? { 
+    drop: ['console', 'debugger'],
+    legalComments: 'none',
+    treeShaking: true,
+  } : undefined,
   // Optimize dependencies
   optimizeDeps: {
     include: [

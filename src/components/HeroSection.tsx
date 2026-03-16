@@ -47,12 +47,23 @@ const HeroSection: React.FC = () => {
   const heroImage = heroImages[0];
   const imageUrl = heroImage ? getHeroUrl(heroImage.public_id) : null;
 
-  // Preload image
+  // Preload image with fetchpriority
   useEffect(() => {
     if (imageUrl) {
+      const link = document.createElement('link');
+      link.rel = 'preload';
+      link.as = 'image';
+      link.href = imageUrl;
+      link.fetchPriority = 'high';
+      document.head.appendChild(link);
+      
       const img = new Image();
       img.src = imageUrl;
       img.onload = () => setImageLoaded(true);
+      
+      return () => {
+        document.head.removeChild(link);
+      };
     }
   }, [imageUrl]);
 
@@ -66,22 +77,19 @@ const HeroSection: React.FC = () => {
         {imageUrl && imageLoaded && (
           <motion.div
             className="absolute inset-0"
-            initial={{ scale: 1.2, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 1.5, ease: [0.25, 0.1, 0.25, 1] }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8 }}
           >
-            <motion.img
+            <img
               src={imageUrl}
               alt="Premium glass work"
               className="w-full h-full object-cover"
-              animate={{ 
-                scale: [1, 1.05, 1],
-              }}
-              transition={{ 
-                duration: 20, 
-                repeat: Infinity,
-                ease: "easeInOut"
-              }}
+              width="1920"
+              height="1080"
+              fetchPriority="high"
+              decoding="async"
+              style={{ transform: 'scale(1.02)' }}
             />
             {/* Gradient Overlays */}
             <div className="absolute inset-0 bg-gradient-to-r from-brand-navy/90 via-brand-navy/60 to-transparent" />
