@@ -60,14 +60,14 @@ const Home: React.FC = () => {
       {/* Services Section */}
       <HomeServices locale={locale} currentLanguage={currentLanguage} />
       
+      {/* Social Proof - Instagram Reels */}
+      <HomeTestimonials locale={locale} />
+
       {/* Why Choose Us - Value Proposition */}
       <WhyChooseUs locale={locale} currentLanguage={currentLanguage} />
       
       {/* Our Process - AI-friendly structured content */}
       <ProcessSection locale={locale} />
-      
-      {/* Social Proof - Instagram Reels */}
-      <HomeTestimonials locale={locale} />
 
       {/* FAQ Section - For SEO and AI Search */}
       <FAQSection locale={locale} />
