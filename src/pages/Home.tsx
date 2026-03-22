@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ArrowRight, MessageCircle, Phone } from 'lucide-react';
 import HeroSection from '@/components/HeroSection';
-import TrustSection from '@/components/home/TrustSection';
 import HomeServices from '@/components/home/HomeServices';
 import WhyChooseUs from '@/components/home/WhyChooseUs';
 import ProcessSection from '@/components/home/ProcessSection';
@@ -57,9 +56,6 @@ const Home: React.FC = () => {
     <div className="min-h-screen">
       {/* Hero Section - Single Image with Animation */}
       <HeroSection />
-      
-      {/* Trust Signals - Immediately after hero for credibility */}
-      <TrustSection locale={locale} />
       
       {/* Services Section */}
       <HomeServices locale={locale} currentLanguage={currentLanguage} />

@@ -7,7 +7,7 @@ interface HomeTestimonialsProps {
 }
 
 // Instagram reels
-const REEL_IDS = ['DT5ewAzArhq', 'DT-neXFgvGn', 'DURWhbljZKb', 'DUlRLW7jXvJ'];
+const REEL_IDS = ['DT5ewAzArhq', 'DT-neXFgvGn', 'DURWhbljZKb', 'DUJXJWODWL3'];
 
 const HomeTestimonials: React.FC<HomeTestimonialsProps> = ({ locale }) => {
   const content = PAGE_CONTENT.home;

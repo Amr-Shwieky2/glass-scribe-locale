@@ -144,14 +144,14 @@ const ProcessSection: React.FC<ProcessSectionProps> = ({ locale }) => {
   const t = (obj: Record<string, string>) => getLocalizedText(obj, locale);
 
   return (
-    <section className="py-16 sm:py-20 md:py-24 bg-brand-navy text-white overflow-hidden">
+    <section className="py-16 sm:py-20 md:py-24 bg-brand-light text-brand-navy overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6">
         {/* Section Header */}
         <div className="text-center mb-12 sm:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-brand-gold mb-3 sm:mb-4">
             {t(CONTENT.title)}
           </h2>
-          <p className="text-base sm:text-lg md:text-xl text-white/70 max-w-2xl mx-auto">
+          <p className="text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
             {t(CONTENT.subtitle)}
           </p>
         </div>
@@ -176,19 +176,19 @@ const ProcessSection: React.FC<ProcessSectionProps> = ({ locale }) => {
                   <div className="w-16 h-16 sm:w-20 sm:h-20 bg-brand-gold rounded-full flex items-center justify-center mx-auto relative z-10">
                     <step.icon className="w-7 h-7 sm:w-9 sm:h-9 text-brand-navy" />
                   </div>
-                  <div className="absolute -top-2 -right-2 w-7 h-7 bg-white text-brand-navy rounded-full flex items-center justify-center text-sm font-bold z-20">
+                  <div className="absolute -top-2 -right-2 w-7 h-7 bg-brand-navy text-white border-2 border-white rounded-full flex items-center justify-center text-sm font-bold z-20 shadow-sm">
                     {step.number}
                   </div>
                 </div>
 
                 {/* Content */}
-                <h3 className="text-lg sm:text-xl font-bold text-white mb-2 sm:mb-3">
+                <h3 className="text-lg sm:text-xl font-bold text-brand-navy mb-2 sm:mb-3">
                   {t(step.title)}
                 </h3>
-                <p className="text-sm sm:text-base text-white/70 mb-3 leading-relaxed">
+                <p className="text-sm sm:text-base text-gray-600 mb-3 leading-relaxed">
                   {t(step.description)}
                 </p>
-                <div className="inline-flex items-center px-3 py-1 bg-white/10 rounded-full text-xs sm:text-sm text-brand-gold">
+                <div className="inline-flex items-center px-3 py-1 bg-brand-gold/10 rounded-full text-xs sm:text-sm text-brand-gold font-medium border border-brand-gold/20">
                   ⏱ {t(step.duration)}
                 </div>
               </motion.div>
@@ -197,8 +197,8 @@ const ProcessSection: React.FC<ProcessSectionProps> = ({ locale }) => {
         </div>
 
         {/* Total Time */}
-        <div className="text-center mt-12 sm:mt-16 pt-8 border-t border-white/10">
-          <p className="text-lg sm:text-xl text-white/70 mb-2">
+        <div className="text-center mt-12 sm:mt-16 pt-8 border-t border-gray-200">
+          <p className="text-lg sm:text-xl text-gray-600 mb-2">
             {locale === 'he' ? 'סה״כ זמן משיחה ראשונה ועד התקנה מושלמת:' :
              locale === 'ar' ? 'إجمالي الوقت من أول مكالمة إلى التركيب الكامل:' :
              locale === 'ru' ? 'Общее время от первого звонка до полной установки:' :
