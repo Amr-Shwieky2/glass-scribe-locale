@@ -90,6 +90,9 @@ const LoginForm: FC = () => {
                 placeholder={t(ADMIN_STRINGS.login.passwordPlaceholder)}
                 required
                 autoComplete="current-password"
+                autoCapitalize="none"
+                autoCorrect="off"
+                spellCheck={false}
               />
             </div>
             <Button

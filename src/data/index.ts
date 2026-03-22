@@ -10,3 +10,19 @@ export { NAVIGATION } from './navigation';
 export { FOOTER_CONTENT } from './footer';
 export { UI_STRINGS } from './ui-strings';
 export { PROJECT_CATEGORIES, type ProjectCategory } from './project-categories';
+export {
+  LOCATION_SEO_ALIAS_PREFIX,
+  LOCATION_SEO_LINKS,
+  SERVICE_SEO_PAGES,
+  SERVICE_SEO_SECTION_TITLES,
+  type SeoLocationLink,
+  type ServiceSeoFaq,
+  type ServiceSeoPage,
+  getLocationPageHref,
+  getLocationSeoSegment,
+  getServicePageHref,
+  getServiceSeoPageByProjectCategoryId,
+  getServiceSeoPageByServiceId,
+  getServiceSeoPageBySlug,
+  normalizeLocationSeoSlug,
+} from './service-seo-content';

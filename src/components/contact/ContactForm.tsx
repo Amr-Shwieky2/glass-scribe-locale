@@ -8,6 +8,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { SERVICES, PAGE_CONTENT, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
+import { trackEvent } from '@/lib/gtag';
 
 type ContactFormState = {
   name: string;
@@ -147,6 +148,7 @@ const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
       const result = await response.json();
       
       if (response.ok && result.success) {
+        trackEvent({ action: 'submit_lead_form', category: 'Lead', label: form.service });
         setSubmitted(true);
         setForm({ name: '', email: '', phone: '', service: '', message: '', consent: false, website: '', csrfToken: '' });
       } else {

@@ -461,6 +461,18 @@
       ]
     }
     </script>
+    <!-- Google tag (gtag.js) - Google Ads / Analytics -->
+    <!-- Replace 'AW-1234567890' with your actual Google Ads measurement ID -->
+    <!-- Note: This is required to track which Google Ads resulted in Phone/WhatsApp leads -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-1234567890"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      // Default configuration for Google Ads tracking
+      gtag('config', 'AW-1234567890');
+    </script>
   </head>
 
   <body>

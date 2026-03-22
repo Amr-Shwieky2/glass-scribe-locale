@@ -270,11 +270,12 @@ export default async function handler(
       return res.status(400).json({ error: 'Invalid password' });
     }
 
-    // Sanitize password (remove control characters)
-    const sanitizedPassword = sanitizeString(password, 128);
+    // Use the raw passwords but trim them to forgive accidental copy-paste trailing spaces
+    const cleanInput = password.trim();
+    const cleanExpected = ADMIN_PASSWORD.trim();
 
     // Timing-safe password comparison
-    if (!verifyPassword(sanitizedPassword, ADMIN_PASSWORD)) {
+    if (!verifyPassword(cleanInput, cleanExpected)) {
       recordAttempt(clientIP);
       console.log(JSON.stringify({ event: 'auth_failure', ip: clientIP.slice(0, 16), endpoint: 'auth/login' }));
       

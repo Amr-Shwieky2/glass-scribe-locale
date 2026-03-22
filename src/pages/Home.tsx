@@ -15,6 +15,7 @@ import ProcessSection from '@/components/home/ProcessSection';
 import FAQSection from '@/components/home/FAQSection';
 import HomeTestimonials from '@/components/home/HomeTestimonials';
 import { CONTACT_INFO, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
+import { trackEvent } from '@/lib/gtag';
 
 // CTA Section Content
 const CTA_CONTENT = {
@@ -43,10 +44,12 @@ const Home: React.FC = () => {
   const locale = currentLanguage as SupportedLocale;
 
   const handleWhatsApp = useCallback(() => {
+    trackEvent({ action: 'click_whatsapp', category: 'Contact', label: 'Home Page CTA' });
     window.open(`https://wa.me/${CONTACT_INFO.whatsapp}?text=${encodeURIComponent(getLocalizedText(UI_STRINGS.whatsappServiceInquiry, locale))}`, '_blank');
   }, [locale]);
 
   const handleCall = useCallback(() => {
+    trackEvent({ action: 'click_call', category: 'Contact', label: 'Home Page CTA' });
     window.location.href = `tel:${CONTACT_INFO.phoneIntl}`;
   }, []);
 
