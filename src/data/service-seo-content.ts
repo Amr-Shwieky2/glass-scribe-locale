@@ -55,6 +55,7 @@ export const LOCATION_SEO_LINKS: SeoLocationLink[] = [
   { slug: 'modiin', label: localizedText('Modiin', 'מודיעין') },
   { slug: 'haifa', label: localizedText('Haifa', 'חיפה') },
   { slug: 'beer-sheva', label: localizedText('Beer Sheva', 'באר שבע') },
+  { slug: 'netanya', label: localizedText('Netanya', 'נתניה') },
 ];
 
 export const SERVICE_SEO_SECTION_TITLES = {

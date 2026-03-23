@@ -85,6 +85,7 @@ const SUSPICIOUS_PATTERNS = [
   /(<script|<\/script|javascript:|data:|vbscript:)/gi,
   /(\$\{|\{\{|<%|%>|<\?)/gi,
   /(union\s+select|drop\s+table|delete\s+from|insert\s+into)/gi,
+  // eslint-disable-next-line no-control-regex
   /(\.\.[\\/]|\x00)/gi,
 ];
 

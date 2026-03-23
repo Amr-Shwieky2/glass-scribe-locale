@@ -26,6 +26,8 @@ const ProjectListItem: React.FC<ProjectListItemProps> = ({
         alt={altText}
         className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
         loading="lazy"
+        width={600}
+        height={338}
       />
       {featured && (
         <span className="absolute top-2 left-2 px-2 py-1 bg-brand-gold text-brand-navy text-xs font-bold rounded-full">

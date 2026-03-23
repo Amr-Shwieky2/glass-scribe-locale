@@ -18,6 +18,7 @@ import JsonLdSchema from './components/JsonLdSchema';
 
 const Home = lazy(() => import('./pages/Home'));
 const Services = lazy(() => import('./pages/Services'));
+const ServiceDetail = lazy(() => import('./pages/ServiceDetail'));
 const Projects = lazy(() => import('./pages/Projects'));
 const Contractors = lazy(() => import('./pages/Contractors'));
 const About = lazy(() => import('./pages/About'));
@@ -35,6 +36,7 @@ interface RouteConfig { path: string; element: ReactNode; }
 const routes: RouteConfig[] = [
   { path: '/:lang', element: <Home /> },
   { path: '/:lang/services', element: <Services /> },
+  { path: '/:lang/services/:serviceId', element: <ServiceDetail /> },
   { path: '/:lang/projects', element: <Projects /> },
   { path: '/:lang/contractors', element: <Contractors /> },
   { path: '/:lang/about', element: <About /> },
@@ -47,6 +49,7 @@ const routes: RouteConfig[] = [
   { path: '/:lang/tel-aviv', element: <LocationPage /> },
   { path: '/:lang/haifa', element: <LocationPage /> },
   { path: '/:lang/beer-sheva', element: <LocationPage /> },
+  { path: '/:lang/netanya', element: <LocationPage /> },
 ];
 
 // Gallery redirect component

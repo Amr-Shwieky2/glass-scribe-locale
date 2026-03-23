@@ -6,6 +6,7 @@ import {
   getLocalizedText, getLocalizedArray, type SupportedLocale,
 } from '@/data';
 import { useServiceCardImages } from '@/hooks/useServiceCardImages';
+import { getServicePageHref } from '@/data/service-seo-content';
 
 interface HomeServicesProps {
   locale: SupportedLocale;
@@ -31,11 +32,13 @@ const HomeServices: React.FC<HomeServicesProps> = ({ locale, currentLanguage }) 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {SERVICES.map((service) => {
             const serviceImage = serviceCardImages[service.id] || service.image;
+            const detailHref = getServicePageHref(locale, service.id);
+            const targetHref = detailHref || `/${currentLanguage}/projects?category=${service.id}`;
             
             return (
               <Link 
                 key={service.id} 
-                to={`/${currentLanguage}/projects?category=${service.id}`} 
+                to={targetHref} 
                 className="group relative block rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 aspect-[4/5] sm:aspect-[3/4]"
               >
                 {/* Full-size background image with lazy loading */}

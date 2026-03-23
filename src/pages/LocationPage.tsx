@@ -181,6 +181,47 @@ const LOCATIONS = {
       ru: 'Установка стекла в Беэр-Шеве - термостойкие душевые, стеклянные ограждения, зеркала. Бесплатные замеры. Звоните!',
     },
   },
+  netanya: {
+    slug: 'netanya',
+    name: {
+      en: 'Netanya',
+      he: 'נתניה',
+      ar: 'نتانيا',
+      ru: 'Нетания',
+    },
+    heroTitle: {
+      en: 'Glass Installation in Netanya',
+      he: 'התקנת זכוכית בנתניה',
+      ar: 'تركيب الزجاج في نتانيا',
+      ru: 'Установка стекла в Нетании',
+    },
+    heroSubtitle: {
+      en: 'Expert glass installation for Netanya and the Sharon region. Premium shower enclosures, glass railings, and mirrors.',
+      he: 'התקנת זכוכית מומחית לנתניה ואזור השרון. מקלחוני פרימיום, מעקות זכוכית ומראות.',
+      ar: 'تركيب زجاج خبير لنتانيا ومنطقة الشارون.',
+      ru: 'Экспертная установка стекла для Нетании и региона Шарон.',
+    },
+    description: {
+      en: 'Serving Netanya and the Sharon region with premium glass installations. Whether you are renovating an apartment overlooking the sea or upgrading a private home in the surrounding areas, our custom glass solutions combine elegant design with durability against coastal humidity.',
+      he: 'משרתים את נתניה ואזור השרון עם התקנות זכוכית פרימיום. בין אם אתם משפצים דירה הצופה לים או משדרגים בית פרטי באזורים הסמוכים, פתרונות הזכוכית המותאמים אישית שלנו משלבים עיצוב אלגנטי עם עמידות בפני הלחות מהחוף.',
+      ar: 'نخدم نتانيا ومنطقة الشارون بتركيبات زجاج فاخرة.',
+      ru: 'Обслуживаем Нетанию и регион Шарон премиальными установками стекла.',
+    },
+    areas: ['Poleg', 'Ir Yamim', 'Kiryat Hasharon', 'Dora', 'Ramat Poleg', 'Even Yehuda', 'Kadima'],
+    areasHe: ['פולג', 'עיר ימים', 'קרית השרון', 'דורה', 'רמת פולג', 'אבן יהודה', 'קדימה'],
+    projectsCount: '75+',
+    mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d107877.925232924!2d34.8519!3d32.3215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d3e8ed5b1fbad%3A0xc3c940bd0fcf6002!2sNetanya!5e0!3m2!1sen!2sil!4v1234567890',
+    seoKeywords: {
+      en: 'glass installation Netanya, glazier Netanya, shower glass Netanya, glass railings Netanya',
+      he: 'התקנת זכוכית נתניה, זגג נתניה, מקלחונים נתניה, מעקות זכוכית נתניה',
+    },
+    seoMetaDescription: {
+      en: 'Glass installation services in Netanya - custom showers, glass railings, mirrors. Serving Ramat Poleg, Ir Yamim, Sharon area. Free measurement. Call now!',
+      he: 'שירותי התקנת זכוכית בנתניה - מקלחונים בהתאמה אישית, מעקות זכוכית, מראות. פולג, עיר ימים, אזור השרון. מדידה חינם!',
+      ar: 'خدمات تركيب الزجاج في نتانيا - حواجز الدش المخصصة، الدرابزين الزجاجي، المرايا. قياسات مجانية. اتصل الآن!',
+      ru: 'Установка стекла в Нетании - душевые кабины на заказ, стеклянные ограждения, зеркала. Бесплатные замеры. Звоните!',
+    },
+  },
 };
 
 type LocationKey = keyof typeof LOCATIONS;

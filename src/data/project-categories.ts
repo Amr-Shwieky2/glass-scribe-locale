@@ -15,5 +15,4 @@ export const PROJECT_CATEGORIES: ProjectCategory[] = [
   { id: 'glass-doors', cloudinaryFolder: 'glass-doors', name: { en: 'Glass Doors', he: 'דלתות זכוכית', ar: 'أبواب زجاجية', ru: 'Стеклянные двери' }, slug: 'glass-doors', icon: '🚪' },
   { id: 'backsplashes', cloudinaryFolder: 'backsplashes', name: { en: 'Backsplashes', he: 'חיפויי קיר', ar: 'واجهات خلفية', ru: 'Стеклянные фартуки' }, slug: 'backsplashes', icon: '✨' },
   { id: 'shelves', cloudinaryFolder: 'shelves', name: { en: 'Glass Shelves', he: 'מדפי זכוכית', ar: 'أرفف زجاجية', ru: 'Стеклянные полки' }, slug: 'shelves', icon: '📐' },
-  { id: 'lobbies', cloudinaryFolder: 'lobbies', name: { en: 'Lobby Glass', he: 'זכוכית לובי', ar: 'زجاج اللوبي', ru: 'Стекло для лобби' }, slug: 'lobbies', icon: '🏛️' },
 ];

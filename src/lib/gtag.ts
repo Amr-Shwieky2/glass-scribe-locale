@@ -12,7 +12,7 @@ export const GA_TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID || 'AW-1234567
  */
 export const pageview = (url: string) => {
   if (typeof window !== 'undefined' && 'gtag' in window) {
-    // @ts-ignore
+    // @ts-expect-error - gtag may not be defined in dev
     window.gtag('config', GA_TRACKING_ID, {
       page_path: url,
     });
@@ -32,7 +32,7 @@ interface GTagEvent {
  */
 export const trackEvent = ({ action, category, label, value }: GTagEvent) => {
   if (typeof window !== 'undefined' && 'gtag' in window) {
-    // @ts-ignore
+    // @ts-expect-error - gtag may not be defined in dev
     window.gtag('event', action, {
       event_category: category,
       event_label: label,

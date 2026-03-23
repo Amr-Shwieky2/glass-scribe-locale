@@ -1,10 +1,12 @@
 import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import {
   BUSINESS_INFO,
-  CONTACT_INFO,
   LOCATION_SEO_LINKS,
   getLocalizedText,
+  getLocalizedArray,
+  CONTACT_INFO,
   type ServiceSeoPage,
   type SupportedLocale,
 } from '@/data';
@@ -14,7 +16,7 @@ interface ServiceJsonLdProps {
   locale: SupportedLocale;
 }
 
-const BASE_URL = 'https://www.shwakiglassworks.com';
+const BASE_URL = 'https://www.shwakiglass.co.il';
 
 const ServiceJsonLd: React.FC<ServiceJsonLdProps> = ({ service, locale }) => {
   const location = useLocation();
@@ -56,8 +58,9 @@ const ServiceJsonLd: React.FC<ServiceJsonLdProps> = ({ service, locale }) => {
       hasOfferCatalog: {
         '@type': 'OfferCatalog',
         name: serviceName,
-        itemListElement: getLocalizedText(service.highlights, locale).map((feature) => ({
+        itemListElement: getLocalizedArray(service.highlights, locale).map((feature, index) => ({
           '@type': 'Offer',
+          position: index + 1,
           itemOffered: {
             '@type': 'Service',
             name: feature,

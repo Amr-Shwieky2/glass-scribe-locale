@@ -7,6 +7,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, HelpCircle } from 'lucide-react';
+import { Helmet } from 'react-helmet-async';
 import { getLocalizedText, type SupportedLocale } from '@/data';
 
 // FAQ Content - Comprehensive Q&A for glass installation
@@ -109,7 +110,139 @@ const FAQ_CONTENT = {
       },
     },
   ],
-};
+}
+
+// Additional FAQs injected for SEO
+const ADDITIONAL_FAQS = [
+  {
+    question: {
+      en: 'What is the standard glass thickness for a shower enclosure?',
+      he: 'מהו עובי הזכוכית הסטנדרטי למשקלחון?',
+      ar: 'ما هو سمك الزجاج القياسي لحاجز الدش؟',
+      ru: 'Какова стандартная толщина стекла для душевой кабины?',
+    },
+    answer: {
+      en: 'The industry standard for high-quality frameless shower enclosures is 8mm to 10mm tempered safety glass. This thickness provides the perfect balance of structural integrity, safety, and a premium luxury feel while remaining elegant.',
+      he: 'התקן בתעשייה למקלחונים יוקרתיים ללא מסגרת הוא זכוכית מחוסמת בעובי 8 מ"מ עד 10 מ"מ. עובי זה מספק את האיזון המושלם של חוזק מבני, בטיחות ותחושת יוקרה תוך שמירה על מראה אלגנטי.',
+      ar: 'المعيار الصناعي لحواجز الدش الفاخرة بدون إطار هو زجاج أمان مقسى بسمك 8 ملم إلى 10 ملم.',
+      ru: 'Отраслевой стандарт для высококачественных безрамных душевых кабин — это закалённое безопасное стекло толщиной от 8 до 10 мм.',
+    },
+  },
+  {
+    question: {
+      en: 'Are frameless glass railings safe for high balconies?',
+      he: 'האם מעקות זכוכית ללא מסגרת בטוחים למרפסות גבוהות?',
+      ar: 'هل الدرابزين الزجاجي بدون إطار آمن للشرفات العالية؟',
+      ru: 'Безопасны ли безрамные стеклянные перила для высоких балконов?',
+    },
+    answer: {
+      en: 'Absolutely. All our exterior and balcony glass railings use thick laminated tempered safety glass (usually 12mm- 16mm or more) approved by Israeli engineering standards. They are designed to withstand extreme wind loads and impact forces.',
+      he: 'בהחלט. כל מעקות הזכוכית החיצוניים שלנו למרפסות משתמשים בזכוכית בטיחות מחוסמת רבודה עבה (בדרך כלל 12 מ"מ - 16 מ"מ ויותר) המאושרים על ידי תקינה ישראלית. הם מתוכננים לעמוד בעומסי רוח חזקים ובפגיעות.',
+      ar: 'بالتأكيد. تستخدم جميع درابزينات الزجاج الخارجية لدينا زجاج أمان مقسى سميك ومعتمد.',
+      ru: 'Абсолютно. Во всех наших внешних стеклянных перилах используется толстое ламинированное закаленное стекло (обычно 12-16 мм и более), одобренное израильскими инженерными стандартами.',
+    },
+  },
+  {
+    question: {
+      en: 'How do I clean and maintain my glass shower doors?',
+      he: 'איך אני מנקה ומתחזק את דלתות המקלחון שלי?',
+      ar: 'كيف أنظف وأحافظ على أبواب الاستحمام الزجاجية؟',
+      ru: 'Как мне чистить и обслуживать стеклянные двери душа?',
+    },
+    answer: {
+      en: 'For daily maintenance, we recommend using a simple squeegee after showering to prevent water spots and limescale buildup. For deeper cleaning, use a non-abrasive glass cleaner or a mixture of white vinegar and water. Avoid harsh scrubbing pads that can scratch the glass or ruin protective coatings.',
+      he: 'לתחזוקה יומיומית, אנו ממליצים להשתמש במגב קטן לאחר המקלחת כדי למנוע היווצרות אבנית וכתמי מים. לניקוי יסודי יותר, השתמשו במנקה חלונות עדין או בתערובת של חומץ ומים. הימנעו מספוגים גסים שעלולים לשרוט את הזכוכית.',
+      ar: 'للصيانة اليومية، نوصي باستخدام ممسحة بسيطة بعد الاستحمام لمنع بقع الماء وتراكم الترسبات الكلسية.',
+      ru: 'Для ежедневного ухода мы рекомендуем использовать скребок после душа, чтобы предотвратить появление пятен от воды и известкового налета.',
+    },
+  },
+  {
+    question: {
+      en: 'Do you design custom mirrors for commercial gyms and dance studios?',
+      he: 'האם אתם מעצבים מראות בהתאמה אישית לחדרי כושר וסטודיו לריקוד?',
+      ar: 'هل تصممون مرايا مخصصة للصالات الرياضية التجارية واستوديوهات الرقص؟',
+      ru: 'Вы проектируете зеркала на заказ для коммерческих спортзалов и танцевальных студий?',
+    },
+    answer: {
+      en: 'Yes, we specialize in large-format commercial mirror installations. Our mirrors are installed with heavy-duty safety backing and precise J-channels or standoffs, ensuring zero distortion and making them perfect for gyms, dance studios, and retail boutiques.',
+      he: 'כן, אנו מתמחים בהתקנת מראות מסחריות בפורמט גדול. המראות שלנו מותקנות עם גיבוי בטיחותי ופרופילים מדויקים המבטיחים אפס עיוות, מה שהופך אותן למושלמות עבור חדרי כושר, סטודיו לריקוד ובוטיקים.',
+      ar: 'نعم، نحن متخصصون في تركيب المرايا التجارية ذات التنسيق الكبير.',
+      ru: 'Да, мы специализируемся на установке широкоформатных коммерческих зеркал.',
+    },
+  },
+  {
+    question: {
+      en: 'Emergency Services: Do you replace broken storefront glass on the same day?',
+      he: 'שירותי חירום: האם אתם מחליפים זכוכית חלון ראווה שבורה באותו היום?',
+      ar: 'خدمات الطوارئ: هل تستبدلون زجاج واجهة المتجر المكسور في نفس اليوم؟',
+      ru: 'Аварийные службы: вы меняете разбитое стекло витрины в тот же день?',
+    },
+    answer: {
+      en: 'We prioritize commercial emergencies and aim to board up or replace broken storefront glass as quickly as possible. Same-day service depends on the type of glass and sizing availability. If custom fabrication is needed, we will secure the premises immediately and install the final glass within days.',
+      he: 'אנו נותנים עדיפות למקרי חירום מסחריים ושואפים לאטום או להחליף חלונות ראווה שבורים מהר ככל האפשר. שירות באותו יום תלוי בסוג הזכוכית והמידות הזמינות. אם נדרש ייצור מיוחד, נאבטח את המקום מיד ונתקין את הזכוכית הסופית תוך מספר ימים.',
+      ar: 'نحن نعطي الأولوية لحالات الطوارئ التجارية ونهدف إلى استبدال زجاج واجهات المتاجر المكسور في أسرع وقت ممكن.',
+      ru: 'Мы отдаем приоритет коммерческим чрезвычайным ситуациям и стремимся как можно быстрее закрыть или заменить разбитое стекло витрины.',
+    },
+  },
+  {
+    question: {
+      en: 'Can you install glass partitions in an active office environment?',
+      he: 'האם ניתן להתקין מחיצות זכוכית בסביבת משרד פעילה?',
+      ar: 'هل يمكنكم تركيب قواطع زجاجية في بيئة مكتبية نشطة؟',
+      ru: 'Можете ли вы установить стеклянные перегородки в активной офисной среде?',
+    },
+    answer: {
+      en: 'Yes, we have extensive experience working in corporate environments. Our installers are quiet, clean, and minimize disruption. We can also schedule installations after hours or over the weekend for large projects like conference room partitions to ensure zero downtime for your business.',
+      he: 'כן, יש לנו ניסיון רב בעבודה בסביבות תאגידיות. המתקינים שלנו שקטים, נקיים ומצמצמים הפרעות. אנו גם יכולים לתזמן התקנות לאחר שעות הפעילות או בסופי שבוע עבור פרויקטים גדולים, כדי להבטיח אפס זמני השבתה עבור העסק שלך.',
+      ar: 'نعم، لدينا خبرة واسعة في العمل في بيئات الشركات. يمكننا أيضًا جدولة التركيبات بعد ساعات العمل.',
+      ru: 'Да, у нас большой опыт работы в корпоративной среде. Монтажники работают тихо и чисто. Мы также можем запланировать установку в нерабочее время.',
+    },
+  },
+  {
+    question: {
+      en: 'What is the difference between laminated acoustic glass and regular glass?',
+      he: 'מה ההבדל בין זכוכית רבודה אקוסטית לזכוכית רגילה?',
+      ar: 'ما الفرق بين الزجاج الصوتي الرقائقي والزجاج العادي؟',
+      ru: 'В чем разница между многослойным акустическим стеклом и обычным стеклом?',
+    },
+    answer: {
+      en: 'Laminated acoustic glass consists of two panes of glass bonded closely together with a specialized sound-dampening interlayer (PVB). It significantly reduces noise transmission, making it the premier choice for busy street-facing windows, soundproof meeting rooms, and high-end residential bedrooms.',
+      he: 'זכוכית אקוסטית רבודה מורכבת משני לוחות זכוכית המחוברים יחד עם שכבת ביניים מיוחדת בולמת רעשים (PVB). היא מפחיתה משמעותית את מעבר הרעש, מה שהופך אותה לבחירה המובילה לחלונות הפונים לרחובות סואנים, חדרי ישיבות אטומים לקול, וחדרי שינה יוקרתיים.',
+      ar: 'يتكون الزجاج الصوتي المصفح من لوحين من الزجاج ملتصقين معاً بطبقة داخلية لعزل الصوت.',
+      ru: 'Ламинированное акустическое стекло состоит из двух стекол, скрепленных вместе со специальным звукопоглощающим слоем (PVB).',
+    },
+  },
+  {
+    question: {
+      en: 'Are your glass fittings and hardware rust-proof?',
+      he: 'האם חלקי הפרזול והצירים שלכם עמידים בפני חלודה?',
+      ar: 'هل تركيبات الزجاج والأجهزة لديكم مقاومة للصدأ؟',
+      ru: 'Является ли ваша фурнитура из стекла устойчивой к ржавчине?',
+    },
+    answer: {
+      en: 'Yes. We specifically use premium marine-grade stainless steel (304 or 316) and solid brass hardware engineered specifically for wet environments like bathrooms, coastal balconies, and outdoor pool enclosures, ensuring lifelong resistance to rust and corrosion.',
+      he: 'כן. אנו משתמשים במדויק בציוד פרימיום כמו נירוסטה ברמה ימית (304 או 316) ופליז מלא אשר מתוכננים במיוחד לסביבות רטובות כגון חדרי אמבטיה, מרפסות על הים, ומעטפות בריכה חיצוניות, מה שמבטיח עמידות של שנים בפני חלודה וקורוזיה.',
+      ar: 'نعم. نستخدم الفولاذ المقاوم للصدأ عالي الجودة والأجهزة النحاسية الصلبة.',
+      ru: 'Да. Мы используем высококачественную нержавеющую сталь (304 или 316) и прочную латунную фурнитуру.',
+    },
+  },
+  {
+    question: {
+      en: 'Do you offer tinted or frosted glass options?',
+      he: 'האם אתם מציעים אפשרויות לזכוכית כהה או חלבית?',
+      ar: 'هل تقدمون خيارات زجاج ملون أو مصنفر؟',
+      ru: 'Предлагаете ли вы тонированные или матовые варианты стекла?',
+    },
+    answer: {
+      en: 'We offer a wide variety of architectural glass finishes. Options include acid-etched (frosted) for privacy, bronze or grey tinted glass to control glare and UV exposure, low-iron ultra-clear glass for museums and luxury displays, and digitally printed custom textured glass.',
+      he: 'אנו מציעים מגוון רחב של גימורים לזכוכית אדריכלית. האפשרויות כוללות זכוכית חלבית (מותזת חומצה) לפרטיות, זכוכית כהה בארד או אפור לשליטה בסנוור ובקרינת השמש, זכוכית קליר (דלת ברזל) שקופה במיוחד למוזיאונים ותצוגות יוקרה, וזכוכית מודפסת דיגיטלית בטקסטורה אישית.',
+      ar: 'نقدم مجموعة متنوعة من تشطيبات الزجاج المعماري، بما في ذلك المصنفر للخصوصية والزجاج الملون بألوان البرونز أو الرمادي.',
+      ru: 'Мы предлагаем широкий выбор отделки архитектурного стекла, включая матовое, тонированное под бронзу или серое стекло.',
+    },
+  },
+];
+
+FAQ_CONTENT.faqs = [...FAQ_CONTENT.faqs, ...ADDITIONAL_FAQS];
 
 interface FAQSectionProps {
   locale: SupportedLocale;
@@ -117,13 +250,34 @@ interface FAQSectionProps {
 
 const FAQSection: React.FC<FAQSectionProps> = ({ locale }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
+  
+  const generateFaqSchema = () => {
+    const defaultLocale = (locale === 'he' || locale === 'ar' || locale === 'ru') ? locale : 'en';
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": FAQ_CONTENT.faqs.map(faq => ({
+        "@type": "Question",
+        "name": faq.question[defaultLocale as keyof typeof faq.question] || faq.question.en,
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": faq.answer[defaultLocale as keyof typeof faq.answer] || faq.answer.en
+        }
+      }))
+    };
+    return JSON.stringify(schema);
+  };
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
   };
 
   return (
-    <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-b from-gray-50 to-white">
+    <>
+      <Helmet>
+        <script type="application/ld+json">{generateFaqSchema()}</script>
+      </Helmet>
+      <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4 sm:px-6">
         {/* Header */}
         <div className="text-center mb-12 sm:mb-16">
@@ -205,6 +359,7 @@ const FAQSection: React.FC<FAQSectionProps> = ({ locale }) => {
         </div>
       </div>
     </section>
+  </>
   );
 };
 

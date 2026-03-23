@@ -53,7 +53,7 @@ const Projects: React.FC = () => {
 
   const { images, isLoading } = useCloudinaryImages(cloudinaryFolder, { limit: 50 });
 
-  const handleCategoryChange = (cat: string | undefined) => { setSelectedCategory(cat); cat ? setSearchParams({ category: cat }) : setSearchParams({}); };
+  const handleCategoryChange = (cat: string | undefined) => { setSelectedCategory(cat); if (cat) { setSearchParams({ category: cat }) } else { setSearchParams({}) } };
   useEffect(() => { const c = searchParams.get('category') || undefined; if (c !== selectedCategory) setSelectedCategory(c); }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const getImageCategory = (img: CloudinaryImage) => {
