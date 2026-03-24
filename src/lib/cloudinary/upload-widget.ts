@@ -12,7 +12,7 @@ export function getUploadWidgetConfig(category: ServiceCategory) {
     tags: [category],
     sources: ['local', 'url', 'camera'],
     multiple: true,
-    maxFiles: 20,
+    maxFiles: 50,
     maxImageFileSize: 10000000,
     clientAllowedFormats: ['jpg', 'jpeg', 'png', 'webp', 'avif'],
     cropping: false,

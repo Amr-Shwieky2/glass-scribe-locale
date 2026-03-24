@@ -1,4 +1,5 @@
 import React from 'react';
+import { ZoomIn } from 'lucide-react';
 import { getThumbnailUrl } from '@/hooks/cloudinary';
 import { UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
 import type { CloudinaryImage } from '@/lib/cloudinary';
@@ -27,7 +28,11 @@ const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
       width={600}
       height={450}
     />
-    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+      <div className="transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 opacity-0 group-hover:opacity-100 bg-white/20 backdrop-blur-sm p-3 rounded-full text-white">
+        <ZoomIn className="w-8 h-8 opacity-90 drop-shadow-md" />
+      </div>
+    </div>
 
     {featured && (
       <span className="absolute top-3 left-3 px-2 py-1 bg-brand-gold text-brand-navy text-xs font-bold rounded-full">
