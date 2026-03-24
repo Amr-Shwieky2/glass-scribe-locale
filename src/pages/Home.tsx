@@ -15,6 +15,7 @@ import FAQSection from '@/components/home/FAQSection';
 import HomeTestimonials from '@/components/home/HomeTestimonials';
 import { CONTACT_INFO, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
 import { trackEvent } from '@/lib/gtag';
+import SEOHead from '@/components/SEOHead';
 
 // CTA Section Content
 const CTA_CONTENT = {
@@ -54,6 +55,8 @@ const Home: React.FC = () => {
 
   return (
     <div className="min-h-screen">
+      <SEOHead />
+      
       {/* Hero Section - Single Image with Animation */}
       <HeroSection />
       

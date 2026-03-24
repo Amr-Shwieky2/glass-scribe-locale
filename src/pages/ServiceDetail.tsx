@@ -60,7 +60,7 @@ const ServiceDetail: React.FC = () => {
         <title>{t(service.metaTitle)}</title>
         <meta name="description" content={t(service.metaDescription)} />
         <meta name="keywords" content={t(service.keywords)} />
-        <link rel="canonical" href={`https://www.shwakiglassworks.com/${locale}/services/${serviceId}`} />
+        <link rel="canonical" href={`https://www.shwakiglassworks.com${location.pathname}`} />
         <meta property="og:title" content={t(service.metaTitle)} />
         <meta property="og:description" content={t(service.metaDescription)} />
         <meta property="og:type" content="article" />

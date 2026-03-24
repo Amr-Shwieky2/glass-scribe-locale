@@ -5,11 +5,14 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const DOMAIN = 'https://www.shwakiglass.co.il';
+const DOMAIN = 'https://www.shwakiglassworks.com';
 const LANGUAGES = ['he', 'en', 'ar', 'ru'];
+const TODAY = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
 const CORE_PAGES = ['', 'services', 'projects', 'about', 'contact'];
 const SERVICE_PAGES = ['shower-glass', 'glass-railings', 'mirrors', 'glass-partitions', 'storefront-glass'];
+// SEO slug-based service detail pages (the actual URLs users visit)
+const SEO_SERVICE_SLUGS = ['glass-shower-installation', 'glass-railing', 'glass-mirrors', 'shop-front-glass', 'glass-partitions'];
 const LOCATION_PAGES = ['jerusalem', 'tel-aviv', 'haifa', 'beer-sheva', 'netanya'];
 
 const generateUrlEntry = (routePath, priority) => {
@@ -27,6 +30,7 @@ const generateUrlEntry = (routePath, priority) => {
     xml += `
   <url>
     <loc>${canonicalUrl}</loc>${hreflangLinks}
+    <lastmod>${TODAY}</lastmod>
     <changefreq>weekly</changefreq>
     <priority>${priority}</priority>
   </url>`;
@@ -43,9 +47,14 @@ const generateSitemap = () => {
     sitemapXml += generateUrlEntry(page, page === '' ? '1.0' : '0.9');
   });
 
-  // Services Pages (Priority 0.8)
+  // Service detail pages via /:lang/services/:serviceId (Priority 0.8)
   SERVICE_PAGES.forEach((service) => {
     sitemapXml += generateUrlEntry(`services/${service}`, '0.8');
+  });
+
+  // SEO slug service pages (the actual URLs reached from card links)
+  SEO_SERVICE_SLUGS.forEach((slug) => {
+    sitemapXml += generateUrlEntry(slug, '0.8');
   });
 
   // Location Pages (Priority 0.8)

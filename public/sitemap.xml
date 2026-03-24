@@ -1,602 +1,882 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>https://www.shwakiglass.co.il/he</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he"/>
+    <loc>https://www.shwakiglassworks.com/he</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he"/>
+    <loc>https://www.shwakiglassworks.com/en</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he"/>
+    <loc>https://www.shwakiglassworks.com/ar</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he"/>
+    <loc>https://www.shwakiglassworks.com/ru</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/services</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services"/>
+    <loc>https://www.shwakiglassworks.com/he/services</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/services</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services"/>
+    <loc>https://www.shwakiglassworks.com/en/services</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/services</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services"/>
+    <loc>https://www.shwakiglassworks.com/ar/services</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/services</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services"/>
+    <loc>https://www.shwakiglassworks.com/ru/services</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/projects</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/projects"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/projects"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/projects"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/projects"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/projects"/>
+    <loc>https://www.shwakiglassworks.com/he/projects</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/projects"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/projects"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/projects"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/projects"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/projects"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/projects</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/projects"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/projects"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/projects"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/projects"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/projects"/>
+    <loc>https://www.shwakiglassworks.com/en/projects</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/projects"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/projects"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/projects"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/projects"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/projects"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/projects</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/projects"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/projects"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/projects"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/projects"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/projects"/>
+    <loc>https://www.shwakiglassworks.com/ar/projects</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/projects"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/projects"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/projects"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/projects"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/projects"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/projects</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/projects"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/projects"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/projects"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/projects"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/projects"/>
+    <loc>https://www.shwakiglassworks.com/ru/projects</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/projects"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/projects"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/projects"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/projects"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/projects"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/about</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/about"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/about"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/about"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/about"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/about"/>
+    <loc>https://www.shwakiglassworks.com/he/about</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/about"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/about"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/about</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/about"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/about"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/about"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/about"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/about"/>
+    <loc>https://www.shwakiglassworks.com/en/about</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/about"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/about"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/about</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/about"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/about"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/about"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/about"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/about"/>
+    <loc>https://www.shwakiglassworks.com/ar/about</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/about"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/about"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/about</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/about"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/about"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/about"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/about"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/about"/>
+    <loc>https://www.shwakiglassworks.com/ru/about</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/about"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/about"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/about"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/about"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/about"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/contact</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/contact"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/contact"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/contact"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/contact"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/contact"/>
+    <loc>https://www.shwakiglassworks.com/he/contact</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/contact"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/contact"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/contact</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/contact"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/contact"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/contact"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/contact"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/contact"/>
+    <loc>https://www.shwakiglassworks.com/en/contact</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/contact"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/contact"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/contact</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/contact"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/contact"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/contact"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/contact"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/contact"/>
+    <loc>https://www.shwakiglassworks.com/ar/contact</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/contact"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/contact"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/contact</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/contact"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/contact"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/contact"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/contact"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/contact"/>
+    <loc>https://www.shwakiglassworks.com/ru/contact</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/contact"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/contact"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/contact"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/contact"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/contact"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/services/shower-glass</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/shower-glass"/>
+    <loc>https://www.shwakiglassworks.com/he/services/shower-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/shower-glass"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/services/shower-glass</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/shower-glass"/>
+    <loc>https://www.shwakiglassworks.com/en/services/shower-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/shower-glass"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/services/shower-glass</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/shower-glass"/>
+    <loc>https://www.shwakiglassworks.com/ar/services/shower-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/shower-glass"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/services/shower-glass</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/shower-glass"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/shower-glass"/>
+    <loc>https://www.shwakiglassworks.com/ru/services/shower-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/shower-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/shower-glass"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/services/glass-railings</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/glass-railings"/>
+    <loc>https://www.shwakiglassworks.com/he/services/glass-railings</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/glass-railings"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/services/glass-railings</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/glass-railings"/>
+    <loc>https://www.shwakiglassworks.com/en/services/glass-railings</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/glass-railings"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/services/glass-railings</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/glass-railings"/>
+    <loc>https://www.shwakiglassworks.com/ar/services/glass-railings</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/glass-railings"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/services/glass-railings</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/glass-railings"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/glass-railings"/>
+    <loc>https://www.shwakiglassworks.com/ru/services/glass-railings</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/glass-railings"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/glass-railings"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/services/mirrors</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/mirrors"/>
+    <loc>https://www.shwakiglassworks.com/he/services/mirrors</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/mirrors"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/services/mirrors</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/mirrors"/>
+    <loc>https://www.shwakiglassworks.com/en/services/mirrors</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/mirrors"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/services/mirrors</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/mirrors"/>
+    <loc>https://www.shwakiglassworks.com/ar/services/mirrors</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/mirrors"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/services/mirrors</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/mirrors"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/mirrors"/>
+    <loc>https://www.shwakiglassworks.com/ru/services/mirrors</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/mirrors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/mirrors"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/services/glass-partitions</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/glass-partitions"/>
+    <loc>https://www.shwakiglassworks.com/he/services/glass-partitions</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/glass-partitions"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/services/glass-partitions</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/glass-partitions"/>
+    <loc>https://www.shwakiglassworks.com/en/services/glass-partitions</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/glass-partitions"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/services/glass-partitions</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/glass-partitions"/>
+    <loc>https://www.shwakiglassworks.com/ar/services/glass-partitions</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/glass-partitions"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/services/glass-partitions</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/glass-partitions"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/glass-partitions"/>
+    <loc>https://www.shwakiglassworks.com/ru/services/glass-partitions</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/glass-partitions"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/services/storefront-glass</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/storefront-glass"/>
+    <loc>https://www.shwakiglassworks.com/he/services/storefront-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/storefront-glass"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/services/storefront-glass</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/storefront-glass"/>
+    <loc>https://www.shwakiglassworks.com/en/services/storefront-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/storefront-glass"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/services/storefront-glass</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/storefront-glass"/>
+    <loc>https://www.shwakiglassworks.com/ar/services/storefront-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/storefront-glass"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/services/storefront-glass</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/services/storefront-glass"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/services/storefront-glass"/>
+    <loc>https://www.shwakiglassworks.com/ru/services/storefront-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/services/storefront-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/services/storefront-glass"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/jerusalem</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/jerusalem"/>
+    <loc>https://www.shwakiglassworks.com/he/glass-shower-installation</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-shower-installation"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/jerusalem</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/jerusalem"/>
+    <loc>https://www.shwakiglassworks.com/en/glass-shower-installation</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-shower-installation"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/jerusalem</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/jerusalem"/>
+    <loc>https://www.shwakiglassworks.com/ar/glass-shower-installation</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-shower-installation"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/jerusalem</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/jerusalem"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/jerusalem"/>
+    <loc>https://www.shwakiglassworks.com/ru/glass-shower-installation</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-shower-installation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-shower-installation"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/tel-aviv</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/tel-aviv"/>
+    <loc>https://www.shwakiglassworks.com/he/glass-railing</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-railing"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/tel-aviv</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/tel-aviv"/>
+    <loc>https://www.shwakiglassworks.com/en/glass-railing</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-railing"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/tel-aviv</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/tel-aviv"/>
+    <loc>https://www.shwakiglassworks.com/ar/glass-railing</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-railing"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/tel-aviv</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/tel-aviv"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/tel-aviv"/>
+    <loc>https://www.shwakiglassworks.com/ru/glass-railing</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-railing"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-railing"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/haifa</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/haifa"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/haifa"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/haifa"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/haifa"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/haifa"/>
+    <loc>https://www.shwakiglassworks.com/he/glass-mirrors</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-mirrors"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/haifa</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/haifa"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/haifa"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/haifa"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/haifa"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/haifa"/>
+    <loc>https://www.shwakiglassworks.com/en/glass-mirrors</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-mirrors"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/haifa</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/haifa"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/haifa"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/haifa"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/haifa"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/haifa"/>
+    <loc>https://www.shwakiglassworks.com/ar/glass-mirrors</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-mirrors"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/haifa</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/haifa"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/haifa"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/haifa"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/haifa"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/haifa"/>
+    <loc>https://www.shwakiglassworks.com/ru/glass-mirrors</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-mirrors"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-mirrors"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/beer-sheva</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/beer-sheva"/>
+    <loc>https://www.shwakiglassworks.com/he/shop-front-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/shop-front-glass"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/beer-sheva</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/beer-sheva"/>
+    <loc>https://www.shwakiglassworks.com/en/shop-front-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/shop-front-glass"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/beer-sheva</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/beer-sheva"/>
+    <loc>https://www.shwakiglassworks.com/ar/shop-front-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/shop-front-glass"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/beer-sheva</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/beer-sheva"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/beer-sheva"/>
+    <loc>https://www.shwakiglassworks.com/ru/shop-front-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/shop-front-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/shop-front-glass"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/he/netanya</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/netanya"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/netanya"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/netanya"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/netanya"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/netanya"/>
+    <loc>https://www.shwakiglassworks.com/he/glass-partitions</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-partitions"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/en/netanya</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/netanya"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/netanya"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/netanya"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/netanya"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/netanya"/>
+    <loc>https://www.shwakiglassworks.com/en/glass-partitions</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-partitions"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ar/netanya</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/netanya"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/netanya"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/netanya"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/netanya"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/netanya"/>
+    <loc>https://www.shwakiglassworks.com/ar/glass-partitions</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-partitions"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.shwakiglass.co.il/ru/netanya</loc>
-    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglass.co.il/he/netanya"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglass.co.il/en/netanya"/>
-    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglass.co.il/ar/netanya"/>
-    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglass.co.il/ru/netanya"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglass.co.il/he/netanya"/>
+    <loc>https://www.shwakiglassworks.com/ru/glass-partitions</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/glass-partitions"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/glass-partitions"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/he/jerusalem</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/jerusalem"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/en/jerusalem</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/jerusalem"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ar/jerusalem</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/jerusalem"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ru/jerusalem</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/jerusalem"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/jerusalem"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/he/tel-aviv</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/tel-aviv"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/en/tel-aviv</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/tel-aviv"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ar/tel-aviv</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/tel-aviv"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ru/tel-aviv</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/tel-aviv"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/tel-aviv"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/he/haifa</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/haifa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/haifa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/haifa"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/en/haifa</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/haifa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/haifa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/haifa"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ar/haifa</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/haifa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/haifa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/haifa"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ru/haifa</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/haifa"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/haifa"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/haifa"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/haifa"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/he/beer-sheva</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/beer-sheva"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/en/beer-sheva</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/beer-sheva"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ar/beer-sheva</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/beer-sheva"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ru/beer-sheva</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/beer-sheva"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/beer-sheva"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/he/netanya</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/netanya"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/netanya"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/netanya"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/netanya"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/netanya"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/en/netanya</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/netanya"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/netanya"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/netanya"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/netanya"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/netanya"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ar/netanya</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/netanya"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/netanya"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/netanya"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/netanya"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/netanya"/>
+    <lastmod>2026-03-24</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ru/netanya</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/netanya"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/netanya"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/netanya"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/netanya"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/netanya"/>
+    <lastmod>2026-03-24</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
