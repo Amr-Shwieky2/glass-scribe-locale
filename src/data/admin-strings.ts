@@ -320,12 +320,6 @@ export const ADMIN_STRINGS = {
       ar: 'رفوف',
       ru: 'Полки',
     },
-    lobbies: {
-      he: 'לובי',
-      en: 'Lobbies',
-      ar: 'بهو',
-      ru: 'Лобби',
-    },
     hero: {
       he: 'ראשי',
       en: 'Hero',

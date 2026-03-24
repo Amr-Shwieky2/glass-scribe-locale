@@ -14,7 +14,6 @@ export const SERVICE_CATEGORIES = [
   'mirrors',
   'storefronts',
   'partitions',
-  'lobbies',
   'backsplashes',
   'shelves',
   'glass-doors',

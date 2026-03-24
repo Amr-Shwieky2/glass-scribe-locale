@@ -119,28 +119,6 @@ export const SERVICES: ServiceData[] = [
     },
   },
   {
-    id: 'custom-glass',
-    icon: '✨',
-    title: {
-      en: 'Custom Glass Works',
-      he: 'עבודות זכוכית מותאמות',
-      ar: 'أعمال زجاجية مخصصة',
-      ru: 'Стеклянные работы на заказ',
-    },
-    description: {
-      en: 'Unique glass solutions tailored to your specific needs. From glass tables to decorative panels, we bring your vision to life.',
-      he: 'פתרונות זכוכית ייחודיים המותאמים לצרכים הספציפיים שלכם. משולחנות זכוכית ועד פאנלים דקורטיביים, אנו מגשימים את החזון שלכם.',
-      ar: 'حلول زجاجية فريدة مصممة لاحتياجاتك الخاصة. من طاولات الزجاج إلى الألواح الزخرفية، نحقق رؤيتك.',
-      ru: 'Уникальные стеклянные решения под ваши потребности. От стеклянных столов до декоративных панелей.',
-    },
-    features: {
-      en: ['Glass tables', 'Decorative panels', 'Splashbacks', 'Custom designs'],
-      he: ['שולחנות זכוכית', 'פאנלים דקורטיביים', 'חיפויי קיר', 'עיצובים מותאמים'],
-      ar: ['طاولات زجاجية', 'ألواح زخرفية', 'واقيات رذاذ', 'تصاميم مخصصة'],
-      ru: ['Стеклянные столы', 'Декоративные панели', 'Фартуки', 'Индивидуальный дизайн'],
-    },
-  },
-  {
     id: 'glass-doors',
     icon: '🚪',
     title: {

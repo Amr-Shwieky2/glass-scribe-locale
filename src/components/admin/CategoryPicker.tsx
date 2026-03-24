@@ -54,8 +54,7 @@ const CategoryPicker: FC<CategoryPickerProps> = ({ open, onOpenChange, onSelect 
                  category === 'storefronts' ? '🏪' :
                  category === 'glass-doors' ? '🚪' :
                  category === 'backsplashes' ? '✨' :
-                 category === 'shelves' ? '📐' :
-                 category === 'lobbies' ? '🏛️' : '📷'}
+                 category === 'shelves' ? '📐' : '📷'}
               </span>
               <span className="text-sm font-medium text-brand-navy">
                 {getCategoryName(category)}

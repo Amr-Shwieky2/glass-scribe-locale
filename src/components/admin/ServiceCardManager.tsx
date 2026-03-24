@@ -38,7 +38,6 @@ const FOLDER_TO_SERVICE: Record<string, string> = {
   'backsplashes': 'backsplashes',
   'glass-doors': 'glass-doors',
   'shelves': 'shelves',
-  'lobbies': 'lobbies',
 };
 
 // Get service ID from image tags (service-card-shower-glass, etc.)

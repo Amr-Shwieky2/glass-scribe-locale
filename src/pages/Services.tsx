@@ -11,6 +11,7 @@ import ServiceCard from '@/components/services/ServiceCard';
 import ProcessSteps from '@/components/services/ProcessSteps';
 import { useCloudinaryImages, getThumbnailUrl as getCldThumbnail } from '@/hooks/cloudinary';
 import { SERVICES, CONTACT_INFO, PAGE_CONTENT, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
+import { getServicePageHref } from '@/data/service-seo-content';
 
 const Services: React.FC = () => {
   const { currentLanguage } = useLanguage();
@@ -22,8 +23,8 @@ const Services: React.FC = () => {
     const map: Record<string, string> = {};
     const serviceToFolder: Record<string, string> = {
       'shower-glass': 'shower-enclosures', 'glass-railings': 'glass-railings', 'mirrors': 'mirrors',
-      'glass-partitions': 'partitions', 'storefront-glass': 'storefronts', 'custom-glass': 'backsplashes',
-      'glass-doors': 'glass-doors', 'backsplashes': 'backsplashes', 'shelves': 'shelves', 'lobbies': 'lobbies',
+      'glass-partitions': 'partitions', 'storefront-glass': 'storefronts',
+      'glass-doors': 'glass-doors', 'backsplashes': 'backsplashes', 'shelves': 'shelves',
     };
     for (const service of SERVICES) {
       const folder = serviceToFolder[service.id];
@@ -57,10 +58,20 @@ const Services: React.FC = () => {
 
       <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-brand-light">
         <div className="container mx-auto px-4 sm:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6 lg:gap-8">
-            {SERVICES.map((service) => (
-              <ServiceCard key={service.id} service={service} locale={locale} imageUrl={serviceImageMap[service.id]} onGetQuote={handleWhatsApp} />
-            ))}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+            {SERVICES.map((service) => {
+              const detailHref = getServicePageHref(locale, service.id);
+              const targetHref = detailHref || `/${currentLanguage}/projects?category=${service.id}`;
+              return (
+                <ServiceCard 
+                  key={service.id} 
+                  service={service} 
+                  locale={locale} 
+                  imageUrl={serviceImageMap[service.id]} 
+                  targetHref={targetHref} 
+                />
+              );
+            })}
           </div>
         </div>
       </section>

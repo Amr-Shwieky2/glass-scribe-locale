@@ -14,7 +14,6 @@ const FOLDER_TO_SERVICE: Record<string, string> = {
   'backsplashes': 'backsplashes',
   'glass-doors': 'glass-doors',
   'shelves': 'shelves',
-  'lobbies': 'lobbies',
 };
 
 // Get service ID from service-card-{serviceId} tag
