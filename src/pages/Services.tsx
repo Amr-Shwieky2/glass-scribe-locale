@@ -11,7 +11,6 @@ import ServiceCard from '@/components/services/ServiceCard';
 import ProcessSteps from '@/components/services/ProcessSteps';
 import { useCloudinaryImages, getThumbnailUrl as getCldThumbnail } from '@/hooks/cloudinary';
 import { SERVICES, CONTACT_INFO, PAGE_CONTENT, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
-import { getServicePageHref } from '@/data/service-seo-content';
 
 const Services: React.FC = () => {
   const { currentLanguage } = useLanguage();
@@ -60,8 +59,7 @@ const Services: React.FC = () => {
         <div className="container mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
             {SERVICES.map((service) => {
-              const detailHref = getServicePageHref(locale, service.id);
-              const targetHref = detailHref || `/${currentLanguage}/projects?category=${service.id}`;
+              const targetHref = `/${currentLanguage}/projects?category=${service.id}`;
               return (
                 <ServiceCard 
                   key={service.id} 

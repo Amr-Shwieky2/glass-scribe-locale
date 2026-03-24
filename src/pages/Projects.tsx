@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { useSearchParams } from 'react-router-dom';
+import { useSearchParams, Link } from 'react-router-dom';
 import { MessageCircle } from 'lucide-react';
 import ProjectsHeader from '@/components/projects/ProjectsHeader';
 import ProjectFilters from '@/components/projects/ProjectFilters';
@@ -12,6 +12,7 @@ import SEOHead from '@/components/SEOHead';
 import { useCloudinaryImages } from '@/hooks/cloudinary';
 import { getCategoryFromPublicId, type CloudinaryImage } from '@/lib/cloudinary';
 import { CONTACT_INFO, PAGE_CONTENT, UI_STRINGS, getLocalizedText, PROJECT_CATEGORIES, type SupportedLocale } from '@/data';
+import { getServicePageHref, SERVICE_SEO_PAGES } from '@/data/service-seo-content';
 
 const SEO_CONTENT: Record<SupportedLocale, { title: string; description: string; keywords: string }> = {
   he: {
@@ -56,6 +57,14 @@ const Projects: React.FC = () => {
   const handleCategoryChange = (cat: string | undefined) => { setSelectedCategory(cat); if (cat) { setSearchParams({ category: cat }) } else { setSearchParams({}) } };
   useEffect(() => { const c = searchParams.get('category') || undefined; if (c !== selectedCategory) setSelectedCategory(c); }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  // Find matching SEO service page for selected category (for subtle "learn more" link)
+  const serviceDetailHref = useMemo(() => {
+    if (!selectedCategory) return null;
+    const seoPage = SERVICE_SEO_PAGES.find(p => p.projectCategoryId === selectedCategory);
+    if (!seoPage) return null;
+    return getServicePageHref(locale, seoPage.serviceId);
+  }, [selectedCategory, locale]);
+
   const getImageCategory = (img: CloudinaryImage) => {
     const cldCat = getCategoryFromPublicId(img.public_id);
     if (!cldCat) return '';
@@ -75,6 +84,21 @@ const Projects: React.FC = () => {
       <SEOHead title={seo.title} description={seo.description} keywords={seo.keywords} />
       <ProjectsHeader locale={locale} title={content.title} subtitle={content.subtitle} imageCount={images.length} />
       <ProjectFilters selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} viewMode={viewMode} onViewModeChange={setViewMode} locale={locale} allCategoriesText={content.allCategories} />
+      
+      {/* Subtle link to service detail page when a category is selected */}
+      {serviceDetailHref && selectedCategory && (
+        <div className="bg-white border-b">
+          <div className="container mx-auto px-4 sm:px-6 py-2">
+            <Link
+              to={serviceDetailHref}
+              className="text-xs text-brand-navy/50 hover:text-brand-gold transition-colors"
+            >
+              {locale === 'he' ? 'קרא עוד על שירות זה →' : locale === 'ar' ? 'اقرأ المزيد عن هذه الخدمة →' : locale === 'ru' ? 'Подробнее об этой услуге →' : 'Learn more about this service →'}
+            </Link>
+          </div>
+        </div>
+      )}
+
       <section className="py-8 sm:py-10 md:py-12 bg-brand-light">
         <div className="container mx-auto px-4 sm:px-6">
           {isLoading ? (

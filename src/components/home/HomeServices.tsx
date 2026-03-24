@@ -3,10 +3,9 @@ import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
 import {
   SERVICES, PAGE_CONTENT, UI_STRINGS,
-  getLocalizedText, getLocalizedArray, type SupportedLocale,
+  getLocalizedText, type SupportedLocale,
 } from '@/data';
 import { useServiceCardImages } from '@/hooks/useServiceCardImages';
-import { getServicePageHref } from '@/data/service-seo-content';
 import ServiceCard from '@/components/services/ServiceCard';
 
 interface HomeServicesProps {
@@ -33,8 +32,7 @@ const HomeServices: React.FC<HomeServicesProps> = ({ locale, currentLanguage }) 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {SERVICES.map((service) => {
             const serviceImage = serviceCardImages[service.id] || service.image;
-            const detailHref = getServicePageHref(locale, service.id);
-            const targetHref = detailHref || `/${currentLanguage}/projects?category=${service.id}`;
+            const targetHref = `/${currentLanguage}/projects?category=${service.id}`;
             
             return (
               <ServiceCard
