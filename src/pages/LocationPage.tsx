@@ -10,7 +10,6 @@ import { motion } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { MapPin, Phone, MessageCircle, CheckCircle, Clock, ArrowRight, Shield } from 'lucide-react';
 import { CONTACT_INFO, UI_STRINGS, SERVICES, getLocalizedText, type SupportedLocale } from '@/data';
-import SEOHead from '@/components/SEOHead';
 import AnimatedPageHeader from '@/components/AnimatedPageHeader';
 import LocationJsonLd from '@/components/LocationJsonLd';
 import Breadcrumbs from '@/components/Breadcrumbs';
@@ -359,12 +358,6 @@ const LocationPage: React.FC = () => {
 
   return (
     <>
-      <SEOHead 
-        title={`${getLocalizedText(locationData.heroTitle, locale)} | ${locale === 'he' ? 'אחים שוואקי זכוכית' : 'Shwaki Brothers'}`}
-        description={getLocalizedText(locationData.seoMetaDescription, locale)}
-        keywords={locationData.seoKeywords[locale === 'he' || locale === 'ar' ? 'he' : 'en']}
-      />
-      
       {/* Location-specific JSON-LD Schema */}
       <LocationJsonLd 
         city={locationSlug as string} 

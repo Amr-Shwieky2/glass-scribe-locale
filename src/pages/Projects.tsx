@@ -8,7 +8,6 @@ import ProjectGridItem from '@/components/projects/ProjectGridItem';
 import ProjectListItem from '@/components/projects/ProjectListItem';
 import ImagePreviewModal from '@/components/projects/ImagePreviewModal';
 import ProjectsCTA from '@/components/projects/ProjectsCTA';
-import SEOHead from '@/components/SEOHead';
 import { useCloudinaryImages } from '@/hooks/cloudinary';
 import { getCategoryFromPublicId, type CloudinaryImage } from '@/lib/cloudinary';
 import { CONTACT_INFO, PAGE_CONTENT, UI_STRINGS, getLocalizedText, PROJECT_CATEGORIES, type SupportedLocale } from '@/data';
@@ -81,7 +80,6 @@ const Projects: React.FC = () => {
 
   return (
     <div className="min-h-screen">
-      <SEOHead title={seo.title} description={seo.description} keywords={seo.keywords} />
       <ProjectsHeader locale={locale} title={content.title} subtitle={content.subtitle} imageCount={images.length} />
       <ProjectFilters selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} viewMode={viewMode} onViewModeChange={setViewMode} locale={locale} allCategoriesText={content.allCategories} />
       

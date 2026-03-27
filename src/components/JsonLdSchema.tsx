@@ -4,8 +4,8 @@
  * Includes LocalBusiness, FAQPage, and Service schemas
  */
 
-import { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { CONTACT_INFO, BUSINESS_INFO, SERVICES, getLocalizedText, type SupportedLocale } from '@/data';
 
@@ -16,152 +16,147 @@ const JsonLdSchema: React.FC = () => {
   const location = useLocation();
   const locale = currentLanguage as SupportedLocale;
 
-  useEffect(() => {
-    // Remove existing JSON-LD scripts
-    const existingScripts = document.querySelectorAll('script[type="application/ld+json"]');
-    existingScripts.forEach((script) => script.remove());
+  // Determine current page
+  const pathParts = location.pathname.split('/').filter(Boolean);
+  const page = pathParts[1] || 'home';
 
-    // Determine current page
-    const pathParts = location.pathname.split('/').filter(Boolean);
-    const page = pathParts[1] || 'home';
+  // Check if we are on a specialized page that provides its own specific schemas
+  const isLocationPage = pathParts[1] === 'location' || 
+                         location.pathname.includes('glass-installation-') || 
+                         ['jerusalem', 'tel-aviv', 'haifa', 'beer-sheva'].includes(pathParts[1]);
+                         
+  const isServicePage = (pathParts[1] === 'services' && pathParts.length > 2) || 
+                        ['glass-shower-installation', 'glass-railing', 'glass-mirrors', 'shop-front-glass', 'glass-partitions'].includes(pathParts[1]);
 
-    // LocalBusiness schema (always present)
-    const localBusinessSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'LocalBusiness',
-      '@id': 'https://www.shwakiglassworks.com/#business',
-      name: getLocalizedText(BUSINESS_INFO.name, locale),
-      alternateName: ['Shwaki Brothers Glassworks', 'אחים שוואקי זכוכית', 'شويكي اخوان للزوجاج'],
-      description: locale === 'he' 
-        ? 'מומחים להתקנת זכוכית בישראל - מקלחונים, מעקות זכוכית, מראות, חזיתות חנויות. מדידה חינם, אחריות שנתיים.'
-        : 'Professional glass installation in Israel - shower enclosures, glass railings, mirrors, storefronts. Free measurement, 2-year warranty.',
-      url: 'https://www.shwakiglassworks.com',
-      telephone: CONTACT_INFO.phoneIntl,
-      email: CONTACT_INFO.email,
-      address: {
-        '@type': 'PostalAddress',
-        addressCountry: 'IL',
-        addressLocality: 'Israel',
+  const shouldRenderGlobalBusiness = !isLocationPage;
+  const shouldRenderGlobalBreadcrumb = !isLocationPage && !isServicePage;
+
+  // LocalBusiness schema (always present unless on location page)
+  const localBusinessSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'LocalBusiness',
+    '@id': 'https://www.shwakiglassworks.com/#business',
+    name: getLocalizedText(BUSINESS_INFO.name, locale),
+    alternateName: ['Shwaki Brothers Glassworks', 'אחים שוואקי זכוכית', 'شويكي اخوان للزوجاج'],
+    description: locale === 'he' 
+      ? 'מומחים להתקנת זכוכית בישראל - מקלחונים, מעקות זכוכית, מראות, חזיתות חנויות. מדידה חינם, אחריות שנתיים.'
+      : 'Professional glass installation in Israel - shower enclosures, glass railings, mirrors, storefronts. Free measurement, 2-year warranty.',
+    url: 'https://www.shwakiglassworks.com',
+    telephone: CONTACT_INFO.phoneIntl,
+    email: CONTACT_INFO.email,
+    address: {
+      '@type': 'PostalAddress',
+      addressCountry: 'IL',
+      addressLocality: 'Israel',
+    },
+    geo: {
+      '@type': 'GeoCoordinates',
+      latitude: 31.7683, // Israel center
+      longitude: 35.2137,
+    },
+    areaServed: {
+      '@type': 'Country',
+      name: 'Israel',
+    },
+    priceRange: '₪₪',
+    currenciesAccepted: 'ILS',
+    paymentAccepted: 'Cash, Credit Card, Bank Transfer',
+    openingHoursSpecification: [
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
+        opens: '08:00',
+        closes: '18:00',
       },
-      geo: {
-        '@type': 'GeoCoordinates',
-        latitude: 31.7683, // Israel center
-        longitude: 35.2137,
+      {
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: 'Friday',
+        opens: '08:00',
+        closes: '13:00',
       },
-      areaServed: {
-        '@type': 'Country',
-        name: 'Israel',
-      },
-      priceRange: '₪₪',
-      currenciesAccepted: 'ILS',
-      paymentAccepted: 'Cash, Credit Card, Bank Transfer',
-      openingHoursSpecification: [
-        {
-          '@type': 'OpeningHoursSpecification',
-          dayOfWeek: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday'],
-          opens: '08:00',
-          closes: '18:00',
+    ],
+    sameAs: [
+      `https://wa.me/${CONTACT_INFO.whatsapp}`,
+      'https://www.instagram.com/shwaki_glassworks/',
+      'https://www.facebook.com/profile.php?id=100063765481345',
+      'https://g.page/r/shwaki-glassworks',
+    ],
+    hasOfferCatalog: {
+      '@type': 'OfferCatalog',
+      name: 'Glass Installation Services',
+      itemListElement: SERVICES.slice(0, 6).map((service, index) => ({
+        '@type': 'Offer',
+        itemOffered: {
+          '@type': 'Service',
+          name: getLocalizedText(service.title, 'en'),
+          description: getLocalizedText(service.description, 'en'),
         },
-        {
-          '@type': 'OpeningHoursSpecification',
-          dayOfWeek: 'Friday',
-          opens: '08:00',
-          closes: '13:00',
-        },
-      ],
-      sameAs: [
-        `https://wa.me/${CONTACT_INFO.whatsapp}`,
-        'https://www.instagram.com/shwaki_glassworks/',
-        'https://www.facebook.com/profile.php?id=100063765481345',
-        'https://g.page/r/shwaki-glassworks',
-      ],
-      hasOfferCatalog: {
-        '@type': 'OfferCatalog',
-        name: 'Glass Installation Services',
-        itemListElement: SERVICES.slice(0, 6).map((service, index) => ({
-          '@type': 'Offer',
-          itemOffered: {
-            '@type': 'Service',
-            name: getLocalizedText(service.title, 'en'),
-            description: getLocalizedText(service.description, 'en'),
-          },
-          position: index + 1,
-        })),
+        position: index + 1,
+      })),
+    },
+    image: [
+      'https://www.shwakiglassworks.com/og-image.jpg',
+    ],
+    foundingDate: BUSINESS_INFO.established,
+  };
+
+
+
+  // WebSite schema
+  const websiteSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Shwaki Brothers Glassworks',
+    alternateName: 'אחים שוואקי זכוכית',
+    url: 'https://www.shwakiglassworks.com',
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: 'https://www.shwakiglassworks.com/search?q={search_term_string}',
       },
-      image: [
-        'https://www.shwakiglassworks.com/og-image.jpg',
-      ],
-      foundingDate: BUSINESS_INFO.established,
-    };
+      'query-input': 'required name=search_term_string',
+    },
+    inLanguage: ['he', 'en', 'ar', 'ru'],
+  };
 
-
-
-    // WebSite schema
-    const websiteSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'WebSite',
-      name: 'Shwaki Brothers Glassworks',
-      alternateName: 'אחים שוואקי זכוכית',
-      url: 'https://www.shwakiglassworks.com',
-      potentialAction: {
-        '@type': 'SearchAction',
-        target: {
-          '@type': 'EntryPoint',
-          urlTemplate: 'https://www.shwakiglassworks.com/search?q={search_term_string}',
-        },
-        'query-input': 'required name=search_term_string',
+  // BreadcrumbList schema
+  const breadcrumbSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      {
+        '@type': 'ListItem',
+        position: 1,
+        name: locale === 'he' ? 'בית' : 'Home',
+        item: `https://www.shwakiglassworks.com/${locale}`,
       },
-      inLanguage: ['he', 'en', 'ar', 'ru'],
-    };
+      ...(page !== 'home' ? [{
+        '@type': 'ListItem',
+        position: 2,
+        name: page.charAt(0).toUpperCase() + page.slice(1),
+        item: `https://www.shwakiglassworks.com/${locale}/${page}`,
+      }] : []),
+    ],
+  };
 
-    // BreadcrumbList schema
-    const breadcrumbSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: [
-        {
-          '@type': 'ListItem',
-          position: 1,
-          name: locale === 'he' ? 'בית' : 'Home',
-          item: `https://www.shwakiglassworks.com/${locale}`,
-        },
-        ...(page !== 'home' ? [{
-          '@type': 'ListItem',
-          position: 2,
-          name: page.charAt(0).toUpperCase() + page.slice(1),
-          item: `https://www.shwakiglassworks.com/${locale}/${page}`,
-        }] : []),
-      ],
-    };
-
-    // Add LocalBusiness schema
-    const businessScript = document.createElement('script');
-    businessScript.type = 'application/ld+json';
-    businessScript.textContent = JSON.stringify(localBusinessSchema);
-    document.head.appendChild(businessScript);
-
-    // Add WebSite schema
-    const websiteScript = document.createElement('script');
-    websiteScript.type = 'application/ld+json';
-    websiteScript.textContent = JSON.stringify(websiteSchema);
-    document.head.appendChild(websiteScript);
-
-    // Add BreadcrumbList schema
-    const breadcrumbScript = document.createElement('script');
-    breadcrumbScript.type = 'application/ld+json';
-    breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
-    document.head.appendChild(breadcrumbScript);
-
-
-
-    // Cleanup
-    return () => {
-      const scripts = document.querySelectorAll('script[type="application/ld+json"]');
-      scripts.forEach((script) => script.remove());
-    };
-  }, [location.pathname, currentLanguage, locale]);
-
-  return null;
+  return (
+    <Helmet>
+      {shouldRenderGlobalBusiness && (
+        <script type="application/ld+json">
+          {JSON.stringify(localBusinessSchema)}
+        </script>
+      )}
+      <script type="application/ld+json">
+        {JSON.stringify(websiteSchema)}
+      </script>
+      {shouldRenderGlobalBreadcrumb && (
+        <script type="application/ld+json">
+          {JSON.stringify(breadcrumbSchema)}
+        </script>
+      )}
+    </Helmet>
+  );
 };
 
 export default JsonLdSchema;

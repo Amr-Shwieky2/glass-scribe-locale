@@ -8,6 +8,8 @@ import { useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { SupportedLocale } from '@/data';
 
+import { Helmet } from 'react-helmet-async';
+
 interface SEOProps {
   title?: string;
   description?: string;
@@ -75,8 +77,6 @@ const PAGE_SEO: Record<string, Record<SupportedLocale, { title: string; descript
   },
 };
 
-// Cloudinary-based OG image - using a hero image with optimal social media dimensions
-// The image is from the hero gallery, cropped to 1200x630 for optimal OG display
 const CLOUDINARY_CLOUD = 'dc1q8upxt';
 const OG_IMAGE = `https://res.cloudinary.com/${CLOUDINARY_CLOUD}/image/upload/c_fill,w_1200,h_630,g_auto,q_auto,f_jpg/shwaki-glassworks/hero/1`;
 
@@ -92,96 +92,60 @@ const SEOHead: React.FC<SEOProps> = ({
   const location = useLocation();
   const locale = currentLanguage as SupportedLocale;
 
-  useEffect(() => {
-    // Determine page from path
-    const pathParts = location.pathname.split('/').filter(Boolean);
-    const page = pathParts[1] || 'home'; // e.g., /he/services -> 'services'
-    
-    // Get SEO data
-    const pageSeo = PAGE_SEO[page]?.[locale];
-    const defaultSeo = DEFAULT_SEO[locale];
-    
-    const finalTitle = title || pageSeo?.title || defaultSeo.title;
-    const finalDescription = description || pageSeo?.description || defaultSeo.description;
-    const finalKeywords = keywords || defaultSeo.keywords;
-    const currentUrl = `${BASE_URL}${location.pathname}`;
+  const pathParts = location.pathname.split('/').filter(Boolean);
+  const page = pathParts[1] || 'home';
+  
+  const pageSeo = PAGE_SEO[page]?.[locale];
+  const defaultSeo = DEFAULT_SEO[locale];
+  
+  const finalTitle = title || pageSeo?.title || defaultSeo.title;
+  const finalDescription = description || pageSeo?.description || defaultSeo.description;
+  const finalKeywords = keywords || defaultSeo.keywords;
+  const currentUrl = `${BASE_URL}${location.pathname}`;
 
-    // Update document title
-    document.title = finalTitle;
+  const languages = ['he', 'en', 'ar', 'ru'];
+  const langSuffix = pathParts.length > 1 ? '/' + pathParts.slice(1).join('/') : '';
 
-    // Helper to update/create meta tag
-    const setMeta = (name: string, content: string, property = false) => {
-      const attr = property ? 'property' : 'name';
-      let meta = document.querySelector(`meta[${attr}="${name}"]`);
-      if (!meta) {
-        meta = document.createElement('meta');
-        meta.setAttribute(attr, name);
-        document.head.appendChild(meta);
-      }
-      meta.setAttribute('content', content);
-    };
+  return (
+    <Helmet>
+      <title>{finalTitle}</title>
+      <meta name="description" content={finalDescription} />
+      <meta name="keywords" content={finalKeywords} />
+      {noindex ? (
+        <meta name="robots" content="noindex, nofollow" />
+      ) : (
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+      )}
 
-    // Standard meta tags
-    setMeta('description', finalDescription);
-    setMeta('keywords', finalKeywords);
-    setMeta('robots', noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large');
+      {/* Open Graph */}
+      <meta property="og:title" content={finalTitle} />
+      <meta property="og:description" content={finalDescription} />
+      <meta property="og:url" content={currentUrl} />
+      <meta property="og:image" content={image} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:type" content={type} />
+      <meta property="og:locale" content={locale === 'he' ? 'he_IL' : locale === 'ar' ? 'ar_SA' : locale === 'ru' ? 'ru_RU' : 'en_US'} />
 
-    // Open Graph
-    setMeta('og:title', finalTitle, true);
-    setMeta('og:description', finalDescription, true);
-    setMeta('og:url', currentUrl, true);
-    setMeta('og:image', image, true);
-    setMeta('og:image:width', '1200', true);
-    setMeta('og:image:height', '630', true);
-    setMeta('og:type', type, true);
-    setMeta('og:locale', locale === 'he' ? 'he_IL' : locale === 'ar' ? 'ar_SA' : locale === 'ru' ? 'ru_RU' : 'en_US', true);
+      {/* Twitter */}
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={finalTitle} />
+      <meta name="twitter:description" content={finalDescription} />
+      <meta name="twitter:image" content={image} />
 
-    // Twitter
-    setMeta('twitter:card', 'summary_large_image');
-    setMeta('twitter:title', finalTitle);
-    setMeta('twitter:description', finalDescription);
-    setMeta('twitter:image', image);
+      {/* Canonical */}
+      <link rel="canonical" href={currentUrl} />
 
-    // Update canonical URL
-    let canonical = document.querySelector('link[rel="canonical"]');
-    if (!canonical) {
-      canonical = document.createElement('link');
-      canonical.setAttribute('rel', 'canonical');
-      document.head.appendChild(canonical);
-    }
-    canonical.setAttribute('href', currentUrl);
+      {/* Hreflang Alternates */}
+      {languages.map((lang) => (
+        <link key={lang} rel="alternate" hrefLang={lang} href={`${BASE_URL}/${lang}${langSuffix}`} />
+      ))}
+      <link rel="alternate" hrefLang="x-default" href={`${BASE_URL}/he${langSuffix}`} />
 
-    // Update hreflang tags
-    const languages = ['he', 'en', 'ar', 'ru'];
-    languages.forEach(lang => {
-      const href = `${BASE_URL}/${lang}${pathParts.length > 1 ? '/' + pathParts.slice(1).join('/') : ''}`;
-      let hreflang = document.querySelector(`link[hreflang="${lang}"]`);
-      if (!hreflang) {
-        hreflang = document.createElement('link');
-        hreflang.setAttribute('rel', 'alternate');
-        hreflang.setAttribute('hreflang', lang);
-        document.head.appendChild(hreflang);
-      }
-      hreflang.setAttribute('href', href);
-    });
-
-    // Update x-default
-    let xDefault = document.querySelector('link[hreflang="x-default"]');
-    if (!xDefault) {
-      xDefault = document.createElement('link');
-      xDefault.setAttribute('rel', 'alternate');
-      xDefault.setAttribute('hreflang', 'x-default');
-      document.head.appendChild(xDefault);
-    }
-    xDefault.setAttribute('href', `${BASE_URL}/he${pathParts.length > 1 ? '/' + pathParts.slice(1).join('/') : ''}`);
-
-    // Update HTML lang attribute
-    document.documentElement.lang = locale;
-    document.documentElement.dir = locale === 'he' || locale === 'ar' ? 'rtl' : 'ltr';
-
-  }, [location.pathname, currentLanguage, title, description, keywords, image, type, noindex, locale]);
-
-  return null; // This component doesn't render anything
+      {/* HTML Lang Attributes */}
+      <html lang={locale} dir={locale === 'he' || locale === 'ar' ? 'rtl' : 'ltr'} />
+    </Helmet>
+  );
 };
 
 export default SEOHead;
