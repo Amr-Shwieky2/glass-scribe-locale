@@ -26,3 +26,4 @@ export {
   getServiceSeoPageBySlug,
   normalizeLocationSeoSlug,
 } from './service-seo-content';
+export { type BlogPost, BLOG_POSTS } from './blog-posts';

@@ -96,6 +96,11 @@ const LocationJsonLd: React.FC<LocationJsonLdProps> = ({ city, cityName }) => {
       latitude: coords.lat,
       longitude: coords.lng,
     },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '47',
+    },
     areaServed: [
       {
         '@type': 'City',

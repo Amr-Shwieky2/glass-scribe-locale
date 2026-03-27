@@ -39,7 +39,6 @@ export const trackEvent = ({ action, category, label, value }: GTagEvent) => {
       value: value,
     });
   } else {
-    // Development fallback
-    console.log(`[Google Ads Tracking] Event: ${action}`, { category, label, value });
+    // gtag not loaded — silently skip in production
   }
 };

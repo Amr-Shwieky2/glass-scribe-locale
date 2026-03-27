@@ -11,6 +11,7 @@ import {
   LOCATION_SEO_ALIAS_PREFIX
 } from '@/data/service-seo-content';
 import { getLocalizedText, getLocalizedArray, CONTACT_INFO, UI_STRINGS, type SupportedLocale } from '@/data';
+import { BLOG_POSTS } from '@/data/blog-posts';
 import ServiceJsonLd from '@/components/ServiceJsonLd';
 import { useCloudinaryImages, getThumbnailUrl, getGalleryUrl } from '@/hooks/cloudinary';
 import ImagePreviewModal from '@/components/projects/ImagePreviewModal';
@@ -53,6 +54,8 @@ const ServiceDetail: React.FC = () => {
   const handleNext = () => { const i = previewIndex === projectImages.length - 1 ? 0 : previewIndex + 1; setPreviewIndex(i); setPreviewImage(projectImages[i]); };
 
   const whatsappMessage = `שלום, אשמח לקבל הצעת מחיר עבור ${t(service.heroTitle)}`;
+
+  const relatedPosts = useMemo(() => BLOG_POSTS.filter((p) => p.relatedServiceId === service.serviceId).slice(0, 4), [service.serviceId]);
 
   return (
     <div className="min-h-screen bg-brand-light">
@@ -159,9 +162,27 @@ const ServiceDetail: React.FC = () => {
                 ))}
               </div>
             </div>
+
+            {/* Related Articles - SEO Internal Linking */}
+            {relatedPosts.length > 0 && (
+              <div className="mt-16 pt-12 border-t border-gray-200">
+                <h2 className="text-3xl font-bold text-brand-navy mb-8 flex items-center gap-2">
+                  <MessageCircle className="w-7 h-7 text-brand-gold" />
+                  {locale === 'he' ? 'מאמרים קשורים בבלוג' : locale === 'ar' ? 'مقالات ذات صلة' : locale === 'ru' ? 'Похожие статьи' : 'Related Articles'}
+                </h2>
+                <div className="grid sm:grid-cols-2 gap-6">
+                  {relatedPosts.map(post => (
+                    <Link key={post.id} to={`/${locale}/blog/${post.slug}`} className="bg-gray-50 border border-gray-100 rounded-xl p-6 hover:bg-brand-navy hover:text-white transition-all duration-300 group shadow-sm hover:shadow-md">
+                      <h3 className="font-bold text-lg mb-3 group-hover:text-brand-gold transition-colors">{getLocalizedText(post.title, locale)}</h3>
+                      <p className="text-sm opacity-80 line-clamp-3 leading-relaxed group-hover:opacity-100 transition-opacity">{getLocalizedText(post.excerpt, locale)}</p>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
 
-          {/* Sidebar */}
+          {/* Sticky Sidebar (Contact / Navigation) */}
           <div className="space-y-8">
             {/* CTA Box */}
             <div className="bg-brand-navy text-white p-8 rounded-2xl shadow-xl sticky top-24">

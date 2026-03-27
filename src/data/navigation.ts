@@ -37,6 +37,15 @@ export const NAVIGATION = {
       },
     },
     {
+      href: '/blog',
+      label: {
+        en: 'Blog',
+        he: 'בלוג',
+        ar: 'مدونة',
+        ru: 'Блог',
+      },
+    },
+    {
       href: '/contact',
       label: {
         en: 'Contact',

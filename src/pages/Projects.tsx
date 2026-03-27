@@ -12,6 +12,7 @@ import { useCloudinaryImages } from '@/hooks/cloudinary';
 import { getCategoryFromPublicId, type CloudinaryImage } from '@/lib/cloudinary';
 import { CONTACT_INFO, PAGE_CONTENT, UI_STRINGS, getLocalizedText, PROJECT_CATEGORIES, type SupportedLocale } from '@/data';
 import { getServicePageHref, SERVICE_SEO_PAGES } from '@/data/service-seo-content';
+import { Helmet } from 'react-helmet-async';
 
 const SEO_CONTENT: Record<SupportedLocale, { title: string; description: string; keywords: string }> = {
   he: {
@@ -78,8 +79,39 @@ const Projects: React.FC = () => {
 
   const seo = SEO_CONTENT[locale] || SEO_CONTENT.he;
 
+  const imageGallerySchema = useMemo(() => {
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'ImageGallery',
+      name: seo.title,
+      description: seo.description,
+      url: `https://www.shwakiglassworks.com/${locale}/projects`,
+      inLanguage: locale,
+      primaryImageOfPage: images.length > 0 ? {
+        '@type': 'ImageObject',
+        contentUrl: images[0].secure_url,
+        description: images[0].context?.custom?.alt || `${getImageCategory(images[0])} installation`,
+      } : undefined,
+      hasPart: images.slice(0, 15).map((img, idx) => ({
+        '@type': 'ImageObject',
+        contentUrl: img.secure_url,
+        thumbnailUrl: img.secure_url.replace('/upload/', '/upload/c_fill,w_400,h_400/'),
+        name: `${getImageCategory(img)} ${idx + 1}`,
+        description: img.context?.custom?.alt || `${getImageCategory(img)} in Israel`,
+        representativeOfPage: idx === 0 ? true : false,
+      }))
+    };
+  }, [seo, images, locale]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return (
     <div className="min-h-screen">
+      <Helmet>
+        <title>{seo.title}</title>
+        <meta name="description" content={seo.description} />
+        <script type="application/ld+json">
+          {JSON.stringify(imageGallerySchema)}
+        </script>
+      </Helmet>
       <ProjectsHeader locale={locale} title={content.title} subtitle={content.subtitle} imageCount={images.length} />
       <ProjectFilters selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} viewMode={viewMode} onViewModeChange={setViewMode} locale={locale} allCategoriesText={content.allCategories} />
       

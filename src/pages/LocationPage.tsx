@@ -13,22 +13,18 @@ import { CONTACT_INFO, UI_STRINGS, SERVICES, getLocalizedText, type SupportedLoc
 import AnimatedPageHeader from '@/components/AnimatedPageHeader';
 import LocationJsonLd from '@/components/LocationJsonLd';
 import Breadcrumbs from '@/components/Breadcrumbs';
+import SEOHead from '@/components/SEOHead';
 
 // Location data with comprehensive content
 const LOCATIONS = {
   jerusalem: {
     slug: 'jerusalem',
-    name: {
-      en: 'Jerusalem',
-      he: 'ירושלים',
-      ar: 'القدس',
-      ru: 'Иерусалим',
-    },
+    name: { en: 'Jerusalem', he: 'ירושלים', ar: 'القدس', ru: 'Иерусалим' },
     heroTitle: {
-      en: 'Glass Installation in Jerusalem',
-      he: 'התקנת זכוכית בירושלים',
-      ar: 'تركيب الزجاج في القدس',
-      ru: 'Установка стекла в Иерусалиме',
+      en: 'Showers and Glass Railings in Jerusalem',
+      he: 'מקלחונים ומעקות זכוכית בירושלים',
+      ar: 'حواجز الدش والدرابزين الزجاجي في القدس',
+      ru: 'Душевые кабины и стеклянные ограждения в Иерусалиме',
     },
     heroSubtitle: {
       en: 'Premium glass installation services for Jerusalem homes and businesses. Shower enclosures, glass railings, mirrors, and storefronts.',
@@ -46,30 +42,15 @@ const LOCATIONS = {
     areasHe: ['עין כרם', 'תלפיות', 'קטמון', 'המושבה הגרמנית', 'בית הכרם', 'רחביה', 'גבעת רם', 'מלחה'],
     projectsCount: '120+',
     mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d108139.98878458674!2d35.1064679!3d31.7683!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502d7d634c1fc4b%3A0xd96f623e456ee1cb!2sJerusalem!5e0!3m2!1sen!2sil!4v1234567890',
-    seoKeywords: {
-      en: 'glass installation Jerusalem, glazier Jerusalem, shower glass Jerusalem, glass railings Jerusalem, mirror installation Jerusalem',
-      he: 'התקנת זכוכית ירושלים, זגג ירושלים, מקלחונים ירושלים, מעקות זכוכית ירושלים, התקנת מראות ירושלים',
-    },
-    seoMetaDescription: {
-      en: 'Glass installation services in Jerusalem - shower enclosures, glass railings, mirrors. Serving Ein Kerem, Talpiot, German Colony. Free measurement. Call now!',
-      he: 'שירותי התקנת זכוכית בירושלים - מקלחונים, מעקות זכוכית, מראות. עין כרם, תלפיות, המושבה הגרמנית. מדידה חינם. התקשרו עכשיו!',
-      ar: 'خدمات تركيب الزجاج في القدس - حواجز الدش، الدرابزين الزجاجي، المرايا. قياسات مجانية. اتصل الآن!',
-      ru: 'Услуги по установке стекла в Иерусалиме - душевые кабины, стеклянные ограждения, зеркала. Бесплатные замеры. Звоните!',
-    },
   },
   'tel-aviv': {
     slug: 'tel-aviv',
-    name: {
-      en: 'Tel Aviv',
-      he: 'תל אביב',
-      ar: 'تل أبيب',
-      ru: 'Тель-Авив',
-    },
+    name: { en: 'Tel Aviv', he: 'תל אביב', ar: 'تل أبيب', ru: 'Тель-Авив' },
     heroTitle: {
-      en: 'Glass Installation in Tel Aviv',
-      he: 'התקנת זכוכית בתל אביב',
-      ar: 'تركيب الزجاج في تل أبيب',
-      ru: 'Установка стекла в Тель-Авиве',
+      en: 'Showers and Glass Railings in Tel Aviv',
+      he: 'מקלחונים ומעקות זכוכית בתל אביב',
+      ar: 'حواجز الدش والدرابزين الزجاجي في تل أبيب',
+      ru: 'Душевые кабины и стеклянные ограждения в Тель-Авиве',
     },
     heroSubtitle: {
       en: 'Modern glass solutions for Tel Aviv\'s contemporary architecture. Frameless showers, balcony railings, and commercial glass.',
@@ -87,30 +68,15 @@ const LOCATIONS = {
     areasHe: ['פלורנטין', 'נווה צדק', 'רוטשילד', 'רמת אביב', 'יפו', 'צפון תל אביב', 'שרונה', 'הירקון'],
     projectsCount: '180+',
     mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d108166.73095994286!2d34.7515202!3d32.0852999!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d4ca6193b7c1f%3A0xc1fb72a2c0963f90!2sTel%20Aviv-Yafo!5e0!3m2!1sen!2sil!4v1234567890',
-    seoKeywords: {
-      en: 'glass installation Tel Aviv, glazier Tel Aviv, shower glass Tel Aviv, glass railings Tel Aviv, frameless shower Tel Aviv',
-      he: 'התקנת זכוכית תל אביב, זגג תל אביב, מקלחונים תל אביב, מעקות זכוכית תל אביב, מקלחון ללא מסגרת תל אביב',
-    },
-    seoMetaDescription: {
-      en: 'Glass installation services in Tel Aviv - frameless showers, glass railings, mirrors. Serving Florentin, Neve Tzedek, Ramat Aviv. Free measurement. Call now!',
-      he: 'שירותי התקנת זכוכית בתל אביב - מקלחונים ללא מסגרת, מעקות זכוכית, מראות. פלורנטין, נווה צדק, רמת אביב. מדידה חינם!',
-      ar: 'خدمات تركيب الزجاج في تل أبيب - دش بدون إطار، درابزين زجاجي، مرايا. قياسات مجانية. اتصل الآن!',
-      ru: 'Установка стекла в Тель-Авиве - безрамные душевые, стеклянные ограждения, зеркала. Бесплатные замеры. Звоните!',
-    },
   },
   haifa: {
     slug: 'haifa',
-    name: {
-      en: 'Haifa',
-      he: 'חיפה',
-      ar: 'حيفا',
-      ru: 'Хайфа',
-    },
+    name: { en: 'Haifa', he: 'חיפה', ar: 'حيفا', ru: 'Хайфа' },
     heroTitle: {
-      en: 'Glass Installation in Haifa',
-      he: 'התקנת זכוכית בחיפה',
-      ar: 'تركيب الزجاج في حيفا',
-      ru: 'Установка стекла в Хайфе',
+      en: 'Showers and Glass Railings in Haifa',
+      he: 'מקלחונים ומעקות זכוכית בחיפה',
+      ar: 'حواجز الدش والدرابزين الزجاجي في حيفا',
+      ru: 'Душевые кабины и стеклянные ограждения в Хайфе',
     },
     heroSubtitle: {
       en: 'Expert glass installation for Haifa and the Carmel region. Sea-resistant glass solutions for coastal properties.',
@@ -128,30 +94,15 @@ const LOCATIONS = {
     areasHe: ['הכרמל', 'הדר', 'נווה שאנן', 'בת גלים', 'קרית אליעזר', 'קריות', 'נשר', 'טירת כרמל'],
     projectsCount: '95+',
     mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d108164.55095994286!2d34.9515202!3d32.7940463!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151dba3c8410ae17%3A0x80ade1d39e3c7e38!2sHaifa!5e0!3m2!1sen!2sil!4v1234567890',
-    seoKeywords: {
-      en: 'glass installation Haifa, glazier Haifa, shower glass Haifa, glass railings Haifa, coastal glass installation',
-      he: 'התקנת זכוכית חיפה, זגג חיפה, מקלחונים חיפה, מעקות זכוכית חיפה',
-    },
-    seoMetaDescription: {
-      en: 'Glass installation services in Haifa - sea-resistant showers, glass railings, mirrors. Serving Carmel, Hadar, Krayot. Free measurement. Call now!',
-      he: 'שירותי התקנת זכוכית בחיפה - מקלחונים עמידים בים, מעקות זכוכית, מראות. הכרמל, הדר, קריות. מדידה חינם!',
-      ar: 'خدمات تركيب الزجاج في حيفا - دش مقاوم للملح، درابزين زجاجي، مرايا. قياسات مجانية. اتصل الآن!',
-      ru: 'Установка стекла в Хайфе - морестойкие душевые, стеклянные ограждения, зеркала. Бесплатные замеры. Звоните!',
-    },
   },
   'beer-sheva': {
     slug: 'beer-sheva',
-    name: {
-      en: 'Beer Sheva',
-      he: 'באר שבע',
-      ar: 'بئر السبع',
-      ru: 'Беэр-Шева',
-    },
+    name: { en: 'Beer Sheva', he: 'באר שבע', ar: 'بئر السبع', ru: 'Беэр-Шева' },
     heroTitle: {
-      en: 'Glass Installation in Beer Sheva',
-      he: 'התקנת זכוכית בבאר שבע',
-      ar: 'تركيب الزجاج في بئر السبع',
-      ru: 'Установка стекла в Беэр-Шеве',
+      en: 'Showers and Glass Railings in Beer Sheva',
+      he: 'מקלחונים ומעקות זכוכית בבאר שבע',
+      ar: 'حواجز الدش والدرابزين الزجاجي في بئر السبع',
+      ru: 'Душевые кабины и стеклянные ограждения в Беэр-Шеве',
     },
     heroSubtitle: {
       en: 'Professional glass services for Beer Sheva and the Negev region. Heat-resistant solutions for desert climate.',
@@ -169,30 +120,15 @@ const LOCATIONS = {
     areasHe: ['העיר העתיקה', 'רמות', 'נווה נוי', 'נווה זאב', 'עומר', 'מיתר', 'דימונה', 'ערד'],
     projectsCount: '65+',
     mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d108164.55095994286!2d34.7913134!3d31.2529619!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1502650089c56de3%3A0x8c7a68eef75cbc91!2sBe%27er%20Sheva!5e0!3m2!1sen!2sil!4v1234567890',
-    seoKeywords: {
-      en: 'glass installation Beer Sheva, glazier Beer Sheva, shower glass Beer Sheva, glass railings Negev',
-      he: 'התקנת זכוכית באר שבע, זגג באר שבע, מקלחונים באר שבע, מעקות זכוכית נגב',
-    },
-    seoMetaDescription: {
-      en: 'Glass installation services in Beer Sheva - heat-resistant showers, glass railings, mirrors. Serving Omer, Meitar, Dimona. Free measurement. Call now!',
-      he: 'שירותי התקנת זכוכית בבאר שבע - מקלחונים עמידים בחום, מעקות זכוכית, מראות. עומר, מיתר, דימונה. מדידה חינם!',
-      ar: 'خدمات تركيب الزجاج في بئر السبع - دش مقاوم للحرارة، درابزين زجاجي، مرايا. قياسات مجانية. اتصل الآن!',
-      ru: 'Установка стекла в Беэр-Шеве - термостойкие душевые, стеклянные ограждения, зеркала. Бесплатные замеры. Звоните!',
-    },
   },
   netanya: {
     slug: 'netanya',
-    name: {
-      en: 'Netanya',
-      he: 'נתניה',
-      ar: 'نتانيا',
-      ru: 'Нетания',
-    },
+    name: { en: 'Netanya', he: 'נתניה', ar: 'نتانيا', ru: 'Нетания' },
     heroTitle: {
-      en: 'Glass Installation in Netanya',
-      he: 'התקנת זכוכית בנתניה',
-      ar: 'تركيب الزجاج في نتانيا',
-      ru: 'Установка стекла в Нетании',
+      en: 'Showers and Glass Railings in Netanya',
+      he: 'מקלחונים ומעקות זכוכית בנתניה',
+      ar: 'حواجز الدش والدرابزين الزجاجي في نتانيا',
+      ru: 'Душевые кабины и стеклянные ограждения в Нетании',
     },
     heroSubtitle: {
       en: 'Expert glass installation for Netanya and the Sharon region. Premium shower enclosures, glass railings, and mirrors.',
@@ -210,16 +146,6 @@ const LOCATIONS = {
     areasHe: ['פולג', 'עיר ימים', 'קרית השרון', 'דורה', 'רמת פולג', 'אבן יהודה', 'קדימה'],
     projectsCount: '75+',
     mapEmbed: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d107877.925232924!2d34.8519!3d32.3215!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x151d3e8ed5b1fbad%3A0xc3c940bd0fcf6002!2sNetanya!5e0!3m2!1sen!2sil!4v1234567890',
-    seoKeywords: {
-      en: 'glass installation Netanya, glazier Netanya, shower glass Netanya, glass railings Netanya',
-      he: 'התקנת זכוכית נתניה, זגג נתניה, מקלחונים נתניה, מעקות זכוכית נתניה',
-    },
-    seoMetaDescription: {
-      en: 'Glass installation services in Netanya - custom showers, glass railings, mirrors. Serving Ramat Poleg, Ir Yamim, Sharon area. Free measurement. Call now!',
-      he: 'שירותי התקנת זכוכית בנתניה - מקלחונים בהתאמה אישית, מעקות זכוכית, מראות. פולג, עיר ימים, אזור השרון. מדידה חינם!',
-      ar: 'خدمات تركيب الزجاج في نتانيا - حواجز الدش المخصصة، الدرابزين الزجاجي، المرايا. قياسات مجانية. اتصل الآن!',
-      ru: 'Установка стекла в Нетании - душевые кабины на заказ, стеклянные ограждения, зеркала. Бесплатные замеры. Звоните!',
-    },
   },
 };
 
@@ -358,6 +284,12 @@ const LocationPage: React.FC = () => {
 
   return (
     <>
+      <SEOHead 
+        title={locale === 'he' ? `מקלחונים ומעקות זכוכית ${getLocalizedText(locationData.name, locale)} | שירותי זכוכית | אחים שוואקי` : `Showers and Glass Railings ${getLocalizedText(locationData.name, locale)} | Glass Services | Shwaki Brothers`}
+        description={locale === 'he' ? `אחים שוואקי זכוכית - מומחים להתקנת מקלחונים ומעקות זכוכית ב${getLocalizedText(locationData.name, locale)}. שירות מקצועי, מדידה חינם.` : `Shwaki Brothers Glassworks - Experts in installing showers and glass railings in ${getLocalizedText(locationData.name, locale)}. Professional service, free measurement.`}
+        keywords={locale === 'he' ? `מקלחונים ${getLocalizedText(locationData.name, locale)}, מעקות זכוכית ${getLocalizedText(locationData.name, locale)}, זגג ${getLocalizedText(locationData.name, locale)}` : `showers ${getLocalizedText(locationData.name, locale)}, glass railings ${getLocalizedText(locationData.name, locale)}, glazier ${getLocalizedText(locationData.name, locale)}`}
+      />
+
       {/* Location-specific JSON-LD Schema */}
       <LocationJsonLd 
         city={locationSlug as string} 

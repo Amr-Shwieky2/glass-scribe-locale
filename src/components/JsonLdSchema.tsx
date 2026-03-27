@@ -46,17 +46,23 @@ const JsonLdSchema: React.FC = () => {
     email: CONTACT_INFO.email,
     address: {
       '@type': 'PostalAddress',
+      addressLocality: 'Jerusalem',
       addressCountry: 'IL',
-      addressLocality: 'Israel',
     },
     geo: {
       '@type': 'GeoCoordinates',
-      latitude: 31.7683, // Israel center
+      latitude: 31.7683,
       longitude: 35.2137,
     },
-    areaServed: {
-      '@type': 'Country',
-      name: 'Israel',
+    areaServed: [
+      { '@type': 'City', name: 'Jerusalem', sameAs: 'https://en.wikipedia.org/wiki/Jerusalem' },
+      { '@type': 'City', name: 'Tel Aviv', sameAs: 'https://en.wikipedia.org/wiki/Tel_Aviv' },
+      { '@type': 'City', name: 'Haifa', sameAs: 'https://en.wikipedia.org/wiki/Haifa' }
+    ],
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '4.9',
+      reviewCount: '47',
     },
     priceRange: '₪₪',
     currenciesAccepted: 'ILS',

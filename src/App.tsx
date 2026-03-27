@@ -28,6 +28,8 @@ const TermsOfUse = lazy(() => import('./pages/TermsOfUse'));
 const LocationPage = lazy(() => import('./pages/LocationPage'));
 const Admin = lazy(() => import('./pages/Admin'));
 const NotFound = lazy(() => import('./pages/NotFound'));
+const BlogList = lazy(() => import('./pages/BlogList'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
 
 const DEFAULT_LANGUAGE = 'he';
 
@@ -57,6 +59,9 @@ const routes: RouteConfig[] = [
   { path: '/:lang/haifa', element: <LocationPage /> },
   { path: '/:lang/beer-sheva', element: <LocationPage /> },
   { path: '/:lang/netanya', element: <LocationPage /> },
+  // Blog pages
+  { path: '/:lang/blog', element: <BlogList /> },
+  { path: '/:lang/blog/:slug', element: <BlogPost /> },
 ];
 
 // Gallery redirect component

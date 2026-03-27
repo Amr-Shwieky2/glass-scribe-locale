@@ -112,7 +112,6 @@ const CookieConsent: React.FC = () => {
       script.setAttribute('data-domain', PLAUSIBLE_DOMAIN);
       script.src = 'https://plausible.io/js/script.js';
       document.head.appendChild(script);
-      console.log('Plausible Analytics enabled');
     }
   };
 

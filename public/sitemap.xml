@@ -221,6 +221,50 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://www.shwakiglassworks.com/he/blog</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/en/blog</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ar/blog</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ru/blog</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
     <loc>https://www.shwakiglassworks.com/he/services/shower-glass</loc>
     <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/services/shower-glass"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/services/shower-glass"/>
@@ -879,5 +923,225 @@
     <lastmod>2026-03-27</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/he/blog/guide-to-choosing-glass-shower</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/guide-to-choosing-glass-shower"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/en/blog/guide-to-choosing-glass-shower</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/guide-to-choosing-glass-shower"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ar/blog/guide-to-choosing-glass-shower</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/guide-to-choosing-glass-shower"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ru/blog/guide-to-choosing-glass-shower</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/guide-to-choosing-glass-shower"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/guide-to-choosing-glass-shower"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/he/blog/cost-of-glass-railing-installation</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/cost-of-glass-railing-installation"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/en/blog/cost-of-glass-railing-installation</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/cost-of-glass-railing-installation"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ar/blog/cost-of-glass-railing-installation</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/cost-of-glass-railing-installation"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ru/blog/cost-of-glass-railing-installation</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/cost-of-glass-railing-installation"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/cost-of-glass-railing-installation"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/he/blog/tempered-vs-regular-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/tempered-vs-regular-glass"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/en/blog/tempered-vs-regular-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/tempered-vs-regular-glass"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ar/blog/tempered-vs-regular-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/tempered-vs-regular-glass"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ru/blog/tempered-vs-regular-glass</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/tempered-vs-regular-glass"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/tempered-vs-regular-glass"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/he/blog/tips-maintaining-glass-showers</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/tips-maintaining-glass-showers"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/en/blog/tips-maintaining-glass-showers</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/tips-maintaining-glass-showers"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ar/blog/tips-maintaining-glass-showers</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/tips-maintaining-glass-showers"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ru/blog/tips-maintaining-glass-showers</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/tips-maintaining-glass-showers"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/tips-maintaining-glass-showers"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/he/blog/mirrors-in-interior-design</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/mirrors-in-interior-design"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/en/blog/mirrors-in-interior-design</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/mirrors-in-interior-design"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ar/blog/mirrors-in-interior-design</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/mirrors-in-interior-design"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.shwakiglassworks.com/ru/blog/mirrors-in-interior-design</loc>
+    <xhtml:link rel="alternate" hreflang="he" href="https://www.shwakiglassworks.com/he/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.shwakiglassworks.com/en/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="ar" href="https://www.shwakiglassworks.com/ar/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="ru" href="https://www.shwakiglassworks.com/ru/blog/mirrors-in-interior-design"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://www.shwakiglassworks.com/he/blog/mirrors-in-interior-design"/>
+    <lastmod>2026-03-27</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
   </url>
 </urlset>

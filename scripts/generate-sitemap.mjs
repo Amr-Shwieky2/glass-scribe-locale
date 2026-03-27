@@ -9,11 +9,18 @@ const DOMAIN = 'https://www.shwakiglassworks.com';
 const LANGUAGES = ['he', 'en', 'ar', 'ru'];
 const TODAY = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
-const CORE_PAGES = ['', 'services', 'projects', 'about', 'contact'];
+const CORE_PAGES = ['', 'services', 'projects', 'about', 'contact', 'blog'];
 const SERVICE_PAGES = ['shower-glass', 'glass-railings', 'mirrors', 'glass-partitions', 'storefront-glass'];
 // SEO slug-based service detail pages (the actual URLs users visit)
 const SEO_SERVICE_SLUGS = ['glass-shower-installation', 'glass-railing', 'glass-mirrors', 'shop-front-glass', 'glass-partitions'];
 const LOCATION_PAGES = ['jerusalem', 'tel-aviv', 'haifa', 'beer-sheva', 'netanya'];
+const BLOG_SLUGS = [
+  'guide-to-choosing-glass-shower',
+  'cost-of-glass-railing-installation',
+  'tempered-vs-regular-glass',
+  'tips-maintaining-glass-showers',
+  'mirrors-in-interior-design'
+];
 
 const generateUrlEntry = (routePath, priority) => {
   let xml = '';
@@ -60,6 +67,11 @@ const generateSitemap = () => {
   // Location Pages (Priority 0.8)
   LOCATION_PAGES.forEach((location) => {
     sitemapXml += generateUrlEntry(location, '0.8');
+  });
+
+  // Blog Pages (Priority 0.7)
+  BLOG_SLUGS.forEach((slug) => {
+    sitemapXml += generateUrlEntry(`blog/${slug}`, '0.7');
   });
 
   sitemapXml += `\n</urlset>`;
