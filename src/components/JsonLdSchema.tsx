@@ -9,59 +9,7 @@ import { useLocation } from 'react-router-dom';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { CONTACT_INFO, BUSINESS_INFO, SERVICES, getLocalizedText, type SupportedLocale } from '@/data';
 
-// FAQ data for schema
-const FAQ_SCHEMA_DATA = [
-  {
-    question: {
-      en: 'How much does glass installation cost in Israel?',
-      he: 'כמה עולה התקנת זכוכית בישראל?',
-    },
-    answer: {
-      en: 'Glass installation costs vary based on type, size, and complexity. Shower enclosures typically range from ₪3,000-15,000, glass railings from ₪1,200-2,500 per meter, and mirror walls from ₪800-2,000 per sqm. We offer free on-site measurements and detailed quotes with no obligation.',
-      he: 'עלות התקנת זכוכית משתנה בהתאם לסוג, גודל ומורכבות. מקלחונים נעים בדרך כלל בין ₪3,000-15,000, מעקות זכוכית בין ₪1,200-2,500 למטר, וקירות מראה בין ₪800-2,000 למ"ר.',
-    },
-  },
-  {
-    question: {
-      en: 'How long does glass installation take?',
-      he: 'כמה זמן לוקחת התקנת זכוכית?',
-    },
-    answer: {
-      en: 'Most residential glass installations are completed in 1-2 days. After measurement, custom glass production takes 3-5 business days. The actual installation typically takes a few hours to a full day.',
-      he: 'רוב התקנות הזכוכית הביתיות מסתיימות תוך 1-2 ימים. לאחר המדידה, ייצור זכוכית מותאמת אישית לוקח 3-5 ימי עסקים.',
-    },
-  },
-  {
-    question: {
-      en: 'What type of glass is best for shower enclosures?',
-      he: 'איזה סוג זכוכית הכי טוב למקלחונים?',
-    },
-    answer: {
-      en: 'We recommend 8mm-10mm tempered (safety) glass for shower enclosures. Tempered glass is 4-5 times stronger than regular glass and breaks into small, less harmful pieces if shattered.',
-      he: 'אנו ממליצים על זכוכית מחוסמת בעובי 8-10 מ"מ למקלחונים. זכוכית מחוסמת חזקה פי 4-5 מזכוכית רגילה ומתפוררת לחתיכות קטנות במקרה של שבירה.',
-    },
-  },
-  {
-    question: {
-      en: 'Do you offer a warranty on glass installations?',
-      he: 'האם אתם מציעים אחריות על התקנות זכוכית?',
-    },
-    answer: {
-      en: 'Yes! All our glass installations come with a 2-year warranty covering workmanship and hardware. This includes hinges, handles, seals, and installation quality.',
-      he: 'כן! כל התקנות הזכוכית שלנו מגיעות עם אחריות לשנתיים המכסה עבודה וחומרים.',
-    },
-  },
-  {
-    question: {
-      en: 'Do you serve all areas in Israel?',
-      he: 'האם אתם עובדים בכל רחבי ישראל?',
-    },
-    answer: {
-      en: 'Yes, we provide glass installation services nationwide across Israel including Jerusalem, Tel Aviv, Haifa, Beersheba, Netanya, and surrounding areas.',
-      he: 'כן, אנו מספקים שירותי התקנת זכוכית בכל רחבי ישראל כולל ירושלים, תל אביב, חיפה, באר שבע, נתניה ובאזורים הסמוכים.',
-    },
-  },
-];
+// Removed FAQ data as it is now encapsulated in FAQSection.tsx
 
 const JsonLdSchema: React.FC = () => {
   const { currentLanguage } = useLanguage();
@@ -146,19 +94,7 @@ const JsonLdSchema: React.FC = () => {
       foundingDate: BUSINESS_INFO.established,
     };
 
-    // FAQ schema (for home page and services page)
-    const faqSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: FAQ_SCHEMA_DATA.map((faq) => ({
-        '@type': 'Question',
-        name: locale === 'he' || locale === 'ar' ? faq.question.he : faq.question.en,
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: locale === 'he' || locale === 'ar' ? faq.answer.he : faq.answer.en,
-        },
-      })),
-    };
+
 
     // WebSite schema
     const websiteSchema = {
@@ -216,13 +152,7 @@ const JsonLdSchema: React.FC = () => {
     breadcrumbScript.textContent = JSON.stringify(breadcrumbSchema);
     document.head.appendChild(breadcrumbScript);
 
-    // Add FAQ schema on home and services pages
-    if (page === 'home' || page === 'services') {
-      const faqScript = document.createElement('script');
-      faqScript.type = 'application/ld+json';
-      faqScript.textContent = JSON.stringify(faqSchema);
-      document.head.appendChild(faqScript);
-    }
+
 
     // Cleanup
     return () => {
