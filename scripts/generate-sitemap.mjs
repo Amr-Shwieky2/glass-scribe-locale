@@ -9,7 +9,7 @@ const DOMAIN = 'https://www.shwakiglassworks.com';
 const LANGUAGES = ['he', 'en', 'ar', 'ru'];
 const TODAY = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
 
-const CORE_PAGES = ['', 'services', 'projects', 'about', 'contact', 'blog'];
+const CORE_PAGES = ['', 'services', 'projects', 'about', 'contact', 'blog', 'contractors', 'privacy', 'terms'];
 const SERVICE_PAGES = ['shower-glass', 'glass-railings', 'mirrors', 'glass-partitions', 'storefront-glass'];
 // SEO slug-based service detail pages (the actual URLs users visit)
 const SEO_SERVICE_SLUGS = ['glass-shower-installation', 'glass-railing', 'glass-mirrors', 'shop-front-glass', 'glass-partitions'];
