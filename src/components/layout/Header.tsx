@@ -1,9 +1,11 @@
+'use client';
 /**
  * Header Component - Orchestrator
  */
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { usePathname, useSearchParams } from 'next/navigation';
+import Link from 'next/link';;
 import { useSpring, animated } from '@react-spring/web';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -25,7 +27,7 @@ const langShort: Record<string, string> = {
 const Header: React.FC = () => {
   const { switchLanguage, supportedLanguages, currentLanguage } = useLanguage();
   const locale = currentLanguage as SupportedLocale;
-  const location = useLocation();
+  const location = { pathname: usePathname(), search: useSearchParams().toString() };
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const scrolled = useScrollDetection({ threshold: 20 });
@@ -61,7 +63,7 @@ const Header: React.FC = () => {
     <animated.header style={headerSpring} className="sticky top-0 left-0 right-0 z-50 backdrop-blur-md">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 sm:h-20">
-          <Link to={`/${currentLanguage}`} className="group flex-shrink-0">
+          <Link href={`/${currentLanguage}`} className="group flex-shrink-0">
             <animated.div style={logoSpring} className="flex items-center gap-2 sm:gap-3">
               <img src="/logo-64.png" alt="Shwaki Brothers Logo" width="48" height="48" className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
               <div className="hidden xs:block sm:block">

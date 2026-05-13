@@ -1,3 +1,4 @@
+'use client';
 /**
  * Location-Specific JSON-LD Schema Component
  * Generates LocalBusiness schema with city-specific areaServed
@@ -5,7 +6,7 @@
  */
 
 import { useMemo } from 'react';
-import { Helmet } from 'react-helmet-async';
+;
 import { useLanguage } from '@/contexts/LanguageContext';
 import { CONTACT_INFO, BUSINESS_INFO, SERVICES, getLocalizedText, type SupportedLocale } from '@/data';
 
@@ -236,17 +237,11 @@ const LocationJsonLd: React.FC<LocationJsonLdProps> = ({ city, cityName }) => {
   };
 
   return (
-    <Helmet>
-      <script type="application/ld+json">
-        {JSON.stringify(locationBusinessSchema)}
-      </script>
-      <script type="application/ld+json">
-        {JSON.stringify(breadcrumbSchema)}
-      </script>
-      <script type="application/ld+json">
-        {JSON.stringify(serviceSchema)}
-      </script>
-    </Helmet>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(locationBusinessSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+    </>
   );
 };
 

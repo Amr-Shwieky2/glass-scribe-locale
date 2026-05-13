@@ -1,3 +1,4 @@
+'use client';
 import type { FC } from 'react';
 import { SERVICE_CATEGORIES, type ServiceCategory } from '@/lib/cloudinary';
 import { Button } from '@/components/ui/button';

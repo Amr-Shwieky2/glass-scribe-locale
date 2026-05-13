@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect, useCallback } from 'react';
 import { 
   Accessibility, 
@@ -105,13 +106,20 @@ const DEFAULT_STATE: AccessibilityState = {
 
 const AccessibilityWidget: React.FC = () => {
   const { currentLanguage } = useLanguage();
-  const labels = LABELS[currentLanguage] || LABELS.he;
+  const labels = LABELS[currentLanguage as keyof typeof LABELS] || LABELS.he;
   const [isOpen, setIsOpen] = useState(false);
-  const [state, setState] = useState<AccessibilityState>(() => {
-    // Load from localStorage
-    const saved = localStorage.getItem('accessibility-settings');
-    return saved ? JSON.parse(saved) : DEFAULT_STATE;
-  });
+  const [state, setState] = useState<AccessibilityState>(DEFAULT_STATE);
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('accessibility-settings');
+      if (saved) {
+        try {
+          setState(JSON.parse(saved));
+        } catch (e) {}
+      }
+    }
+  }, []);
 
   // Apply accessibility settings
   const applySettings = useCallback((settings: AccessibilityState) => {

@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, TouchEvent, useEffect } from 'react';
 import { X, ChevronLeft, ChevronRight, Hand } from 'lucide-react';
 import { getGalleryUrl } from '@/hooks/cloudinary';

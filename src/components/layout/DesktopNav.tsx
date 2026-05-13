@@ -1,5 +1,6 @@
+'use client';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';;
 import { Button } from '@/components/ui/button';
 import { Phone, MessageCircle, Globe, ChevronDown } from 'lucide-react';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
@@ -11,7 +12,7 @@ const DesktopNav: React.FC<Props> = ({ navigation, isActive, locale, supportedLa
   <>
     <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
       {navigation.map((item) => (
-        <Link key={item.href} to={item.href} className={`text-sm font-medium transition-all duration-300 relative group ${isActive(item.href) ? 'text-brand-gold font-semibold' : 'text-brand-navy hover:text-brand-gold'}`}>
+        <Link key={item.href} href={item.href} className={`text-sm font-medium transition-all duration-300 relative group ${isActive(item.href) ? 'text-brand-gold font-semibold' : 'text-brand-navy hover:text-brand-gold'}`}>
           {item.label}
           <span className={`absolute -bottom-1 left-0 h-0.5 bg-brand-gold transition-all duration-300 ${isActive(item.href) ? 'w-full' : 'w-0 group-hover:w-full'}`} />
         </Link>

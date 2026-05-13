@@ -1,3 +1,4 @@
+'use client';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
@@ -6,7 +7,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';;
 import { SERVICES, PAGE_CONTENT, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
 import { trackEvent } from '@/lib/gtag';
 
@@ -259,7 +260,7 @@ const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
             <span className="text-sm text-gray-700 leading-relaxed">
               {CONSENT_LABELS[locale]} {' '}
               <Link 
-                to={`/${locale}/privacy`} 
+                href={`/${locale}/privacy`} 
                 className="text-brand-gold hover:underline font-medium"
                 target="_blank"
               >

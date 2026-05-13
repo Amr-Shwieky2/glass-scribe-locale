@@ -1,4 +1,5 @@
 import type { FC } from 'react';
+import { CONTACT_INFO } from '@/data';
 
 const PageLoader: FC = () => (
   <div className="min-h-screen flex items-center justify-center bg-brand-light">
@@ -31,13 +32,13 @@ const PageLoader: FC = () => (
 
         <div className="flex flex-col sm:flex-row gap-3 justify-center mt-4">
           <a
-            href="tel:+972585022264"
+            href={`tel:${CONTACT_INFO.phoneIntl}`}
             className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-brand-navy text-white rounded-full text-sm font-medium hover:bg-brand-navy/90 transition-colors"
           >
-            📞 058-502-2264
+            📞 {CONTACT_INFO.phone}
           </a>
           <a
-            href="https://wa.me/972585022264"
+            href={`https://wa.me/${CONTACT_INFO.whatsapp.replace('+', '')}`}
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center justify-center gap-2 px-4 py-2 bg-brand-gold text-brand-navy rounded-full text-sm font-medium hover:bg-brand-gold/90 transition-colors"

@@ -1,3 +1,4 @@
+'use client';
 /**
  * MobileCTA Component - Static Version
  * Sticky bottom CTA button for mobile devices

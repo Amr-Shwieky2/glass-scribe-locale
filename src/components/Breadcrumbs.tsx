@@ -1,3 +1,4 @@
+'use client';
 /**
  * Breadcrumbs Component
  * Provides visual breadcrumb navigation for better UX and SEO
@@ -5,7 +6,7 @@
  */
 
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';;
 import { ChevronRight, ChevronLeft, Home } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { SupportedLocale } from '@/data';
@@ -52,7 +53,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, className = '' }) => {
           itemType="https://schema.org/ListItem"
         >
           <Link
-            to={`/${locale}`}
+            href={`/${locale}`}
             className="flex items-center gap-1 text-gray-500 hover:text-brand-gold transition-colors"
             itemProp="item"
           >
@@ -74,7 +75,7 @@ const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, className = '' }) => {
             <Separator className="w-4 h-4 mx-1 text-gray-400" />
             {item.href ? (
               <Link
-                to={item.href}
+                href={item.href}
                 className="text-gray-500 hover:text-brand-gold transition-colors"
                 itemProp="item"
               >

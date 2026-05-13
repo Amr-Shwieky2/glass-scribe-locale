@@ -1,5 +1,6 @@
+'use client';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';;
 import { ArrowRight } from 'lucide-react';
 import {
   SERVICES, PAGE_CONTENT, UI_STRINGS,
@@ -47,7 +48,7 @@ const HomeServices: React.FC<HomeServicesProps> = ({ locale, currentLanguage }) 
         </div>
 
         <div className="text-center mt-8 sm:mt-10 lg:mt-12">
-          <Link to={`/${currentLanguage}/services`} className="btn-animated-navy inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg">
+          <Link href={`/${currentLanguage}/services`} className="btn-animated-navy inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg">
             {getLocalizedText(UI_STRINGS.viewAll, locale)}
             <ArrowRight className="ml-2 w-4 h-4 sm:w-5 sm:h-5" />
           </Link>

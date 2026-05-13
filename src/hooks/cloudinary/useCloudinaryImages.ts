@@ -1,3 +1,4 @@
+'use client';
 import { useState, useEffect, useRef, useCallback } from 'react';
 import type { CloudinaryImage, CloudinaryResponse } from '@/lib/cloudinary';
 import { fetchImagesByCategory, fetchAllImages } from '@/lib/cloudinary';

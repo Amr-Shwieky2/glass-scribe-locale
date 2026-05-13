@@ -1,14 +1,15 @@
+'use client';
 /**
  * SEO Head Component
  * Dynamically updates meta tags for each page
  * Improves SEO and social sharing for all pages
  */
 import { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { usePathname, useSearchParams } from 'next/navigation';;
 import { useLanguage } from '@/contexts/LanguageContext';
 import type { SupportedLocale } from '@/data';
 
-import { Helmet } from 'react-helmet-async';
+;
 
 interface SEOProps {
   title?: string;
@@ -89,7 +90,7 @@ const SEOHead: React.FC<SEOProps> = ({
   noindex = false,
 }) => {
   const { currentLanguage } = useLanguage();
-  const location = useLocation();
+  const location = { pathname: usePathname(), search: useSearchParams().toString() };
   const locale = currentLanguage as SupportedLocale;
 
   const pathParts = location.pathname.split('/').filter(Boolean);
@@ -106,46 +107,7 @@ const SEOHead: React.FC<SEOProps> = ({
   const languages = ['he', 'en', 'ar', 'ru'];
   const langSuffix = pathParts.length > 1 ? '/' + pathParts.slice(1).join('/') : '';
 
-  return (
-    <Helmet>
-      <title>{finalTitle}</title>
-      <meta name="description" content={finalDescription} />
-      <meta name="keywords" content={finalKeywords} />
-      {noindex ? (
-        <meta name="robots" content="noindex, nofollow" />
-      ) : (
-        <meta name="robots" content="index, follow, max-image-preview:large" />
-      )}
-
-      {/* Open Graph */}
-      <meta property="og:title" content={finalTitle} />
-      <meta property="og:description" content={finalDescription} />
-      <meta property="og:url" content={currentUrl} />
-      <meta property="og:image" content={image} />
-      <meta property="og:image:width" content="1200" />
-      <meta property="og:image:height" content="630" />
-      <meta property="og:type" content={type} />
-      <meta property="og:locale" content={locale === 'he' ? 'he_IL' : locale === 'ar' ? 'ar_SA' : locale === 'ru' ? 'ru_RU' : 'en_US'} />
-
-      {/* Twitter */}
-      <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:title" content={finalTitle} />
-      <meta name="twitter:description" content={finalDescription} />
-      <meta name="twitter:image" content={image} />
-
-      {/* Canonical */}
-      <link rel="canonical" href={currentUrl} />
-
-      {/* Hreflang Alternates */}
-      {languages.map((lang) => (
-        <link key={lang} rel="alternate" hrefLang={lang} href={`${BASE_URL}/${lang}${langSuffix}`} />
-      ))}
-      <link rel="alternate" hrefLang="x-default" href={`${BASE_URL}/he${langSuffix}`} />
-
-      {/* HTML Lang Attributes */}
-      <html lang={locale} dir={locale === 'he' || locale === 'ar' ? 'rtl' : 'ltr'} />
-    </Helmet>
-  );
+  return null;
 };
 
 export default SEOHead;

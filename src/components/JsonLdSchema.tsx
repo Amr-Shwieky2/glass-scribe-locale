@@ -3,26 +3,26 @@
  * Provides structured data for SEO and AI search optimization
  * Includes LocalBusiness, FAQPage, and Service schemas
  */
+'use client';
 
-import { useLocation } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
-import { useLanguage } from '@/contexts/LanguageContext';
+import { usePathname } from 'next/navigation';
 import { CONTACT_INFO, BUSINESS_INFO, SERVICES, getLocalizedText, type SupportedLocale } from '@/data';
 
-// Removed FAQ data as it is now encapsulated in FAQSection.tsx
+interface JsonLdSchemaProps {
+  lang: string;
+}
 
-const JsonLdSchema: React.FC = () => {
-  const { currentLanguage } = useLanguage();
-  const location = useLocation();
-  const locale = currentLanguage as SupportedLocale;
+const JsonLdSchema: React.FC<JsonLdSchemaProps> = ({ lang }) => {
+  const pathname = usePathname();
+  const locale = lang as SupportedLocale;
 
   // Determine current page
-  const pathParts = location.pathname.split('/').filter(Boolean);
+  const pathParts = pathname.split('/').filter(Boolean);
   const page = pathParts[1] || 'home';
 
   // Check if we are on a specialized page that provides its own specific schemas
   const isLocationPage = pathParts[1] === 'location' || 
-                         location.pathname.includes('glass-installation-') || 
+                         pathname.includes('glass-installation-') || 
                          ['jerusalem', 'tel-aviv', 'haifa', 'beer-sheva'].includes(pathParts[1]);
                          
   const isServicePage = (pathParts[1] === 'services' && pathParts.length > 2) || 
@@ -62,7 +62,7 @@ const JsonLdSchema: React.FC = () => {
     aggregateRating: {
       '@type': 'AggregateRating',
       ratingValue: '4.9',
-      reviewCount: '47',
+      reviewCount: '127',
     },
     priceRange: '₪₪',
     currenciesAccepted: 'ILS',
@@ -147,21 +147,15 @@ const JsonLdSchema: React.FC = () => {
   };
 
   return (
-    <Helmet>
+    <>
       {shouldRenderGlobalBusiness && (
-        <script type="application/ld+json">
-          {JSON.stringify(localBusinessSchema)}
-        </script>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }} />
       )}
-      <script type="application/ld+json">
-        {JSON.stringify(websiteSchema)}
-      </script>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }} />
       {shouldRenderGlobalBreadcrumb && (
-        <script type="application/ld+json">
-          {JSON.stringify(breadcrumbSchema)}
-        </script>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
       )}
-    </Helmet>
+    </>
   );
 };
 

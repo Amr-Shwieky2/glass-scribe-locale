@@ -1,3 +1,4 @@
+'use client';
 /**
  * FAQSection - Frequently Asked Questions
  * Optimized for SEO featured snippets and AI search (GEO)
@@ -7,7 +8,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronDown, HelpCircle } from 'lucide-react';
-import { Helmet } from 'react-helmet-async';
+;
 import { getLocalizedText, type SupportedLocale } from '@/data';
 
 // FAQ Content - Comprehensive Q&A for glass installation
@@ -274,9 +275,9 @@ const FAQSection: React.FC<FAQSectionProps> = ({ locale }) => {
 
   return (
     <>
-      <Helmet>
+      
         <script type="application/ld+json">{generateFaqSchema()}</script>
-      </Helmet>
+      
       <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-b from-gray-50 to-white">
       <div className="container mx-auto px-4 sm:px-6">
         {/* Header */}

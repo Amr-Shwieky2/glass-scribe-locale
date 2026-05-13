@@ -1,3 +1,4 @@
+'use client';
 /**
  * useScrollDetection Hook
  * Detects when user has scrolled past a threshold

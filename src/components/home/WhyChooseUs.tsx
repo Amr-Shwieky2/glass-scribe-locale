@@ -1,3 +1,4 @@
+'use client';
 /**
  * Why Choose Us Section - Value Proposition
  * Implements authority signals as recommended in UI/UX strategy
@@ -14,7 +15,7 @@ import {
   HeartHandshake,
   ArrowRight 
 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';;
 import { getLocalizedText, type SupportedLocale } from '@/data';
 
 interface WhyChooseUsProps {
@@ -185,7 +186,7 @@ const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ locale, currentLanguage }) =>
         {/* CTA */}
         <div className="text-center">
           <Link
-            to={`/${currentLanguage}/contact`}
+            href={`/${currentLanguage}/contact`}
             className="btn-animated-gold-filled inline-flex items-center justify-center px-8 sm:px-10 py-3 sm:py-4 text-base sm:text-lg mb-3"
           >
             {t(CONTENT.cta)}

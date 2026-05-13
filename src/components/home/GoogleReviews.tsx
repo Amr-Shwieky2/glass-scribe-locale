@@ -1,3 +1,4 @@
+'use client';
 /**
  * Google Reviews Component
  * Displays customer reviews with Google branding
@@ -182,10 +183,16 @@ const SECTION_CONTENT = {
     ru: 'Отзывы Google',
   },
   basedOn: {
-    en: 'Based on 87 reviews',
-    he: 'מבוסס על 87 ביקורות',
-    ar: 'بناءً على 87 تقييم',
-    ru: 'На основе 87 отзывов',
+    en: 'Based on 127 reviews',
+    he: 'מבוסס על 127 ביקורות',
+    ar: 'بناءً على 127 تقييم',
+    ru: 'На основе 127 отзывов',
+  },
+  seeAllReviews: {
+    en: 'See all reviews on Google',
+    he: 'צפו בכל הביקורות בגוגל',
+    ar: 'اقرأ جميع التقييمات على جوجل',
+    ru: 'Все отзывы на Google',
   },
 };
 
@@ -297,7 +304,7 @@ const GoogleReviews: React.FC<GoogleReviewsProps> = ({ locale, limit = 6 }) => {
           className="text-center mt-10"
         >
           <a
-            href="https://g.page/r/YOUR_GOOGLE_PLACE_ID/review"
+            href="https://g.page/r/shwaki-glassworks/review"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 text-brand-gold hover:text-brand-navy transition-colors font-medium"
@@ -306,7 +313,7 @@ const GoogleReviews: React.FC<GoogleReviewsProps> = ({ locale, limit = 6 }) => {
               <path fill="currentColor" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
               <path fill="currentColor" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
             </svg>
-            {locale === 'he' ? 'צפו בכל הביקורות בגוגל' : 'See all reviews on Google'}
+            {getLocalizedText(SECTION_CONTENT.seeAllReviews, locale)}
           </a>
         </motion.div>
       </div>

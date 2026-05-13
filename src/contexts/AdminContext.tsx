@@ -1,3 +1,4 @@
+'use client';
 /**
  * @fileoverview Admin Authentication Context
  * @description Simple password-based authentication for admin panel.

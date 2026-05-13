@@ -1,7 +1,8 @@
+'use client';
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Phone, MessageCircle, CheckCircle2 } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';;
 import { CONTACT_INFO, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
 import { ctaVariants } from './heroConfig';
 
@@ -102,7 +103,7 @@ const HeroCTA: React.FC<HeroCTAProps> = ({ locale, currentLanguage, ctaVisible }
           {getLocalizedText(UI_STRINGS.callNow, locale)}
         </button>
         <Link
-          to={`/${currentLanguage}/projects`}
+          href={`/${currentLanguage}/projects`}
           className="hero-cta-tertiary inline-flex items-center justify-center gap-2 px-6 sm:px-8 py-3 sm:py-4 text-brand-gold font-medium hover:text-white transition-colors duration-300"
         >
           {getLocalizedText(UI_STRINGS.heroViewWork, locale)}
