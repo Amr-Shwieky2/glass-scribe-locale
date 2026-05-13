@@ -42,6 +42,7 @@ secrets.json
 build/
 .cache/
 .temp/
+.next/
 
 # OS files
 Thumbs.db
