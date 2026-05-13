@@ -3,8 +3,8 @@
  */
 
 export const CLOUDINARY_CONFIG = {
-  cloudName: import.meta.env.VITE_CLOUDINARY_CLOUD_NAME || 'dc1q8upxt',
-  uploadPreset: import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET || 'shwaki_glass_unsigned',
+  cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || 'dc1q8upxt',
+  uploadPreset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || 'shwaki_glass_unsigned',
   baseFolder: 'shwaki-glassworks',
 } as const;
 

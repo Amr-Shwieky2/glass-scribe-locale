@@ -1,3 +1,4 @@
+'use client';
 /**
  * Cookie Consent Banner Component
  * GDPR/Israeli Privacy Law compliant cookie notice

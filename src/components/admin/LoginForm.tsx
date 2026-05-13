@@ -1,3 +1,4 @@
+'use client';
 import { useState, type FC } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useLanguage } from '@/contexts/LanguageContext';

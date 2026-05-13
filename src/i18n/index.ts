@@ -1,3 +1,4 @@
+'use client';
 /**
  * i18n Configuration
  * 
@@ -21,8 +22,11 @@ const resources = {
   ru: { translation: ru },
 };
 
+if (typeof window !== 'undefined') {
+  i18n.use(LanguageDetector);
+}
+
 i18n
-  .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     resources,

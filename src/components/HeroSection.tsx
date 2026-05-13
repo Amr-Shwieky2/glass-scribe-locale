@@ -1,3 +1,4 @@
+'use client';
 /**
  * HeroSection - Cinematic Full-Screen Hero
  * Dramatic animations with premium feel
@@ -6,7 +7,8 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useHeroImages, getHeroUrl } from '@/hooks/cloudinary';
-import { Phone, ChevronDown } from 'lucide-react';
+import { CONTACT_INFO } from '@/data';
+import { Phone } from 'lucide-react';
 
 // Text content for different languages
 const HERO_TEXT = {
@@ -158,7 +160,7 @@ const HeroSection: React.FC = () => {
                 className="group relative inline-flex items-center gap-3 bg-brand-gold text-brand-navy font-bold text-lg px-8 py-4 rounded-full overflow-hidden"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => window.location.href = 'tel:+972585022264'}
+                onClick={() => window.location.href = `tel:${CONTACT_INFO.phoneIntl}`}
               >
                 {/* Button shine effect */}
                 <motion.div
@@ -173,7 +175,7 @@ const HeroSection: React.FC = () => {
 
               {/* WhatsApp Button */}
               <motion.a
-                href="https://wa.me/972585022264"
+                href={`https://wa.me/${CONTACT_INFO.whatsapp.replace('+', '')}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="group relative inline-flex items-center gap-3 bg-brand-gold text-brand-navy font-bold text-lg px-8 py-4 rounded-full overflow-hidden"

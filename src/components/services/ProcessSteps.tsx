@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';;
 import { ArrowRight } from 'lucide-react';
 import { UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
 
@@ -45,7 +45,7 @@ const ProcessSteps: React.FC<ProcessStepsProps> = ({ locale, currentLanguage }) 
 
       <div className="text-center mt-8 sm:mt-10 lg:mt-12">
         <Link
-          to={`/${currentLanguage}/contact`}
+          href={`/${currentLanguage}/contact`}
           className="btn-animated-gold-filled inline-flex items-center justify-center px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg"
         >
           {getLocalizedText(UI_STRINGS.processFreeQuote, locale)}

@@ -1,5 +1,6 @@
-import { useLocation } from 'react-router-dom';
-import { Helmet } from 'react-helmet-async';
+'use client';
+import { usePathname, useSearchParams } from 'next/navigation';;
+;
 import {
   BUSINESS_INFO,
   LOCATION_SEO_LINKS,
@@ -18,7 +19,7 @@ interface ServiceJsonLdProps {
 const BASE_URL = 'https://www.shwakiglassworks.com';
 
 const ServiceJsonLd: React.FC<ServiceJsonLdProps> = ({ service, locale }) => {
-  const location = useLocation();
+  const location = { pathname: usePathname(), search: useSearchParams().toString() };
 
   const currentUrl = `${BASE_URL}${location.pathname}`;
   const serviceName = getLocalizedText(service.heroTitle, locale);
@@ -103,17 +104,11 @@ const ServiceJsonLd: React.FC<ServiceJsonLdProps> = ({ service, locale }) => {
   };
 
   return (
-    <Helmet>
-      <script type="application/ld+json">
-        {JSON.stringify(serviceSchema)}
-      </script>
-      <script type="application/ld+json">
-        {JSON.stringify(breadcrumbSchema)}
-      </script>
-      <script type="application/ld+json">
-        {JSON.stringify(faqSchema)}
-      </script>
-    </Helmet>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+    </>
   );
 };
 

@@ -1,5 +1,6 @@
+'use client';
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';;
 import { Button } from '@/components/ui/button';
 import { Phone, MessageCircle, Globe, Check } from 'lucide-react';
 import { UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
@@ -34,7 +35,7 @@ const MobileNav: React.FC<Props> = ({
         {navigation.map((item) => (
           <Link 
             key={item.href} 
-            to={item.href} 
+            href={item.href} 
             onClick={onClose} 
             className={`text-base sm:text-lg font-medium py-3 px-4 rounded-xl transition-all ${isActive(item.href) ? 'text-brand-gold bg-brand-gold/10 shadow-sm' : 'text-brand-navy hover:bg-gray-50'}`}
           >

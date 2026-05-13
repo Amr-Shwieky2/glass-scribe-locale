@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';;
 import { MapPin } from 'lucide-react';
 import {
   SERVICES, NAVIGATION, FOOTER_CONTENT,
@@ -37,7 +37,7 @@ const FooterLinks: React.FC<FooterLinksProps> = ({ locale, currentLanguage }) =>
         {NAVIGATION.items.map((item) => (
           <Link
             key={item.href}
-            to={item.href === '/' ? `/${currentLanguage}` : `/${currentLanguage}${item.href}`}
+            href={item.href === '/' ? `/${currentLanguage}` : `/${currentLanguage}${item.href}`}
             className="text-gray-400 hover:text-brand-gold transition-colors text-sm sm:text-base py-1"
           >
             {getLocalizedText(item.label, locale)}
@@ -57,7 +57,7 @@ const FooterLinks: React.FC<FooterLinksProps> = ({ locale, currentLanguage }) =>
           {SERVICES.slice(0, 4).map((service) => (
             <Link
               key={service.id}
-              to={`/${currentLanguage}/services`}
+              href={`/${currentLanguage}/services`}
               className="text-gray-400 hover:text-brand-gold transition-colors flex items-center gap-2 text-sm sm:text-base py-1"
             >
               <span>{service.icon}</span>
@@ -76,7 +76,7 @@ const FooterLinks: React.FC<FooterLinksProps> = ({ locale, currentLanguage }) =>
           {LOCATION_LINKS.map((location) => (
             <Link
               key={location.slug}
-              to={`/${currentLanguage}/${location.slug}`}
+              href={`/${currentLanguage}/${location.slug}`}
               className="text-gray-400 hover:text-brand-gold transition-colors flex items-center gap-2 text-sm sm:text-base py-1"
             >
               <MapPin className="w-4 h-4" />

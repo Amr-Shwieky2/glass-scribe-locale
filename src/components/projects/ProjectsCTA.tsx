@@ -1,3 +1,4 @@
+'use client';
 import React from 'react';
 import { Phone, MessageCircle } from 'lucide-react';
 import { getLocalizedText, UI_STRINGS, CONTACT_INFO, type SupportedLocale } from '@/data';

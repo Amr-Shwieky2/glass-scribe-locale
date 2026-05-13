@@ -1,3 +1,4 @@
+'use client';
 export { useCloudinaryImages } from './useCloudinaryImages';
 export { useHeroImages } from './useHeroImages';
 export { toCloudinaryCategory } from './categoryMap';

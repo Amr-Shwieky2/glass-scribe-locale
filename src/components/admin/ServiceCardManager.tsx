@@ -1,3 +1,4 @@
+'use client';
 /**
  * Service Card Image Manager
  * Allows admin to select which image represents each service

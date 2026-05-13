@@ -1,3 +1,4 @@
+'use client';
 import { type FC, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useLanguage } from '@/contexts/LanguageContext';

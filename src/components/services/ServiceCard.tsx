@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import Link from 'next/link';;
 import { ArrowRight } from 'lucide-react';
 import { getLocalizedText, getLocalizedArray, type SupportedLocale, type ServiceData } from '@/data';
 import { UI_STRINGS } from '@/data';
@@ -14,7 +14,7 @@ interface ServiceCardProps {
 const ServiceCard: React.FC<ServiceCardProps> = ({ service, locale, imageUrl, targetHref }) => {
   return (
     <Link 
-      to={targetHref} 
+      href={targetHref} 
       className="group relative block rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 aspect-[4/5] sm:aspect-[3/4]"
     >
       {/* Full-size background image with lazy loading */}

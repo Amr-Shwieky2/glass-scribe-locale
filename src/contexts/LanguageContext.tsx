@@ -1,3 +1,4 @@
+'use client';
 /**
  * @fileoverview Language Context Provider
  * @description Context provider for internationalization and language switching.
@@ -17,7 +18,7 @@
 
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useRouter, usePathname } from 'next/navigation';
 
 // =============================================================================
 // TYPES
@@ -26,7 +27,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 /**
  * Supported language configuration.
  */
-interface SupportedLanguage {
+export interface SupportedLanguage {
   /** ISO language code */
   code: string;
   /** English name of the language */
@@ -53,10 +54,12 @@ interface LanguageContextValue {
 // CONSTANTS
 // =============================================================================
 
+export const DEFAULT_LANGUAGE = 'he';
+
 /**
  * List of supported languages with display names.
  */
-const SUPPORTED_LANGUAGES: SupportedLanguage[] = [
+export const SUPPORTED_LANGUAGES: SupportedLanguage[] = [
   { code: 'he', name: 'Hebrew', nativeName: 'עברית' },
   { code: 'en', name: 'English', nativeName: 'EN' },
   { code: 'ar', name: 'Arabic', nativeName: 'العربية' },
@@ -110,18 +113,19 @@ interface LanguageProviderProps {
  */
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
   const { i18n } = useTranslation();
-  const navigate = useNavigate();
-  const location = useLocation();
+  const router = useRouter();
+  const pathname = usePathname();
 
   /**
    * Detect initial language from URL path.
    */
   const getLanguageFromUrl = useCallback((): string => {
-    const pathSegments = location.pathname.split('/').filter(Boolean);
+    if (!pathname) return 'he';
+    const pathSegments = pathname.split('/').filter(Boolean);
     const urlLang = pathSegments[0];
     const isValidLang = SUPPORTED_LANGUAGES.some((l) => l.code === urlLang);
-    return isValidLang ? urlLang : 'en';
-  }, [location.pathname]);
+    return isValidLang ? urlLang : 'he';
+  }, [pathname]);
 
   // Current language state - initialized from URL
   const [currentLanguage, setCurrentLanguage] = useState(() => getLanguageFromUrl());
@@ -140,7 +144,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
         i18n.changeLanguage(urlLang);
       }
     }
-  }, [location.pathname, currentLanguage, getLanguageFromUrl, i18n]);
+  }, [pathname, currentLanguage, getLanguageFromUrl, i18n]);
 
   /**
    * Update document direction and language attributes.
@@ -166,7 +170,8 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     setCurrentLanguage(lang);
 
     // Update URL to include language
-    const pathSegments = location.pathname.split('/').filter(Boolean);
+    if (!pathname) return;
+    const pathSegments = pathname.split('/').filter(Boolean);
     const currentPathHasLang = SUPPORTED_LANGUAGES.some((l) => l.code === pathSegments[0]);
 
     let newPath: string;
@@ -176,11 +181,11 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       newPath = '/' + pathSegments.join('/');
     } else {
       // Prepend language to path
-      newPath = '/' + lang + location.pathname;
+      newPath = '/' + lang + pathname;
     }
 
-    navigate(newPath);
-  }, [i18n, location.pathname, navigate]);
+    router.push(newPath);
+  }, [i18n, pathname, router]);
 
   /**
    * Memoized context value.

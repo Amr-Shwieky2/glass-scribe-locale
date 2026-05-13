@@ -1,3 +1,4 @@
+'use client';
 import { useState, useEffect } from 'react';
 import { fetchServiceCardImages, fetchServiceCardTagImages, getCategoryFromPublicId, getThumbnailUrl } from '@/lib/cloudinary';
 import type { CloudinaryImage } from '@/lib/cloudinary';

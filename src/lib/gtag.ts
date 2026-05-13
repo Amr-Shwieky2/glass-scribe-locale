@@ -1,3 +1,4 @@
+'use client';
 /**
  * Google Ads & Analytics Utility
  * Helper functions to trigger custom events for Google platform conversions.
@@ -5,7 +6,7 @@
 
 // Use environment variable or fallback to placeholder.
 // The user should replace the placeholder with their actual AW-ID (Google Ads) or G-ID (GA4).
-export const GA_TRACKING_ID = import.meta.env.VITE_GA_TRACKING_ID || 'AW-1234567890';
+export const GA_TRACKING_ID = process.env.NEXT_PUBLIC_GA_TRACKING_ID || 'AW-1234567890';
 
 /**
  * Track a pageview manually (useful for SPAs like React Router).

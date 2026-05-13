@@ -1,3 +1,4 @@
+'use client';
 /**
  * Hero Image Manager - Simple 1 Image Selector
  * Easy admin interface to select the main hero image
