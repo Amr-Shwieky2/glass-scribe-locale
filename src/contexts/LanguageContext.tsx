@@ -17,7 +17,6 @@
  */
 
 import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
 import { useRouter, usePathname } from 'next/navigation';
 
 // =============================================================================
@@ -112,7 +111,6 @@ interface LanguageProviderProps {
  * Manages language state, URL synchronization, and document direction.
  */
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const { i18n } = useTranslation();
   const router = useRouter();
   const pathname = usePathname();
 
@@ -143,7 +141,6 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     const urlLang = getLanguageFromUrl();
     if (urlLang !== currentLanguage) {
       setCurrentLanguage(urlLang);
-      i18n.changeLanguage(urlLang);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pathname]); // only re-run when the URL actually changes
@@ -167,8 +164,6 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
       return;
     }
 
-    // Update i18n
-    i18n.changeLanguage(lang);
     setCurrentLanguage(lang);
 
     // Update URL to include language
@@ -187,7 +182,7 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
     }
 
     router.push(newPath);
-  }, [i18n, pathname, router]);
+  }, [pathname, router]);
 
   /**
    * Memoized context value.
