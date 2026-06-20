@@ -19,7 +19,8 @@ export const viewport: Viewport = {
   themeColor: '#1a365d',
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1, // Sometimes needed for better mobile experience with inputs
+  // Note: Do NOT set maximumScale here — it blocks pinch-zoom (WCAG violation)
+  // and causes iPad Safari to fail to render the page correctly.
 };
 
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {

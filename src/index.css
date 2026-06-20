@@ -786,48 +786,11 @@
    ACCESSIBILITY IMPROVEMENTS
    ============================================================================= */
 
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-  }
+/* Note: prefers-reduced-motion rules are consolidated below */
 
-  .animate-bounce,
-  .animate-pulse {
-    animation: none;
-  }
-}
+/* Focus visible for keyboard navigation — canonical rule below at line ~1242 */
 
-/* Focus visible for keyboard navigation */
-:focus-visible {
-  outline: 2px solid #C9A24D;
-  outline-offset: 2px;
-}
-
-button:focus-visible,
-a:focus-visible {
-  outline: 2px solid #C9A24D;
-  outline-offset: 2px;
-  border-radius: 4px;
-}
-
-/* High contrast mode support */
-@media (prefers-contrast: high) {
-  .btn-animated-gold,
-  .btn-animated-navy {
-    border-width: 3px;
-  }
-
-  .text-brand-navy\/70,
-  .text-brand-navy\/60,
-  .text-gray-400,
-  .text-gray-500 {
-    opacity: 1;
-  }
-}
+/* High contrast mode — canonical rules below at line ~1226+ */
 
 /* Dark mode media query support (future-proofing) */
 @media (prefers-color-scheme: dark) {
@@ -1112,7 +1075,10 @@ html {
   text-size-adjust: 100%;
 }
 
-/* Fix for iOS Safari 100vh issue */
+/* Fix for iOS Safari 100vh issue — standard first, then webkit override */
+.min-h-screen {
+  min-height: 100vh;
+}
 @supports (-webkit-touch-callout: none) {
   .min-h-screen {
     min-height: -webkit-fill-available;
@@ -1149,10 +1115,11 @@ html {
   -webkit-tap-highlight-color: transparent;
 }
 
-/* Improve touch targets on mobile */
+/* Improve touch targets and remove 300ms tap delay on mobile */
 @media (max-width: 768px) {
   button, a, input, select, textarea {
     min-height: 44px;
+    touch-action: manipulation; /* Eliminates 300ms delay on iOS Safari */
   }
   
   /* Better touch area for links in navigation */

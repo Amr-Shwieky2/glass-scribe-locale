@@ -1,6 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  poweredByHeader: false, // Removes X-Powered-By header (security best practice)
   images: {
     remotePatterns: [
       {

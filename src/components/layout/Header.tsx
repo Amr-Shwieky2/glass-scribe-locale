@@ -5,7 +5,7 @@
 
 import React, { useState, useCallback, useMemo } from 'react';
 import { usePathname, useSearchParams } from 'next/navigation';
-import Link from 'next/link';;
+import Link from 'next/link';
 import { useSpring, animated } from '@react-spring/web';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
@@ -91,17 +91,19 @@ const Header: React.FC = () => {
               {/* Language Dropdown */}
               {isLangOpen && (
                 <>
-                  {/* Backdrop */}
+                  {/* Backdrop - below dropdown but above page content */}
                   <div 
-                    className="fixed inset-0 z-40" 
-                    onClick={() => setIsLangOpen(false)} 
+                    className="fixed inset-0 z-[50]" 
+                    onClick={() => setIsLangOpen(false)}
+                    aria-hidden="true"
                   />
-                  {/* Dropdown */}
-                  <div className="absolute top-full mt-2 right-0 bg-white rounded-xl shadow-xl border z-50 overflow-hidden min-w-[120px]">
+                  {/* Dropdown - highest z-index so it's always tappable */}
+                  <div className="absolute top-full mt-2 right-0 bg-white rounded-xl shadow-xl border z-[55] overflow-hidden min-w-[120px]">
                     {supportedLanguages.map((lang) => (
                       <button
                         key={lang.code}
                         onClick={() => handleLangSwitch(lang.code)}
+                        style={{ touchAction: 'manipulation' }}
                         className={`w-full flex items-center justify-center px-4 py-3 text-center transition-colors ${
                           currentLanguage === lang.code 
                             ? 'bg-brand-gold/10 text-brand-gold font-semibold' 

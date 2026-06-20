@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import Link from 'next/link';;
+import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Phone, MessageCircle, Globe, Check } from 'lucide-react';
 import { UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
@@ -56,6 +56,7 @@ const MobileNav: React.FC<Props> = ({
               <button
                 key={lang.code}
                 onClick={() => { onSwitchLanguage(lang.code); onClose(); }}
+                style={{ touchAction: 'manipulation' }}
                 className={`flex items-center justify-center gap-2 py-4 px-4 rounded-xl text-lg font-medium transition-all ${
                   currentLanguage === lang.code 
                     ? 'bg-brand-navy text-white shadow-lg' 
