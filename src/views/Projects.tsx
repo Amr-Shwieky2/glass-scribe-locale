@@ -1,7 +1,7 @@
 'use client';
 import React, { useState, useEffect, useMemo } from 'react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import Link from 'next/link';;
+import Link from 'next/link';
 import { MessageCircle } from 'lucide-react';
 import ProjectsHeader from '@/components/projects/ProjectsHeader';
 import ProjectFilters from '@/components/projects/ProjectFilters';
@@ -113,7 +113,7 @@ const Projects: React.FC = () => {
         contentUrl: img.secure_url,
         thumbnailUrl: img.secure_url.replace('/upload/', '/upload/c_fill,w_400,h_400/'),
         name: `${getImageCategory(img)} ${idx + 1}`,
-        description: img.context?.custom?.alt || `${getImageCategory(img)} in Israel`,
+        description: img.context?.custom?.alt || `${getImageCategory(img)} ${{ he: 'בישראל', en: 'in Israel', ar: 'في إسرائيل', ru: 'в Израиле' }[locale] ?? 'in Israel'}`,
         representativeOfPage: idx === 0 ? true : false,
       }))
     };

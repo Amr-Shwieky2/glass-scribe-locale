@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useCallback, useMemo } from 'react';
-import { usePathname, useSearchParams } from 'next/navigation';
+import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useSpring, animated } from '@react-spring/web';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -27,7 +27,7 @@ const langShort: Record<string, string> = {
 const Header: React.FC = () => {
   const { switchLanguage, supportedLanguages, currentLanguage } = useLanguage();
   const locale = currentLanguage as SupportedLocale;
-  const location = { pathname: usePathname(), search: useSearchParams().toString() };
+  const pathname = usePathname();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const scrolled = useScrollDetection({ threshold: 20 });
@@ -40,7 +40,7 @@ const Header: React.FC = () => {
     [currentLanguage, locale]
   );
 
-  const isActive = useCallback((href: string): boolean => location.pathname === href, [location.pathname]);
+  const isActive = useCallback((href: string): boolean => pathname === href, [pathname]);
   const handleWhatsApp = useCallback(() => { window.open(`https://wa.me/${CONTACT_INFO.whatsapp}`, '_blank'); }, []);
   const handlePhoneCall = useCallback(() => { window.location.href = `tel:${CONTACT_INFO.phoneIntl}`; }, []);
   const closeMobileMenu = useCallback(() => { setIsMenuOpen(false); }, []);
