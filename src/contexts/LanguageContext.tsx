@@ -135,16 +135,18 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
 
   /**
    * Sync language from URL changes (browser back/forward navigation).
+   * IMPORTANT: currentLanguage must NOT be in deps — including it causes a race
+   * condition where the effect fires immediately after switchLanguage() sets state
+   * but before router.push() updates the URL, reverting every language switch.
    */
   useEffect(() => {
     const urlLang = getLanguageFromUrl();
     if (urlLang !== currentLanguage) {
       setCurrentLanguage(urlLang);
-      if (i18n.language !== urlLang) {
-        i18n.changeLanguage(urlLang);
-      }
+      i18n.changeLanguage(urlLang);
     }
-  }, [pathname, currentLanguage, getLanguageFromUrl, i18n]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pathname]); // only re-run when the URL actually changes
 
   /**
    * Update document direction and language attributes.
