@@ -1,6 +1,6 @@
 'use client';
 import React, { useMemo, useState } from 'react';
-import { usePathname, useSearchParams, useParams, redirect } from 'next/navigation';
+import { usePathname, useParams, redirect } from 'next/navigation';
 import Link from 'next/link';;
 ;
 import { CheckCircle, Phone, MessageCircle, ArrowLeft, ArrowRight, Camera } from 'lucide-react';
@@ -21,7 +21,7 @@ import type { CloudinaryImage } from '@/lib/cloudinary';
 
 const ServiceDetail: React.FC = () => {
   const { lang, serviceId } = useParams<{ lang: string; serviceId: string }>();
-  const location = { pathname: usePathname(), search: useSearchParams().toString() };
+  const location = { pathname: usePathname() };
   const { currentLanguage, isRTL } = useLanguage();
   const locale = (lang || currentLanguage) as SupportedLocale;
 
@@ -62,15 +62,6 @@ const ServiceDetail: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-brand-light">
-      
-        <title>{t(service.metaTitle)}</title>
-        <meta name="description" content={t(service.metaDescription)} />
-        <meta name="keywords" content={t(service.keywords)} />
-        <link rel="canonical" href={`https://www.shwakiglassworks.com${location.pathname}`} />
-        <meta property="og:title" content={t(service.metaTitle)} />
-        <meta property="og:description" content={t(service.metaDescription)} />
-        <meta property="og:type" content="article" />
-      
 
       <ServiceJsonLd service={service} locale={locale} />
 

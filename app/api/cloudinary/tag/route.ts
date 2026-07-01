@@ -21,17 +21,17 @@ export async function POST(req: NextRequest) {
 
   try {
     const body = await req.json().catch(() => ({}));
-    const { publicId, tags, action } = body;
+    const { publicId, tag, action } = body;
 
-    if (!publicId || !tags || !action) {
-      return NextResponse.json({ error: 'Missing req fields' }, { status: 400 });
+    if (!publicId || !tag || !action) {
+      return NextResponse.json({ error: 'Missing required fields: publicId, tag, action' }, { status: 400 });
     }
 
     let result;
     if (action === 'add') {
-      result = await cld.uploader.add_tag(tags, [publicId]);
+      result = await cld.uploader.add_tag(tag, [publicId]);
     } else if (action === 'remove') {
-      result = await cld.uploader.remove_tag(tags, [publicId]);
+      result = await cld.uploader.remove_tag(tag, [publicId]);
     } else {
       return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
     }

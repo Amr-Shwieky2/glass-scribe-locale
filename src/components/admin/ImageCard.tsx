@@ -12,6 +12,9 @@ import { Badge } from '@/components/ui/badge';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { ADMIN_STRINGS, getAdminText, type AdminLocale } from '@/data/admin-strings';
 
+const BROKEN_IMG_FALLBACK =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect fill='%23e5e7eb' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%239ca3af' font-size='40'%3E%F0%9F%96%BC%3C/text%3E%3C/svg%3E";
+
 const isServiceCard = (image: CloudinaryImage) =>
   image.tags?.includes('service-card') ?? false;
 
@@ -60,6 +63,7 @@ const ImageCard: FC<ImageCardProps> = ({
           alt={image.context?.custom?.alt || 'Gallery image'}
           className="w-full h-full object-cover transition-transform group-hover:scale-105"
           loading="lazy"
+          onError={(e) => { (e.target as HTMLImageElement).src = BROKEN_IMG_FALLBACK; }}
         />
       </button>
 

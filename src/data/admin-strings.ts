@@ -327,6 +327,48 @@ export const ADMIN_STRINGS = {
       ru: 'Главная',
     },
   },
+  // Hero Gallery Manager
+  heroManager: {
+    title:             { he: 'תמונת ראשי',                                                                      en: 'Hero Image',                                       ar: 'صورة الصفحة الرئيسية',                             ru: 'Главное изображение' },
+    imageSelected:     { he: '✓ תמונה נבחרה',                                                                   en: '✓ Image Selected',                                 ar: '✓ تم اختيار الصورة',                               ru: '✓ Изображение выбрано' },
+    howToUseTitle:     { he: '📋 איך להשתמש:',                                                                  en: '📋 How to use:',                                   ar: '📋 كيفية الاستخدام:',                               ru: '📋 Как использовать:' },
+    howToUseBody:      { he: 'לחץ על תמונה כדי לבחור אותה כתמונה הראשית שתופיע בדף הבית',                      en: 'Click an image to set it as the main homepage image', ar: 'انقر على صورة لتحديدها كالصورة الرئيسية للصفحة الرئيسية', ru: 'Нажмите на изображение, чтобы выбрать его главным на главной странице' },
+    currentImage:      { he: '🖼️ תמונה נוכחית',                                                                 en: '🖼️ Current Image',                                 ar: '🖼️ الصورة الحالية',                                ru: '🖼️ Текущее изображение' },
+    remove:            { he: 'הסר',                                                                              en: 'Remove',                                           ar: 'إزالة',                                            ru: 'Удалить' },
+    noImageSelected:   { he: 'אין תמונה נבחרת',                                                                 en: 'No Image Selected',                                ar: 'لم يتم اختيار صورة',                               ru: 'Изображение не выбрано' },
+    selectFromGallery: { he: 'בחר תמונה מהגלריה למטה',                                                          en: 'Select an image from the gallery below',            ar: 'اختر صورة من المعرض أدناه',                        ru: 'Выберите изображение из галереи ниже' },
+    galleryTitle:      { he: '🖼️ בחר תמונה',                                                                    en: '🖼️ Select Image',                                  ar: '🖼️ اختر صورة',                                    ru: '🖼️ Выберите изображение' },
+    imageCount:        { he: 'תמונות',                                                                           en: 'images',                                           ar: 'صور',                                              ru: 'изображений' },
+    altText:           { he: 'תמונה',                                                                            en: 'Image',                                            ar: 'صورة',                                             ru: 'Изображение' },
+    errorLoadTitle:    { he: 'שגיאה',                                                                            en: 'Error',                                            ar: 'خطأ',                                              ru: 'Ошибка' },
+    errorLoadDesc:     { he: 'נכשל בטעינת תמונות',                                                              en: 'Failed to load images',                            ar: 'فشل في تحميل الصور',                               ru: 'Не удалось загрузить изображения' },
+    successTitle:      { he: '✅ נשמר!',                                                                         en: '✅ Saved!',                                         ar: '✅ تم الحفظ!',                                      ru: '✅ Сохранено!' },
+    successDesc:       { he: 'תמונת הראשי עודכנה בהצלחה',                                                       en: 'Hero image updated successfully',                  ar: 'تم تحديث صورة الصفحة الرئيسية بنجاح',              ru: 'Главное изображение успешно обновлено' },
+    removedTitle:      { he: '🗑️ הוסר',                                                                          en: '🗑️ Removed',                                       ar: '🗑️ تمت الإزالة',                                   ru: '🗑️ Удалено' },
+    removedDesc:       { he: 'תמונת הראשי הוסרה',                                                               en: 'Hero image removed',                               ar: 'تمت إزالة صورة الصفحة الرئيسية',                   ru: 'Главное изображение удалено' },
+    errorUpdateTitle:  { he: 'שגיאה',                                                                            en: 'Error',                                            ar: 'خطأ',                                              ru: 'Ошибка' },
+    errorUpdateDesc:   { he: 'נכשל בעדכון תמונה',                                                               en: 'Failed to update image',                           ar: 'فشل في تحديث الصورة',                              ru: 'Не удалось обновить изображение' },
+  },
+
+  // Service Card Manager
+  serviceManager: {
+    title:           { he: '🏷️ נהל תמונות כרטיסי שירות',                                                       en: '🏷️ Manage Service Card Images',                    ar: '🏷️ إدارة صور بطاقات الخدمة',                      ru: '🏷️ Управление изображениями карточек услуг' },
+    instruction:     { he: 'בחר תמונה לכל שירות. תמונה זו תופיע בסעיף "השירותים שלנו" בדף הבית.',              en: 'Select an image for each service. This image will appear in the "Our Services" section.', ar: 'اختر صورة لكل خدمة. ستظهر هذه الصورة في قسم "خدماتنا".', ru: 'Выберите изображение для каждой услуги. Оно появится в разделе «Наши услуги».' },
+    selectImageFor:  { he: 'בחר תמונה עבור:',                                                                   en: 'Select image for:',                                ar: 'اختر صورة لـ:',                                    ru: 'Выберите изображение для:' },
+    back:            { he: '← חזרה',                                                                             en: '← Back',                                           ar: '← رجوع',                                           ru: '← Назад' },
+    categoryHint:    { he: 'תמונות מקטגוריות תואמות מוצגות ראשונות.',                                           en: 'Images from matching categories are shown first.',  ar: 'يتم عرض الصور من الفئات المطابقة أولاً.',           ru: 'Сначала показываются изображения из совпадающих категорий.' },
+    change:          { he: 'שנה',                                                                                en: 'Change',                                           ar: 'تغيير',                                            ru: 'Изменить' },
+    clickToSelect:   { he: 'לחץ לבחירה',                                                                        en: 'Click to select',                                  ar: 'انقر للتحديد',                                     ru: 'Нажмите для выбора' },
+    successTitle:    { he: 'נשמר',                                                                               en: 'Saved',                                            ar: 'تم الحفظ',                                         ru: 'Сохранено' },
+    successDesc:     { he: 'תמונה נקבעה עבור',                                                                  en: 'Image set for',                                    ar: 'تم تعيين الصورة لـ',                               ru: 'Изображение установлено для' },
+    removedTitle:    { he: 'הוסר',                                                                               en: 'Removed',                                          ar: 'تمت الإزالة',                                      ru: 'Удалено' },
+    removedDesc:     { he: 'תמונה הוסרה מ',                                                                     en: 'Image removed from',                               ar: 'تمت إزالة الصورة من',                              ru: 'Изображение удалено из' },
+    errorLoadTitle:  { he: 'שגיאה',                                                                              en: 'Error',                                            ar: 'خطأ',                                              ru: 'Ошибка' },
+    errorLoadDesc:   { he: 'נכשל בטעינת תמונות',                                                                en: 'Failed to load images',                            ar: 'فشل في تحميل الصور',                               ru: 'Не удалось загрузить изображения' },
+    errorTitle:      { he: 'שגיאה',                                                                              en: 'Error',                                            ar: 'خطأ',                                              ru: 'Ошибка' },
+    errorUpdateDesc: { he: 'נכשל בעדכון תמונת שירות',                                                           en: 'Failed to update service image',                   ar: 'فشل في تحديث صورة الخدمة',                         ru: 'Не удалось обновить изображение услуги' },
+    errorRemoveDesc: { he: 'נכשל בהסרת תמונה',                                                                  en: 'Failed to remove image',                           ar: 'فشل في إزالة الصورة',                              ru: 'Не удалось удалить изображение' },
+  },
 } as const;
 
 export type AdminLocale = 'he' | 'en' | 'ar' | 'ru';

@@ -5,16 +5,19 @@
  */
 import { useState, useEffect, type FC } from 'react';
 import { useAdmin } from '@/contexts/AdminContext';
+import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
 import {
   type CloudinaryImage,
   fetchAllImages,
   getThumbnailUrl,
   getCategoryFromPublicId,
+  FOLDER_TO_SERVICE,
 } from '@/lib/cloudinary';
 import { setServiceCardImage, removeServiceCardImage } from '@/lib/cloudinary/admin-api';
 import { SERVICES } from '@/data/services';
 import { getLocalizedText, type SupportedLocale } from '@/data';
+import { ADMIN_STRINGS, getAdminText, type AdminLocale } from '@/data/admin-strings';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import {
@@ -24,24 +27,15 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 
+const BROKEN_IMG_FALLBACK =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect fill='%23e5e7eb' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%239ca3af' font-size='40'%3E%F0%9F%96%BC%3C/text%3E%3C/svg%3E";
+
 interface ServiceCardManagerProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
-// Map Cloudinary folder names to service IDs
-const FOLDER_TO_SERVICE: Record<string, string> = {
-  'shower-enclosures': 'shower-glass',
-  'glass-railings': 'glass-railings',
-  'mirrors': 'mirrors',
-  'partitions': 'glass-partitions',
-  'storefronts': 'storefront-glass',
-  'backsplashes': 'backsplashes',
-  'glass-doors': 'glass-doors',
-  'shelves': 'shelves',
-};
-
-// Get service ID from image tags (service-card-shower-glass, etc.)
+// Get service ID from service-card-{serviceId} tag
 const getServiceCardId = (image: CloudinaryImage): string | null => {
   const serviceTag = image.tags?.find(tag => tag.startsWith('service-card-'));
   if (serviceTag) {
@@ -53,6 +47,10 @@ const getServiceCardId = (image: CloudinaryImage): string | null => {
 const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange }) => {
   const { token } = useAdmin();
   const { toast } = useToast();
+  const { currentLanguage } = useLanguage();
+  const locale = currentLanguage as AdminLocale;
+  const t = (strings: Record<string, string>) => getAdminText(strings, locale);
+
   const [allImages, setAllImages] = useState<CloudinaryImage[]>([]);
   const [serviceImages, setServiceImages] = useState<Record<string, CloudinaryImage | null>>({});
   const [isLoading, setIsLoading] = useState(true);
@@ -62,7 +60,7 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
   // Initialize service images map
   useEffect(() => {
     if (!open) return;
-    
+
     const loadImages = async () => {
       setIsLoading(true);
       try {
@@ -87,18 +85,18 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
         setServiceImages(imageMap);
       } catch (error) {
         console.error('Failed to load images:', error);
-        toast({ title: 'Error', description: 'Failed to load images', variant: 'destructive' });
+        toast({ title: t(ADMIN_STRINGS.serviceManager.errorLoadTitle), description: t(ADMIN_STRINGS.serviceManager.errorLoadDesc), variant: 'destructive' });
       } finally {
         setIsLoading(false);
       }
     };
 
     loadImages();
-  }, [open, toast]);
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSelectImage = async (image: CloudinaryImage) => {
     if (selectedService === null || !token) return;
-    
+
     setIsSaving(true);
     try {
       // Remove the image from any existing service card assignment
@@ -118,7 +116,7 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
 
       // Update local state
       const newServiceImages = { ...serviceImages };
-      // Clear the old service if image was moved
+      // Clear the old service if image was moved from another service
       if (existingServiceId && existingServiceId !== selectedService) {
         newServiceImages[existingServiceId] = null;
       }
@@ -139,12 +137,12 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
       }));
 
       const service = SERVICES.find(s => s.id === selectedService);
-      const serviceName = service ? getLocalizedText(service.title, 'en' as SupportedLocale) : selectedService;
-      toast({ title: 'Success', description: `Image set for ${serviceName}` });
+      const serviceName = service ? getLocalizedText(service.title, locale as SupportedLocale) : selectedService;
+      toast({ title: t(ADMIN_STRINGS.serviceManager.successTitle), description: `${t(ADMIN_STRINGS.serviceManager.successDesc)} ${serviceName}` });
       setSelectedService(null);
     } catch (error) {
       console.error('Failed to set service card image:', error);
-      toast({ title: 'Error', description: 'Failed to update service image', variant: 'destructive' });
+      toast({ title: t(ADMIN_STRINGS.serviceManager.errorTitle), description: t(ADMIN_STRINGS.serviceManager.errorUpdateDesc), variant: 'destructive' });
     } finally {
       setIsSaving(false);
     }
@@ -171,35 +169,39 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
       }));
 
       const service = SERVICES.find(s => s.id === serviceId);
-      const serviceName = service ? getLocalizedText(service.title, 'en' as SupportedLocale) : serviceId;
-      toast({ title: 'Removed', description: `Image removed from ${serviceName}` });
+      const serviceName = service ? getLocalizedText(service.title, locale as SupportedLocale) : serviceId;
+      toast({ title: t(ADMIN_STRINGS.serviceManager.removedTitle), description: `${t(ADMIN_STRINGS.serviceManager.removedDesc)} ${serviceName}` });
     } catch (error) {
       console.error('Failed to remove service card image:', error);
-      toast({ title: 'Error', description: 'Failed to remove image', variant: 'destructive' });
+      toast({ title: t(ADMIN_STRINGS.serviceManager.errorTitle), description: t(ADMIN_STRINGS.serviceManager.errorRemoveDesc), variant: 'destructive' });
     } finally {
       setIsSaving(false);
     }
   };
 
-  // Get images that could be used for the selected service
-  // Prioritize images from the matching category folder
+  // Get images sorted: matching category first, then others
   const getAvailableImages = () => {
     if (!selectedService) return [];
-    
-    // Find folder name that maps to this service
+
     const matchingFolder = Object.entries(FOLDER_TO_SERVICE).find(([, serviceId]) => serviceId === selectedService)?.[0];
-    
-    // Sort images: matching category first, then others
+
     return [...allImages].sort((a, b) => {
       const aFolder = getCategoryFromPublicId(a.public_id);
       const bFolder = getCategoryFromPublicId(b.public_id);
       const aMatches = aFolder === matchingFolder || aFolder === selectedService;
       const bMatches = bFolder === matchingFolder || bFolder === selectedService;
-      
+
       if (aMatches && !bMatches) return -1;
       if (!aMatches && bMatches) return 1;
       return 0;
     });
+  };
+
+  const getCategoryLabel = (image: CloudinaryImage): string => {
+    const folder = getCategoryFromPublicId(image.public_id);
+    if (!folder) return '';
+    const key = folder as keyof typeof ADMIN_STRINGS.categories;
+    return ADMIN_STRINGS.categories[key] ? t(ADMIN_STRINGS.categories[key]) : folder;
   };
 
   return (
@@ -207,7 +209,7 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
       <DialogContent className="max-w-5xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold text-brand-navy">
-            🏷️ Manage Service Card Images (השירותים שלנו)
+            {t(ADMIN_STRINGS.serviceManager.title)}
           </DialogTitle>
         </DialogHeader>
 
@@ -220,17 +222,18 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
           <div className="space-y-4">
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-semibold text-brand-navy">
-                Select image for: {(() => {
+                {t(ADMIN_STRINGS.serviceManager.selectImageFor)}{' '}
+                {(() => {
                   const service = SERVICES.find(s => s.id === selectedService);
-                  return service ? getLocalizedText(service.title, 'en' as SupportedLocale) : selectedService;
+                  return service ? getLocalizedText(service.title, locale as SupportedLocale) : selectedService;
                 })()}
               </h3>
               <Button variant="outline" onClick={() => setSelectedService(null)}>
-                ← Back
+                {t(ADMIN_STRINGS.serviceManager.back)}
               </Button>
             </div>
             <p className="text-sm text-brand-navy/70">
-              Images from matching categories are shown first.
+              {t(ADMIN_STRINGS.serviceManager.categoryHint)}
             </p>
             <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-3 max-h-[60vh] overflow-y-auto">
               {getAvailableImages().map(image => (
@@ -242,13 +245,14 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
                 >
                   <img
                     src={getThumbnailUrl(image.public_id, 200)}
-                    alt={image.context?.custom?.alt || 'Image'}
+                    alt={image.context?.custom?.alt || ''}
                     className="w-full h-full object-cover"
+                    onError={(e) => { (e.target as HTMLImageElement).src = BROKEN_IMG_FALLBACK; }}
                   />
-                  {/* Show category badge */}
+                  {/* Category badge */}
                   <div className="absolute bottom-1 left-1 right-1">
                     <span className="text-[10px] bg-black/60 text-white px-1 py-0.5 rounded truncate block">
-                      {getCategoryFromPublicId(image.public_id) || 'hero'}
+                      {getCategoryLabel(image)}
                     </span>
                   </div>
                 </button>
@@ -259,7 +263,7 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
           /* Services Grid View */
           <div className="space-y-4">
             <p className="text-sm text-brand-navy/70">
-              Select an image for each service. This image will appear in the "Our Services" section on the home page.
+              {t(ADMIN_STRINGS.serviceManager.instruction)}
             </p>
             <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
               {SERVICES.map(service => (
@@ -267,7 +271,7 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
                   <CardHeader className="py-2 px-3">
                     <CardTitle className="text-sm font-medium text-brand-navy flex items-center gap-2">
                       <span>{service.icon}</span>
-                      {getLocalizedText(service.title, 'en' as SupportedLocale)}
+                      {getLocalizedText(service.title, locale as SupportedLocale)}
                     </CardTitle>
                   </CardHeader>
                   <CardContent className="p-2">
@@ -275,11 +279,14 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
                       <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
                         <img
                           src={getThumbnailUrl(serviceImages[service.id]!.public_id, 300)}
-                          alt={getLocalizedText(service.title, 'en' as SupportedLocale)}
+                          alt={getLocalizedText(service.title, locale as SupportedLocale)}
                           className="w-full h-full object-cover"
+                          onError={(e) => { (e.target as HTMLImageElement).src = BROKEN_IMG_FALLBACK; }}
                         />
                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
-                          <Button size="sm" onClick={() => setSelectedService(service.id)}>Change</Button>
+                          <Button size="sm" onClick={() => setSelectedService(service.id)}>
+                            {t(ADMIN_STRINGS.serviceManager.change)}
+                          </Button>
                           <Button size="sm" variant="destructive" onClick={() => handleRemoveFromService(service.id)}>✕</Button>
                         </div>
                       </div>
@@ -289,7 +296,7 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
                         className="w-full aspect-[4/3] rounded-lg bg-brand-light border-2 border-dashed border-brand-navy/20 flex flex-col items-center justify-center gap-2 hover:border-brand-gold transition-colors"
                       >
                         <span className="text-3xl">{service.icon}</span>
-                        <span className="text-xs text-brand-navy/50">Click to select</span>
+                        <span className="text-xs text-brand-navy/50">{t(ADMIN_STRINGS.serviceManager.clickToSelect)}</span>
                       </button>
                     )}
                   </CardContent>

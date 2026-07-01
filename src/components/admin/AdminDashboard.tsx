@@ -31,10 +31,19 @@ const AdminDashboard: FC = () => {
 
   const [previewImage, setPreviewImage] = useState<CloudinaryImage | null>(null);
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [showHeroManager, setShowHeroManager] = useState(false);
   const [showServiceCardManager, setShowServiceCardManager] = useState(false);
 
-  const onConfirmDelete = async (id: string) => { await handleDelete(id); setDeleteConfirm(null); };
+  const onConfirmDelete = async (id: string) => {
+    setIsDeleting(true);
+    try {
+      await handleDelete(id);
+      setDeleteConfirm(null);
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-brand-light">
@@ -77,7 +86,7 @@ const AdminDashboard: FC = () => {
       </main>
       <CategoryPicker open={showUploadPicker} onOpenChange={setShowUploadPicker} onSelect={openUploadWidget} />
       <ImagePreviewDialog image={previewImage} onClose={() => setPreviewImage(null)} />
-      <DeleteConfirmDialog publicId={deleteConfirm} onConfirm={onConfirmDelete} onCancel={() => setDeleteConfirm(null)} />
+      <DeleteConfirmDialog publicId={deleteConfirm} onConfirm={onConfirmDelete} onCancel={() => setDeleteConfirm(null)} isLoading={isDeleting} />
       <HeroGalleryManager open={showHeroManager} onOpenChange={setShowHeroManager} />
       <ServiceCardManager open={showServiceCardManager} onOpenChange={setShowServiceCardManager} />
     </div>

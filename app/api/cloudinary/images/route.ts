@@ -17,16 +17,30 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url);
     const category = searchParams.get('category');
     const featured = searchParams.get('featured');
-    const all = searchParams.get('all');
     const limit = Math.min(parseInt(searchParams.get('limit') || '50', 10), 100);
     const cursor = searchParams.get('cursor');
+    const tag = searchParams.get('tag');
+    const heroPositions = searchParams.get('heroPositions');
+    const serviceCards = searchParams.get('serviceCards');
 
+    // Build Cloudinary search expression (priority-based, most specific first)
     let expression = `public_id:${BASE_FOLDER}/*`;
-    if (category) {
+    if (heroPositions === 'true') {
+      // Return only images tagged as hero positions (hero-1 through hero-7)
+      expression = `public_id:${BASE_FOLDER}/* AND (tags=hero-1 OR tags=hero-2 OR tags=hero-3 OR tags=hero-4 OR tags=hero-5 OR tags=hero-6 OR tags=hero-7)`;
+    } else if (serviceCards === 'true') {
+      // Return only images with a service-card-{serviceId} tag (prefix match)
+      expression = `public_id:${BASE_FOLDER}/* AND tags:service-card-*`;
+    } else if (tag) {
+      // Exact tag match
+      expression = `public_id:${BASE_FOLDER}/* AND tags=${tag}`;
+    } else if (category) {
       expression = `public_id:${BASE_FOLDER}/${category}/*`;
+      if (featured === 'true') expression += ' AND tags=featured';
+    } else if (featured === 'true') {
+      expression += ' AND tags=featured';
     }
-    if (featured === 'true') expression += ' AND tags=featured';
-    if (all === 'true') expression = `public_id:${BASE_FOLDER}/*`;
+    // When none of the above specific filters apply, the base expression covers all images
 
     let search = cld.search
       .expression(expression)

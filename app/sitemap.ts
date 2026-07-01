@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
-import { LOCATION_SEO_LINKS, SERVICES, BUSINESS_INFO, BLOG_POSTS } from '@/data';
+import { LOCATION_SEO_LINKS, BUSINESS_INFO, BLOG_POSTS } from '@/data';
+import { SERVICE_SEO_PAGES } from '@/data/service-seo-content';
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = 'https://www.shwakiglassworks.com';
@@ -54,16 +55,16 @@ export default function sitemap(): MetadataRoute.Sitemap {
     }
   }
 
-  // Services
-  for (const service of SERVICES) {
+  // Service SEO landing pages (dedicated content — pretty keyword slugs)
+  for (const service of SERVICE_SEO_PAGES) {
     for (const lang of supportedLanguages) {
       const alternates: Record<string, string> = {};
       for (const code of supportedLanguages) {
-        alternates[code] = `${baseUrl}/${code}/${service.id}`;
+        alternates[code] = `${baseUrl}/${code}/${service.slug}`;
       }
 
       routes.push({
-        url: `${baseUrl}/${lang}/${service.id}`,
+        url: `${baseUrl}/${lang}/${service.slug}`,
         lastModified: now,
         changeFrequency: 'monthly',
         priority: 0.9,

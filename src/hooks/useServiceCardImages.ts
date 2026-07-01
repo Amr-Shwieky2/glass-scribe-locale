@@ -1,21 +1,9 @@
 'use client';
 import { useState, useEffect } from 'react';
-import { fetchServiceCardImages, fetchServiceCardTagImages, getCategoryFromPublicId, getThumbnailUrl } from '@/lib/cloudinary';
+import { fetchServiceCardImages, fetchServiceCardTagImages, getCategoryFromPublicId, getThumbnailUrl, FOLDER_TO_SERVICE } from '@/lib/cloudinary';
 import type { CloudinaryImage } from '@/lib/cloudinary';
 
 export type ServiceCardImageMap = Record<string, string>;
-
-// Map Cloudinary folder names to service IDs
-const FOLDER_TO_SERVICE: Record<string, string> = {
-  'shower-enclosures': 'shower-glass',
-  'glass-railings': 'glass-railings',
-  'mirrors': 'mirrors',
-  'partitions': 'glass-partitions',
-  'storefronts': 'storefront-glass',
-  'backsplashes': 'backsplashes',
-  'glass-doors': 'glass-doors',
-  'shelves': 'shelves',
-};
 
 // Get service ID from service-card-{serviceId} tag
 const getServiceCardId = (image: CloudinaryImage): string | null => {

@@ -1,6 +1,5 @@
 'use client';
-import { usePathname, useSearchParams } from 'next/navigation';;
-;
+import { usePathname } from 'next/navigation';
 import {
   BUSINESS_INFO,
   LOCATION_SEO_LINKS,
@@ -19,7 +18,7 @@ interface ServiceJsonLdProps {
 const BASE_URL = 'https://www.shwakiglassworks.com';
 
 const ServiceJsonLd: React.FC<ServiceJsonLdProps> = ({ service, locale }) => {
-  const location = { pathname: usePathname(), search: useSearchParams().toString() };
+  const location = { pathname: usePathname() };
 
   const currentUrl = `${BASE_URL}${location.pathname}`;
   const serviceName = getLocalizedText(service.heroTitle, locale);
