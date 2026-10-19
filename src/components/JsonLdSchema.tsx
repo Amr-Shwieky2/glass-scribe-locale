@@ -3,7 +3,7 @@
  * Site-wide structured data: LocalBusiness + WebSite.
  * Page-specific schemas (FAQPage, Article, Service, Breadcrumbs) live on their pages.
  */
-import { CONTACT_INFO } from '@/data/contact';
+import { CONTACT_INFO, SOCIAL_LINKS } from '@/data/contact';
 import { BUSINESS_INFO } from '@/data/business-info';
 import { SERVICES } from '@/data/services';
 import { getLocalizedText } from '@/data/helpers';
@@ -87,9 +87,10 @@ const JsonLdSchema: React.FC<JsonLdSchemaProps> = ({ lang, rating }) => {
     ],
     sameAs: [
       `https://wa.me/${CONTACT_INFO.whatsapp}`,
-      'https://www.instagram.com/shwaki_glassworks/',
-      'https://www.facebook.com/profile.php?id=100063765481345',
-      'https://g.page/r/shwaki-glassworks',
+      SOCIAL_LINKS.instagram,
+      SOCIAL_LINKS.facebook,
+      SOCIAL_LINKS.googleKnowledgeGraph,
+      SOCIAL_LINKS.google,
     ],
     hasOfferCatalog: {
       '@type': 'OfferCatalog',

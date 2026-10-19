@@ -1,17 +1,10 @@
 import React from 'react';
 import { Phone, Mail, MapPin, MessageCircle, Instagram, Facebook } from 'lucide-react';
 import { BUSINESS_INFO } from '@/data/business-info';
-import { CONTACT_INFO } from '@/data/contact';
+import { CONTACT_INFO, SOCIAL_LINKS } from '@/data/contact';
 import { FOOTER_CONTENT } from '@/data/footer';
 import { getLocalizedText } from '@/data/helpers';
 import type { SupportedLocale } from '@/data/types';
-
-// Social media links
-const SOCIAL_LINKS = {
-  instagram: 'https://www.instagram.com/shwaki_glassworks/',
-  facebook: 'https://www.facebook.com/profile.php?id=100063765481345',
-  google: 'https://g.page/r/shwaki-glassworks',
-};
 
 interface FooterContactProps {
   locale: SupportedLocale;

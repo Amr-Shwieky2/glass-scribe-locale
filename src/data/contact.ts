@@ -17,3 +17,13 @@ export const CONTACT_INFO = {
     ru: 'Обычно мы отвечаем в течение 24 часов',
   },
 } as const;
+
+/** Official profiles — used by the footer, the Instagram section and the LocalBusiness JSON-LD (sameAs). */
+export const SOCIAL_LINKS = {
+  instagram: 'https://www.instagram.com/shwaki_glassworks/',
+  facebook: 'https://www.facebook.com/profile.php?id=100063765481345',
+  /** Google Business Profile (share link). */
+  google: 'https://share.google/eNLbsKuEt0Vozenc2',
+  /** Same Google profile by its stable Knowledge Graph id — preferred for structured data. */
+  googleKnowledgeGraph: 'https://www.google.com/search?kgmid=/g/11yx9k2_ld',
+} as const;

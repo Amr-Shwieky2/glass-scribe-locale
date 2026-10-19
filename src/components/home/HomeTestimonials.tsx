@@ -1,4 +1,5 @@
 import React from 'react';
+import { SOCIAL_LINKS } from '@/data/contact';
 import { ExternalLink, Instagram } from 'lucide-react';
 import { PAGE_CONTENT } from '@/data/page-content';
 import { UI_STRINGS } from '@/data/ui-strings';
@@ -80,7 +81,7 @@ const HomeTestimonials: React.FC<HomeTestimonialsProps> = ({ locale }) => {
         {/* Follow button */}
         <div className="text-center mt-8 sm:mt-10">
           <a
-            href="https://www.instagram.com/shwaki_glassworks/"
+            href={SOCIAL_LINKS.instagram}
             target="_blank"
             rel="noopener noreferrer"
             className="btn-animated-navy inline-flex items-center justify-center gap-3 px-6 sm:px-8 py-3 sm:py-4 text-base sm:text-lg"
