@@ -8,24 +8,25 @@
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import type MiniSearch from 'minisearch';
 import { Sparkles, Search, MessageCircle, Phone, Loader2, ArrowLeft, ArrowRight } from 'lucide-react';
 import { trackEvent } from '@/lib/gtag';
-import { SEARCH_OPTIONS } from '@/lib/search/tokenize';
-import type { SearchDoc } from '@/lib/search/documents';
+import { getLoadedSiteSearch, loadSiteSearch, searchSite, type SiteHit } from '@/lib/search/client';
 import type { AiSearchStrings } from '@/data/ai-search';
+import { openChat } from '@/components/chat/chat-events';
 import type { SupportedLocale } from '@/data/types';
 
 interface AskAISectionProps {
   id?: string;
   locale: SupportedLocale;
   strings: AiSearchStrings;
+  /** Label of the button that continues the answer in the site chat. */
+  continueInChatLabel: string;
   suggestions: string[];
   whatsapp: string;
   phoneIntl: string;
 }
 
-type Hit = Pick<SearchDoc, 'id' | 'title' | 'snippet' | 'url' | 'type'>;
+type Hit = SiteHit;
 type AnswerState =
   | { status: 'idle' }
   | { status: 'loading'; question: string }
@@ -58,46 +59,28 @@ function AnswerText({ text }: { text: string }) {
   return <p className="whitespace-pre-line leading-relaxed text-gray-700 text-base sm:text-lg">{parts}</p>;
 }
 
-const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, suggestions, whatsapp, phoneIntl }) => {
+const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, continueInChatLabel, suggestions, whatsapp, phoneIntl }) => {
   const [query, setQuery] = useState('');
   const [hits, setHits] = useState<Hit[]>([]);
   const [answer, setAnswer] = useState<AnswerState>({ status: 'idle' });
-  const indexRef = useRef<MiniSearch<SearchDoc> | null>(null);
-  const indexPromise = useRef<Promise<MiniSearch<SearchDoc> | null> | null>(null);
   const abortRef = useRef<AbortController | null>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const Arrow = locale === 'he' || locale === 'ar' ? ArrowLeft : ArrowRight;
 
-  const loadIndex = useCallback(() => {
-    // The library and the index load only once the visitor starts using the box
-    indexPromise.current ??= Promise.all([
-      import('minisearch'),
-      fetch(`/api/search-index/${locale}`).then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status))))),
-    ])
-      .then(([{ default: MiniSearchCtor }, { docs }]: [typeof import('minisearch'), { docs: SearchDoc[] }]) => {
-        const ms = new MiniSearchCtor<SearchDoc>({ ...SEARCH_OPTIONS, storeFields: ['title', 'snippet', 'url', 'type'] });
-        ms.addAll(docs);
-        indexRef.current = ms;
-        return ms;
-      })
-      .catch(() => {
-        indexPromise.current = null; // allow a retry on next focus
-        return null;
-      });
-    return indexPromise.current;
-  }, [locale]);
+  // The library and the index load only once the visitor starts using the box
+  const loadIndex = useCallback(() => loadSiteSearch(locale), [locale]);
 
   // Instant results while typing (debounced)
   useEffect(() => {
     const q = query.trim();
     if (q.length < 2) { setHits([]); return; }
     const t = setTimeout(async () => {
-      const ms = indexRef.current ?? (await loadIndex());
+      const ms = getLoadedSiteSearch(locale) ?? (await loadIndex());
       if (!ms) return;
-      setHits(ms.search(q).slice(0, 5).map((r) => ({ id: r.id, title: r.title, snippet: r.snippet, url: r.url, type: r.type })));
+      setHits(searchSite(ms, q, 5));
     }, 120);
     return () => clearTimeout(t);
-  }, [query, loadIndex]);
+  }, [query, locale, loadIndex]);
 
   useEffect(() => () => abortRef.current?.abort(), []);
 
@@ -288,7 +271,19 @@ const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, sugges
                         {strings.callCta}
                       </a>
                     </div>
-                    {answer.status === 'done' && <p className="mt-4 text-xs text-gray-500">{strings.disclaimer}</p>}
+                    {answer.status === 'done' && (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => openChat({ question: answer.question, answer: answer.text })}
+                          className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#143a5e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
+                        >
+                          <MessageCircle className="w-4 h-4 text-brand-gold" aria-hidden="true" />
+                          {continueInChatLabel}
+                        </button>
+                        <p className="mt-4 text-xs text-gray-500">{strings.disclaimer}</p>
+                      </>
+                    )}
                   </>
                 )}
               </div>

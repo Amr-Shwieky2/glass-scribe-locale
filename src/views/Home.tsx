@@ -15,6 +15,7 @@ import HomeTestimonials from '@/components/home/HomeTestimonials';
 import TrackedLink from '@/components/TrackedLink';
 import AskAISection from '@/components/home/AskAISection';
 import { AI_SEARCH_SUGGESTIONS, getAiSearchStrings } from '@/data/ai-search';
+import { CONTINUE_IN_CHAT } from '@/data/chat';
 import { CONTACT_INFO } from '@/data/contact';
 import { UI_STRINGS } from '@/data/ui-strings';
 import { getLocalizedText } from '@/data/helpers';
@@ -74,6 +75,7 @@ const Home: React.FC<HomeProps> = ({ locale, heroImageId, serviceCardImages }) =
         id="ask"
         locale={locale}
         strings={getAiSearchStrings(locale)}
+        continueInChatLabel={CONTINUE_IN_CHAT[locale]}
         suggestions={AI_SEARCH_SUGGESTIONS[locale]}
         whatsapp={CONTACT_INFO.whatsapp}
         phoneIntl={CONTACT_INFO.phoneIntl}

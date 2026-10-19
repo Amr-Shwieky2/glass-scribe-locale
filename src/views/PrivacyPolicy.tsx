@@ -83,6 +83,12 @@ const PRIVACY_CONTENT = {
         ar: 'عند استخدامك بحث "اسألنا" في الصفحة الرئيسية، يُرسل سؤالك إلى مزوّد الذكاء الاصطناعي لدينا (Anthropic) لإعداد الإجابة، ولأغراض التحليل نحتفظ فقط بنص السؤال ولغته — دون اسم أو رقم هاتف أو عنوان IP.',
         ru: 'Когда вы пользуетесь поиском «Спросите нас» на главной странице, ваш вопрос передаётся нашему поставщику ИИ (Anthropic) для подготовки ответа, а для аналитики мы сохраняем только текст вопроса и его язык — без имени, номера телефона и IP-адреса.',
       },
+      aiChat: {
+        he: "הצ'אט באתר משתמש בשירות AI (Anthropic) כדי להפיק תשובות: ההודעות שלכם נשלחות אליו לצורך יצירת התשובה. איננו שומרים את השיחות — הן נשמרות רק בדפדפן שלכם למשך הביקור. השם ומספר הטלפון שלכם נשלחים אלינו רק אם תבחרו לשלוח מהצ'אט בקשה להצעת מחיר.",
+        en: 'The website chat uses an AI service (Anthropic) to generate answers: your messages are sent to it to produce a reply. We do not store chat conversations — they are kept only in your browser for the current visit. Your name and phone number are sent to us only if you choose to submit a quote request from the chat.',
+        ar: 'تستخدم محادثة الموقع خدمة ذكاء اصطناعي (Anthropic) لإعداد الإجابات: تُرسل رسائلك إليها لإنتاج الرد. لا نحتفظ بالمحادثات — فهي تُحفظ فقط في متصفحك خلال الزيارة الحالية. يُرسل اسمك ورقم هاتفك إلينا فقط إذا اخترت إرسال طلب عرض سعر من المحادثة.',
+        ru: 'Чат на сайте использует ИИ-сервис (Anthropic) для подготовки ответов: ваши сообщения передаются ему, чтобы сформировать ответ. Мы не храним переписку — она сохраняется только в вашем браузере на время текущего визита. Ваше имя и номер телефона передаются нам, только если вы сами отправите из чата заявку на расчёт.',
+      },
     },
     purpose: {
       title: {
@@ -289,6 +295,7 @@ const PrivacyPolicy: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
             ))}
           </ul>
           <p className="text-gray-700 mt-4">{t(PRIVACY_CONTENT.sections.dataCollection.aiSearch)}</p>
+          <p className="text-gray-700 mt-4">{t(PRIVACY_CONTENT.sections.dataCollection.aiChat)}</p>
         </div>
 
         {/* Purpose */}
