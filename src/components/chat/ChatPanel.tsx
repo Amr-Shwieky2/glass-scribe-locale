@@ -31,6 +31,8 @@ interface ChatPanelProps {
   onClose: () => void;
   seed: ChatSeed | null;
   onSeedConsumed: () => void;
+  /** Called once mounted, so the launcher can stop showing its loading spinner. */
+  onReady?: () => void;
 }
 
 const WHATSAPP_NUMBER = CONTACT_INFO.whatsapp.replace('+', '');
@@ -58,10 +60,22 @@ function toTurns(messages: UiMessage[]): ChatTurn[] {
   while (turns.length && turns[0].role === 'assistant') turns.shift();
   let kept = turns.slice(-CHAT_LIMITS.maxMessages);
   if (kept[0]?.role === 'assistant') kept = kept.slice(1);
-  return kept.map((t) => ({
-    role: t.role,
-    content: t.content.slice(0, t.role === 'user' ? CHAT_LIMITS.maxUserChars : CHAT_LIMITS.maxAssistantChars),
-  }));
+  // Unanswered visitor messages (after a fallback) are merged with the next one; if that is
+  // too long, keep the newest text — it is what the visitor just wrote.
+  return kept.map((t) => {
+    const max = t.role === 'user' ? CHAT_LIMITS.maxUserChars : CHAT_LIMITS.maxAssistantChars;
+    return { role: t.role, content: t.content.length > max ? `…${t.content.slice(-(max - 1))}` : t.content };
+  });
+}
+
+/** Plain text for the screen-reader announcement: link labels instead of URLs, no Markdown markers. */
+function toSpeech(text: string): string {
+  return text
+    .replace(/\[([^\]]+)\]\([^)]*\)/g, '$1')
+    .replace(/\*\*/g, '')
+    .replace(/^\s*(?:[-*•]|\d{1,2}[.)])\s+/gm, '')
+    .replace(/\s+/g, ' ')
+    .trim();
 }
 
 /** What the visitor asked, newest kept when trimming. */
@@ -76,7 +90,7 @@ const WhatsAppIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSeedConsumed }) => {
+const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSeedConsumed, onReady }) => {
   const s = useMemo(() => getChatStrings(locale), [locale]);
   const titleId = useId();
   const inputId = useId();
@@ -96,8 +110,14 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
   const listRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const abortRef = useRef<AbortController | null>(null);
+  /** Bumped by every send and by "New conversation"; late results of older requests are ignored. */
+  const requestIdRef = useRef(0);
+  /** Follow new text only while the visitor is at (or near) the bottom of the list. */
+  const stickToBottomRef = useRef(true);
   const messagesRef = useRef<UiMessage[]>([]);
   messagesRef.current = messages;
+
+  useEffect(() => { onReady?.(); }, [onReady]);
 
   // ---- session persistence ---------------------------------------------------
   useEffect(() => {
@@ -139,15 +159,16 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
     if (!open) return;
     const mq = window.matchMedia('(max-width: 1023px)');
     const vv = window.visualViewport;
-    const update = () => setViewport(mq.matches && vv ? { height: vv.height, top: vv.offsetTop } : null);
+    const prevOverflow = document.documentElement.style.overflow;
+    const update = () => {
+      setViewport(mq.matches && vv ? { height: vv.height, top: vv.offsetTop } : null);
+      // Lock page scroll only behind the full-screen (mobile) sheet
+      document.documentElement.style.overflow = mq.matches ? 'hidden' : prevOverflow;
+    };
     update();
     vv?.addEventListener('resize', update);
     vv?.addEventListener('scroll', update);
     mq.addEventListener('change', update);
-
-    // Lock page scroll behind the full-screen sheet
-    const prevOverflow = document.documentElement.style.overflow;
-    if (mq.matches) document.documentElement.style.overflow = 'hidden';
     return () => {
       vv?.removeEventListener('resize', update);
       vv?.removeEventListener('scroll', update);
@@ -166,34 +187,61 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
     return () => clearTimeout(t);
   }, [open]);
 
-  // ---- keep the newest message in view -----------------------------------------
+  // ---- keep the newest message in view (unless the visitor scrolled up to read) ---
   useEffect(() => {
     const el = listRef.current;
-    if (el) el.scrollTop = el.scrollHeight;
+    if (el && stickToBottomRef.current) el.scrollTop = el.scrollHeight;
   }, [messages, quote, fallback, open]);
+
+  const onListScroll = () => {
+    const el = listRef.current;
+    if (el) stickToBottomRef.current = el.scrollHeight - el.scrollTop - el.clientHeight < 80;
+  };
 
   useEffect(() => () => abortRef.current?.abort(), []);
 
-  const onKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Escape' && !e.nativeEvent.isComposing) {
-      e.stopPropagation();
-      onClose();
-      return;
-    }
-    if (e.key !== 'Tab' || !dialogRef.current) return;
-    const items = Array.from(dialogRef.current.querySelectorAll<HTMLElement>(FOCUSABLE)).filter((el) => el.offsetParent !== null);
-    if (!items.length) return;
-    const first = items[0];
-    const last = items[items.length - 1];
-    const active = document.activeElement;
-    if (e.shiftKey && (active === first || active === dialogRef.current)) {
-      e.preventDefault();
-      last.focus();
-    } else if (!e.shiftKey && active === last) {
-      e.preventDefault();
-      first.focus();
-    }
-  };
+  // ---- Esc + focus trap, on the document so they work even if focus slipped to <body> ----
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      const dialog = dialogRef.current;
+      if (!dialog) return;
+      if (e.key === 'Escape' && !e.isComposing) {
+        e.preventDefault();
+        onClose();
+        return;
+      }
+      if (e.key !== 'Tab') return;
+      const items = Array.from(dialog.querySelectorAll<HTMLElement>(FOCUSABLE)).filter((el) => el.offsetParent !== null);
+      if (!items.length) return;
+      const first = items[0];
+      const last = items[items.length - 1];
+      const active = document.activeElement;
+      if (!active || !dialog.contains(active)) {
+        e.preventDefault();
+        (e.shiftKey ? last : first).focus();
+      } else if (e.shiftKey && (active === first || active === dialog)) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && active === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    };
+    document.addEventListener('keydown', onKeyDown);
+    return () => document.removeEventListener('keydown', onKeyDown);
+  }, [open, onClose]);
+
+  /** After the focused control disappears or gets disabled (starter chip, Send, quote card), keep focus in the chat. */
+  const focusComposer = useCallback(() => {
+    setTimeout(() => {
+      const active = document.activeElement as HTMLElement | null;
+      const dialog = dialogRef.current;
+      if (active && dialog?.contains(active) && active !== dialog && !(active as HTMLButtonElement).disabled) return;
+      const desktop = window.matchMedia('(min-width: 1024px)').matches;
+      (desktop ? inputRef.current : dialog)?.focus();
+    }, 0);
+  }, []);
 
   const isMobile = () => window.matchMedia('(max-width: 1023px)').matches;
   // A full-screen sheet would hide the page the visitor just navigated to
@@ -206,31 +254,44 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
   const trackWhatsApp = () => trackEvent({ action: 'chat_whatsapp_click', category: CATEGORY, label: locale });
   const trackCall = () => trackEvent({ action: 'chat_call_click', category: CATEGORY, label: locale });
 
-  const showFallback = useCallback(async (reason: ChatFallbackReason, query: string) => {
+  const fallbackMessage = useCallback((reason: ChatFallbackReason) =>
+    reason === 'rate_limited' || reason === 'daily_limit' ? s.fallbackLimit
+      : reason === 'unavailable' ? s.fallbackUnavailable : s.fallbackError, [s]);
+
+  const showFallback = useCallback(async (reason: ChatFallbackReason, query: string, isCurrent: () => boolean) => {
     trackEvent({ action: 'chat_fallback_shown', category: CATEGORY, label: reason });
     setFallback({ reason, hits: [] });
+    setAnnouncement(fallbackMessage(reason));
     const ms = await loadSiteSearch(locale);
-    if (ms) setFallback({ reason, hits: searchSiteOrDefaults(ms, query, 3, FALLBACK_PAGE_IDS) });
-  }, [locale]);
+    if (ms && isCurrent()) setFallback({ reason, hits: searchSiteOrDefaults(ms, query, 3, FALLBACK_PAGE_IDS) });
+  }, [locale, fallbackMessage]);
 
   const send = useCallback(async (raw: string) => {
     const content = raw.trim().slice(0, CHAT_LIMITS.maxUserChars);
     if (!content || busy) return;
 
     trackEvent({ action: 'chat_message_sent', category: CATEGORY, label: locale });
+    const requestId = ++requestIdRef.current;
+    const isCurrent = () => requestIdRef.current === requestId;
     const userMsg: UiMessage = { id: newId(), role: 'user', content };
     const assistantId = newId();
     const history = [...messagesRef.current, userMsg];
+    stickToBottomRef.current = true;
     setMessages([...history, { id: assistantId, role: 'assistant', content: '', streaming: true }]);
     setInput('');
     setQuote(null);
     setFallback(null);
     setBusy(true);
     if (inputRef.current) inputRef.current.style.height = '';
+    focusComposer();
 
-    const updateAssistant = (patch: Partial<UiMessage>) =>
-      setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, ...patch } : m)));
-    const dropAssistant = () => setMessages((prev) => prev.filter((m) => m.id !== assistantId));
+    // No-ops once "New conversation" (or a newer message) has replaced this request
+    const updateAssistant = (patch: Partial<UiMessage>) => {
+      if (isCurrent()) setMessages((prev) => prev.map((m) => (m.id === assistantId ? { ...m, ...patch } : m)));
+    };
+    const dropAssistant = () => {
+      if (isCurrent()) setMessages((prev) => prev.filter((m) => m.id !== assistantId));
+    };
 
     abortRef.current?.abort();
     const controller = new AbortController();
@@ -247,7 +308,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
       if (!res.ok || !(res.headers.get('content-type') ?? '').includes('ndjson') || !res.body) {
         const data = await res.json().catch(() => ({}));
         dropAssistant();
-        await showFallback((data.fallback as ChatFallbackReason) ?? 'error', content);
+        if (isCurrent()) await showFallback((data.fallback as ChatFallbackReason) ?? 'error', content, isCurrent);
         return;
       }
 
@@ -287,13 +348,14 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
 
       if (!text && !draft) {
         dropAssistant();
-        await showFallback(failedReason ?? 'error', content);
+        if (isCurrent()) await showFallback(failedReason ?? 'error', content, isCurrent);
         return;
       }
 
+      if (!isCurrent()) return;
       const finalText = text || s.quoteIntro;
       updateAssistant({ content: finalText, streaming: false, cut });
-      setAnnouncement(`${s.newMessage}: ${finalText.replace(/[*_[\]()#]/g, '')}`);
+      setAnnouncement(`${s.newMessage}: ${toSpeech(finalText)}`);
       if (draft) {
         setQuote(draft);
         trackEvent({ action: 'chat_quote_card_shown', category: CATEGORY, label: locale });
@@ -304,12 +366,12 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
         return;
       }
       dropAssistant();
-      await showFallback('error', content);
+      if (isCurrent()) await showFallback('error', content, isCurrent);
     } finally {
       if (abortRef.current === controller) abortRef.current = null;
-      setBusy(false);
+      if (isCurrent()) setBusy(false);
     }
-  }, [busy, locale, s, showFallback]);
+  }, [busy, locale, s, showFallback, focusComposer]);
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -336,14 +398,16 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
   };
 
   const newConversation = () => {
+    requestIdRef.current++;
     abortRef.current?.abort();
+    stickToBottomRef.current = true;
     setMessages([]);
     setQuote(null);
     setFallback(null);
     setInput('');
     setBusy(false);
     clearChatSession();
-    inputRef.current?.focus();
+    focusComposer();
   };
 
   const onQuoteSent = () => {
@@ -352,20 +416,18 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
     const content = `${s.thankYou}\n\n${s.fasterWhatsapp}`;
     setMessages((prev) => [...prev, { id: newId(), role: 'assistant', content, local: true, contactActions: true }]);
     setAnnouncement(content);
+    focusComposer();
   };
 
   const onQuoteCancel = () => {
     setQuote(null);
     setMessages((prev) => [...prev, { id: newId(), role: 'assistant', content: s.cancelled, local: true }]);
     setAnnouncement(s.cancelled);
+    focusComposer();
   };
 
   const hasVisitorMessages = messages.some((m) => m.role === 'user');
-  const fallbackText = fallback
-    ? fallback.reason === 'rate_limited' || fallback.reason === 'daily_limit'
-      ? s.fallbackLimit
-      : fallback.reason === 'unavailable' ? s.fallbackUnavailable : s.fallbackError
-    : '';
+  const fallbackText = fallback ? fallbackMessage(fallback.reason) : '';
 
   const contactButtons = (
     <div className="flex flex-wrap gap-2 pt-1">
@@ -399,10 +461,11 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
       aria-modal="true"
       aria-labelledby={titleId}
       tabIndex={-1}
-      onKeyDown={onKeyDown}
       style={viewport ? { height: viewport.height, top: viewport.top } : undefined}
-      className={`${open ? 'flex' : 'hidden'} fixed z-[60] inset-x-0 top-0 h-[100dvh] flex-col bg-white shadow-2xl outline-none chat-panel-in
-        lg:inset-x-auto lg:top-auto lg:end-4 lg:bottom-6 rtl:lg:bottom-24 lg:h-[600px] lg:max-h-[calc(100dvh-3rem)] rtl:lg:max-h-[calc(100dvh-7rem)] lg:w-[380px] lg:rounded-2xl lg:border lg:border-gray-200 lg:overflow-hidden`}
+      // Mobile: full-screen sheet above everything. Desktop: below the site's own dialogs
+      // (accessibility panel, lightbox, cookie banner) and clear of the sticky header.
+      className={`${open ? 'flex' : 'hidden'} fixed z-[60] lg:z-40 inset-x-0 top-0 h-[100dvh] flex-col bg-white shadow-2xl outline-none chat-panel-in
+        lg:inset-x-auto lg:top-auto lg:end-4 lg:bottom-6 rtl:lg:bottom-24 lg:h-[600px] lg:max-h-[calc(100dvh-7rem)] rtl:lg:max-h-[calc(100dvh-11rem)] lg:w-[380px] lg:rounded-2xl lg:border lg:border-gray-200 lg:overflow-hidden`}
     >
       {/* Header */}
       <div className="flex items-center gap-3 bg-brand-navy px-3 py-2.5 text-white">
@@ -429,7 +492,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
       </div>
 
       {/* Messages */}
-      <div ref={listRef} className="flex-1 space-y-3 overflow-y-auto overscroll-contain bg-brand-light/60 px-3 py-4 text-[15px]">
+      <div ref={listRef} onScroll={onListScroll} className="flex-1 space-y-3 overflow-y-auto overscroll-contain bg-brand-light/60 px-3 py-4 text-[15px]">
         <div className="flex justify-start">
           <div dir="auto" className={`max-w-[90%] ${ASSISTANT_BUBBLE}`}>{s.welcome}</div>
         </div>
@@ -494,6 +557,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
             whatsappNumber={WHATSAPP_NUMBER}
             onSent={onQuoteSent}
             onCancel={onQuoteCancel}
+            onWhatsAppClick={trackWhatsApp}
           />
         )}
 

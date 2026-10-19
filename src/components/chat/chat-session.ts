@@ -38,7 +38,7 @@ export function loadChatSession(): ChatSessionState | null {
     return {
       v: 1,
       messages: data.messages
-        .filter((m) => (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && typeof m.id === 'string')
+        .filter((m) => (m.role === 'user' || m.role === 'assistant') && typeof m.content === 'string' && typeof m.id === 'string' && m.content.trim() !== '')
         .map((m) => ({ ...m, streaming: false })),
       quote: data.quote ?? null,
       fallback: data.fallback ?? null,
@@ -50,7 +50,11 @@ export function loadChatSession(): ChatSessionState | null {
 
 export function saveChatSession(state: ChatSessionState): void {
   try {
-    sessionStorage.setItem(KEY, JSON.stringify({ ...state, messages: state.messages.map(({ streaming: _s, ...m }) => m) }));
+    // A reply still streaming is saved as "cut off" (or not at all if still empty), so a reload never shows a blank bubble
+    const messages = state.messages
+      .filter((m) => !(m.streaming && !m.content.trim()))
+      .map(({ streaming, ...m }) => (streaming ? { ...m, cut: true } : m));
+    sessionStorage.setItem(KEY, JSON.stringify({ ...state, messages }));
   } catch {
     /* storage full or blocked — the chat still works for this page view */
   }

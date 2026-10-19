@@ -18,14 +18,15 @@ interface QuoteCardProps {
   locale: SupportedLocale;
   s: ChatStrings;
   draft: QuoteDraft;
-  /** Conversation summary sent with the lead (≤ 600 chars). */
+  /** What the visitor wrote in the chat (≤ 600 chars) — shown and editable, sent with the lead. */
   summary: string;
   whatsappNumber: string;
   onSent: () => void;
   onCancel: () => void;
+  onWhatsAppClick?: () => void;
 }
 
-type Field = 'name' | 'phone' | 'city' | 'service' | 'details';
+type Field = 'name' | 'phone' | 'city' | 'service' | 'details' | 'summary';
 
 async function fetchCsrfToken(): Promise<string | null> {
   try {
@@ -37,10 +38,11 @@ async function fetchCsrfToken(): Promise<string | null> {
   }
 }
 
-const QuoteCard: React.FC<QuoteCardProps> = ({ locale, s, draft, summary, whatsappNumber, onSent, onCancel }) => {
+const QuoteCard: React.FC<QuoteCardProps> = ({ locale, s, draft, summary, whatsappNumber, onSent, onCancel, onWhatsAppClick }) => {
   const uid = useId();
   const [fields, setFields] = useState<Record<Field, string>>({
     name: draft.name, phone: draft.phone, city: draft.city, service: draft.service, details: draft.details,
+    summary: summary.slice(0, CHAT_LIMITS.maxSummaryChars),
   });
   const [consent, setConsent] = useState(false);
   const [errors, setErrors] = useState<Partial<Record<Field | 'consent', string>>>({});
@@ -64,7 +66,10 @@ const QuoteCard: React.FC<QuoteCardProps> = ({ locale, s, draft, summary, whatsa
     if (!isValidPhone(fields.phone.trim())) next.phone = s.phoneInvalid;
     if (!consent) next.consent = s.consentRequired;
     setErrors(next);
-    return Object.keys(next).length === 0;
+    // Take keyboard / screen-reader users straight to the first problem
+    const firstInvalid = (['name', 'phone', 'consent'] as const).find((k) => next[k]);
+    if (firstInvalid) document.getElementById(`${uid}-${firstInvalid}`)?.focus();
+    return !firstInvalid;
   };
 
   const post = (csrfToken: string | null) =>
@@ -81,7 +86,7 @@ const QuoteCard: React.FC<QuoteCardProps> = ({ locale, s, draft, summary, whatsa
         consent: true,
         csrfToken,
         page: window.location.pathname,
-        summary: summary.slice(0, CHAT_LIMITS.maxSummaryChars),
+        summary: fields.summary.trim().slice(0, CHAT_LIMITS.maxSummaryChars),
       }),
     });
 
@@ -119,7 +124,7 @@ const QuoteCard: React.FC<QuoteCardProps> = ({ locale, s, draft, summary, whatsa
     fields.details && `${s.fieldDetails}: ${fields.details}`,
   ].filter(Boolean).join('\n');
 
-  const input = (field: Exclude<Field, 'details'>, label: string, type = 'text', autoComplete?: string) => (
+  const input = (field: Exclude<Field, 'details' | 'summary'>, label: string, type = 'text', autoComplete?: string) => (
     <div>
       <label htmlFor={`${uid}-${field}`} className="block text-xs font-semibold text-brand-navy/80 mb-1">{label}</label>
       <input
@@ -134,7 +139,7 @@ const QuoteCard: React.FC<QuoteCardProps> = ({ locale, s, draft, summary, whatsa
         aria-describedby={errors[field] ? `${uid}-${field}-err` : undefined}
         className={`w-full rounded-lg border px-3 py-2 text-base text-brand-navy bg-white focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold ${errors[field] ? 'border-red-500' : 'border-gray-300'}`}
       />
-      {errors[field] && <p id={`${uid}-${field}-err`} className="mt-1 text-xs text-red-600">{errors[field]}</p>}
+      {errors[field] && <p id={`${uid}-${field}-err`} role="alert" className="mt-1 text-xs text-red-600">{errors[field]}</p>}
     </div>
   );
 
@@ -158,9 +163,24 @@ const QuoteCard: React.FC<QuoteCardProps> = ({ locale, s, draft, summary, whatsa
         />
       </div>
 
+      {/* What the visitor wrote in the chat — visible and editable, because it is sent with the request */}
+      <div>
+        <label htmlFor={`${uid}-summary`} className="block text-xs font-semibold text-brand-navy/80 mb-1">{s.fieldSummary}</label>
+        <textarea
+          id={`${uid}-summary`}
+          dir="auto"
+          rows={3}
+          value={fields.summary}
+          onChange={set('summary')}
+          maxLength={CHAT_LIMITS.maxSummaryChars}
+          className="w-full rounded-lg border border-gray-300 px-3 py-2 text-sm text-brand-navy bg-white resize-y focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-gold"
+        />
+      </div>
+
       <div>
         <label className="flex items-start gap-2 text-sm text-gray-700">
           <input
+            id={`${uid}-consent`}
             type="checkbox"
             checked={consent}
             onChange={(e) => { setConsent(e.target.checked); if (errors.consent) setErrors((er) => ({ ...er, consent: undefined })); }}
@@ -170,10 +190,11 @@ const QuoteCard: React.FC<QuoteCardProps> = ({ locale, s, draft, summary, whatsa
           />
           <span>
             {CONSENT_LABELS[locale]}{' '}
-            <Link href={`/${locale}/privacy`} className="underline text-brand-navy hover:text-brand-gold">{PRIVACY_LINK_LABELS[locale]}</Link>
+            {/* New tab: on mobile the chat is a full-screen sheet and would hide the page */}
+            <Link href={`/${locale}/privacy`} target="_blank" rel="noopener" className="underline text-brand-navy hover:text-brand-gold">{PRIVACY_LINK_LABELS[locale]}</Link>
           </span>
         </label>
-        {errors.consent && <p id={`${uid}-consent-err`} className="mt-1 text-xs text-red-600">{errors.consent}</p>}
+        {errors.consent && <p id={`${uid}-consent-err`} role="alert" className="mt-1 text-xs text-red-600">{errors.consent}</p>}
       </div>
 
       {failed && (
@@ -183,6 +204,7 @@ const QuoteCard: React.FC<QuoteCardProps> = ({ locale, s, draft, summary, whatsa
             href={`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(leadText)}`}
             target="_blank"
             rel="noopener noreferrer"
+            onClick={onWhatsAppClick}
             className="inline-flex items-center rounded-full bg-brand-gold px-4 py-2 font-semibold text-brand-navy"
           >
             {s.whatsapp}

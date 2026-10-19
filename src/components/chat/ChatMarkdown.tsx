@@ -8,13 +8,20 @@
  */
 import React from 'react';
 import Link from 'next/link';
+import { CONTACT_INFO } from '@/data/contact';
 
 type LinkKind = 'internal' | 'whatsapp' | 'tel';
 
+const OUR_WHATSAPP = CONTACT_INFO.whatsapp.replace(/\D/g, '');
+const OUR_PHONE = CONTACT_INFO.phoneIntl.replace(/\D/g, '');
+
 function classifyHref(href: string): LinkKind | null {
-  if (/^\/(?!\/)[^\s]*$/.test(href)) return 'internal';
-  if (/^https:\/\/wa\.me\/\d{6,15}(\?[^\s]*)?$/.test(href)) return 'whatsapp';
-  if (/^tel:\+?[\d-]{6,20}$/.test(href)) return 'tel';
+  // Site-relative path only: no "//host" and no slash-backslash host (browsers treat both as another site)
+  if (/^\/(?![/\\])[\w\-./#%?=&]*$/.test(href)) return 'internal';
+  const wa = /^https:\/\/wa\.me\/(\d{6,15})(\?[^\s]*)?$/.exec(href);
+  if (wa) return wa[1] === OUR_WHATSAPP ? 'whatsapp' : null;
+  const tel = /^tel:(\+?[\d-]{6,20})$/.exec(href);
+  if (tel) return tel[1].replace(/\D/g, '') === OUR_PHONE ? 'tel' : null;
   return null;
 }
 

@@ -71,3 +71,18 @@ export function detectLanguage(text: string, pageLocale: SupportedLocale): Suppo
   if (/[a-z]/i.test(text)) return 'en';
   return pageLocale;
 }
+
+/**
+ * Language of a conversation for the chat: the newest visitor message written
+ * decisively in one script wins. Hebrew/Arabic/Cyrillic text is always decisive;
+ * Latin text only with at least two words, so "OK", "Dana" or a phone number
+ * doesn't flip a Hebrew conversation to English. Falls back to the page language.
+ */
+export function conversationLanguage(visitorMessages: string[], pageLocale: SupportedLocale): SupportedLocale {
+  for (let i = visitorMessages.length - 1; i >= 0; i--) {
+    const text = visitorMessages[i];
+    if (/[\u0590-\u05FF\u0600-\u06FF\u0400-\u04FF]/.test(text)) return detectLanguage(text, pageLocale);
+    if ((text.match(/[a-z]{2,}/gi) ?? []).length >= 2) return 'en';
+  }
+  return pageLocale;
+}

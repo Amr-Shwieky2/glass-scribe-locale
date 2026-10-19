@@ -86,6 +86,12 @@ export const CHAT_STRINGS = {
   fieldCity: { he: 'עיר', en: 'City', ar: 'المدينة', ru: 'Город' },
   fieldService: { he: 'שירות', en: 'Service', ar: 'الخدمة', ru: 'Услуга' },
   fieldDetails: { he: 'פרטים', en: 'Details', ar: 'التفاصيل', ru: 'Детали' },
+  fieldSummary: {
+    he: 'ההודעות שלכם בצ\'אט (יישלחו עם הבקשה — אפשר לערוך או למחוק)',
+    en: 'Your chat messages (sent with the request — you can edit or delete them)',
+    ar: 'رسائلك في المحادثة (تُرسل مع الطلب — يمكنك تعديلها أو حذفها)',
+    ru: 'Ваши сообщения в чате (отправляются с заявкой — можно изменить или удалить)',
+  },
   sendRequest: { he: 'שליחת הבקשה', en: 'Send request', ar: 'إرسال الطلب', ru: 'Отправить заявку' },
   cancel: { he: 'ביטול', en: 'Cancel', ar: 'إلغاء', ru: 'Отмена' },
   sending: { he: 'שולח…', en: 'Sending…', ar: 'جارٍ الإرسال…', ru: 'Отправка…' },

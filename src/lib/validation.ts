@@ -26,3 +26,38 @@ export function isValidPhone(raw: string): boolean {
   // Other countries: must be written with a leading + (E.164)
   return plus && !digits.startsWith('972') && digits.length >= 8 && digits.length <= 15 && !digits.startsWith('0');
 }
+
+/**
+ * Reads and parses a JSON request body, refusing anything over `maxBytes` —
+ * counted while streaming, so a chunked request without Content-Length can't
+ * get past the limit. Returns { tooLarge: true } or { value } (null if not JSON).
+ */
+export async function readJsonBody(req: Request, maxBytes: number): Promise<{ tooLarge: true } | { tooLarge: false; value: unknown }> {
+  if (Number(req.headers.get('content-length') || 0) > maxBytes) return { tooLarge: true };
+  if (!req.body) return { tooLarge: false, value: null };
+
+  const reader = req.body.getReader();
+  const chunks: Uint8Array[] = [];
+  let size = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    size += value.byteLength;
+    if (size > maxBytes) {
+      await reader.cancel().catch(() => {});
+      return { tooLarge: true };
+    }
+    chunks.push(value);
+  }
+  const bytes = new Uint8Array(size);
+  let offset = 0;
+  for (const chunk of chunks) {
+    bytes.set(chunk, offset);
+    offset += chunk.byteLength;
+  }
+  try {
+    return { tooLarge: false, value: JSON.parse(new TextDecoder().decode(bytes)) };
+  } catch {
+    return { tooLarge: false, value: null };
+  }
+}

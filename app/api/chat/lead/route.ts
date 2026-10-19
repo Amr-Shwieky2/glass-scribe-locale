@@ -5,7 +5,7 @@ import { verifyCsrfToken } from '@/lib/csrf';
 import { isLocale } from '@/lib/i18n';
 import { getClientIp, rateLimit, rateLimitHeaders } from '@/lib/rate-limit';
 import { isTelegramConfigured, sendTelegramMessage, type TelegramFormatter } from '@/lib/telegram';
-import { cleanText, isValidPhone } from '@/lib/validation';
+import { cleanText, isValidPhone, readJsonBody } from '@/lib/validation';
 import { CHAT_LIMITS, QUOTE_FIELD_LIMITS } from '@/lib/chat-protocol';
 import { SITE_URL } from '@/data/seo';
 
@@ -98,7 +98,9 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Service unavailable' }, { status: 500 });
   }
 
-  const body = await req.json().catch(() => null);
+  const raw = await readJsonBody(req, 16 * 1024);
+  if (raw.tooLarge) return NextResponse.json({ error: 'Request too large' }, { status: 413 });
+  const body = raw.value;
   if (!body || typeof body !== 'object' || Array.isArray(body)) {
     return NextResponse.json({ error: 'Invalid request' }, { status: 400 });
   }

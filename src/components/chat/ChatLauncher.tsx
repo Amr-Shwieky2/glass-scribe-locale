@@ -12,7 +12,7 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
-import { MessageCircle } from 'lucide-react';
+import { Loader2, MessageCircle } from 'lucide-react';
 import { trackEvent } from '@/lib/gtag';
 import type { SupportedLocale } from '@/data/types';
 import { COOKIE_CONSENT_EVENT, OPEN_CHAT_EVENT, hasCookieConsent, type ChatSeed } from './chat-events';
@@ -31,9 +31,15 @@ const ChatLauncher: React.FC<ChatLauncherProps> = ({ lang, label }) => {
   const [open, setOpen] = useState(false);
   const [everOpened, setEverOpened] = useState(false);
   const [seed, setSeed] = useState<ChatSeed | null>(null);
+  /** True once the lazily loaded panel has mounted (until then the launcher shows a spinner). */
+  const [panelReady, setPanelReady] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  /** The control that opened the chat (launcher, or "Continue in chat"), to get focus back on close. */
+  const openerRef = useRef<HTMLElement | null>(null);
 
   const openPanel = useCallback(() => {
+    const active = document.activeElement;
+    openerRef.current = active instanceof HTMLElement && active !== document.body ? active : null;
     setEverOpened(true);
     setOpen(true);
     trackEvent({ action: 'chat_open', category: 'AI Chat', label: lang });
@@ -57,25 +63,36 @@ const ChatLauncher: React.FC<ChatLauncherProps> = ({ lang, label }) => {
 
   const close = useCallback(() => {
     setOpen(false);
-    // Return focus to the launcher once it has re-rendered
-    setTimeout(() => buttonRef.current?.focus(), 0);
+    // Back to whatever opened the chat, or the launcher, once it has re-rendered
+    setTimeout(() => {
+      const opener = openerRef.current;
+      if (opener && opener.isConnected && opener !== buttonRef.current && opener.offsetParent !== null) opener.focus();
+      else buttonRef.current?.focus();
+    }, 0);
   }, []);
+
+  const onPanelReady = useCallback(() => setPanelReady(true), []);
+  const onSeedConsumed = useCallback(() => setSeed(null), []);
+  const loading = open && !panelReady;
 
   if (pathname?.includes('/admin')) return null;
 
   return (
     <>
-      {consentDone && !open && (
+      {(consentDone || loading) && !(open && panelReady) && (
         <button
           ref={buttonRef}
           type="button"
-          onClick={openPanel}
+          onClick={loading ? undefined : openPanel}
+          aria-busy={loading || undefined}
           onPointerEnter={loadPanel}
           onFocus={loadPanel}
           aria-haspopup="dialog"
           className="fixed z-40 end-4 bottom-24 lg:bottom-6 rtl:lg:bottom-24 inline-flex items-center gap-2 rounded-full bg-brand-navy text-white ps-3.5 pe-4 py-3 text-sm font-semibold shadow-lg ring-2 ring-brand-gold/70 hover:bg-[#143a5e] motion-safe:transition-transform motion-safe:hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
         >
-          <MessageCircle className="w-5 h-5 text-brand-gold" aria-hidden="true" />
+          {loading
+            ? <Loader2 className="w-5 h-5 text-brand-gold motion-safe:animate-spin" aria-hidden="true" />
+            : <MessageCircle className="w-5 h-5 text-brand-gold" aria-hidden="true" />}
           <span>{label}</span>
         </button>
       )}
@@ -85,7 +102,8 @@ const ChatLauncher: React.FC<ChatLauncherProps> = ({ lang, label }) => {
           open={open}
           onClose={close}
           seed={seed}
-          onSeedConsumed={() => setSeed(null)}
+          onSeedConsumed={onSeedConsumed}
+          onReady={onPanelReady}
         />
       )}
     </>

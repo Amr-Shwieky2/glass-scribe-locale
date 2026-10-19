@@ -12,10 +12,10 @@ import {
   logAnthropicError,
 } from '@/lib/ai';
 import { isBusinessOpen } from '@/lib/business-hours';
-import { detectLanguage, retrievePassages } from '@/lib/search/retrieve';
+import { conversationLanguage, retrievePassages } from '@/lib/search/retrieve';
 import { QUOTE_TOOL, QUOTE_TOOL_NAME, buildChatSystemPrompt } from '@/lib/search/chat-prompt';
 import { CHAT_LIMITS, QUOTE_FIELD_LIMITS, type ChatStreamEvent, type ChatTurn, type QuoteDraft } from '@/lib/chat-protocol';
-import { cleanText } from '@/lib/validation';
+import { cleanText, readJsonBody } from '@/lib/validation';
 import type { SupportedLocale } from '@/data/types';
 
 /**
@@ -105,11 +105,10 @@ export async function POST(req: NextRequest) {
   if (!isSameOrigin(req)) {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
   }
-  if (Number(req.headers.get('content-length') || 0) > MAX_BODY_BYTES) {
-    return NextResponse.json({ error: 'Request too large' }, { status: 413 });
-  }
+  const body = await readJsonBody(req, MAX_BODY_BYTES);
+  if (body.tooLarge) return NextResponse.json({ error: 'Request too large' }, { status: 413 });
 
-  const parsed = parseRequest(await req.json().catch(() => null));
+  const parsed = parseRequest(body.value);
   if ('error' in parsed) return NextResponse.json({ error: parsed.error }, { status: 400 });
   const { messages, lang } = parsed;
 
@@ -119,8 +118,8 @@ export async function POST(req: NextRequest) {
   const limited = await checkAiLimits(req, { bucket: 'ai-chat', perIp: { limit: 30, windowSec: 3600 }, dailyLimit: DAILY_LIMIT });
   if (limited) return limited;
 
-  const latest = messages[messages.length - 1].content;
-  const answerLang = detectLanguage(latest, lang);
+  // Language of the conversation: a short "OK" or a phone number doesn't switch it to English
+  const answerLang = conversationLanguage(messages.filter((m) => m.role === 'user').map((m) => m.content), lang);
   const passages = retrievePassages(retrievalQuery(messages), answerLang, 5);
 
   console.log(JSON.stringify({ event: 'chat_message', lang: answerLang, messages: messages.length }));

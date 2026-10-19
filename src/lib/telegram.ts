@@ -47,7 +47,11 @@ async function post(text: string, parseMode?: 'HTML'): Promise<boolean> {
 
 /**
  * Sends one message built by `render`. Tries HTML, then retries once as plain
- * text. Returns true when Telegram accepted one of the two (never both).
+ * text. Returns true when Telegram accepted one of the two.
+ *
+ * The plain-text retry also runs after a network error or timeout on the HTML
+ * attempt. In the rare case that Telegram did accept the timed-out request, the
+ * business gets the lead twice — deliberately preferred over losing it.
  */
 export async function sendTelegramMessage(render: (f: TelegramFormatter) => string): Promise<boolean> {
   if (!isTelegramConfigured()) {
