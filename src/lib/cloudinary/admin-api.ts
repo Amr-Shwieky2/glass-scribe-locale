@@ -1,93 +1,62 @@
 /**
  * Admin-only Cloudinary API functions (delete, tag).
+ * Authenticated by the httpOnly admin session cookie (sent automatically on
+ * same-origin requests) — no token is held in JavaScript.
  */
 
-export async function deleteImage(publicId: string, adminToken: string): Promise<void> {
-  const response = await fetch('/api/cloudinary/delete', {
+async function adminPost(url: string, body: unknown, fallbackError: string): Promise<void> {
+  const response = await fetch(url, {
     method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${adminToken}`,
-    },
-    body: JSON.stringify({ publicId }),
+    credentials: 'same-origin',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
   });
-
   if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Failed to delete image');
+    const error = await response.json().catch(() => ({}));
+    throw new Error(error.error || fallbackError);
   }
+}
+
+/** Tell the server new uploads exist so cached pages refresh immediately. */
+export async function notifyImagesChanged(): Promise<void> {
+  await adminPost('/api/cloudinary/revalidate', {}, 'Failed to refresh site cache');
+}
+
+export async function deleteImage(publicId: string): Promise<void> {
+  await adminPost('/api/cloudinary/delete', { publicId }, 'Failed to delete image');
 }
 
 export async function toggleFeatured(
   publicId: string,
-  featured: boolean,
-  adminToken: string
+  featured: boolean
 ): Promise<void> {
-  const response = await fetch('/api/cloudinary/tag', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${adminToken}`,
-    },
-    body: JSON.stringify({
-      publicId,
-      tag: 'featured',
-      action: featured ? 'add' : 'remove',
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Failed to update image');
-  }
+  await adminPost('/api/cloudinary/tag', {
+    publicId,
+    tag: 'featured',
+    action: featured ? 'add' : 'remove',
+  }, 'Failed to update image');
 }
 
 export async function toggleServiceCard(
   publicId: string,
-  isServiceCard: boolean,
-  adminToken: string
+  isServiceCard: boolean
 ): Promise<void> {
-  const response = await fetch('/api/cloudinary/tag', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${adminToken}`,
-    },
-    body: JSON.stringify({
-      publicId,
-      tag: 'service-card',
-      action: isServiceCard ? 'add' : 'remove',
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Failed to update service card');
-  }
+  await adminPost('/api/cloudinary/tag', {
+    publicId,
+    tag: 'service-card',
+    action: isServiceCard ? 'add' : 'remove',
+  }, 'Failed to update service card');
 }
 
 export async function toggleHeroImage(
   publicId: string,
-  isHeroImage: boolean,
-  adminToken: string
+  isHeroImage: boolean
 ): Promise<void> {
-  const response = await fetch('/api/cloudinary/tag', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${adminToken}`,
-    },
-    body: JSON.stringify({
-      publicId,
-      tag: 'hero-gallery',
-      action: isHeroImage ? 'add' : 'remove',
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Failed to update hero image');
-  }
+  await adminPost('/api/cloudinary/tag', {
+    publicId,
+    tag: 'hero-gallery',
+    action: isHeroImage ? 'add' : 'remove',
+  }, 'Failed to update hero image');
 }
 
 // =============================================================================
@@ -96,54 +65,28 @@ export async function toggleHeroImage(
 
 export async function setHeroPosition(
   publicId: string,
-  position: number,
-  adminToken: string
+  position: number
 ): Promise<void> {
   if (position < 1 || position > 7) {
     throw new Error('Hero position must be between 1 and 7');
   }
 
-  const response = await fetch('/api/cloudinary/tag', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${adminToken}`,
-    },
-    body: JSON.stringify({
-      publicId,
-      tag: `hero-${position}`,
-      action: 'add',
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Failed to set hero position');
-  }
+  await adminPost('/api/cloudinary/tag', {
+    publicId,
+    tag: `hero-${position}`,
+    action: 'add',
+  }, 'Failed to set hero position');
 }
 
 export async function removeHeroPosition(
   publicId: string,
-  position: number,
-  adminToken: string
+  position: number
 ): Promise<void> {
-  const response = await fetch('/api/cloudinary/tag', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${adminToken}`,
-    },
-    body: JSON.stringify({
-      publicId,
-      tag: `hero-${position}`,
-      action: 'remove',
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Failed to remove hero position');
-  }
+  await adminPost('/api/cloudinary/tag', {
+    publicId,
+    tag: `hero-${position}`,
+    action: 'remove',
+  }, 'Failed to remove hero position');
 }
 
 // =============================================================================
@@ -152,48 +95,22 @@ export async function removeHeroPosition(
 
 export async function setServiceCardImage(
   publicId: string,
-  serviceId: string,
-  adminToken: string
+  serviceId: string
 ): Promise<void> {
-  const response = await fetch('/api/cloudinary/tag', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${adminToken}`,
-    },
-    body: JSON.stringify({
-      publicId,
-      tag: `service-card-${serviceId}`,
-      action: 'add',
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Failed to set service card image');
-  }
+  await adminPost('/api/cloudinary/tag', {
+    publicId,
+    tag: `service-card-${serviceId}`,
+    action: 'add',
+  }, 'Failed to set service card image');
 }
 
 export async function removeServiceCardImage(
   publicId: string,
-  serviceId: string,
-  adminToken: string
+  serviceId: string
 ): Promise<void> {
-  const response = await fetch('/api/cloudinary/tag', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${adminToken}`,
-    },
-    body: JSON.stringify({
-      publicId,
-      tag: `service-card-${serviceId}`,
-      action: 'remove',
-    }),
-  });
-
-  if (!response.ok) {
-    const error = await response.json();
-    throw new Error(error.message || 'Failed to remove service card image');
-  }
+  await adminPost('/api/cloudinary/tag', {
+    publicId,
+    tag: `service-card-${serviceId}`,
+    action: 'remove',
+  }, 'Failed to remove service card image');
 }

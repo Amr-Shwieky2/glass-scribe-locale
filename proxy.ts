@@ -26,6 +26,12 @@ export function proxy(request: NextRequest) {
     return NextResponse.redirect(new URL(`/${lang}/projects`, request.url));
   }
 
+  // Legacy location aliases: /he/glass-installation-jerusalem → /he/jerusalem
+  const legacyLocation = pathname.match(/^\/(he|en|ar|ru)\/glass-installation-([a-z-]+)\/?$/);
+  if (legacyLocation) {
+    return NextResponse.redirect(new URL(`/${legacyLocation[1]}/${legacyLocation[2]}`, request.url), 308);
+  }
+
   // Admin routing: redirect `/admin` to `/he/admin`
   if (pathname === '/admin') {
     return NextResponse.redirect(new URL('/he/admin', request.url));

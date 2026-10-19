@@ -79,8 +79,8 @@ export default {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ['Heebo', 'Assistant', 'Rubik', 'system-ui', '-apple-system', 'sans-serif'],
-        heading: ['Heebo', 'Assistant', 'Rubik', 'sans-serif'],
+        sans: ['var(--font-heebo)', 'Heebo', 'Assistant', 'Rubik', 'system-ui', '-apple-system', 'sans-serif'],
+        heading: ['var(--font-heebo)', 'Heebo', 'Assistant', 'Rubik', 'sans-serif'],
       },
       keyframes: {
         "accordion-down": {

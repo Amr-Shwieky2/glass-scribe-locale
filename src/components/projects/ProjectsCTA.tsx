@@ -1,7 +1,10 @@
 'use client';
 import React from 'react';
 import { Phone, MessageCircle } from 'lucide-react';
-import { getLocalizedText, UI_STRINGS, CONTACT_INFO, type SupportedLocale } from '@/data';
+import { getLocalizedText } from '@/data/helpers';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { CONTACT_INFO } from '@/data/contact';
+import type { SupportedLocale } from '@/data/types';
 
 interface Props { locale: SupportedLocale; onWhatsApp: () => void; }
 

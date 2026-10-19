@@ -1,6 +1,11 @@
 'use client';
+/**
+ * Projects gallery (client island). Images are fetched on the server (cached)
+ * and passed in; filtering by category happens locally. The category is read
+ * from the URL after mount instead of via useSearchParams, so the whole page
+ * (including the <h1>) is server-rendered rather than bailing out to the client.
+ */
 import React, { useState, useEffect, useMemo } from 'react';
-import { useLanguage } from '@/contexts/LanguageContext';
 import Link from 'next/link';
 import { MessageCircle } from 'lucide-react';
 import ProjectsHeader from '@/components/projects/ProjectsHeader';
@@ -9,44 +14,31 @@ import ProjectGridItem from '@/components/projects/ProjectGridItem';
 import ProjectListItem from '@/components/projects/ProjectListItem';
 import ImagePreviewModal from '@/components/projects/ImagePreviewModal';
 import ProjectsCTA from '@/components/projects/ProjectsCTA';
-import { useCloudinaryImages } from '@/hooks/cloudinary';
 import { getCategoryFromPublicId, type CloudinaryImage } from '@/lib/cloudinary';
-import { CONTACT_INFO, PAGE_CONTENT, UI_STRINGS, getLocalizedText, PROJECT_CATEGORIES, type SupportedLocale } from '@/data';
-import { getServicePageHref, SERVICE_SEO_PAGES } from '@/data/service-seo-content';
-import { useSearchParams, useRouter } from 'next/navigation';
+import { CONTACT_INFO } from '@/data/contact';
+import { PAGE_CONTENT } from '@/data/page-content';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { getLocalizedText } from '@/data/helpers';
+import { PROJECT_CATEGORIES } from '@/data/project-categories';
+import type { SupportedLocale } from '@/data/types';
+import { useRouter } from 'next/navigation';
 
-const SEO_CONTENT: Record<SupportedLocale, { title: string; description: string; keywords: string }> = {
-  he: {
-    title: 'גלריית עבודות זכוכית | מקלחונים, מעקות, מראות | אחים שוואקי',
-    description: 'צפו בגלריית עבודות הזכוכית שלנו - מקלחונים מעוצבים, מעקות זכוכית, מראות, חזיתות חנויות ועוד. עבודות איכותיות ברחבי ישראל.',
-    keywords: 'גלריית מקלחונים, תמונות מעקות זכוכית, עבודות זכוכית, פרויקטים מקלחונים, התקנת מקלחון',
-  },
-  en: {
-    title: 'Glass Projects Gallery | Showers, Railings, Mirrors | Shwaki Brothers',
-    description: 'View our glass work gallery - designer shower enclosures, glass railings, mirrors, storefronts and more. Quality installations across Israel.',
-    keywords: 'glass gallery, shower photos, glass railing projects, glass installations, mirror gallery',
-  },
-  ar: {
-    title: 'معرض أعمال الزجاج | دش زجاجي، درابزين، مرايا | إخوة شواكي',
-    description: 'شاهد معرض أعمال الزجاج لدينا - حمامات زجاجية، درابزين زجاجي، مرايا وواجهات متاجر. أعمال عالية الجودة في جميع أنحاء إسرائيل.',
-    keywords: 'معرض زجاج، صور دش زجاجي، مشاريع درابزين زجاج، تركيب زجاج',
-  },
-  ru: {
-    title: 'Галерея стеклянных работ | Душевые, Ограждения, Зеркала | Братья Швакьи',
-    description: 'Смотрите галерею наших стеклянных работ - дизайнерские душевые кабины, стеклянные ограждения, зеркала, витрины магазинов. Качественные работы по всему Израилю.',
-    keywords: 'галерея стекла, фото душевых, проекты стеклянных ограждений, установка стекла',
-  },
-};
+interface ProjectsProps {
+  locale: SupportedLocale;
+  /** All gallery images, newest first (server-fetched). */
+  images: CloudinaryImage[];
+  /** project category id → service landing page href (resolved on the server). */
+  serviceHrefByCategory: Record<string, string>;
+}
 
-const Projects: React.FC = () => {
-  const { currentLanguage } = useLanguage();
-  const locale = currentLanguage as SupportedLocale;
+const isKnownCategory = (id: string | null): id is string => !!id && PROJECT_CATEGORIES.some((c) => c.id === id);
+
+const Projects: React.FC<ProjectsProps> = ({ locale, images: allImages, serviceHrefByCategory }) => {
   const content = PAGE_CONTENT.projects;
-  const searchParams = useSearchParams();
   const router = useRouter();
 
   const setSearchParams = (params: Record<string, string>) => {
-    const newParams = new URLSearchParams(searchParams.toString());
+    const newParams = new URLSearchParams(window.location.search);
     if (Object.keys(params).length === 0) {
       newParams.delete('category');
     } else {
@@ -55,10 +47,11 @@ const Projects: React.FC = () => {
         else newParams.delete(key);
       });
     }
-    router.replace(`?${newParams.toString()}`, { scroll: false });
+    const qs = newParams.toString();
+    router.replace(qs ? `?${qs}` : window.location.pathname, { scroll: false });
   };
 
-  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(searchParams.get('category') || undefined);
+  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
   const [previewImage, setPreviewImage] = useState<CloudinaryImage | null>(null);
   const [previewIndex, setPreviewIndex] = useState(0);
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -68,18 +61,26 @@ const Projects: React.FC = () => {
     return PROJECT_CATEGORIES.find(c => c.id === selectedCategory)?.cloudinaryFolder;
   }, [selectedCategory]);
 
-  const { images, isLoading } = useCloudinaryImages(cloudinaryFolder, { limit: 50 });
+  const images = useMemo(
+    () => (cloudinaryFolder ? allImages.filter((img) => img.public_id.includes(`/${cloudinaryFolder}/`)) : allImages),
+    [allImages, cloudinaryFolder]
+  );
 
   const handleCategoryChange = (cat: string | undefined) => { setSelectedCategory(cat); if (cat) { setSearchParams({ category: cat }) } else { setSearchParams({}) } };
-  useEffect(() => { const c = searchParams.get('category') || undefined; if (c !== selectedCategory) setSelectedCategory(c); }, [searchParams]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Apply ?category= from the URL after hydration (and on back/forward)
+  useEffect(() => {
+    const sync = () => {
+      const c = new URLSearchParams(window.location.search).get('category');
+      setSelectedCategory(isKnownCategory(c) ? c : undefined);
+    };
+    sync();
+    window.addEventListener('popstate', sync);
+    return () => window.removeEventListener('popstate', sync);
+  }, []);
 
   // Find matching SEO service page for selected category (for subtle "learn more" link)
-  const serviceDetailHref = useMemo(() => {
-    if (!selectedCategory) return null;
-    const seoPage = SERVICE_SEO_PAGES.find(p => p.projectCategoryId === selectedCategory);
-    if (!seoPage) return null;
-    return getServicePageHref(locale, seoPage.serviceId);
-  }, [selectedCategory, locale]);
+  const serviceDetailHref = selectedCategory ? serviceHrefByCategory[selectedCategory] ?? null : null;
 
   const getImageCategory = (img: CloudinaryImage) => {
     const cldCat = getCategoryFromPublicId(img.public_id);
@@ -93,37 +94,8 @@ const Projects: React.FC = () => {
   const handleNext = () => { const i = previewIndex === images.length - 1 ? 0 : previewIndex + 1; setPreviewIndex(i); setPreviewImage(images[i]); };
   const openPreview = (img: CloudinaryImage, idx: number) => { setPreviewImage(img); setPreviewIndex(idx); };
 
-  const seo = SEO_CONTENT[locale] || SEO_CONTENT.he;
-
-  const imageGallerySchema = useMemo(() => {
-    return {
-      '@context': 'https://schema.org',
-      '@type': 'ImageGallery',
-      name: seo.title,
-      description: seo.description,
-      url: `https://www.shwakiglassworks.com/${locale}/projects`,
-      inLanguage: locale,
-      primaryImageOfPage: images.length > 0 ? {
-        '@type': 'ImageObject',
-        contentUrl: images[0].secure_url,
-        description: images[0].context?.custom?.alt || `${getImageCategory(images[0])} installation`,
-      } : undefined,
-      hasPart: images.slice(0, 15).map((img, idx) => ({
-        '@type': 'ImageObject',
-        contentUrl: img.secure_url,
-        thumbnailUrl: img.secure_url.replace('/upload/', '/upload/c_fill,w_400,h_400/'),
-        name: `${getImageCategory(img)} ${idx + 1}`,
-        description: img.context?.custom?.alt || `${getImageCategory(img)} ${{ he: 'בישראל', en: 'in Israel', ar: 'في إسرائيل', ru: 'в Израиле' }[locale] ?? 'in Israel'}`,
-        representativeOfPage: idx === 0 ? true : false,
-      }))
-    };
-  }, [seo, images, locale]); // eslint-disable-line react-hooks/exhaustive-deps
-
   return (
     <div className="min-h-screen">
-      <title>{seo.title}</title>
-      <meta name="description" content={seo.description} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(imageGallerySchema) }} />
       <ProjectsHeader locale={locale} title={content.title} subtitle={content.subtitle} imageCount={images.length} />
       <ProjectFilters selectedCategory={selectedCategory} onCategoryChange={handleCategoryChange} viewMode={viewMode} onViewModeChange={setViewMode} locale={locale} allCategoriesText={content.allCategories} />
       
@@ -143,9 +115,7 @@ const Projects: React.FC = () => {
 
       <section className="py-8 sm:py-10 md:py-12 bg-brand-light">
         <div className="container mx-auto px-4 sm:px-6">
-          {isLoading ? (
-            <div className="flex items-center justify-center py-20"><div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-brand-gold" /></div>
-          ) : images.length > 0 ? (
+          {images.length > 0 ? (
             <div className={viewMode === 'grid' ? 'grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6' : 'space-y-4 sm:space-y-6'}>
               {images.map((img, idx) => {
                 const props = { img, categoryLabel: getImageCategory(img), featured: img.tags?.includes('featured') ?? false, altText: img.context?.custom?.alt || getImageCategory(img) || 'Glass work', locale, onClick: () => openPreview(img, idx) };

@@ -1,9 +1,10 @@
 /**
- * AnimatedPageHeader - Reusable Animated Page Header
+ * AnimatedPageHeader - Reusable Animated Page Header (Server Component)
+ * The content slides in with a CSS transform only, so the page <h1> is visible
+ * in the server HTML from the first paint (good for LCP and crawlers).
  */
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import AmbientBackground from './animated/AmbientBackground';
 
 interface AnimatedPageHeaderProps {
@@ -24,14 +25,12 @@ const AnimatedPageHeader: React.FC<AnimatedPageHeaderProps> = ({ children, class
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top_right,rgba(201,162,77,0.1),transparent_50%)]" />
     <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_left,rgba(201,162,77,0.08),transparent_50%)]" />
     <AmbientBackground />
-    <motion.div
-      className="container mx-auto px-4 sm:px-6 relative z-10"
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+    <div
+      className="container mx-auto px-4 sm:px-6 relative z-10 animate-rise"
+      style={{ '--rise-from': '20px' } as React.CSSProperties}
     >
       {children}
-    </motion.div>
+    </div>
     <div className="absolute bottom-0 left-0 right-0 h-8 bg-gradient-to-t from-brand-navy/50 to-transparent" />
   </section>
 );

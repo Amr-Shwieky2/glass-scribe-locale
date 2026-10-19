@@ -1,119 +1,34 @@
 import { MetadataRoute } from 'next';
-import { LOCATION_SEO_LINKS, BUSINESS_INFO, BLOG_POSTS } from '@/data';
+import { BLOG_POSTS } from '@/data';
 import { SERVICE_SEO_PAGES } from '@/data/service-seo-content';
+import { LOCATION_SLUGS } from '@/data/locations';
+import { CONTENT_LAST_MODIFIED, languageAlternates, pageUrl } from '@/data/seo';
+import { LOCALES } from '@/lib/i18n';
+
+type Entry = MetadataRoute.Sitemap[number];
+
+/** One entry per locale, each carrying the full hreflang set (+ x-default). */
+function localized(path: string, lastModified: string, changeFrequency: Entry['changeFrequency'], priority: number): MetadataRoute.Sitemap {
+  const languages = languageAlternates(path);
+  return LOCALES.map((lang) => ({
+    url: pageUrl(lang, path),
+    lastModified,
+    changeFrequency,
+    priority,
+    alternates: { languages },
+  }));
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://www.shwakiglassworks.com';
-  const supportedLanguages = ['he', 'en', 'ar', 'ru'];
-  const now = new Date();
+  const staticPages = ['services', 'projects', 'about', 'contact', 'blog', 'contractors', 'privacy', 'terms'] as const;
 
-  const localesObj = supportedLanguages.reduce((acc, code) => {
-    acc[code] = `${baseUrl}/${code}`;
-    return acc;
-  }, {} as Record<string, string>);
-
-  const routes: MetadataRoute.Sitemap = [];
-
-  // Home Page
-  for (const lang of supportedLanguages) {
-    const alternates: Record<string, string> = {
-      'x-default': `${baseUrl}/he`,
-    };
-    for (const code of supportedLanguages) {
-      alternates[code] = `${baseUrl}/${code}`;
-    }
-
-    routes.push({
-      url: `${baseUrl}/${lang}`,
-      lastModified: now,
-      changeFrequency: 'weekly',
-      priority: 1.0,
-      alternates: {
-        languages: alternates,
-      },
-    });
-  }
-
-  // Base Pages
-  const staticPages = ['services', 'projects', 'about', 'contact', 'blog', 'contractors', 'privacy', 'terms'];
-  for (const page of staticPages) {
-    for (const lang of supportedLanguages) {
-      const alternates: Record<string, string> = {};
-      for (const code of supportedLanguages) {
-        alternates[code] = `${baseUrl}/${code}/${page}`;
-      }
-
-      routes.push({
-        url: `${baseUrl}/${lang}/${page}`,
-        lastModified: now,
-        changeFrequency: 'weekly',
-        priority: 0.8,
-        alternates: {
-          languages: alternates,
-        },
-      });
-    }
-  }
-
-  // Service SEO landing pages (dedicated content — pretty keyword slugs)
-  for (const service of SERVICE_SEO_PAGES) {
-    for (const lang of supportedLanguages) {
-      const alternates: Record<string, string> = {};
-      for (const code of supportedLanguages) {
-        alternates[code] = `${baseUrl}/${code}/${service.slug}`;
-      }
-
-      routes.push({
-        url: `${baseUrl}/${lang}/${service.slug}`,
-        lastModified: now,
-        changeFrequency: 'monthly',
-        priority: 0.9,
-        alternates: {
-          languages: alternates,
-        },
-      });
-    }
-  }
-
-  // Locations
-  for (const location of LOCATION_SEO_LINKS) {
-    for (const lang of supportedLanguages) {
-      const alternates: Record<string, string> = {};
-      for (const code of supportedLanguages) {
-        alternates[code] = `${baseUrl}/${code}/${location.slug}`;
-      }
-
-      routes.push({
-        url: `${baseUrl}/${lang}/${location.slug}`,
-        lastModified: now,
-        changeFrequency: 'monthly',
-        priority: 0.9,
-        alternates: {
-          languages: alternates,
-        },
-      });
-    }
-  }
-
-  // Blog Posts
-  for (const post of BLOG_POSTS) {
-    for (const lang of supportedLanguages) {
-      const alternates: Record<string, string> = {};
-      for (const code of supportedLanguages) {
-        alternates[code] = `${baseUrl}/${code}/blog/${post.slug}`;
-      }
-
-      routes.push({
-        url: `${baseUrl}/${lang}/blog/${post.slug}`,
-        lastModified: post.date,
-        changeFrequency: 'monthly',
-        priority: 0.7,
-        alternates: {
-          languages: alternates,
-        },
-      });
-    }
-  }
-
-  return routes;
+  return [
+    ...localized('', CONTENT_LAST_MODIFIED.home, 'weekly', 1.0),
+    ...staticPages.flatMap((page) => localized(`/${page}`, CONTENT_LAST_MODIFIED[page], 'weekly', 0.8)),
+    // Service SEO landing pages (dedicated content — pretty keyword slugs)
+    ...SERVICE_SEO_PAGES.flatMap((service) => localized(`/${service.slug}`, CONTENT_LAST_MODIFIED.servicePages, 'monthly', 0.9)),
+    // City landing pages that actually exist
+    ...LOCATION_SLUGS.flatMap((slug) => localized(`/${slug}`, CONTENT_LAST_MODIFIED.locationPages, 'monthly', 0.9)),
+    ...BLOG_POSTS.flatMap((post) => localized(`/blog/${post.slug}`, post.date, 'monthly', 0.7)),
+  ];
 }

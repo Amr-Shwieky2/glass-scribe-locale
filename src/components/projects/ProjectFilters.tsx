@@ -3,7 +3,8 @@ import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Grid, List } from 'lucide-react';
 import { PROJECT_CATEGORIES } from '@/data/project-categories';
-import { getLocalizedText, type SupportedLocale, type LocalizedText } from '@/data';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale, LocalizedText } from '@/data/types';
 
 interface ProjectFiltersProps {
   selectedCategory: string | undefined;

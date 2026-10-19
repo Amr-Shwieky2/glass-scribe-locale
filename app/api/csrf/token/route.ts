@@ -1,24 +1,14 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
-import { randomBytes, createHmac } from 'crypto';
+import { issueCsrfToken } from '@/lib/csrf';
 
-const CSRF_SECRET = process.env.ADMIN_TOKEN || 'fallback_secret_for_csrf';
+export const dynamic = 'force-dynamic';
 
-export async function GET(req: NextRequest) {
-  // Generate a random token
-  const token = randomBytes(32).toString('hex');
-  
-  // Create an HMAC signature
-  const signature = createHmac('sha256', CSRF_SECRET)
-    .update(token)
-    .digest('hex');
-    
-  return NextResponse.json({
-    token: `${token}.${signature}`
-  }, {
-    status: 200,
-    headers: {
-      'Cache-Control': 'no-store, max-age=0'
-    }
-  });
+export async function GET() {
+  const token = issueCsrfToken();
+  if (!token) {
+    // Fail closed: no secret → no tokens → the contact form can't be abused
+    console.error('[csrf] CSRF_SECRET is missing or shorter than 32 characters');
+    return NextResponse.json({ error: 'Not configured' }, { status: 500, headers: { 'Cache-Control': 'no-store' } });
+  }
+  return NextResponse.json({ token }, { status: 200, headers: { 'Cache-Control': 'no-store, max-age=0' } });
 }

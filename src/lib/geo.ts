@@ -6,6 +6,7 @@ export const CITY_COORDINATES: Record<string, { lat: number; lng: number }> = {
   'tel-aviv': { lat: 32.0853, lng: 34.7818 },
   haifa: { lat: 32.7940, lng: 34.9896 },
   'beer-sheva': { lat: 31.2530, lng: 34.7915 },
+  netanya: { lat: 32.3215, lng: 34.8532 },
   // Fallback defaults to Jerusalem's coordinates
   default: { lat: 31.7683, lng: 35.2137 }
 };
@@ -15,6 +16,7 @@ export const CITY_NAMES_EN: Record<string, string> = {
   'tel-aviv': 'Tel Aviv',
   haifa: 'Haifa',
   'beer-sheva': 'Beer Sheva',
+  netanya: 'Netanya',
 };
 
 /**

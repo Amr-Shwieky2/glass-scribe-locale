@@ -1,11 +1,9 @@
-'use client';
 /**
  * Why Choose Us Section - Value Proposition
  * Implements authority signals as recommended in UI/UX strategy
  */
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { 
   Ruler, 
   Palette, 
@@ -15,8 +13,9 @@ import {
   HeartHandshake,
   ArrowRight 
 } from 'lucide-react';
-import Link from 'next/link';;
-import { getLocalizedText, type SupportedLocale } from '@/data';
+import Link from 'next/link';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 interface WhyChooseUsProps {
   locale: SupportedLocale;
@@ -162,12 +161,10 @@ const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ locale, currentLanguage }) =>
         {/* Features Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 mb-12 sm:mb-16">
           {FEATURES.map((feature, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
+              data-reveal
+              style={{ '--reveal-delay': `${index * 100}ms` } as React.CSSProperties}
               className="p-6 sm:p-8 bg-brand-light rounded-2xl hover:shadow-lg transition-shadow group"
             >
               <div className="w-12 h-12 sm:w-14 sm:h-14 bg-brand-gold/10 rounded-xl flex items-center justify-center mb-4 group-hover:bg-brand-gold/20 transition-colors">
@@ -179,7 +176,7 @@ const WhyChooseUs: React.FC<WhyChooseUsProps> = ({ locale, currentLanguage }) =>
               <p className="text-sm sm:text-base text-brand-navy/70 leading-relaxed">
                 {t(feature.description)}
               </p>
-            </motion.div>
+            </div>
           ))}
         </div>
 

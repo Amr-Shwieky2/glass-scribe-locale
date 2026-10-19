@@ -1,8 +1,11 @@
 'use client';
 import React from 'react';
+import Image from 'next/image';
 import { Calendar, ZoomIn } from 'lucide-react';
-import { getThumbnailUrl } from '@/hooks/cloudinary';
-import { UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
+import { getThumbnailUrl } from '@/lib/cloudinary/urls';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 import type { CloudinaryImage } from '@/lib/cloudinary';
 
 interface ProjectListItemProps {
@@ -21,14 +24,13 @@ const ProjectListItem: React.FC<ProjectListItemProps> = ({
     className="bg-white rounded-xl sm:rounded-2xl shadow-lg overflow-hidden flex flex-col md:flex-row cursor-pointer hover:shadow-xl transition-shadow"
     onClick={onClick}
   >
-    <div className="md:w-1/3 aspect-video md:aspect-auto relative overflow-hidden group">
-      <img
+    <div className="md:w-1/3 aspect-video md:aspect-auto md:min-h-48 relative overflow-hidden group">
+      <Image
         src={getThumbnailUrl(img.public_id, 600)}
         alt={altText}
-        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-        loading="lazy"
-        width={600}
-        height={338}
+        fill
+        sizes="(min-width: 768px) 33vw, 100vw"
+        className="object-cover group-hover:scale-105 transition-transform duration-500"
       />
       <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center pointer-events-none">
         <div className="transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 opacity-0 group-hover:opacity-100 bg-white/20 backdrop-blur-sm p-3 rounded-full text-white">

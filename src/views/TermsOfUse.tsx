@@ -1,14 +1,16 @@
-'use client';
 /**
  * Terms of Use Page
  * Copyright and usage terms for website content
  */
 
 import React from 'react';
-import { useLanguage } from '@/contexts/LanguageContext';
-import Link from 'next/link';;
+import Link from 'next/link';
 import { FileText, Copyright, Shield, AlertTriangle, ArrowLeft, ArrowRight } from 'lucide-react';
-import { BUSINESS_INFO, CONTACT_INFO, getLocalizedText, type SupportedLocale } from '@/data';
+import { isRTLLocale } from '@/lib/i18n';
+import { BUSINESS_INFO } from '@/data/business-info';
+import { CONTACT_INFO } from '@/data/contact';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 const TERMS_CONTENT = {
   title: {
@@ -177,9 +179,8 @@ const TERMS_CONTENT = {
   },
 };
 
-const TermsOfUse: React.FC = () => {
-  const { currentLanguage, isRTL } = useLanguage();
-  const locale = currentLanguage as SupportedLocale;
+const TermsOfUse: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
+  const isRTL = isRTLLocale(locale);
   const t = (obj: Record<string, string>) => getLocalizedText(obj, locale);
   const Arrow = isRTL ? ArrowRight : ArrowLeft;
 
@@ -277,7 +278,7 @@ const TermsOfUse: React.FC = () => {
         {/* Back to Home */}
         <div className="text-center">
           <Link 
-            href={`/${currentLanguage}`} 
+            href={`/${locale}`} 
             className="inline-flex items-center gap-2 text-brand-navy hover:text-brand-gold transition-colors font-medium"
           >
             <Arrow className="w-5 h-5" />

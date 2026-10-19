@@ -1,7 +1,7 @@
 export { type SupportedLocale, type LocalizedText, type LocalizedArray } from './types';
 export { getLocalizedText, getLocalizedArray } from './helpers';
 export { BUSINESS_INFO } from './business-info';
-export { CONTACT_INFO } from './contact';
+export { CONTACT_INFO, SOCIAL_LINKS } from './contact';
 export { type ServiceData, SERVICES } from './services';
 export { type TestimonialData, TESTIMONIALS } from './testimonials';
 export { type WhyChooseUsItem, WHY_CHOOSE_US } from './why-choose-us';

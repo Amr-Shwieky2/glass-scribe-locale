@@ -1,10 +1,12 @@
-'use client';
+/**
+ * Blog index (Server Component). Metadata comes from the route's generateMetadata.
+ */
 import React from 'react';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
 import { Calendar, Clock, ArrowRight, BookOpen, Tag } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { BLOG_POSTS, getLocalizedText, type SupportedLocale } from '@/data';
+import { BLOG_POSTS } from '@/data/blog-posts';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 import AnimatedPageHeader from '@/components/AnimatedPageHeader';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
@@ -19,16 +21,10 @@ const CATEGORY_STYLES: Record<string, { gradient: string; icon: string; badge: s
 
 const DEFAULT_STYLE = { gradient: 'from-brand-navy to-slate-700', icon: '📝', badge: 'bg-gray-100 text-gray-700' };
 
-const BlogList: React.FC = () => {
-  const { currentLanguage } = useLanguage();
-  const locale = currentLanguage as SupportedLocale;
+const BlogList: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
 
   return (
     <>
-      <title>{{ he: 'בלוג ומדריכים | אחים שוואקי זכוכית', en: 'Blog & Guides | Shwaki Brothers Glassworks', ar: 'المدونة والأدلة | إخوة شواكي للزجاج', ru: 'Блог и руководства | Братья Шваки' }[locale]}</title>
-      <meta name="description" content={{ he: 'קראו את המדריכים המקצועיים שלנו בנושאי התקנת מקלחונים, זכוכית, מעקות וטרנדים בעיצוב הבית בגובה העיניים.', en: 'Read our professional guides on glass installation, shower enclosures, railings, and home design trends.', ar: 'اقرأ أدلتنا المهنية حول تركيب الزجاج وكابينات الدش والدرابزين واتجاهات تصميم المنازل.', ru: 'Читайте наши профессиональные руководства по установке стекла, душевых кабин, ограждений и тенденциям дизайна.' }[locale]} />
-      <link rel="canonical" href={`https://www.shwakiglassworks.com/${locale}/blog`} />
-
       <AnimatedPageHeader>
         <div className="text-center max-w-3xl mx-auto">
           <BookOpen className="w-12 h-12 mx-auto text-brand-gold mb-4" />
@@ -47,18 +43,17 @@ const BlogList: React.FC = () => {
             items={[
               { label: { he: 'בלוג', en: 'Blog', ar: 'المدونة', ru: 'Блог' }[locale] ?? 'Blog' }
             ]}
+            locale={locale}
           />
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
             {BLOG_POSTS.map((post, index) => {
               const style = CATEGORY_STYLES[post.category] ?? DEFAULT_STYLE;
               return (
-                <motion.article
+                <article
                   key={post.id}
-                  initial={{ opacity: 0, y: 24 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.45, delay: index * 0.07 }}
+                  data-reveal
+                  style={{ '--reveal-delay': `${index * 70}ms` } as React.CSSProperties}
                   className="bg-white rounded-2xl shadow-sm hover:shadow-lg transition-shadow duration-300 border border-gray-100 flex flex-col group overflow-hidden"
                 >
                   {/* Thumbnail */}
@@ -119,7 +114,7 @@ const BlogList: React.FC = () => {
                       <ArrowRight className="w-4 h-4 transition-transform group-hover/link:translate-x-1 rtl:rotate-180 rtl:group-hover/link:-translate-x-1" />
                     </Link>
                   </div>
-                </motion.article>
+                </article>
               );
             })}
           </div>

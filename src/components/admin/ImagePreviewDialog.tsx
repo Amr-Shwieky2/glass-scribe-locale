@@ -1,4 +1,5 @@
 import { type FC } from 'react';
+import Image from 'next/image';
 import { type CloudinaryImage, getGalleryUrl } from '@/lib/cloudinary';
 import {
   Dialog,
@@ -20,10 +21,13 @@ const ImagePreviewDialog: FC<ImagePreviewDialogProps> = ({ image, onClose }) => 
       </DialogHeader>
       {image && (
         <div className="space-y-4">
-          <img
+          <Image
             src={getGalleryUrl(image.public_id)}
             alt={image.context?.custom?.alt || 'Preview'}
-            className="w-full rounded-lg"
+            width={image.width || 1200}
+            height={image.height || 900}
+            sizes="(min-width: 768px) 672px, 100vw"
+            className="w-full h-auto rounded-lg"
           />
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>

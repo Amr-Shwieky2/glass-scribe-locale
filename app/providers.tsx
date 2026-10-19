@@ -1,28 +1,33 @@
 'use client';
 
 import { ReactNode } from 'react';
+import dynamic from 'next/dynamic';
 import { Analytics } from '@vercel/analytics/react';
 import { SpeedInsights } from '@vercel/speed-insights/react';
-import { Toaster } from '@/components/ui/toaster';
-import { TooltipProvider } from '@/components/ui/tooltip';
 import { LanguageProvider } from '@/contexts/LanguageContext';
 import { AdminProvider } from '@/contexts/AdminContext';
-import AccessibilityWidget from '@/components/accessibility/AccessibilityWidget';
-import CookieConsent from '@/components/CookieConsent';
 
-export function Providers({ children }: { children: ReactNode }) {
+import RevealObserver from '@/components/animated/RevealObserver';
+import type { SupportedLocale } from '@/data/types';
+
+// Fixed-position overlays: loaded after hydration so their JS doesn't compete
+// with the hero image on first load (no layout shift — they don't take space).
+const AccessibilityWidget = dynamic(() => import('@/components/accessibility/AccessibilityWidget'), { ssr: false });
+const CookieConsent = dynamic(() => import('@/components/CookieConsent'), { ssr: false });
+
+export function Providers({ children, lang }: { children: ReactNode; lang: SupportedLocale }) {
   return (
-    <TooltipProvider>
+    <>
       <Analytics />
       <SpeedInsights />
-      <Toaster />
       <AdminProvider>
-        <LanguageProvider>
+        <LanguageProvider lang={lang}>
           <AccessibilityWidget />
           <CookieConsent />
+          <RevealObserver />
           {children}
         </LanguageProvider>
       </AdminProvider>
-    </TooltipProvider>
+    </>
   );
 }

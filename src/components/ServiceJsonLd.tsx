@@ -1,26 +1,20 @@
-'use client';
-import { usePathname } from 'next/navigation';
-import {
-  BUSINESS_INFO,
-  LOCATION_SEO_LINKS,
-  getLocalizedText,
-  getLocalizedArray,
-  CONTACT_INFO,
-  type ServiceSeoPage,
-  type SupportedLocale,
-} from '@/data';
+import { BUSINESS_INFO } from '@/data/business-info';
+import { LOCATION_SEO_LINKS, type ServiceSeoPage } from '@/data/service-seo-content';
+import { getLocalizedText, getLocalizedArray } from '@/data/helpers';
+import { CONTACT_INFO } from '@/data/contact';
+import type { SupportedLocale } from '@/data/types';
+
+import { SITE_URL as BASE_URL, pageUrl } from '@/data/seo';
+import { BUSINESS_ID } from './JsonLdSchema';
 
 interface ServiceJsonLdProps {
   service: ServiceSeoPage;
   locale: SupportedLocale;
 }
 
-const BASE_URL = 'https://www.shwakiglassworks.com';
-
+/** Server Component — Service, Breadcrumb and FAQPage schemas for a service landing page. */
 const ServiceJsonLd: React.FC<ServiceJsonLdProps> = ({ service, locale }) => {
-  const location = { pathname: usePathname() };
-
-  const currentUrl = `${BASE_URL}${location.pathname}`;
+  const currentUrl = pageUrl(locale, `/${service.slug}`);
   const serviceName = getLocalizedText(service.heroTitle, locale);
   const serviceDescription = getLocalizedText(service.metaDescription, locale);
   const areaServed = service.relatedLocations
@@ -29,7 +23,7 @@ const ServiceJsonLd: React.FC<ServiceJsonLdProps> = ({ service, locale }) => {
     .map((locationLink) => ({
       '@type': 'City',
       name: getLocalizedText(locationLink!.label, locale),
-      url: `${BASE_URL}/${locale}/glass-installation-${locationLink!.slug}`,
+      url: pageUrl(locale, `/${locationLink!.slug}`),
     }));
 
   const serviceSchema = {
@@ -42,7 +36,7 @@ const ServiceJsonLd: React.FC<ServiceJsonLdProps> = ({ service, locale }) => {
     areaServed,
     provider: {
       '@type': 'LocalBusiness',
-      '@id': `${BASE_URL}/#business`,
+      '@id': BUSINESS_ID,
       name: getLocalizedText(BUSINESS_INFO.name, locale),
       telephone: CONTACT_INFO.phoneIntl,
       areaServed: {

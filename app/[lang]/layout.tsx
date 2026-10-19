@@ -1,18 +1,30 @@
 import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
+import { Heebo } from 'next/font/google';
+import { notFound } from 'next/navigation';
 import { Providers } from '../providers';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
-import { Suspense } from 'react';
 import MobileCTA from '@/components/MobileCTA';
 import JsonLdSchema from '@/components/JsonLdSchema';
 import '@/index.css'; // Global styles
-import { DEFAULT_LANGUAGE } from '@/contexts/LanguageContext';
+import { isLocale, isRTLLocale, localeParams } from '@/lib/i18n';
+import { getAggregateRating } from '@/lib/google-places';
+import { DEFAULT_SEO, SITE_URL } from '@/data/seo';
 
 const GA_ID = 'G-ZMSX4TGLBJ';
 
-export async function generateStaticParams() {
-  return ['he', 'en', 'ar', 'ru'].map((l) => ({ lang: l }));
+// Self-hosted by next/font (no render-blocking Google Fonts stylesheet).
+// Heebo covers Hebrew + Latin; Arabic/Cyrillic fall back to system fonts.
+const heebo = Heebo({
+  subsets: ['hebrew', 'latin'],
+  display: 'swap',
+  variable: '--font-heebo',
+});
+
+export const dynamicParams = false;
+
+export function generateStaticParams() {
+  return localeParams();
 }
 
 export const viewport: Viewport = {
@@ -23,72 +35,19 @@ export const viewport: Viewport = {
   // and causes iPad Safari to fail to render the page correctly.
 };
 
+/**
+ * Site-wide metadata only. Title, description, canonical and hreflang are set
+ * per page via buildPageMetadata() — the layout must NOT set a canonical,
+ * otherwise every page inherits the homepage URL.
+ */
 export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
-  const resolvedParams = await params;
-  const lang = resolvedParams.lang || DEFAULT_LANGUAGE;
-  
-  // Basic metadata logic (similar to old SEOHead defaults)
-  const isHeb = lang === 'he';
-  const isAr = lang === 'ar';
-  const isRu = lang === 'ru';
-  
-  const title = isHeb ? 'אחים שוואקי זכוכית | מקלחונים, מעקות זכוכית, מראות | זגג מקצועי ישראל' :
-                isAr ? 'شويكي اخوان للزوجاج | كابينات دش، درابزين زجاجي، مرايا | زجّاج محترف في إسرائيل' :
-                isRu ? 'Братья Шваки — Стеклянные работы | Душевые кабины, Ограждения, Зеркала | Стекольщик Израиль' :
-                'Shwaki Brothers Glassworks | Shower Glass, Railings, Mirrors | #1 Glazier Israel';
-
-  const description = isHeb ? 'אחים שוואקי זכוכית – מומחים להתקנת זכוכית בישראל מאז 2015. מקלחונים, מעקות זכוכית, מראות, חזיתות חנויות. ⭐ 4.9/5 מ-127 ביקורות. מדידה חינם, אחריות שנתיים, שירות בכל הארץ.' :
-                      isAr ? 'زجّاج محترف وتركيب زجاج في إسرائيل منذ 2015 – كابينات الدش، درابزين زجاجي، مرايا، واجهات. ⭐ 4.9/5 من 127 تقييم. قياسات مجانية، ضمان سنتين، خدمة في جميع أنحاء البلاد.' :
-                      isRu ? 'Профессиональный стекольщик в Израиле с 2015 г. — душевые кабины, стеклянные ограждения, зеркала, витрины. ⭐ 4.9/5 по 127 отзывам. Бесплатный замер, гарантия 2 года, работаем по всей стране.' :
-                      'Professional glazier & glass installation in Israel since 2015 — shower enclosures, glass railings, mirrors, storefronts. ⭐ 4.9/5 from 127 reviews. Free measurement, 2-year warranty, nationwide service.';
-
-  const keywords = isHeb
-    ? 'זכוכית, מקלחון, מעקות זכוכית, מראות, זגג, התקנת זכוכית, זכוכית מחוסמת, מחיצות זכוכית, חזיתות חנויות, ירושלים, תל אביב, ישראל'
-    : isAr
-    ? 'زجاج, كابينة دش, درابزين زجاجي, مرايا, زجّاج, تركيب زجاج, زجاج مقسى, فواصل زجاجية, واجهات, إسرائيل'
-    : isRu
-    ? 'стекло, душевая кабина, стеклянные ограждения, зеркала, стекольщик, установка стекла, закалённое стекло, перегородки, витрины, Израиль'
-    : 'glass, shower enclosure, glass railing, mirrors, glazier, glass installation, tempered glass, glass partitions, storefronts, Israel';
+  const { lang } = await params;
+  const locale = isLocale(lang) ? lang : 'he';
 
   return {
-    title: {
-      template: '%s | Shwaki Brothers Glassworks',
-      default: title,
-    },
-    description,
-    keywords,
+    metadataBase: new URL(SITE_URL),
+    title: DEFAULT_SEO[locale].title,
     manifest: '/site.webmanifest',
-    alternates: {
-      canonical: `https://www.shwakiglassworks.com/${lang}`,
-      languages: {
-        'he': 'https://www.shwakiglassworks.com/he',
-        'en': 'https://www.shwakiglassworks.com/en',
-        'ar': 'https://www.shwakiglassworks.com/ar',
-        'ru': 'https://www.shwakiglassworks.com/ru',
-        'x-default': 'https://www.shwakiglassworks.com/he',
-      },
-    },
-    openGraph: {
-      title,
-      description,
-      url: `https://www.shwakiglassworks.com/${lang}`,
-      siteName: 'Shwaki Brothers Glassworks',
-      images: [
-        {
-          url: 'https://res.cloudinary.com/dc1q8upxt/image/upload/c_fill,w_1200,h_630,g_auto,q_auto,f_jpg/shwaki-glassworks/hero/1',
-          width: 1200,
-          height: 630,
-        },
-      ],
-      locale: isHeb ? 'he_IL' : isAr ? 'ar_SA' : isRu ? 'ru_RU' : 'en_US',
-      type: 'website',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title,
-      description,
-      images: ['https://res.cloudinary.com/dc1q8upxt/image/upload/c_fill,w_1200,h_630,g_auto,q_auto,f_jpg/shwaki-glassworks/hero/1'],
-    },
     icons: {
       icon: [
         { url: '/favicon.ico' },
@@ -117,25 +76,26 @@ export default async function RootLayout({
   children: React.ReactNode;
   params: Promise<{ lang: string }>;
 }) {
-  const resolvedParams = await params;
-  const lang = resolvedParams.lang || DEFAULT_LANGUAGE;
-  const isRTL = ['he', 'ar'].includes(lang);
+  const { lang } = await params;
+  if (!isLocale(lang)) notFound();
+
+  const isRTL = isRTLLocale(lang);
+  const rating = await getAggregateRating();
 
   return (
-    <html lang={lang} dir={isRTL ? 'rtl' : 'ltr'}>
+    <html lang={lang} dir={isRTL ? "rtl" : "ltr"} className={heebo.variable} suppressHydrationWarning>
       {/* We add suppressing hydration warnings just in case extensions modify body attributes */}
       <body suppressHydrationWarning className="font-sans antialiased text-brand-navy selection:bg-brand-gold/20 selection:text-brand-navy">
-        {/* Google Analytics 4 */}
-        <Script src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`} strategy="afterInteractive" />
-        <Script id="ga4-init" strategy="afterInteractive">{`
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('js', new Date());
-          gtag('config', '${GA_ID}', { page_path: window.location.pathname });
-        `}</Script>
-        <Providers>
-          <JsonLdSchema lang={lang} />
-          
+        {/* 1) Flags JS support before first paint (scroll-reveal never hides content for no-JS visitors/crawlers).
+            2) GA4: commands queue in dataLayer immediately (nothing is lost); the 180 KB gtag.js itself loads
+               on the first interaction or 3.5s after page load, so it never competes with the LCP image. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `document.documentElement.classList.add('js');window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}',{page_path:location.pathname});(function(){var done=false;function load(){if(done)return;done=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=${GA_ID}';document.head.appendChild(s);}['pointerdown','keydown','touchstart','scroll'].forEach(function(e){addEventListener(e,load,{once:true,passive:true});});addEventListener('load',function(){setTimeout(load,3500);});})();`,
+          }}
+        />
+        <JsonLdSchema lang={lang} rating={rating} />
+        <Providers lang={lang}>
           <div className={`min-h-screen flex flex-col ${isRTL ? 'rtl' : 'ltr'}`}>
              <a href="#main-content" className="skip-to-main" tabIndex={0}>
               {lang === 'he' ? 'דלג לתוכן הראשי' :
@@ -143,14 +103,12 @@ export default async function RootLayout({
                lang === 'ru' ? 'Перейти к основному содержанию' :
                'Skip to main content'}
              </a>
-             
-             <Suspense fallback={<header className="h-16 bg-white" />}>
-               <Header />
-             </Suspense>
+
+             <Header />
              <main id="main-content" className="flex-1" tabIndex={-1}>
                {children}
              </main>
-             <Footer />
+             <Footer locale={lang} />
              <MobileCTA />
           </div>
         </Providers>
