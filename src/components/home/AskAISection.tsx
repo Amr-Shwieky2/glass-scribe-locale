@@ -5,6 +5,8 @@
  *    index (/api/search-index/[lang]) searched in the browser — works without AI.
  *  - Enter / "Ask": streams a short AI answer grounded in the same content.
  *  - If the AI is unavailable or rate-limited, the visitor gets a WhatsApp prompt.
+ *  - "Popular questions" (and FAQ entries among the instant results) open the
+ *    chat with our official answer, shown at once without an AI call.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
@@ -12,7 +14,8 @@ import { Sparkles, Search, MessageCircle, Phone, Loader2, ArrowLeft, ArrowRight 
 import { trackEvent } from '@/lib/gtag';
 import { getLoadedSiteSearch, loadSiteSearch, searchSite, type SiteHit } from '@/lib/search/client';
 import type { AiSearchStrings } from '@/data/ai-search';
-import { openChat } from '@/components/chat/chat-events';
+import { loadChatPanel, openChat } from '@/components/chat/chat-events';
+import type { QuestionAnswer } from '@/data/faq';
 import type { SupportedLocale } from '@/data/types';
 
 interface AskAISectionProps {
@@ -21,7 +24,8 @@ interface AskAISectionProps {
   strings: AiSearchStrings;
   /** Label of the button that continues the answer in the site chat. */
   continueInChatLabel: string;
-  suggestions: string[];
+  /** Popular FAQ questions with their official answers. */
+  popularQuestions: QuestionAnswer[];
   whatsapp: string;
   phoneIntl: string;
 }
@@ -59,7 +63,7 @@ function AnswerText({ text }: { text: string }) {
   return <p className="whitespace-pre-line leading-relaxed text-gray-700 text-base sm:text-lg">{parts}</p>;
 }
 
-const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, continueInChatLabel, suggestions, whatsapp, phoneIntl }) => {
+const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, continueInChatLabel, popularQuestions, whatsapp, phoneIntl }) => {
   const [query, setQuery] = useState('');
   const [hits, setHits] = useState<Hit[]>([]);
   const [answer, setAnswer] = useState<AnswerState>({ status: 'idle' });
@@ -131,10 +135,10 @@ const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, contin
     ask(query);
   };
 
-  const onChip = (q: string) => {
-    setQuery(q);
-    loadIndex();
-    ask(q);
+  /** An official FAQ answer, shown in the chat at once (no AI call); the visitor can continue from there. */
+  const showOfficialAnswer = (question: string, answer: string) => {
+    trackEvent({ action: 'chat_popular_question_clicked', category: 'AI Chat', label: locale });
+    openChat({ question, answer, faq: true });
   };
 
   const askedQuestion = answer.status === 'idle' ? '' : answer.question;
@@ -190,17 +194,21 @@ const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, contin
             <p id="ask-ai-hint" className="sr-only">{strings.subtitle}</p>
           </form>
 
-          {/* Suggested questions */}
-          <div className="mt-4" aria-label={strings.suggestionsLabel} role="group">
+          {/* Popular questions — official FAQ answers, opened in the chat */}
+          <div className="mt-5" aria-labelledby="ask-ai-popular" role="group">
+            <p id="ask-ai-popular" className="mb-2 text-center text-sm font-medium text-gray-600">{strings.suggestionsLabel}</p>
             <ul className="flex flex-wrap justify-center gap-2">
-              {suggestions.map((s) => (
-                <li key={s}>
+              {popularQuestions.map((qa) => (
+                <li key={qa.question}>
                   <button
                     type="button"
-                    onClick={() => onChip(s)}
+                    onClick={() => showOfficialAnswer(qa.question, qa.answer)}
+                    onPointerEnter={loadChatPanel}
+                    onFocus={loadChatPanel}
+                    aria-haspopup="dialog"
                     className="rounded-full border border-brand-navy/15 bg-brand-light px-4 py-2 text-sm text-brand-navy hover:border-brand-gold hover:bg-brand-gold/10 transition-colors"
                   >
-                    {s}
+                    {qa.question}
                   </button>
                 </li>
               ))}
@@ -213,17 +221,32 @@ const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, contin
               <h3 className="text-sm font-semibold uppercase tracking-wide text-gray-500 mb-2">{strings.instantResults}</h3>
               {hits.length > 0 ? (
                 <ul className="divide-y divide-gray-100 rounded-xl border border-gray-100 bg-white shadow-sm overflow-hidden">
-                  {hits.map((hit) => (
-                    <li key={hit.id}>
-                      <Link href={hit.url} className="group flex items-start gap-3 p-4 hover:bg-brand-light transition-colors">
+                  {hits.map((hit) => {
+                    const content = (
+                      <>
                         <div className="min-w-0 flex-1">
                           <p className="font-semibold text-brand-navy group-hover:text-brand-gold transition-colors">{hit.title}</p>
                           <p className="text-sm text-gray-600 line-clamp-1">{hit.snippet}</p>
                         </div>
                         <Arrow className="w-4 h-4 mt-1 text-gray-400 group-hover:text-brand-gold flex-shrink-0" aria-hidden="true" />
-                      </Link>
-                    </li>
-                  ))}
+                      </>
+                    );
+                    const itemClass = 'group flex w-full items-start gap-3 p-4 text-start hover:bg-brand-light transition-colors';
+                    return (
+                      <li key={hit.id}>
+                        {/* FAQ entries have no section to link to: their official answer opens in the chat */}
+                        {hit.answer ? (
+                          <button type="button" onClick={() => showOfficialAnswer(hit.title, hit.answer!)} aria-haspopup="dialog" className={itemClass}>
+                            {content}
+                          </button>
+                        ) : (
+                          <Link href={hit.url} className={itemClass}>
+                            {content}
+                          </Link>
+                        )}
+                      </li>
+                    );
+                  })}
                 </ul>
               ) : (
                 <p className="text-sm text-gray-500">{strings.noResults}</p>

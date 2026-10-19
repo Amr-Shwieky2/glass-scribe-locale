@@ -18,6 +18,10 @@ export interface Passage {
 }
 
 const MAX_PASSAGE = 900;
+/** Ranking weight of an FAQ entry vs. a page passage, so AI answers follow our official answers. */
+const FAQ_BOOST = 2;
+/** At most this many FAQ entries per answer, so related pages still get in. */
+const MAX_FAQ_PASSAGES = 3;
 
 function toPassages(doc: SearchDoc): Passage[] {
   const paragraphs = doc.text.split(/\n{2,}/).map((p) => p.trim()).filter(Boolean);
@@ -41,26 +45,54 @@ const indexes = new Map<SupportedLocale, MiniSearch<Passage>>();
 function getIndex(locale: SupportedLocale): MiniSearch<Passage> {
   let index = indexes.get(locale);
   if (!index) {
-    index = new MiniSearch<Passage>({ ...SEARCH_OPTIONS, storeFields: ['title', 'url', 'type', 'text'] });
+    index = new MiniSearch<Passage>({ ...SEARCH_OPTIONS, storeFields: ['title', 'url', 'type', 'keywords', 'text'] });
     index.addAll(buildSearchDocs(locale).flatMap(toPassages));
     indexes.set(locale, index);
   }
   return index;
 }
 
-/** Top passages for a question (at most one per page, so links stay varied). */
-export function retrievePassages(question: string, locale: SupportedLocale, limit = 5): Pick<Passage, 'title' | 'url' | 'text'>[] {
-  const results = getIndex(locale).search(question);
-  const seen = new Set<string>();
-  const out: Pick<Passage, 'title' | 'url' | 'text'>[] = [];
+export type RetrievedPassage = Pick<Passage, 'title' | 'url' | 'type' | 'keywords' | 'text'>;
+
+/**
+ * Top passages for a question: FAQ entries weighted up (at most MAX_FAQ_PASSAGES),
+ * and at most one passage per page, so links stay varied.
+ */
+export function retrievePassages(question: string, locale: SupportedLocale, limit = 5): RetrievedPassage[] {
+  const results = getIndex(locale).search(question, {
+    boostDocument: (_id, _term, stored) => (stored?.type === 'faq' ? FAQ_BOOST : 1),
+  });
+  const seenPages = new Set<string>();
+  const out: RetrievedPassage[] = [];
+  let faqs = 0;
   for (const r of results) {
-    const url = r.url as string;
-    if (seen.has(url)) continue;
-    seen.add(url);
-    out.push({ title: r.title as string, url, text: r.text as string });
+    const passage: RetrievedPassage = { title: r.title, url: r.url, type: r.type, keywords: r.keywords, text: r.text };
+    if (passage.type === 'faq') {
+      if (faqs >= MAX_FAQ_PASSAGES) continue;
+      faqs++;
+    } else {
+      if (seenPages.has(passage.url)) continue;
+      seenPages.add(passage.url);
+    }
+    out.push(passage);
     if (out.length >= limit) break;
   }
   return out;
+}
+
+/**
+ * The <site_content> block of an AI prompt: numbered passages, with FAQ entries
+ * marked "Official FAQ" (and their service, if any) — the system prompts tell the
+ * model to follow those answers.
+ */
+export function formatSiteContent(passages: RetrievedPassage[]): string {
+  const items = passages.map((p, i) => {
+    const url = p.url ? `\nURL: ${p.url}` : '';
+    return p.type === 'faq'
+      ? `[${i + 1}] Official FAQ${p.keywords ? ` (${p.keywords})` : ''}${url}\nQ: ${p.title}\nA: ${p.text}`
+      : `[${i + 1}] ${p.title}${url}\n${p.text}`;
+  });
+  return ['<site_content>', ...items, '</site_content>'].join('\n');
 }
 
 /** The question's language from its script (Latin → English); otherwise the page language. */

@@ -1,6 +1,7 @@
 /**
- * FAQ content — server-safe. Rendered on the home page (and its FAQPage
- * JSON-LD), indexed by the site search and used to ground AI answers.
+ * FAQ content — server-safe. Indexed by the site search and used to ground AI
+ * answers; shown on the home page (with its FAQPage JSON-LD) only while
+ * SHOW_FAQ_SECTIONS (src/data/site-features.ts) is on.
  */
 import type { LocalizedText, SupportedLocale } from './types';
 
@@ -298,4 +299,35 @@ export function buildHomeFaqSchema(locale: SupportedLocale) {
       acceptedAnswer: { '@type': 'Answer', text: faq.answer[locale] },
     })),
   };
+}
+
+export interface QuestionAnswer {
+  question: string;
+  answer: string;
+}
+
+/**
+ * The home FAQ entries offered as "Popular questions": chips in the home Ask AI
+ * section and the chat's starter suggestions. Clicking one shows its official
+ * answer at once, without an AI call. Listed by their English question, so
+ * reordering the FAQ can't silently swap them.
+ */
+const POPULAR_QUESTIONS_EN = [
+  'How much does glass installation cost in Israel?',
+  'How long does glass installation take?',
+  'What type of glass is best for shower enclosures?',
+  'Do you offer a warranty on glass installations?',
+  'Do you serve all areas in Israel?',
+  'Can I get a free quote without commitment?',
+];
+
+const POPULAR_FAQS: FaqItem[] = POPULAR_QUESTIONS_EN.map((en) => {
+  const item = HOME_FAQ_CONTENT.faqs.find((faq) => faq.question.en === en);
+  if (!item) throw new Error(`Popular question missing from HOME_FAQ_CONTENT: ${en}`);
+  return item;
+});
+
+/** The popular questions with their official answers, in one language. */
+export function getPopularQuestions(locale: SupportedLocale): QuestionAnswer[] {
+  return POPULAR_FAQS.map((faq) => ({ question: faq.question[locale], answer: faq.answer[locale] }));
 }

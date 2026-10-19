@@ -14,13 +14,14 @@ import FAQSection from '@/components/home/FAQSection';
 import HomeTestimonials from '@/components/home/HomeTestimonials';
 import TrackedLink from '@/components/TrackedLink';
 import AskAISection from '@/components/home/AskAISection';
-import { AI_SEARCH_SUGGESTIONS, getAiSearchStrings } from '@/data/ai-search';
+import { getAiSearchStrings } from '@/data/ai-search';
 import { CONTINUE_IN_CHAT } from '@/data/chat';
 import { CONTACT_INFO } from '@/data/contact';
 import { UI_STRINGS } from '@/data/ui-strings';
 import { getLocalizedText } from '@/data/helpers';
 import type { SupportedLocale } from '@/data/types';
-import { HOME_FAQ_CONTENT } from '@/data/faq';
+import { HOME_FAQ_CONTENT, getPopularQuestions } from '@/data/faq';
+import { SHOW_FAQ_SECTIONS } from '@/data/site-features';
 
 // CTA Section Content
 const CTA_CONTENT = {
@@ -56,10 +57,6 @@ const SERVICES_SECTION_ID = 'home-services';
 
 const Home: React.FC<HomeProps> = ({ locale, heroImageId, serviceCardImages }) => {
   const currentLanguage = locale;
-  const faqItems = HOME_FAQ_CONTENT.faqs.map((faq) => ({
-    question: getLocalizedText(faq.question, locale),
-    answer: getLocalizedText(faq.answer, locale),
-  }));
 
   return (
     <div className="min-h-screen">
@@ -70,13 +67,13 @@ const Home: React.FC<HomeProps> = ({ locale, heroImageId, serviceCardImages }) =
       {/* Services Section */}
       <HomeServices id={SERVICES_SECTION_ID} locale={locale} serviceCardImages={serviceCardImages} />
 
-      {/* Ask AI — instant site search + grounded AI answers */}
+      {/* Ask AI — instant site search + grounded AI answers; "Popular questions" answer our FAQ in the chat */}
       <AskAISection
         id="ask"
         locale={locale}
         strings={getAiSearchStrings(locale)}
         continueInChatLabel={CONTINUE_IN_CHAT[locale]}
-        suggestions={AI_SEARCH_SUGGESTIONS[locale]}
+        popularQuestions={getPopularQuestions(locale)}
         whatsapp={CONTACT_INFO.whatsapp}
         phoneIntl={CONTACT_INFO.phoneIntl}
       />
@@ -90,13 +87,18 @@ const Home: React.FC<HomeProps> = ({ locale, heroImageId, serviceCardImages }) =
       {/* Our Process - AI-friendly structured content */}
       <ProcessSection locale={locale} />
 
-      {/* FAQ Section - For SEO and AI Search */}
-      <FAQSection
-        id="faq"
-        title={getLocalizedText(HOME_FAQ_CONTENT.sectionTitle, locale)}
-        subtitle={getLocalizedText(HOME_FAQ_CONTENT.sectionSubtitle, locale)}
-        items={faqItems}
-      />
+      {/* FAQ Section — off while SHOW_FAQ_SECTIONS is false: the AI assistant answers these questions */}
+      {SHOW_FAQ_SECTIONS && (
+        <FAQSection
+          id="faq"
+          title={getLocalizedText(HOME_FAQ_CONTENT.sectionTitle, locale)}
+          subtitle={getLocalizedText(HOME_FAQ_CONTENT.sectionSubtitle, locale)}
+          items={HOME_FAQ_CONTENT.faqs.map((faq) => ({
+            question: getLocalizedText(faq.question, locale),
+            answer: getLocalizedText(faq.answer, locale),
+          }))}
+        />
+      )}
 
       {/* Final CTA Section */}
       <section className="py-16 sm:py-20 md:py-24 bg-gradient-to-br from-brand-navy via-brand-navy to-brand-navy/95 text-white relative overflow-hidden">

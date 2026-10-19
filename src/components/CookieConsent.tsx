@@ -4,10 +4,9 @@
  * GDPR/Israeli Privacy Law compliant cookie notice
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Cookie, X, Settings } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
-import { notifyCookieConsent } from '@/components/chat/chat-events';
 
 const LABELS = {
   he: {
@@ -77,6 +76,7 @@ const CookieConsent: React.FC = () => {
   const labels = LABELS[currentLanguage as keyof typeof LABELS] || LABELS.he;
   const [visible, setVisible] = useState(false);
   const [showSettings, setShowSettings] = useState(false);
+  const bannerRef = useRef<HTMLDivElement>(null);
   const [preferences, setPreferences] = useState<CookiePreferences>({
     essential: true, // Always true, can't be disabled
     analytics: false,
@@ -105,6 +105,21 @@ const CookieConsent: React.FC = () => {
     }
   }, []);
 
+  // While shown, publish the banner's height so the chat button can sit above it (.chat-dock in index.css)
+  useEffect(() => {
+    const el = bannerRef.current;
+    if (!visible || !el) return;
+    const root = document.documentElement;
+    const update = () => root.style.setProperty('--cookie-banner-h', `${Math.ceil(el.getBoundingClientRect().height)}px`);
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(el);
+    return () => {
+      observer.disconnect();
+      root.style.removeProperty('--cookie-banner-h');
+    };
+  }, [visible]);
+
   const enableAnalytics = () => {
     // Dynamically inject Plausible Analytics script only when user consents
     if (typeof window !== 'undefined' && !document.getElementById('plausible-script')) {
@@ -122,7 +137,6 @@ const CookieConsent: React.FC = () => {
     localStorage.setItem('cookie-consent-date', new Date().toISOString());
     setPreferences(prefs);
     setVisible(false);
-    notifyCookieConsent(); // lets the chat launcher appear once the banner is gone
     
     if (prefs.analytics) {
       enableAnalytics();
@@ -140,7 +154,8 @@ const CookieConsent: React.FC = () => {
   if (!visible) return null;
 
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6">
+    // Phones/tablets: above the bottom CTA bar (MobileCTA), so its buttons — Ask AI included — stay usable
+    <div ref={bannerRef} className="fixed bottom-16 sm:bottom-[4.5rem] lg:bottom-0 left-0 right-0 z-50 p-4 sm:p-6">
       <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
         {/* Main Banner */}
         <div className="p-4 sm:p-6">

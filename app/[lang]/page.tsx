@@ -7,6 +7,7 @@ import { getThumbnailUrl } from '@/lib/cloudinary/urls';
 import { SERVICES } from '@/data';
 import { buildPageMetadata, getHomeSeo } from '@/data/seo';
 import { buildHomeFaqSchema } from '@/data/faq';
+import { SHOW_FAQ_SECTIONS } from '@/data/site-features';
 
 type Props = { params: Promise<{ lang: string }> };
 
@@ -29,7 +30,10 @@ export default async function Page({ params }: Props) {
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildHomeFaqSchema(locale)) }} />
+      {/* FAQPage markup only alongside the visible FAQ section (Google requires them to match) */}
+      {SHOW_FAQ_SECTIONS && (
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(buildHomeFaqSchema(locale)) }} />
+      )}
       <Home locale={locale} heroImageId={heroImages[0]?.public_id} serviceCardImages={serviceCardImages} />
     </>
   );

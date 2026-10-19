@@ -22,11 +22,14 @@ export interface SearchDoc {
   title: string;
   /** One line shown under the title in instant results. */
   snippet: string;
-  /** Site-relative URL, already localized (e.g. /he/glass-shower-installation). */
+  /**
+   * Site-relative URL, already localized (e.g. /he/glass-shower-installation).
+   * For an FAQ entry: the page it belongs to, or '' (home FAQ — no page of its own).
+   */
   url: string;
-  /** Extra short terms boosted in ranking. */
+  /** Extra short terms boosted in ranking. For an FAQ entry of a service page: that service's name. */
   keywords: string;
-  /** Searchable body (truncated in the browser index, full on the server). */
+  /** Searchable body (truncated in the browser index, full on the server). For an FAQ entry: its official answer. */
   text: string;
 }
 
@@ -64,7 +67,6 @@ export function buildSearchDocs(locale: SupportedLocale): SearchDoc[] {
       text: [
         page.intro[locale], page.overview[locale], page.options[locale], page.process[locale],
         page.benefits[locale], page.areasSummary[locale], page.materialOptions[locale].join(', '),
-        ...page.faqs.map((f) => `${f.question[locale]}\n${f.answer[locale]}`),
       ].join('\n\n'),
     });
   }
@@ -83,19 +85,35 @@ export function buildSearchDocs(locale: SupportedLocale): SearchDoc[] {
     });
   }
 
-  // Home FAQ — one doc per question (GENERAL_FAQ isn't shown on any page, so it
-  // only grounds the AI via the system prompt and isn't linked from results)
+  // FAQ — every question/answer pair is its own doc: the home FAQ and each service
+  // page's FAQ. Server retrieval ranks them high so AI answers follow our official
+  // wording; in the browser, an FAQ result opens the chat with its official answer.
+  // (GENERAL_FAQ isn't shown anywhere; it grounds the AI via the system prompt.)
   HOME_FAQ_CONTENT.faqs.forEach((faq, i) => {
     docs.push({
       id: `faq:${i}`,
       type: 'faq',
       title: faq.question[locale],
       snippet: oneLine(faq.answer[locale]),
-      url: L('#faq'),
+      url: '',
       keywords: '',
       text: faq.answer[locale],
     });
   });
+  for (const page of SERVICE_SEO_PAGES) {
+    page.faqs.forEach((faq, i) => {
+      docs.push({
+        id: `faq:${page.slug}:${i}`,
+        type: 'faq',
+        title: faq.question[locale],
+        snippet: oneLine(faq.answer[locale]),
+        url: L(`/${page.slug}`),
+        keywords: page.heroTitle[locale],
+        text: faq.answer[locale],
+      });
+    });
+  }
+
   for (const post of BLOG_POSTS) {
     docs.push({
       id: `blog:${post.slug}`,
@@ -150,7 +168,10 @@ export function buildSearchDocs(locale: SupportedLocale): SearchDoc[] {
   return docs;
 }
 
-/** Browser-index version: same docs with the body trimmed to keep the download small. */
+/**
+ * Browser-index version: same docs with page bodies trimmed to keep the download
+ * small. FAQ answers stay whole — the chat shows them as the official answer.
+ */
 export function buildClientSearchDocs(locale: SupportedLocale, maxText = 600): SearchDoc[] {
-  return buildSearchDocs(locale).map((d) => ({ ...d, text: d.text.slice(0, maxText) }));
+  return buildSearchDocs(locale).map((d) => (d.type === 'faq' ? d : { ...d, text: d.text.slice(0, maxText) }));
 }

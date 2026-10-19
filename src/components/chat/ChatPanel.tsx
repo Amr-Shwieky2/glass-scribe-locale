@@ -5,14 +5,16 @@
  * - Desktop: ~380×600 panel in the inline-end corner. Mobile: full-screen sheet
  *   sized to the visual viewport, so the on-screen keyboard never hides the input.
  * - role="dialog" + aria-modal, focus trap, Esc closes, focus returns to the
- *   launcher; finished replies are announced through a polite live region.
+ *   control that opened it; finished replies are announced through a polite live region.
+ * - Starter chips are our popular FAQ questions: their official answers appear
+ *   at once, without an AI call; the visitor can then continue with the AI.
  * - Each message has dir="auto", so a visitor can write Russian on the Hebrew site.
  * - The conversation is kept in sessionStorage only (see chat-session.ts).
  */
 import React, { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import { X, Send, Phone, RotateCcw } from 'lucide-react';
+import { X, Send, Phone, RotateCcw, BadgeCheck } from 'lucide-react';
 import ChatMarkdown from './ChatMarkdown';
 import QuoteCard from './QuoteCard';
 import { loadChatSession, saveChatSession, clearChatSession, type ChatSessionState, type UiMessage } from './chat-session';
@@ -21,8 +23,9 @@ import { trackEvent } from '@/lib/gtag';
 import { isBusinessOpen } from '@/lib/business-hours';
 import { CHAT_LIMITS, type ChatFallbackReason, type ChatStreamEvent, type ChatTurn, type QuoteDraft } from '@/lib/chat-protocol';
 import { loadSiteSearch, searchSiteOrDefaults } from '@/lib/search/client';
-import { CHAT_STARTERS, getChatStrings } from '@/data/chat';
+import { getChatStrings } from '@/data/chat';
 import { CONTACT_INFO } from '@/data/contact';
+import type { QuestionAnswer } from '@/data/faq';
 import type { SupportedLocale } from '@/data/types';
 
 interface ChatPanelProps {
@@ -33,6 +36,8 @@ interface ChatPanelProps {
   onSeedConsumed: () => void;
   /** Called once mounted, so the launcher can stop showing its loading spinner. */
   onReady?: () => void;
+  /** Popular questions with their official answers, shown as starter chips (answered without an AI call). */
+  starters: QuestionAnswer[];
 }
 
 const WHATSAPP_NUMBER = CONTACT_INFO.whatsapp.replace('+', '');
@@ -90,7 +95,7 @@ const WhatsAppIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSeedConsumed, onReady }) => {
+const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSeedConsumed, onReady, starters }) => {
   const s = useMemo(() => getChatStrings(locale), [locale]);
   const titleId = useId();
   const inputId = useId();
@@ -134,17 +139,40 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
     if (restored) saveChatSession({ v: 1, messages, quote, fallback });
   }, [restored, messages, quote, fallback]);
 
-  // ---- "Continue in chat" from the home Ask AI box -----------------------------
-  useEffect(() => {
-    if (!restored || !seed) return;
+  /**
+   * Adds a question with a ready answer, without an AI call: an official FAQ answer
+   * (popular questions, FAQ search results) or an Ask AI answer handed over to the chat.
+   */
+  const addAnswered = useCallback((question: string, answer: string, faq?: boolean) => {
+    stickToBottomRef.current = true;
     setMessages((prev) => [
       ...prev,
-      { id: newId(), role: 'user', content: seed.question.slice(0, CHAT_LIMITS.maxUserChars) },
-      { id: newId(), role: 'assistant', content: seed.answer.slice(0, CHAT_LIMITS.maxAssistantChars) },
+      { id: newId(), role: 'user', content: question.slice(0, CHAT_LIMITS.maxUserChars) },
+      { id: newId(), role: 'assistant', content: answer.slice(0, CHAT_LIMITS.maxAssistantChars), ...(faq ? { faq: true } : {}) },
     ]);
     setFallback(null);
+    setAnnouncement(`${s.newMessage}: ${toSpeech(answer)}`);
+    if (faq) trackEvent({ action: 'chat_faq_answer_shown', category: CATEGORY, label: locale });
+  }, [s, locale]);
+
+  // ---- seeds from outside the chat: popular questions, "Continue in chat", service pages ----
+  useEffect(() => {
+    if (!restored || !seed) return;
+    if ('draft' in seed) {
+      // Keep anything the visitor already typed; otherwise start their message for them
+      setInput((prev) => (prev.trim() ? prev : seed.draft.slice(0, CHAT_LIMITS.maxUserChars)));
+      // After the focus-on-open effect: caret at the end of the draft (on phones too — they came here to type)
+      setTimeout(() => {
+        const el = inputRef.current;
+        if (!el) return;
+        el.focus();
+        el.setSelectionRange(el.value.length, el.value.length);
+      }, 50);
+    } else {
+      addAnswered(seed.question, seed.answer, seed.faq);
+    }
     onSeedConsumed();
-  }, [restored, seed, onSeedConsumed]);
+  }, [restored, seed, onSeedConsumed, addAnswered]);
 
   // ---- open/closed indicator (re-checked every minute while open) --------------
   useEffect(() => {
@@ -392,9 +420,10 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
     el.style.height = `${Math.min(el.scrollHeight, 128)}px`;
   };
 
-  const onStarter = (q: string) => {
+  const onStarter = ({ question, answer }: QuestionAnswer) => {
     trackEvent({ action: 'chat_starter_clicked', category: CATEGORY, label: locale });
-    send(q);
+    addAnswered(question, answer, true);
+    focusComposer();
   };
 
   const newConversation = () => {
@@ -463,9 +492,10 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
       tabIndex={-1}
       style={viewport ? { height: viewport.height, top: viewport.top } : undefined}
       // Mobile: full-screen sheet above everything. Desktop: below the site's own dialogs
-      // (accessibility panel, lightbox, cookie banner) and clear of the sticky header.
-      className={`${open ? 'flex' : 'hidden'} fixed z-[60] lg:z-40 inset-x-0 top-0 h-[100dvh] flex-col bg-white shadow-2xl outline-none chat-panel-in
-        lg:inset-x-auto lg:top-auto lg:end-4 lg:bottom-6 rtl:lg:bottom-24 lg:h-[600px] lg:max-h-[calc(100dvh-7rem)] rtl:lg:max-h-[calc(100dvh-11rem)] lg:w-[380px] lg:rounded-2xl lg:border lg:border-gray-200 lg:overflow-hidden`}
+      // (accessibility panel, lightbox, cookie banner), docked above the cookie banner /
+      // accessibility button (.chat-dock, index.css) and clear of the sticky header.
+      className={`${open ? 'flex' : 'hidden'} chat-dock chat-dock-panel fixed z-[60] lg:z-40 inset-x-0 top-0 h-[100dvh] flex-col bg-white shadow-2xl outline-none chat-panel-in
+        lg:inset-x-auto lg:top-auto lg:end-4 lg:h-[600px] lg:w-[380px] lg:rounded-2xl lg:border lg:border-gray-200 lg:overflow-hidden`}
     >
       {/* Header */}
       <div className="flex items-center gap-3 bg-brand-navy px-3 py-2.5 text-white">
@@ -499,15 +529,15 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
 
         {!hasVisitorMessages && (
           <div role="group" aria-label={s.startersLabel} className="flex flex-wrap gap-2">
-            {CHAT_STARTERS[locale].map((q) => (
+            {starters.map((qa) => (
               <button
-                key={q}
+                key={qa.question}
                 type="button"
-                onClick={() => onStarter(q)}
+                onClick={() => onStarter(qa)}
                 disabled={busy}
-                className="rounded-full border border-brand-navy/15 bg-white px-3 py-1.5 text-sm text-brand-navy hover:border-brand-gold hover:bg-brand-gold/10 disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold"
+                className="rounded-full border border-brand-navy/15 bg-white px-3 py-1.5 text-start text-sm text-brand-navy hover:border-brand-gold hover:bg-brand-gold/10 disabled:opacity-60 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold"
               >
-                {q}
+                {qa.question}
               </button>
             ))}
           </div>
@@ -540,6 +570,12 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
                     }}
                   />
                 )}
+                {m.faq && (
+                  <p className="mt-2 flex items-center gap-1 text-xs text-gray-600">
+                    <BadgeCheck className="h-3.5 w-3.5 shrink-0 text-brand-gold" aria-hidden="true" />
+                    {s.officialAnswer}
+                  </p>
+                )}
                 {m.cut && <p className="mt-2 text-xs text-gray-500">{s.answerCut}</p>}
                 {m.contactActions && <div className="mt-2">{contactButtons}</div>}
               </div>
@@ -566,14 +602,29 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
             <p>{fallbackText}</p>
             {fallback.hits.length > 0 && (
               <ul className="space-y-1.5">
-                {fallback.hits.map((hit) => (
-                  <li key={hit.id}>
-                    <Link href={hit.url} onClick={onInternalNavigate} className="block rounded-lg border border-gray-100 px-3 py-2 hover:border-brand-gold hover:bg-brand-light">
+                {fallback.hits.map((hit) => {
+                  const content = (
+                    <>
                       <span className="block text-sm font-semibold">{hit.title}</span>
                       <span className="block truncate text-xs text-gray-600">{hit.snippet}</span>
-                    </Link>
-                  </li>
-                ))}
+                    </>
+                  );
+                  const itemClass = 'block w-full rounded-lg border border-gray-100 px-3 py-2 text-start hover:border-brand-gold hover:bg-brand-light';
+                  return (
+                    <li key={hit.id}>
+                      {/* An FAQ entry is answered right here with the official answer; other results are pages */}
+                      {hit.answer ? (
+                        <button type="button" onClick={() => { addAnswered(hit.title, hit.answer!, true); focusComposer(); }} className={itemClass}>
+                          {content}
+                        </button>
+                      ) : (
+                        <Link href={hit.url} onClick={onInternalNavigate} className={itemClass}>
+                          {content}
+                        </Link>
+                      )}
+                    </li>
+                  );
+                })}
               </ul>
             )}
             {contactButtons}

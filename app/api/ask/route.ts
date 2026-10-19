@@ -11,7 +11,7 @@ import {
   logAnthropicError,
   scrubForLog,
 } from '@/lib/ai';
-import { detectLanguage, retrievePassages } from '@/lib/search/retrieve';
+import { detectLanguage, formatSiteContent, retrievePassages } from '@/lib/search/retrieve';
 import { buildAskSystemPrompt } from '@/lib/search/ask-prompt';
 
 /**
@@ -58,9 +58,7 @@ export async function POST(req: NextRequest) {
   console.log(JSON.stringify({ event: 'ai_search_question', lang: answerLang, question: scrubForLog(question) }));
 
   const userContent = [
-    '<site_content>',
-    ...passages.map((p, i) => `[${i + 1}] ${p.title}\nURL: ${p.url}\n${p.text}`),
-    '</site_content>',
+    formatSiteContent(passages),
     '',
     `<answer_language>${answerLang}</answer_language>`,
     '<visitor_question>',

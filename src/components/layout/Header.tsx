@@ -13,6 +13,7 @@ import { useScrollDetection } from '@/hooks/useScrollDetection';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
 import Image from 'next/image';
+import { openChat } from '@/components/chat/chat-events';
 import { BUSINESS_INFO } from '@/data/business-info';
 import { CONTACT_INFO } from '@/data/contact';
 import { NAVIGATION } from '@/data/navigation';
@@ -47,6 +48,8 @@ const Header: React.FC = () => {
   const handleWhatsApp = useCallback(() => { window.open(`https://wa.me/${CONTACT_INFO.whatsapp}`, '_blank'); }, []);
   const handlePhoneCall = useCallback(() => { window.location.href = `tel:${CONTACT_INFO.phoneIntl}`; }, []);
   const closeMobileMenu = useCallback(() => { setIsMenuOpen(false); }, []);
+  // The chat isn't available on admin pages
+  const handleAskAi = useMemo(() => (pathname?.includes('/admin') ? undefined : () => openChat()), [pathname]);
 
   // Handle language switch
   const handleLangSwitch = (code: string) => {
@@ -71,7 +74,7 @@ const Header: React.FC = () => {
             </div>
           </Link>
 
-          <DesktopNav navigation={navigation} isActive={isActive} locale={locale} supportedLanguages={supportedLanguages} currentLanguage={currentLanguage} onSwitchLanguage={switchLanguage} onWhatsApp={handleWhatsApp} onCall={handlePhoneCall} />
+          <DesktopNav navigation={navigation} isActive={isActive} locale={locale} supportedLanguages={supportedLanguages} currentLanguage={currentLanguage} onSwitchLanguage={switchLanguage} onWhatsApp={handleWhatsApp} onCall={handlePhoneCall} onAskAi={handleAskAi} />
 
           {/* Mobile: Language + Menu buttons */}
           <div className="flex items-center gap-2 lg:hidden">
@@ -131,7 +134,7 @@ const Header: React.FC = () => {
       </div>
 
       {isMenuOpen && (
-        <MobileNav navigation={navigation} isActive={isActive} locale={locale} supportedLanguages={supportedLanguages} currentLanguage={currentLanguage} onSwitchLanguage={switchLanguage} onWhatsApp={handleWhatsApp} onCall={handlePhoneCall} onClose={closeMobileMenu} />
+        <MobileNav navigation={navigation} isActive={isActive} locale={locale} supportedLanguages={supportedLanguages} currentLanguage={currentLanguage} onSwitchLanguage={switchLanguage} onWhatsApp={handleWhatsApp} onCall={handlePhoneCall} onAskAi={handleAskAi} onClose={closeMobileMenu} />
       )}
     </header>
   );

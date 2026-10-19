@@ -79,38 +79,6 @@ export const AI_SEARCH_STRINGS = {
   },
 } satisfies Record<string, LocalizedText>;
 
-/** 4–6 clickable example questions per language. */
-export const AI_SEARCH_SUGGESTIONS: Record<SupportedLocale, string[]> = {
-  he: [
-    'כמה עולה מקלחון ללא מסגרת?',
-    'אתם עובדים בחיפה?',
-    'מה ההבדל בין זכוכית 8 מ"מ ל-10 מ"מ?',
-    'כמה זמן לוקחת התקנה?',
-    'האם יש אחריות?',
-  ],
-  en: [
-    'How much does a frameless shower cost?',
-    'Do you work in Haifa?',
-    'What is the difference between 8mm and 10mm glass?',
-    'How long does installation take?',
-    'Do you give a warranty?',
-  ],
-  ar: [
-    'كم تكلفة كابينة دش بدون إطار؟',
-    'هل تعملون في حيفا؟',
-    'ما الفرق بين زجاج 8 مم و10 مم؟',
-    'كم يستغرق التركيب؟',
-    'هل يوجد ضمان؟',
-  ],
-  ru: [
-    'Сколько стоит безрамная душевая кабина?',
-    'Вы работаете в Хайфе?',
-    'Чем отличается стекло 8 мм от 10 мм?',
-    'Сколько времени занимает установка?',
-    'Даёте ли вы гарантию?',
-  ],
-};
-
 export type AiSearchStrings = { [K in keyof typeof AI_SEARCH_STRINGS]: string };
 
 export function getAiSearchStrings(locale: SupportedLocale): AiSearchStrings {

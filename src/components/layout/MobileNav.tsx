@@ -2,7 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Phone, MessageCircle, Globe, Check } from 'lucide-react';
+import { Phone, MessageCircle, Globe, Check, Sparkles } from 'lucide-react';
 import { UI_STRINGS } from '@/data/ui-strings';
 import { getLocalizedText } from '@/data/helpers';
 import type { SupportedLocale } from '@/data/types';
@@ -16,6 +16,8 @@ interface Props {
   onSwitchLanguage: (c: string) => void; 
   onWhatsApp: () => void; 
   onCall: () => void; 
+  /** Opens the AI chat (absent where the chat isn't available). */
+  onAskAi?: () => void;
   onClose: () => void; 
 }
 
@@ -28,6 +30,7 @@ const MobileNav: React.FC<Props> = ({
   onSwitchLanguage, 
   onWhatsApp, 
   onCall, 
+  onAskAi,
   onClose 
 }) => (
   <div className="lg:hidden bg-white border-t shadow-lg max-h-[calc(100vh-4rem)] overflow-y-auto">
@@ -74,6 +77,16 @@ const MobileNav: React.FC<Props> = ({
         
         {/* Contact Buttons */}
         <div className="flex flex-col gap-3 mt-2 px-2">
+          {onAskAi && (
+            <Button
+              onClick={() => { onClose(); onAskAi(); }}
+              aria-haspopup="dialog"
+              className="w-full h-14 text-lg bg-brand-navy hover:bg-brand-navy/90 text-white font-semibold"
+            >
+              <Sparkles className="w-5 h-5 mr-3 text-brand-gold" aria-hidden="true" />
+              {getLocalizedText(UI_STRINGS.askAi, locale)}
+            </Button>
+          )}
           <Button 
             onClick={onCall} 
             className="w-full h-14 text-lg" 

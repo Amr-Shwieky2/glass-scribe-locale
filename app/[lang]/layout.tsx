@@ -6,7 +6,8 @@ import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
 import MobileCTA from '@/components/MobileCTA';
 import ChatLauncher from '@/components/chat/ChatLauncher';
-import { CHAT_LAUNCHER_LABEL } from '@/data/chat';
+import { getChatLauncherStrings } from '@/data/chat';
+import { getPopularQuestions } from '@/data/faq';
 import JsonLdSchema from '@/components/JsonLdSchema';
 import '@/index.css'; // Global styles
 import { isLocale, isRTLLocale, localeParams } from '@/lib/i18n';
@@ -111,7 +112,7 @@ export default async function RootLayout({
              </main>
              <Footer locale={lang} />
              <MobileCTA />
-             <ChatLauncher lang={lang} label={CHAT_LAUNCHER_LABEL[lang]} />
+             <ChatLauncher lang={lang} strings={getChatLauncherStrings(lang)} starters={getPopularQuestions(lang)} />
           </div>
         </Providers>
       </body>

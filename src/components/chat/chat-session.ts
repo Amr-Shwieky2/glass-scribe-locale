@@ -12,6 +12,8 @@ export interface UiMessage {
   content: string;
   /** Added by the widget itself (thank-you / cancelled notes), not by the model. */
   local?: boolean;
+  /** An official FAQ answer (shown without an AI call). */
+  faq?: boolean;
   /** Show WhatsApp + call buttons under this message. */
   contactActions?: boolean;
   /** The answer stream broke off part-way. */

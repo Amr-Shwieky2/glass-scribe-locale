@@ -1,16 +1,29 @@
 /**
  * Chat assistant — localized UI strings.
- * The launcher label is separate so the always-loaded button stays tiny; the
+ * The launcher strings are separate so the always-loaded button stays tiny; the
  * rest is only downloaded with the chat panel.
  */
 import type { LocalizedText, SupportedLocale } from './types';
 
-export const CHAT_LAUNCHER_LABEL: LocalizedText = {
-  he: 'שאלו אותנו',
-  en: 'Ask us',
-  ar: 'اسألنا',
-  ru: 'Спросите нас',
-};
+export const CHAT_LAUNCHER_STRINGS = {
+  /** Floating button (desktop). */
+  label: { he: 'שאלו את ה-AI שלנו', en: 'Ask our AI', ar: 'اسأل الذكاء الاصطناعي', ru: 'Спросите наш ИИ' },
+  /** Greeting bubble shown once per session next to the launcher. */
+  greeting: {
+    he: 'היי! שאלות על מקלחונים, מעקות או מראות? שאלו אותי 👋',
+    en: 'Hi! Questions about showers, railings or mirrors? Ask me 👋',
+    ar: 'مرحباً! لديك أسئلة عن كبائن الدش أو الدرابزين أو المرايا؟ اسألني 👋',
+    ru: 'Здравствуйте! Вопросы о душевых, перилах или зеркалах? Спросите меня 👋',
+  },
+  dismiss: { he: 'סגירת ההודעה', en: 'Dismiss', ar: 'إغلاق الرسالة', ru: 'Закрыть сообщение' },
+  loading: { he: "פותח את הצ'אט…", en: 'Opening the chat…', ar: 'جارٍ فتح المحادثة…', ru: 'Открываем чат…' },
+} satisfies Record<string, LocalizedText>;
+
+export type ChatLauncherStrings = { [K in keyof typeof CHAT_LAUNCHER_STRINGS]: string };
+
+export function getChatLauncherStrings(locale: SupportedLocale): ChatLauncherStrings {
+  return Object.fromEntries(Object.entries(CHAT_LAUNCHER_STRINGS).map(([k, v]) => [k, v[locale]])) as ChatLauncherStrings;
+}
 
 export const CHAT_STRINGS = {
   title: {
@@ -32,7 +45,8 @@ export const CHAT_STRINGS = {
     ar: 'مرحباً! 👋 أنا المساعد الذكي (AI) لشويكي اخوان للزجاج. اسألني أي شيء عن الزجاج وخدماتنا، ويمكنني مساعدتك في تجهيز طلب عرض سعر مجاني. أنا ذكاء اصطناعي وقد أخطئ أحياناً.',
     ru: 'Здравствуйте! 👋 Я ИИ-ассистент компании «Братья Шваки». Спрашивайте о стекле и наших услугах — и я помогу подготовить заявку на бесплатный расчёт. Я искусственный интеллект и могу ошибаться.',
   },
-  startersLabel: { he: 'שאלות לדוגמה', en: 'Suggested questions', ar: 'أسئلة مقترحة', ru: 'Примеры вопросов' },
+  startersLabel: { he: 'שאלות נפוצות', en: 'Popular questions', ar: 'أسئلة شائعة', ru: 'Популярные вопросы' },
+  officialAnswer: { he: 'תשובה רשמית שלנו', en: 'Our official answer', ar: 'إجابتنا الرسمية', ru: 'Наш официальный ответ' },
   placeholder: { he: 'כתבו את השאלה שלכם…', en: 'Type your question…', ar: 'اكتب سؤالك…', ru: 'Напишите ваш вопрос…' },
   inputLabel: { he: 'ההודעה שלכם', en: 'Your message', ar: 'رسالتك', ru: 'Ваше сообщение' },
   send: { he: 'שליחה', en: 'Send', ar: 'إرسال', ru: 'Отправить' },
@@ -142,14 +156,6 @@ export function getChatStrings(locale: SupportedLocale): ChatStrings {
   return Object.fromEntries(Object.entries(CHAT_STRINGS).map(([k, v]) => [k, v[locale]])) as ChatStrings;
 }
 
-/** 3–5 starter questions per language. */
-export const CHAT_STARTERS: Record<SupportedLocale, string[]> = {
-  he: ['כמה עולה מקלחון ללא מסגרת?', 'אתם עובדים באזור שלי?', 'איזו זכוכית הכי מתאימה למעקה במרפסת?', 'אני רוצה הצעת מחיר חינם'],
-  en: ['How much does a frameless shower cost?', 'Do you work in my city?', 'What glass is best for a balcony railing?', 'I want a free quote'],
-  ar: ['كم تكلفة كابينة دش بدون إطار؟', 'هل تعملون في مدينتي؟', 'ما أفضل زجاج لدرابزين الشرفة؟', 'أريد عرض سعر مجاني'],
-  ru: ['Сколько стоит безрамная душевая кабина?', 'Вы работаете в моём городе?', 'Какое стекло лучше для ограждения балкона?', 'Хочу бесплатный расчёт'],
-};
-
 /** Label of the home "Ask AI" button that hands the answer over to the chat. */
 export const CONTINUE_IN_CHAT: LocalizedText = {
   he: "המשיכו בצ'אט",
@@ -157,3 +163,24 @@ export const CONTINUE_IN_CHAT: LocalizedText = {
   ar: 'تابع في المحادثة',
   ru: 'Продолжить в чате',
 };
+
+/**
+ * Service landing pages: one line where the FAQ block was ("Have a question
+ * about …? Ask our AI"). It opens the chat with `draft` in the message box.
+ * {service} is replaced by the service name.
+ */
+export const SERVICE_ASK_AI = {
+  question: {
+    he: 'יש לכם שאלה על {service}?',
+    en: 'Have a question about {service}?',
+    ar: 'لديك سؤال عن {service}؟',
+    ru: 'Есть вопрос по теме «{service}»?',
+  },
+  cta: { he: 'שאלו את ה-AI שלנו', en: 'Ask our AI', ar: 'اسأل الذكاء الاصطناعي', ru: 'Спросите наш ИИ' },
+  draft: {
+    he: 'שאלה על {service}: ',
+    en: 'Question about {service}: ',
+    ar: 'سؤال عن {service}: ',
+    ru: 'Вопрос по теме «{service}»: ',
+  },
+} satisfies Record<string, LocalizedText>;

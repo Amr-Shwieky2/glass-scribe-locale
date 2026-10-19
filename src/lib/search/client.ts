@@ -8,7 +8,10 @@ import type { SupportedLocale } from '@/data/types';
 import type { SearchDoc } from './documents';
 import { SEARCH_OPTIONS } from './tokenize';
 
-export type SiteHit = Pick<SearchDoc, 'id' | 'title' | 'snippet' | 'url' | 'type'>;
+export type SiteHit = Pick<SearchDoc, 'id' | 'title' | 'snippet' | 'url' | 'type'> & {
+  /** FAQ entries: the official answer (the chat shows it instead of linking to a page). */
+  answer?: string;
+};
 
 const indexes = new Map<SupportedLocale, MiniSearch<SearchDoc>>();
 const loading = new Map<SupportedLocale, Promise<MiniSearch<SearchDoc> | null>>();
@@ -30,7 +33,7 @@ export function loadSiteSearch(locale: SupportedLocale): Promise<MiniSearch<Sear
       fetch(`/api/search-index/${locale}`).then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status))))),
     ])
       .then(([{ default: MiniSearchCtor }, { docs }]: [typeof import('minisearch'), { docs: SearchDoc[] }]) => {
-        const ms = new MiniSearchCtor<SearchDoc>({ ...SEARCH_OPTIONS, storeFields: ['title', 'snippet', 'url', 'type'] });
+        const ms = new MiniSearchCtor<SearchDoc>({ ...SEARCH_OPTIONS, storeFields: ['title', 'snippet', 'url', 'type', 'text'] });
         ms.addAll(docs);
         indexes.set(locale, ms);
         return ms;
@@ -43,7 +46,14 @@ export function loadSiteSearch(locale: SupportedLocale): Promise<MiniSearch<Sear
 }
 
 export function searchSite(ms: MiniSearch<SearchDoc>, query: string, limit = 5): SiteHit[] {
-  return ms.search(query).slice(0, limit).map((r) => ({ id: r.id, title: r.title, snippet: r.snippet, url: r.url, type: r.type }));
+  return ms.search(query).slice(0, limit).map((r) => ({
+    id: r.id,
+    title: r.title,
+    snippet: r.snippet,
+    url: r.url,
+    type: r.type,
+    ...(r.type === 'faq' && r.text ? { answer: r.text as string } : {}),
+  }));
 }
 
 /** Like searchSite, but tops up with these documents (by id) when there are fewer than `limit` matches. */

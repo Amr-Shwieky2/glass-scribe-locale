@@ -12,7 +12,7 @@ import {
   logAnthropicError,
 } from '@/lib/ai';
 import { isBusinessOpen } from '@/lib/business-hours';
-import { conversationLanguage, retrievePassages } from '@/lib/search/retrieve';
+import { conversationLanguage, formatSiteContent, retrievePassages } from '@/lib/search/retrieve';
 import { QUOTE_TOOL, QUOTE_TOOL_NAME, buildChatSystemPrompt } from '@/lib/search/chat-prompt';
 import { CHAT_LIMITS, QUOTE_FIELD_LIMITS, type ChatStreamEvent, type ChatTurn, type QuoteDraft } from '@/lib/chat-protocol';
 import { cleanText, readJsonBody } from '@/lib/validation';
@@ -125,9 +125,7 @@ export async function POST(req: NextRequest) {
   console.log(JSON.stringify({ event: 'chat_message', lang: answerLang, messages: messages.length }));
 
   const latestContext = [
-    '<site_content>',
-    ...passages.map((p, i) => `[${i + 1}] ${p.title}\nURL: ${p.url}\n${p.text}`),
-    '</site_content>',
+    formatSiteContent(passages),
     '',
     `<business_status>${isBusinessOpen() ? 'open now' : 'closed now'}</business_status>`,
     `<answer_language>${answerLang}</answer_language>`,

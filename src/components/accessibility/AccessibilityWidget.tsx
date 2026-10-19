@@ -214,10 +214,10 @@ const AccessibilityWidget: React.FC = () => {
 
   return (
     <>
-      {/* Accessibility Toggle Button */}
+      {/* Accessibility Toggle Button — on phones/tablets above the bottom CTA bar (MobileCTA), not over its buttons */}
       <button
         onClick={() => setIsOpen(true)}
-        className="fixed bottom-4 left-4 z-50 w-14 h-14 bg-brand-navy hover:bg-brand-gold text-white hover:text-brand-navy rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 focus:outline-none focus:ring-4 focus:ring-brand-gold/50"
+        className="fixed bottom-20 lg:bottom-4 left-4 z-50 w-14 h-14 bg-brand-navy hover:bg-brand-gold text-white hover:text-brand-navy rounded-full shadow-lg flex items-center justify-center transition-all hover:scale-110 focus:outline-none focus:ring-4 focus:ring-brand-gold/50"
         aria-label={labels.title}
         title={labels.title}
       >

@@ -1492,3 +1492,33 @@ img {
 @media (prefers-reduced-motion: no-preference) {
   .chat-panel-in { animation: chat-panel-in 0.2s ease-out both; }
 }
+
+/*
+ * Chat dock (desktop): launcher, greeting and panel sit in the inline-end bottom
+ * corner — above the cookie banner while it is shown (CookieConsent sets
+ * --cookie-banner-h) and, in RTL (end = left), above the accessibility button,
+ * which is fixed bottom-left in every language.
+ */
+:root { --chat-bottom: calc(var(--cookie-banner-h, 0px) + 1.5rem); }
+:root[dir='rtl'] { --chat-bottom: max(calc(var(--cookie-banner-h, 0px) + 1.5rem), 6rem); }
+@media (min-width: 1024px) {
+  .chat-dock { bottom: var(--chat-bottom); }
+  .chat-dock-panel { max-height: calc(100dvh - var(--chat-bottom) - 5.5rem); }
+}
+
+/*
+ * Greeting bubble. Phones: just above the bottom bar, clear of the accessibility
+ * button (bottom-left) in both directions; its tail points at the bar's "Ask AI"
+ * button at the inline end. Desktop: just above the launcher.
+ */
+.chat-greeting { left: 5.25rem; right: 0.75rem; bottom: 4.75rem; }
+@media (min-width: 1024px) {
+  .chat-greeting { left: auto; right: auto; inset-inline-end: 1rem; width: 19rem; bottom: calc(var(--chat-bottom) + 4.25rem); }
+}
+@keyframes chat-greeting-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chat-greeting-in { animation: chat-greeting-in 0.25s ease-out both; }
+}
