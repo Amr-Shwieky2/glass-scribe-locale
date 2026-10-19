@@ -10,10 +10,14 @@ import { SERVICE_SEO_PAGES } from '@/data/service-seo-content';
 import { LOCATIONS, LOCATION_SLUGS } from '@/data/locations';
 import { GENERAL_FAQ } from '@/data/faq';
 
-let cached: string | null = null;
+let cachedContext: string | null = null;
 
-export function buildAskSystemPrompt(): string {
-  if (cached) return cached;
+/**
+ * Business facts, service list and general FAQ — shared by the Ask AI search
+ * and the chat assistant (src/lib/search/chat-prompt.ts). Deterministic.
+ */
+export function buildBusinessContext(): string {
+  if (cachedContext) return cachedContext;
 
   const services = SERVICES.map((s) => {
     const page = SERVICE_SEO_PAGES.find((p) => p.serviceId === s.id);
@@ -24,9 +28,7 @@ export function buildAskSystemPrompt(): string {
 
   const generalFaq = GENERAL_FAQ.en.map((f) => `Q: ${f.q}\nA: ${f.a}`).join('\n');
 
-  cached = `You are the website assistant of ${BUSINESS_INFO.name.en} (${BUSINESS_INFO.name.he}), a family glass installation business in Israel. You answer visitors' questions in the site's search box.
-
-<business_facts>
+  cachedContext = `<business_facts>
 - Name: ${BUSINESS_INFO.name.en} / ${BUSINESS_INFO.name.he} / ${BUSINESS_INFO.name.ar} / ${BUSINESS_INFO.name.ru}
 - Owner: ${BUSINESS_INFO.owner}. Established ${BUSINESS_INFO.established}. Based in ${BUSINESS_INFO.location.en}; ${BUSINESS_INFO.serviceArea.en.toLowerCase()}.
 - Phone and WhatsApp: ${CONTACT_INFO.phone} (${CONTACT_INFO.phoneIntl}). Email: ${CONTACT_INFO.email}.
@@ -43,7 +45,18 @@ ${services}
 
 <general_faq>
 ${generalFaq}
-</general_faq>
+</general_faq>`;
+  return cachedContext;
+}
+
+let cached: string | null = null;
+
+export function buildAskSystemPrompt(): string {
+  if (cached) return cached;
+
+  cached = `You are the website assistant of ${BUSINESS_INFO.name.en} (${BUSINESS_INFO.name.he}), a family glass installation business in Israel. You answer visitors' questions in the site's search box.
+
+${buildBusinessContext()}
 
 <rules>
 1. Scope: answer only questions about glass, our services, service areas, the installation process, warranty, maintenance/cleaning, and how to contact us. For anything else, reply in one short sentence that you can only help with glass questions, and suggest contacting us on WhatsApp for anything else.

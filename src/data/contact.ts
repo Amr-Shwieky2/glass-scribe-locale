@@ -27,3 +27,14 @@ export const SOCIAL_LINKS = {
   /** Same Google profile by its stable Knowledge Graph id — preferred for structured data. */
   googleKnowledgeGraph: 'https://www.google.com/search?kgmid=/g/11yx9k2_ld',
 } as const;
+
+/**
+ * Opening hours in Israel time — the same hours as CONTACT_INFO.workingHours,
+ * in a form code can evaluate (0 = Sunday … 6 = Saturday, "HH:MM").
+ */
+export const OPENING_HOURS: { days: number[]; open: string; close: string }[] = [
+  { days: [0, 1, 2, 3, 4], open: '08:00', close: '18:00' },
+  { days: [5], open: '08:00', close: '14:00' },
+];
+
+export const BUSINESS_TIME_ZONE = 'Asia/Jerusalem';

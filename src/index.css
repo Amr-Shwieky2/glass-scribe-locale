@@ -1483,3 +1483,12 @@ img {
   .ambient-glow { animation: ambient-glow 4s ease-in-out infinite; }
   .ambient-shimmer { animation: ambient-shimmer 6s linear infinite; }
 }
+
+/* Chat panel entrance — off when the visitor prefers reduced motion */
+@keyframes chat-panel-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chat-panel-in { animation: chat-panel-in 0.2s ease-out both; }
+}

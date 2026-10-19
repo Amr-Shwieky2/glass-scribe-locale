@@ -1,8 +1,16 @@
-import Anthropic from '@anthropic-ai/sdk';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { isLocale } from '@/lib/i18n';
-import { getClientIp, rateLimit, rateLimitHeaders } from '@/lib/rate-limit';
+import {
+  aiFallback as fallback,
+  checkAiLimits,
+  envLimit,
+  fastAnswerOptions,
+  getAnthropicClient,
+  isSameOrigin,
+  logAnthropicError,
+  scrubForLog,
+} from '@/lib/ai';
 import { detectLanguage, retrievePassages } from '@/lib/search/retrieve';
 import { buildAskSystemPrompt } from '@/lib/search/ask-prompt';
 
@@ -24,45 +32,7 @@ export const dynamic = 'force-dynamic';
 const MAX_QUESTION = 300;
 const MAX_TOKENS = 400;
 const MODEL = process.env.AI_SEARCH_MODEL || 'claude-haiku-5-5';
-const DAILY_LIMIT = Math.max(1, parseInt(process.env.AI_SEARCH_DAILY_LIMIT || '500', 10) || 500);
-
-const ALLOWED_HOSTS = new Set(['www.shwakiglassworks.com', 'shwakiglassworks.com']);
-
-let client: Anthropic | null = null;
-function getClient(): Anthropic | null {
-  if (!process.env.ANTHROPIC_API_KEY) return null;
-  client ??= new Anthropic({ maxRetries: 1, timeout: 20_000 });
-  return client;
-}
-
-/** Same-origin only: the browser's Origin must match this deployment's host. */
-function isSameOrigin(req: NextRequest): boolean {
-  const origin = req.headers.get('origin');
-  const host = req.headers.get('host');
-  if (!origin || !host) return false;
-  let originHost: string;
-  try {
-    originHost = new URL(origin).host;
-  } catch {
-    return false;
-  }
-  if (originHost !== host) return false;
-  const hostname = host.split(':')[0];
-  return (
-    ALLOWED_HOSTS.has(hostname) ||
-    hostname === process.env.VERCEL_URL ||
-    hostname === process.env.VERCEL_BRANCH_URL ||
-    hostname === 'localhost' ||
-    hostname === '127.0.0.1'
-  );
-}
-
-const fallback = (reason: 'unavailable' | 'rate_limited' | 'daily_limit' | 'error', status: number, headers?: Record<string, string>) =>
-  NextResponse.json({ fallback: reason }, { status, headers: { 'Cache-Control': 'no-store', ...headers } });
-
-/** Strips phone numbers and e-mail addresses before logging. */
-const scrubForLog = (q: string) =>
-  q.replace(/[\w.+-]+@[\w-]+\.[\w.]+/g, '[email]').replace(/\+?\d[\d\s\-()]{6,}\d/g, '[phone]');
+const DAILY_LIMIT = envLimit(process.env.AI_SEARCH_DAILY_LIMIT, 500);
 
 export async function POST(req: NextRequest) {
   if (!isSameOrigin(req)) {
@@ -76,14 +46,11 @@ export async function POST(req: NextRequest) {
   if (question.length < 2) return NextResponse.json({ error: 'Question required' }, { status: 400 });
   if (question.length > MAX_QUESTION) return NextResponse.json({ error: 'Question too long' }, { status: 400 });
 
-  const anthropic = getClient();
+  const anthropic = getAnthropicClient();
   if (!anthropic) return fallback('unavailable', 503);
 
-  const perIp = await rateLimit('ai-ask', getClientIp(req.headers), { limit: 10, windowSec: 3600 });
-  if (!perIp.success) return fallback('rate_limited', 429, rateLimitHeaders(perIp));
-
-  const daily = await rateLimit('ai-ask-daily', 'global', { limit: DAILY_LIMIT, windowSec: 86400 });
-  if (!daily.success) return fallback('daily_limit', 429, rateLimitHeaders(daily));
+  const limited = await checkAiLimits(req, { bucket: 'ai-ask', perIp: { limit: 10, windowSec: 3600 }, dailyLimit: DAILY_LIMIT });
+  if (limited) return limited;
 
   const answerLang = detectLanguage(question, pageLang);
   const passages = retrievePassages(question, answerLang, 5);
@@ -101,17 +68,14 @@ export async function POST(req: NextRequest) {
     '</visitor_question>',
   ].join('\n');
 
-  const isHaiku = MODEL.startsWith('claude-haiku');
-
   let stream: ReturnType<typeof anthropic.messages.stream>;
   try {
     stream = anthropic.messages.stream(
       {
         model: MODEL,
         max_tokens: MAX_TOKENS,
-        // Short factual answers: no extended thinking on Haiku (allowed at effort ≤ high), low effort everywhere
-        ...(isHaiku ? { thinking: { type: 'disabled' as const } } : {}),
-        output_config: { effort: 'low' },
+        // Short factual answers: no extended thinking on Haiku, low effort everywhere
+        ...fastAnswerOptions(MODEL),
         system: [{ type: 'text', text: buildAskSystemPrompt(), cache_control: { type: 'ephemeral' } }],
         messages: [{ role: 'user', content: userContent }],
       },
@@ -139,15 +103,7 @@ export async function POST(req: NextRequest) {
           console.warn('[ask] refusal', final.stop_details?.category ?? null);
         }
       } catch (err) {
-        if (err instanceof Anthropic.APIUserAbortError) {
-          // visitor closed the page — nothing to do
-        } else if (err instanceof Anthropic.RateLimitError) {
-          console.error('[ask] Anthropic rate limit');
-        } else if (err instanceof Anthropic.APIError) {
-          console.error(`[ask] Anthropic API error ${err.status}`, err.message);
-        } else {
-          console.error('[ask] stream error', err);
-        }
+        logAnthropicError('ask', err);
       } finally {
         controller.close();
       }

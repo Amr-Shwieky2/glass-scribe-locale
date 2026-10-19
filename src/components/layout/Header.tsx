@@ -63,7 +63,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 sm:h-20">
           <Link href={`/${currentLanguage}`} className="group flex-shrink-0">
-            <div className={`flex items-center gap-2 sm:gap-3 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${scrolled ? 'scale-90' : 'scale-100'}`}>
+            <div className={`flex items-center gap-2 sm:gap-3 transition-transform duration-500 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)] ${scrolled ? 'scale-90' : 'scale-100'}`}>
               <Image src="/logo-64.png" alt="Shwaki Brothers Logo" width={48} height={48} priority className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
               <div className="hidden xs:block sm:block">
                 <span className="font-bold text-brand-navy text-sm sm:text-base">{getLocalizedText(BUSINESS_INFO.name, locale)}</span>

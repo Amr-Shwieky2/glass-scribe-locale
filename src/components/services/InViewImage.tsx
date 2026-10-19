@@ -28,8 +28,18 @@ const InViewImage: React.FC<ImageProps & { rootMargin?: string }> = ({ rootMargi
     <span ref={ref} className="absolute inset-0 block">
       {visible && <Image {...props} />}
       <noscript>
+        {/* Plain img element on purpose: this is the fallback for visitors without JavaScript, and
+            next/image is a client component. The src is already a sized Cloudinary URL. */}
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src={typeof props.src === 'string' ? props.src : ''} alt={props.alt} className={props.className} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }} />
+        <img
+          src={typeof props.src === 'string' ? props.src : ''}
+          alt={props.alt}
+          width={typeof props.width === 'number' ? props.width : 600}
+          height={typeof props.height === 'number' ? props.height : 600}
+          loading="lazy"
+          className={props.className}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%' }}
+        />
       </noscript>
     </span>
   );

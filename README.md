@@ -8,6 +8,7 @@ Website for **Shwaki Brothers Glassworks** (אחים שוואקי זכוכית),
 - **Images:** Cloudinary, fetched on the server and cached for 1 hour, with an admin panel at `/he/admin`
 - **Leads:** contact form sends to Telegram
 - **Ask AI:** home-page search with instant results from site content and short AI answers (Claude)
+- **Chat assistant:** "Ask us" chat on every page — grounded answers, follow-up questions, and quote requests sent to Telegram after the visitor confirms
 
 ## Quick start
 
@@ -34,6 +35,8 @@ app/
   global-not-found.tsx     # 404 for URLs outside /[lang] (e.g. /xx)
   api/
     ask/                   # Ask AI (streams a Claude answer)
+    chat/                  # chat assistant (NDJSON stream + quote tool)
+    chat/lead/             # visitor-confirmed quote request → Telegram
     search-index/[lang]/   # static per-language search corpus (built at build time)
     telegram/send/         # contact form → Telegram
     csrf/token/            # CSRF tokens for the contact form
@@ -50,8 +53,11 @@ src/
     google-places.ts       # single source of truth for the rating (omitted when unavailable)
     cloudinary/server.ts   # cached server-side Cloudinary search + input whitelists
     rate-limit.ts          # Upstash Redis limiter (in-memory fallback)
+    ai.ts                  # shared AI route guards: client, same-origin, limits, fallbacks
+    telegram.ts            # Telegram sending: HTML with escaping, plain-text retry
+    business-hours.ts      # open/closed in Israel time (OPENING_HOURS in data/contact.ts)
     admin-session.ts, csrf.ts, signed-token.ts
-    search/                # search corpus, tokenizer (he/ar prefixes), retrieval, AI prompt
+    search/                # search corpus, tokenizer (he/ar prefixes), retrieval, AI prompts (ask + chat)
 ```
 
 ### Content and languages
@@ -70,6 +76,16 @@ Public pages fetch Cloudinary images on the server through `unstable_cache` (1 h
 - **AI answer**: `POST /api/ask` retrieves the best-matching passages from the same corpus and streams a short answer from Claude (`AI_SEARCH_MODEL`, default `claude-haiku-5-5`). It has a same-origin check, a 300-character limit, 10 questions per IP per hour, and a global daily cap (`AI_SEARCH_DAILY_LIMIT`).
 - Without `ANTHROPIC_API_KEY`, or when a limit is hit, the section still shows instant results plus a WhatsApp prompt.
 - Logging: only the question text (phone numbers and emails scrubbed) and its language. No IPs or names.
+- **Continue in chat**: under an AI answer, opens the chat assistant with that question and answer already in the conversation.
+
+### Chat assistant
+
+- **Widget** (`src/components/chat/`): a small "Ask us" button on every page (not admin). The panel's code is loaded only when the visitor first opens it. Desktop: ~380×600 panel; mobile: full-screen sheet that follows the on-screen keyboard. The conversation lives only in `sessionStorage` (survives page changes; "New conversation" clears it).
+- **API** `POST /api/chat`: `{ messages, lang }`, last 12 messages, visitor messages ≤ 500 characters, roles must alternate. Same-origin check, 30 messages per IP per hour, daily cap `AI_CHAT_DAILY_LIMIT`, `max_tokens` 500, cached system prompt (`src/lib/search/chat-prompt.ts`). Each turn is grounded with passages retrieved from our content. Streams NDJSON (`src/lib/chat-protocol.ts`).
+- **Quote requests**: the model can call `prepare_quote_request` only after the visitor asked for a quote and gave a name and phone. That only shows an editable confirmation card (including the visitor's chat messages that go with the request); nothing is sent until the visitor ticks consent and presses Send, which calls `POST /api/chat/lead` (CSRF + consent + validation, 3 per IP per hour) → Telegram via `src/lib/telegram.ts`.
+- **Fallback**: without `ANTHROPIC_API_KEY`, when a limit is hit, or if the API fails, the chat shows 3 matching site pages plus WhatsApp and call buttons.
+- **Privacy**: conversations aren't stored on the server. Logs contain only the event name, language and message count. Names, phones and the visitor's chat messages reach us only in a confirmed quote request; the messages are shown in the quote form and can be edited or deleted before sending.
+- **Live check**: `node scripts/chat-smoke-test.mjs https://www.shwakiglassworks.com` sends a few test conversations (four languages, a price question, an off-topic request, a prompt-injection attempt, a quote request) and checks the replies. It never sends a lead. Needs `ANTHROPIC_API_KEY` on that deployment.
 
 ## Environment variables
 
@@ -79,8 +95,8 @@ Set these in **Vercel → Project → Settings → Environment Variables**. Copy
 |---|---|---|
 | `ADMIN_PASSWORD` | yes (admin) | Admin login password |
 | `ADMIN_SESSION_SECRET` | yes (admin) | Signs the 24h admin session cookie. Random string, at least 32 characters |
-| `CSRF_SECRET` | yes | Signs contact-form CSRF tokens. Random string, at least 32 characters. The form is disabled if missing |
-| `TELEGRAM_BOT_TOKEN` | yes | Bot that receives contact-form leads |
+| `CSRF_SECRET` | yes | Signs CSRF tokens for the contact form and chat quote requests. Random string, at least 32 characters. Both are disabled if missing |
+| `TELEGRAM_BOT_TOKEN` | yes | Bot that receives contact-form leads and chat quote requests |
 | `TELEGRAM_CHAT_ID` | yes | Chat or group the leads are sent to |
 | `CLOUDINARY_CLOUD_NAME` | yes | Cloudinary account (server) |
 | `CLOUDINARY_API_KEY` | yes | Cloudinary Admin/Search API (server only) |
@@ -90,11 +106,13 @@ Set these in **Vercel → Project → Settings → Environment Variables**. Copy
 | `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET` | yes (admin) | Unsigned preset for the admin upload widget |
 | `GOOGLE_PLACES_API_KEY` | recommended | Live Google rating in JSON-LD and the home description. Without it the rating is omitted |
 | `GOOGLE_PLACE_ID` | recommended | The business's Google Place ID |
-| `UPSTASH_REDIS_REST_URL` | recommended | Shared rate limiting (login, contact form, AI). Without it limits are per serverless instance |
+| `UPSTASH_REDIS_REST_URL` | recommended | Shared rate limiting (login, contact form, Ask AI, chat, chat leads). Without it limits are per serverless instance |
 | `UPSTASH_REDIS_REST_TOKEN` | recommended | ″ |
-| `ANTHROPIC_API_KEY` | optional | AI answers in the Ask AI section. Without it, only instant results are shown |
+| `ANTHROPIC_API_KEY` | optional | AI answers in the Ask AI section and the chat assistant. Without it, both show site results + WhatsApp instead |
 | `AI_SEARCH_MODEL` | optional | Claude model for AI answers. Default `claude-haiku-5-5` |
 | `AI_SEARCH_DAILY_LIMIT` | optional | Max AI answers per day, site-wide. Default `500` |
+| `AI_CHAT_MODEL` | optional | Claude model for the chat assistant. Defaults to `AI_SEARCH_MODEL` (`claude-haiku-5-5`) |
+| `AI_CHAT_DAILY_LIMIT` | optional | Max chat replies per day, site-wide. Default `1000` |
 
 Generate secrets with:
 

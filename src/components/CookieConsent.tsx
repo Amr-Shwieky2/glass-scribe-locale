@@ -7,6 +7,7 @@
 import React, { useState, useEffect } from 'react';
 import { Cookie, X, Settings } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
+import { notifyCookieConsent } from '@/components/chat/chat-events';
 
 const LABELS = {
   he: {
@@ -121,6 +122,7 @@ const CookieConsent: React.FC = () => {
     localStorage.setItem('cookie-consent-date', new Date().toISOString());
     setPreferences(prefs);
     setVisible(false);
+    notifyCookieConsent(); // lets the chat launcher appear once the banner is gone
     
     if (prefs.analytics) {
       enableAnalytics();
