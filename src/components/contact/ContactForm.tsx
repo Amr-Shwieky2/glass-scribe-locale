@@ -8,7 +8,11 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Send, Loader2, CheckCircle, AlertCircle } from 'lucide-react';
 import Link from 'next/link';;
-import { SERVICES, PAGE_CONTENT, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
+import { SERVICES } from '@/data/services';
+import { PAGE_CONTENT } from '@/data/page-content';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 import { trackEvent } from '@/lib/gtag';
 
 type ContactFormState = {
@@ -135,6 +139,7 @@ const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
       phone: sanitizeInput(form.phone),
       service: sanitizeInput(form.service),
       message: sanitizeInput(form.message),
+      website: form.website, // Honeypot — the server also checks it
       csrfToken: form.csrfToken, // Include CSRF token
     };
     
@@ -152,6 +157,8 @@ const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
         trackEvent({ action: 'submit_lead_form', category: 'Lead', label: form.service });
         setSubmitted(true);
         setForm({ name: '', email: '', phone: '', service: '', message: '', consent: false, website: '', csrfToken: '' });
+        // Tokens are single-form: fetch a fresh one for "send another"
+        fetchCSRFToken();
       } else {
         setSubmitError(result.error || 'Failed to send message');
         // Refresh CSRF token on error

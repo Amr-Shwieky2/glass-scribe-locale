@@ -1,25 +1,26 @@
-'use client';
 import React from 'react';
-import Link from 'next/link';;
+import Link from 'next/link';
 import { ArrowRight } from 'lucide-react';
-import {
-  SERVICES, PAGE_CONTENT, UI_STRINGS,
-  getLocalizedText, type SupportedLocale,
-} from '@/data';
-import { useServiceCardImages } from '@/hooks/useServiceCardImages';
+import { SERVICES } from '@/data/services';
+import { PAGE_CONTENT } from '@/data/page-content';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 import ServiceCard from '@/components/services/ServiceCard';
 
 interface HomeServicesProps {
+  id?: string;
   locale: SupportedLocale;
-  currentLanguage: string;
+  /** serviceId → card image URL (server-fetched). */
+  serviceCardImages: Record<string, string>;
 }
 
-const HomeServices: React.FC<HomeServicesProps> = ({ locale, currentLanguage }) => {
+const HomeServices: React.FC<HomeServicesProps> = ({ id, locale, serviceCardImages }) => {
   const content = PAGE_CONTENT.home;
-  const { serviceCardImages } = useServiceCardImages();
+  const currentLanguage = locale;
 
   return (
-    <section className="py-12 sm:py-16 md:py-20 lg:py-24 bg-brand-light">
+    <section id={id} className="scroll-mt-16 sm:scroll-mt-20 py-12 sm:py-16 md:py-20 lg:py-24 bg-brand-light">
       <div className="container mx-auto px-4 sm:px-6">
         <div className="text-center mb-8 sm:mb-12 lg:mb-16">
           <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-3 sm:mb-4 text-brand-navy">

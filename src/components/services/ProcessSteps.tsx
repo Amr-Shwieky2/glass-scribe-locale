@@ -1,7 +1,10 @@
 import React from 'react';
+import Image from 'next/image';
 import Link from 'next/link';;
 import { ArrowRight } from 'lucide-react';
-import { UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 interface ProcessStepsProps {
   locale: SupportedLocale;
@@ -9,10 +12,10 @@ interface ProcessStepsProps {
 }
 
 const steps = [
-  { step: 1, title: { en: 'Consultation', he: 'ייעוץ', ar: 'استشارة', ru: 'Консультация' }, image: '/phone-support.png' },
-  { step: 2, title: { en: 'Measurement', he: 'מדידה', ar: 'قياس', ru: 'Замер' }, image: '/measurement.png' },
-  { step: 3, title: { en: 'Quote', he: 'הצעת מחיר', ar: 'عرض أسعار', ru: 'Расчёт' }, image: '/admin-work.png' },
-  { step: 4, title: { en: 'Installation', he: 'התקנה', ar: 'تركيب', ru: 'Монтаж' }, image: '/installation.png' },
+  { step: 1, title: { en: 'Consultation', he: 'ייעוץ', ar: 'استشارة', ru: 'Консультация' }, image: '/img/phone-support.webp' },
+  { step: 2, title: { en: 'Measurement', he: 'מדידה', ar: 'قياس', ru: 'Замер' }, image: '/img/measurement.webp' },
+  { step: 3, title: { en: 'Quote', he: 'הצעת מחיר', ar: 'عرض أسعار', ru: 'Расчёт' }, image: '/img/admin-work.webp' },
+  { step: 4, title: { en: 'Installation', he: 'התקנה', ar: 'تركيب', ru: 'Монтаж' }, image: '/img/installation.webp' },
 ];
 
 const ProcessSteps: React.FC<ProcessStepsProps> = ({ locale, currentLanguage }) => (
@@ -31,7 +34,7 @@ const ProcessSteps: React.FC<ProcessStepsProps> = ({ locale, currentLanguage }) 
         {steps.map((item) => (
           <div key={item.step} className="text-center">
             <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 mx-auto bg-brand-light rounded-xl sm:rounded-2xl flex items-center justify-center mb-2 sm:mb-4 shadow-lg overflow-hidden">
-              <img src={item.image} alt={`Step ${item.step}`} className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain" />
+              <Image src={item.image} alt={`Step ${item.step}`} width={192} height={192} sizes="80px" className="w-12 h-12 sm:w-16 sm:h-16 md:w-20 md:h-20 object-contain" />
             </div>
             <div className="font-medium text-brand-gold text-xs sm:text-sm mb-1">
               {`${getLocalizedText(UI_STRINGS.processStep, locale)} ${item.step}`}

@@ -1,5 +1,6 @@
 'use client';
 import { useState, type FC } from 'react';
+import Image from 'next/image';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
@@ -69,9 +70,11 @@ const LoginForm: FC = () => {
 
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
-          <img
+          <Image
             src="/logo-128.png"
             alt="Shwaki Brothers"
+            width={128}
+            height={128}
             className="w-20 h-20 mx-auto mb-4"
           />
           <CardTitle className="text-2xl text-brand-navy">{t(ADMIN_STRINGS.login.title)}</CardTitle>

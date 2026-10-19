@@ -1,6 +1,9 @@
 import React from 'react';
 import { ExternalLink, Instagram } from 'lucide-react';
-import { PAGE_CONTENT, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
+import { PAGE_CONTENT } from '@/data/page-content';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 interface HomeTestimonialsProps {
   locale: SupportedLocale;

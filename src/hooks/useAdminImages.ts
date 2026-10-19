@@ -12,6 +12,7 @@ import {
   toggleServiceCard,
   toggleHeroImage,
   formatCategoryName,
+  notifyImagesChanged,
 } from '@/lib/cloudinary';
 import { useToast } from '@/hooks/use-toast';
 
@@ -27,7 +28,7 @@ declare global {
 }
 
 export function useAdminImages() {
-  const { token } = useAdmin();
+  const { isAuthenticated } = useAdmin();
   const { toast } = useToast();
 
   const [selectedCategory, setSelectedCategory] = useState<ServiceCategory | 'all'>('all');
@@ -53,9 +54,9 @@ export function useAdminImages() {
   useEffect(() => { loadImages(); }, [loadImages]);
 
   const handleDelete = async (publicId: string) => {
-    if (!token) return;
+    if (!isAuthenticated) return;
     try {
-      await deleteImage(publicId, token);
+      await deleteImage(publicId);
       setImages((prev) => prev.filter((img) => img.public_id !== publicId));
       toast({ title: 'Deleted', description: 'Image deleted successfully.' });
     } catch {
@@ -64,9 +65,9 @@ export function useAdminImages() {
   };
 
   const handleToggleFeatured = async (publicId: string, featured: boolean) => {
-    if (!token) return;
+    if (!isAuthenticated) return;
     try {
-      await toggleFeatured(publicId, featured, token);
+      await toggleFeatured(publicId, featured);
       setImages((prev) =>
         prev.map((img) =>
           img.public_id === publicId
@@ -81,9 +82,9 @@ export function useAdminImages() {
   };
 
   const handleToggleServiceCard = async (publicId: string, isServiceCard: boolean) => {
-    if (!token) return;
+    if (!isAuthenticated) return;
     try {
-      await toggleServiceCard(publicId, isServiceCard, token);
+      await toggleServiceCard(publicId, isServiceCard);
       setImages((prev) =>
         prev.map((img) =>
           img.public_id === publicId
@@ -98,9 +99,9 @@ export function useAdminImages() {
   };
 
   const handleToggleHeroImage = async (publicId: string, isHeroImage: boolean) => {
-    if (!token) return;
+    if (!isAuthenticated) return;
     try {
-      await toggleHeroImage(publicId, isHeroImage, token);
+      await toggleHeroImage(publicId, isHeroImage);
       setImages((prev) =>
         prev.map((img) =>
           img.public_id === publicId
@@ -122,6 +123,7 @@ export function useAdminImages() {
         if (error) { toast({ title: 'Upload Error', description: 'Failed to upload image.', variant: 'destructive' }); return; }
         if (result.event === 'success' && result.info) {
           setImages((prev) => [result.info as CloudinaryImage, ...prev]);
+          notifyImagesChanged().catch(() => { /* site cache still refreshes within the hour */ });
           toast({ title: 'Uploaded', description: `Image uploaded to ${formatCategoryName(category)}.` });
         }
       }

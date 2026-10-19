@@ -1,7 +1,9 @@
 import React from 'react';
 import { Card, CardContent } from '@/components/ui/card';
 import { Building2, FileText, Users, Clock, Award } from 'lucide-react';
-import { UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 interface ContractorBenefitsProps {
   locale: SupportedLocale;

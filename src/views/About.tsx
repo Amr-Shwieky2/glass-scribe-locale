@@ -1,17 +1,17 @@
-'use client';
 /**
- * About Page - Clean & Short Design
+ * About Page - Clean & Short Design (Server Component)
  */
 
 import React from 'react';
 import Link from 'next/link';
-import { useLanguage } from '@/contexts/LanguageContext';
 import { ArrowRight, CheckCircle, Phone, MessageCircle } from 'lucide-react';
 import AnimatedPageHeader from '@/components/AnimatedPageHeader';
-import { 
-  BUSINESS_INFO, CONTACT_INFO, PAGE_CONTENT, UI_STRINGS, 
-  getLocalizedText, type SupportedLocale 
-} from '@/data';
+import { BUSINESS_INFO } from '@/data/business-info';
+import { CONTACT_INFO } from '@/data/contact';
+import { PAGE_CONTENT } from '@/data/page-content';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 const highlights = [
   { en: 'Licensed & Insured', he: 'מורשה ומבוטח', ar: 'مرخص ومؤمن', ru: 'Лицензия и страховка' },
@@ -20,14 +20,9 @@ const highlights = [
   { en: 'Nationwide Service', he: 'שירות בכל הארץ', ar: 'خدمة في جميع أنحاء البلاد', ru: 'По всей стране' },
 ];
 
-const About: React.FC = () => {
-  const { currentLanguage } = useLanguage();
-  const locale = currentLanguage as SupportedLocale;
+const About: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
+  const currentLanguage = locale;
   const content = PAGE_CONTENT.about;
-
-  const handleWhatsApp = () => {
-    window.open(`https://wa.me/${CONTACT_INFO.whatsapp}`, '_blank');
-  };
 
   return (
     <div className="min-h-screen">
@@ -110,13 +105,15 @@ const About: React.FC = () => {
               </p>
               
               <div className="flex flex-col sm:flex-row flex-wrap justify-center gap-3 sm:gap-4">
-                <button 
-                  onClick={handleWhatsApp} 
+                <a
+                  href={`https://wa.me/${CONTACT_INFO.whatsapp}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="btn-animated-gold-filled inline-flex items-center justify-center px-6 sm:px-8 py-3 text-base"
                 >
                   <MessageCircle className="mr-2 w-4 h-4 sm:w-5 sm:h-5" />
                   {getLocalizedText(UI_STRINGS.whatsapp, locale)}
-                </button>
+                </a>
                 <a
                   href={`tel:${CONTACT_INFO.phoneIntl}`}
                   className="inline-flex items-center justify-center px-6 sm:px-8 py-3 text-base bg-white/10 hover:bg-white/20 rounded-lg transition-colors"

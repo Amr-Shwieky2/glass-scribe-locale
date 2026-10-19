@@ -73,7 +73,7 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: 'Heebo', 'Heebo-fallback', 'Assistant', 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-family: var(--font-heebo), 'Heebo', 'Heebo-fallback', 'Assistant', 'Rubik', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     font-weight: 400;
     font-size: 16px;
     line-height: 1.7;
@@ -113,7 +113,7 @@
   /* Typography - Clean and strong with proper hierarchy */
   h1, h2, h3, h4, h5, h6 {
     @apply font-semibold;
-    font-family: 'Heebo', 'Assistant', 'Rubik', sans-serif;
+    font-family: var(--font-heebo), 'Heebo', 'Assistant', 'Rubik', sans-serif;
     color: hsl(var(--foreground));
     line-height: 1.2;
   }
@@ -1221,10 +1221,8 @@ img {
    ============================================================================= */
 
 @media (max-width: 640px) {
-  html {
-    font-size: 14px;
-  }
-  
+  /* Root stays 16px: the accessibility widget always resolved it to 100% after
+     hydration, so a 14px root here only caused a full-page layout shift on mobile. */
   h1 {
     font-size: 2rem;
   }
@@ -1379,4 +1377,109 @@ img {
 .skip-to-main:focus {
   top: 0;
   outline: 3px solid #C9A24D;
+}
+/* =============================================================================
+   Server-rendered animations (no JS animation library needed)
+   ============================================================================= */
+
+/* Scroll reveal — see RevealObserver. Hidden only once JS has flagged <html class="js">. */
+@media (prefers-reduced-motion: no-preference) {
+  [data-reveal] {
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.25, 0.1, 0.25, 1);
+    transition-delay: var(--reveal-delay, 0ms);
+  }
+  .js [data-reveal]:not([data-revealed]) {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+}
+
+/* Entrance animations — transform only, so text is visible (and counts for LCP) from the first paint */
+@keyframes rise-in {
+  from { transform: translateY(var(--rise-from, 24px)); }
+  to { transform: translateY(0); }
+}
+@keyframes fade-in-soft {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes scale-y-in {
+  from { transform: scaleY(0); }
+  to { transform: scaleY(1); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .animate-rise {
+    animation: rise-in 0.8s cubic-bezier(0.25, 0.1, 0.25, 1) both;
+    animation-delay: var(--anim-delay, 0ms);
+  }
+  .animate-fade-soft {
+    animation: fade-in-soft 0.6s ease both;
+    animation-delay: var(--anim-delay, 0ms);
+  }
+  .animate-scale-y {
+    animation: scale-y-in 1.5s ease both;
+    animation-delay: var(--anim-delay, 0ms);
+  }
+}
+
+/* Hero decorative loops (CSS replacements for framer-motion infinite animations) */
+@keyframes float-y {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(var(--float-distance, -30px)); }
+}
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; }
+  50% { opacity: 0.6; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .animate-float-y {
+    animation: float-y var(--float-duration, 3s) ease-in-out infinite;
+    animation-delay: var(--anim-delay, 0ms);
+  }
+  .animate-particle {
+    animation: float-y var(--float-duration, 3s) ease-in-out infinite, twinkle var(--float-duration, 3s) ease-in-out infinite;
+    animation-delay: var(--anim-delay, 0ms);
+  }
+}
+
+/* AmbientBackground (page headers) — CSS replacement for the framer-motion loops */
+@keyframes ambient-blob-a {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(80px, 50px) scale(1.15); }
+  66% { transform: translate(40px, 80px) scale(0.95); }
+}
+@keyframes ambient-blob-b {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(-60px, -40px) scale(0.9); }
+  66% { transform: translate(-30px, 30px) scale(1.1); }
+}
+@keyframes ambient-blob-c {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(40px, -30px) scale(1.2); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+}
+@keyframes ambient-streak {
+  0% { transform: translateX(0); }
+  45%, 100% { transform: translateX(calc(100vw + 600px)); }
+}
+@keyframes ambient-dot {
+  0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.3; }
+  50% { transform: translate(10px, -20px) scale(1.5); opacity: 0.8; }
+}
+@keyframes ambient-glow {
+  0%, 100% { opacity: 0.4; transform: scale(0.95); }
+  50% { opacity: 0.8; transform: scale(1.05); }
+}
+@keyframes ambient-shimmer {
+  from { background-position: 200% 0; }
+  to { background-position: -200% 0; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .ambient-blob-a { animation: ambient-blob-a 12s ease-in-out infinite; }
+  .ambient-blob-b { animation: ambient-blob-b 10s ease-in-out 1s infinite; }
+  .ambient-blob-c { animation: ambient-blob-c 8s ease-in-out 2s infinite; }
+  .ambient-streak { animation: ambient-streak var(--streak-duration, 7.5s) linear var(--anim-delay, 0s) infinite; }
+  .ambient-dot { animation: ambient-dot var(--float-duration, 2.5s) ease-in-out var(--anim-delay, 0s) infinite; }
+  .ambient-glow { animation: ambient-glow 4s ease-in-out infinite; }
+  .ambient-shimmer { animation: ambient-shimmer 6s linear infinite; }
 }

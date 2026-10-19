@@ -1,14 +1,16 @@
-'use client';
 /**
  * Privacy Policy Page
  * Israeli Privacy Law compliant privacy policy
  */
 
 import React from 'react';
-import { useLanguage } from '@/contexts/LanguageContext';
-import Link from 'next/link';;
+import Link from 'next/link';
 import { Shield, Mail, Phone, MessageSquare, Trash2, Lock, ArrowLeft, ArrowRight } from 'lucide-react';
-import { BUSINESS_INFO, CONTACT_INFO, getLocalizedText, type SupportedLocale } from '@/data';
+import { isRTLLocale } from '@/lib/i18n';
+import { BUSINESS_INFO } from '@/data/business-info';
+import { CONTACT_INFO } from '@/data/contact';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 const PRIVACY_CONTENT = {
   title: {
@@ -18,10 +20,10 @@ const PRIVACY_CONTENT = {
     ru: 'Политика конфиденциальности',
   },
   lastUpdated: {
-    he: 'עודכן לאחרונה: מרץ 2026',
-    en: 'Last updated: March 2026',
-    ar: 'آخر تحديث: مارس 2026',
-    ru: 'Последнее обновление: март 2026',
+    he: 'עודכן לאחרונה: אוקטובר 2026',
+    en: 'Last updated: October 2026',
+    ar: 'آخر تحديث: أكتوبر 2026',
+    ru: 'Последнее обновление: октябрь 2026',
   },
   intro: {
     he: 'אנו באחים שוואקי זכוכית מחויבים להגנה על פרטיותך. מדיניות זו מסבירה אילו נתונים אנו אוספים, מדוע אנו אוספים אותם, וכיצד אנו משתמשים בהם.',
@@ -74,6 +76,12 @@ const PRIVACY_CONTENT = {
           ar: 'نوع الخدمة المطلوبة (اختياري)',
           ru: 'Тип запрашиваемой услуги (необязательно)',
         },
+      },
+      aiSearch: {
+        he: 'כאשר אתם משתמשים בחיפוש "שאלו אותנו" בדף הבית, השאלה נשלחת לספק ה-AI שלנו (Anthropic) לצורך הפקת תשובה, ולצורכי ניתוח אנו שומרים רק את נוסח השאלה ואת השפה — ללא שם, מספר טלפון או כתובת IP.',
+        en: 'When you use the "Ask us" search on our home page, your question is sent to our AI provider (Anthropic) to generate an answer, and for analytics we keep only the question text and its language — no name, phone number or IP address.',
+        ar: 'عند استخدامك بحث "اسألنا" في الصفحة الرئيسية، يُرسل سؤالك إلى مزوّد الذكاء الاصطناعي لدينا (Anthropic) لإعداد الإجابة، ولأغراض التحليل نحتفظ فقط بنص السؤال ولغته — دون اسم أو رقم هاتف أو عنوان IP.',
+        ru: 'Когда вы пользуетесь поиском «Спросите нас» на главной странице, ваш вопрос передаётся нашему поставщику ИИ (Anthropic) для подготовки ответа, а для аналитики мы сохраняем только текст вопроса и его язык — без имени, номера телефона и IP-адреса.',
       },
     },
     purpose: {
@@ -237,9 +245,8 @@ const PRIVACY_CONTENT = {
   },
 };
 
-const PrivacyPolicy: React.FC = () => {
-  const { currentLanguage, isRTL } = useLanguage();
-  const locale = currentLanguage as SupportedLocale;
+const PrivacyPolicy: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
+  const isRTL = isRTLLocale(locale);
   const t = (obj: Record<string, string>) => getLocalizedText(obj, locale);
   const Arrow = isRTL ? ArrowRight : ArrowLeft;
 
@@ -281,6 +288,7 @@ const PrivacyPolicy: React.FC = () => {
               </li>
             ))}
           </ul>
+          <p className="text-gray-700 mt-4">{t(PRIVACY_CONTENT.sections.dataCollection.aiSearch)}</p>
         </div>
 
         {/* Purpose */}
@@ -366,7 +374,7 @@ const PrivacyPolicy: React.FC = () => {
         {/* Back to Home */}
         <div className="text-center">
           <Link 
-            href={`/${currentLanguage}`} 
+            href={`/${locale}`} 
             className="inline-flex items-center gap-2 text-brand-navy hover:text-brand-gold transition-colors font-medium"
           >
             <Arrow className="w-5 h-5" />

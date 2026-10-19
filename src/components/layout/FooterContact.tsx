@@ -1,10 +1,10 @@
-'use client';
 import React from 'react';
 import { Phone, Mail, MapPin, MessageCircle, Instagram, Facebook } from 'lucide-react';
-import {
-  BUSINESS_INFO, CONTACT_INFO, FOOTER_CONTENT,
-  getLocalizedText, type SupportedLocale,
-} from '@/data';
+import { BUSINESS_INFO } from '@/data/business-info';
+import { CONTACT_INFO } from '@/data/contact';
+import { FOOTER_CONTENT } from '@/data/footer';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 // Social media links
 const SOCIAL_LINKS = {
@@ -18,9 +18,6 @@ interface FooterContactProps {
 }
 
 const FooterContact: React.FC<FooterContactProps> = ({ locale }) => {
-  const handleWhatsApp = () => {
-    window.open(`https://wa.me/${CONTACT_INFO.whatsapp}`, '_blank');
-  };
 
   return (
     <div>
@@ -40,13 +37,15 @@ const FooterContact: React.FC<FooterContactProps> = ({ locale }) => {
           <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-brand-gold flex-shrink-0" />
           {getLocalizedText(BUSINESS_INFO.location, locale)}
         </div>
-        <button
-          onClick={handleWhatsApp}
+        <a
+          href={`https://wa.me/${CONTACT_INFO.whatsapp}`}
+          target="_blank"
+          rel="noopener noreferrer"
           className="flex items-center justify-center gap-2 sm:gap-3 text-brand-navy hover:text-brand-navy transition-colors mt-4 bg-brand-gold px-4 py-2.5 sm:py-2 rounded-lg hover:bg-brand-gold/90 w-full sm:w-auto text-sm sm:text-base font-medium"
         >
           <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" />
           WhatsApp
-        </button>
+        </a>
         
         {/* Social Media Links */}
         <div className="flex items-center gap-4 mt-4 pt-4 border-t border-gray-700">

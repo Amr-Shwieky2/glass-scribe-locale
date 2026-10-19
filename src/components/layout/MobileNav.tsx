@@ -3,7 +3,9 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Phone, MessageCircle, Globe, Check } from 'lucide-react';
-import { UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 interface Props { 
   navigation: { href: string; label: string }[]; 

@@ -14,7 +14,6 @@ import {
   getThumbnailUrl,
 } from '@/lib/cloudinary';
 import { setHeroPosition, removeHeroPosition } from '@/lib/cloudinary/admin-api';
-import { imageCache } from '@/hooks/cloudinary/cache';
 import { ADMIN_STRINGS, getAdminText, type AdminLocale } from '@/data/admin-strings';
 import { Button } from '@/components/ui/button';
 import {
@@ -25,7 +24,6 @@ import {
 } from '@/components/ui/dialog';
 import { Check, ImageIcon, Trash2 } from 'lucide-react';
 
-const HERO_CACHE_KEY = 'hero-positions:7';
 
 const BROKEN_IMG_FALLBACK =
   "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200' viewBox='0 0 200 200'%3E%3Crect fill='%23e5e7eb' width='200' height='200'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' fill='%239ca3af' font-size='40'%3E%F0%9F%96%BC%3C/text%3E%3C/svg%3E";
@@ -43,7 +41,7 @@ const getHeroPosition = (image: CloudinaryImage): number | null => {
 };
 
 const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange }) => {
-  const { token } = useAdmin();
+  const { isAuthenticated } = useAdmin();
   const { toast } = useToast();
   const { currentLanguage } = useLanguage();
   const locale = currentLanguage as AdminLocale;
@@ -97,20 +95,19 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
 
   // Select a new hero image
   const handleSelectImage = async (image: CloudinaryImage) => {
-    if (!token) return;
+    if (!isAuthenticated) return;
 
     setIsSaving(true);
     try {
       // Remove current hero image tag if exists
       if (currentHeroImage) {
-        await removeHeroPosition(currentHeroImage.public_id, 1, token);
+        await removeHeroPosition(currentHeroImage.public_id, 1);
       }
 
       // Set new image as hero-1
-      await setHeroPosition(image.public_id, 1, token);
+      await setHeroPosition(image.public_id, 1);
 
       // Invalidate client cache so HeroSection picks up the change
-      imageCache.delete(HERO_CACHE_KEY);
 
       // Update local state
       setCurrentHeroImage(image);
@@ -137,14 +134,13 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
 
   // Remove hero image
   const handleRemoveHero = async () => {
-    if (!token || !currentHeroImage) return;
+    if (!isAuthenticated || !currentHeroImage) return;
 
     setIsSaving(true);
     try {
-      await removeHeroPosition(currentHeroImage.public_id, 1, token);
+      await removeHeroPosition(currentHeroImage.public_id, 1);
 
       // Invalidate client cache
-      imageCache.delete(HERO_CACHE_KEY);
 
       setAllImages(prev => prev.map(img => {
         if (img.public_id === currentHeroImage.public_id) {

@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'next/link';;
 import { MapPin } from 'lucide-react';
-import {
-  SERVICES, NAVIGATION, FOOTER_CONTENT,
-  getLocalizedText, type SupportedLocale,
-} from '@/data';
+import { SERVICES } from '@/data/services';
+import { NAVIGATION } from '@/data/navigation';
+import { FOOTER_CONTENT } from '@/data/footer';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 // Location links for local SEO
 const LOCATION_LINKS = [

@@ -1,42 +1,52 @@
-'use client';
-import React, { useMemo } from 'react';
-import { useParams, redirect } from 'next/navigation';
+/**
+ * Blog post view (Server Component). Metadata (title, canonical, OG article)
+ * comes from generateMetadata in the route — this view renders no <head> tags.
+ */
+import React from 'react';
 import Link from 'next/link';
-import { Calendar, User, Clock, ArrowLeft, ArrowRight } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { BLOG_POSTS, SERVICES, getLocalizedText, type SupportedLocale } from '@/data';
+import { Calendar, Clock, ArrowLeft, ArrowRight } from 'lucide-react';
+import { SERVICES } from '@/data/services';
+import { getLocalizedText } from '@/data/helpers';
+import type { BlogPost as BlogPostData } from '@/data/blog-posts';
+import type { SupportedLocale } from '@/data/types';
+import { OG_IMAGE, SITE_NAME, SITE_URL, pageUrl } from '@/data/seo';
+import { BUSINESS_ID } from '@/components/JsonLdSchema';
 import Breadcrumbs from '@/components/Breadcrumbs';
 
+const BLOG_LABEL: Record<SupportedLocale, string> = { he: 'בלוג', en: 'Blog', ar: 'المدونة', ru: 'Блог' };
+
 // Ultra-lightweight markdown parser for safe, controlled blog strings
+function renderMinimalMarkdown(content: string): string {
+  let parsed = content
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+  
+  // Headers
+  parsed = parsed.replace(/^### (.*$)/gim, '<h3 class="text-2xl font-bold text-brand-navy mt-10 mb-4">$1</h3>');
+  parsed = parsed.replace(/^## (.*$)/gim, '<h2 class="text-3xl font-bold text-brand-navy mt-12 mb-6 border-b pb-2">$1</h2>');
+  
+  // Bold
+  parsed = parsed.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-brand-navy">$1</strong>');
+  
+  // Lists
+  parsed = parsed.replace(/^\s*-\s(.*)$/gim, '<li class="ml-4 rtl:mr-4 mb-2 list-disc">$1</li>');
+  parsed = parsed.replace(/^\s*\d\.\s(.*)$/gim, '<li class="ml-4 rtl:mr-4 mb-2 list-decimal">$1</li>');
+  
+  // Replace multiple newlines with paragraph breaks, then single newlines with <br>
+  parsed = parsed.replace(/\n\n+/g, '</p><p class="mb-6 leading-relaxed text-gray-700 text-lg">');
+  parsed = parsed.replace(/\n/g, '<br/>');
+  
+  // Wrap the whole thing in a paragraph (and fix any empty starting/ending p tags)
+  parsed = `<p class="mb-6 leading-relaxed text-gray-700 text-lg">${parsed}</p>`;
+  parsed = parsed.replace(/<p class="[^"]*"><\/p>/g, '');
+  parsed = parsed.replace(/<br\/><\/li>/g, '</li>');
+  
+  return parsed;
+}
+
 const MinimalMarkdown: React.FC<{ content: string }> = ({ content }) => {
-  const html = useMemo(() => {
-    let parsed = content
-      .replace(/&/g, '&amp;')
-      .replace(/</g, '&lt;')
-      .replace(/>/g, '&gt;');
-    
-    // Headers
-    parsed = parsed.replace(/^### (.*$)/gim, '<h3 class="text-2xl font-bold text-brand-navy mt-10 mb-4">$1</h3>');
-    parsed = parsed.replace(/^## (.*$)/gim, '<h2 class="text-3xl font-bold text-brand-navy mt-12 mb-6 border-b pb-2">$1</h2>');
-    
-    // Bold
-    parsed = parsed.replace(/\*\*(.*?)\*\*/g, '<strong class="font-bold text-brand-navy">$1</strong>');
-    
-    // Lists
-    parsed = parsed.replace(/^\s*-\s(.*)$/gim, '<li class="ml-4 rtl:mr-4 mb-2 list-disc">$1</li>');
-    parsed = parsed.replace(/^\s*\d\.\s(.*)$/gim, '<li class="ml-4 rtl:mr-4 mb-2 list-decimal">$1</li>');
-    
-    // Replace multiple newlines with paragraph breaks, then single newlines with <br>
-    parsed = parsed.replace(/\n\n+/g, '</p><p class="mb-6 leading-relaxed text-gray-700 text-lg">');
-    parsed = parsed.replace(/\n/g, '<br/>');
-    
-    // Wrap the whole thing in a paragraph (and fix any empty starting/ending p tags)
-    parsed = `<p class="mb-6 leading-relaxed text-gray-700 text-lg">${parsed}</p>`;
-    parsed = parsed.replace(/<p class="[^"]*"><\/p>/g, '');
-    parsed = parsed.replace(/<br\/><\/li>/g, '</li>');
-    
-    return parsed;
-  }, [content]);
+  const html = renderMinimalMarkdown(content);
 
   return (
     <div 
@@ -46,27 +56,20 @@ const MinimalMarkdown: React.FC<{ content: string }> = ({ content }) => {
   );
 };
 
-const BlogPost: React.FC = () => {
-  const { lang, slug } = useParams<{ lang: string; slug: string }>();
-  const { currentLanguage } = useLanguage();
-  const locale = (lang || currentLanguage) as SupportedLocale;
+interface BlogPostProps {
+  locale: SupportedLocale;
+  post: BlogPostData;
+}
 
-  const post = useMemo(() => BLOG_POSTS.find(p => p.slug === slug), [slug]);
-  
+const BlogPost: React.FC<BlogPostProps> = ({ locale, post }) => {
   // Resolve related service for internal linking SEO loop
-  const relatedService = useMemo(() => 
-    post?.relatedServiceId ? SERVICES.find(s => s.id === post.relatedServiceId) : null
-  , [post]);
-
-  if (!post) {
-    redirect(`/${locale}/blog`);
-    return null;
-  }
+  const relatedService = post.relatedServiceId ? SERVICES.find(s => s.id === post.relatedServiceId) : null;
 
   const title = getLocalizedText(post.title, locale);
   const excerpt = getLocalizedText(post.excerpt, locale);
   const content = getLocalizedText(post.content, locale);
   const publishDate = new Date(post.date).toISOString();
+  const url = pageUrl(locale, `/blog/${post.slug}`);
 
   // Article JSON-LD Schema built natively for deep Google parsing
   const articleSchema = {
@@ -74,22 +77,27 @@ const BlogPost: React.FC = () => {
     '@type': 'Article',
     mainEntityOfPage: {
       '@type': 'WebPage',
-      '@id': `https://www.shwakiglassworks.com/${locale}/blog/${post.slug}`,
+      '@id': url,
     },
+    url,
     headline: title,
     description: excerpt,
+    inLanguage: locale,
+    image: [OG_IMAGE],
+    articleSection: post.category,
     author: {
       '@type': 'Organization',
       name: post.author,
-      url: 'https://www.shwakiglassworks.com'
+      url: SITE_URL,
     },
     publisher: {
       '@type': 'Organization',
-      name: 'Shwaki Brothers Glassworks',
+      '@id': BUSINESS_ID,
+      name: SITE_NAME,
       logo: {
         '@type': 'ImageObject',
-        url: 'https://www.shwakiglassworks.com/logo.png'
-      }
+        url: `${SITE_URL}/logo.png`,
+      },
     },
     datePublished: publishDate,
     dateModified: publishDate,
@@ -97,9 +105,6 @@ const BlogPost: React.FC = () => {
 
   return (
     <>
-      <title>{`${title} | ${{ he: 'הבלוג של אחים שוואקי', en: 'Shwaki Brothers Blog', ar: 'مدونة إخوة شواكي', ru: 'Блог Братьев Шваки' }[locale]}`}</title>
-      <meta name="description" content={excerpt} />
-      <link rel="canonical" href={`https://www.shwakiglassworks.com/${locale}/blog/${post.slug}`} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
 
       {/* Modern hero spanning screen width */}
@@ -140,9 +145,10 @@ const BlogPost: React.FC = () => {
           <div className="max-w-4xl mx-auto">
             <Breadcrumbs 
               items={[
-                { label: locale === 'he' ? 'בלוג' : 'Blog', href: `/${locale}/blog` },
+                { label: BLOG_LABEL[locale], href: `/${locale}/blog` },
                 { label: title }
               ]}
+              locale={locale}
             />
             
             <article className="mt-10 bg-white shadow-xl shadow-brand-navy/5 rounded-3xl p-8 md:p-12 border border-gray-100">

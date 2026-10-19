@@ -1,4 +1,3 @@
-'use client';
 /**
  * Breadcrumbs Component
  * Provides visual breadcrumb navigation for better UX and SEO
@@ -6,9 +5,8 @@
  */
 
 import React from 'react';
-import Link from 'next/link';;
+import Link from 'next/link';
 import { ChevronRight, ChevronLeft, Home } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
 import type { SupportedLocale } from '@/data';
 
 interface BreadcrumbItem {
@@ -18,12 +16,11 @@ interface BreadcrumbItem {
 
 interface BreadcrumbsProps {
   items: BreadcrumbItem[];
+  locale: SupportedLocale;
   className?: string;
 }
 
-const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, className = '' }) => {
-  const { currentLanguage } = useLanguage();
-  const locale = currentLanguage as SupportedLocale;
+const Breadcrumbs: React.FC<BreadcrumbsProps> = ({ items, locale, className = '' }) => {
   const isRTL = locale === 'he' || locale === 'ar';
   
   const Separator = isRTL ? ChevronLeft : ChevronRight;

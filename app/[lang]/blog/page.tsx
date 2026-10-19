@@ -1,2 +1,16 @@
-import Blog from '@/views/BlogList';
-export default function Page() { return <Blog />; }
+import type { Metadata } from 'next';
+import BlogList from '@/views/BlogList';
+import { assertLocale } from '@/lib/i18n';
+import { buildPageMetadata, getPageSeo } from '@/data/seo';
+
+type Props = { params: Promise<{ lang: string }> };
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const locale = assertLocale((await params).lang);
+  return buildPageMetadata(locale, '/blog', getPageSeo('blog', locale));
+}
+
+export default async function Page({ params }: Props) {
+  const locale = assertLocale((await params).lang);
+  return <BlogList locale={locale} />;
+}

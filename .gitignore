@@ -50,3 +50,7 @@ Thumbs.db
 
 # Security
 .npmrc
+
+# TypeScript incremental build cache
+tsconfig.tsbuildinfo
+*.tsbuildinfo

@@ -1,23 +1,23 @@
 'use client';
 /**
  * @fileoverview Language Context Provider
- * @description Context provider for internationalization and language switching.
- * Handles RTL/LTR direction, URL-based locale, and i18n integration.
+ * @description Exposes the active locale to client components.
+ *
+ * The locale comes from the server (`params.lang` in app/[lang]/layout.tsx), so
+ * server HTML and the hydrated client always agree — no URL parsing, no effects.
+ * Switching language is a plain navigation to the same path under another locale;
+ * the layout re-renders with the new `lang` prop.
  *
  * @example
  * ```tsx
- * // In App.tsx
- * <LanguageProvider>
- *   <App />
- * </LanguageProvider>
- *
- * // In components
  * const { currentLanguage, switchLanguage, isRTL } = useLanguage();
  * ```
  */
 
-import React, { createContext, useContext, useEffect, useState, useCallback, useMemo } from 'react';
+import React, { createContext, useContext, useCallback, useMemo } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
+import { DEFAULT_LOCALE, isLocale, isRTLLocale } from '@/lib/i18n';
+import type { SupportedLocale } from '@/data/types';
 
 // =============================================================================
 // TYPES
@@ -40,7 +40,7 @@ export interface SupportedLanguage {
  */
 interface LanguageContextValue {
   /** Current active language code */
-  currentLanguage: string;
+  currentLanguage: SupportedLocale;
   /** Function to switch to a different language */
   switchLanguage: (lang: string) => void;
   /** Whether current language is RTL (Hebrew, Arabic) */
@@ -53,7 +53,7 @@ interface LanguageContextValue {
 // CONSTANTS
 // =============================================================================
 
-export const DEFAULT_LANGUAGE = 'he';
+export const DEFAULT_LANGUAGE = DEFAULT_LOCALE;
 
 /**
  * List of supported languages with display names.
@@ -63,12 +63,7 @@ export const SUPPORTED_LANGUAGES: SupportedLanguage[] = [
   { code: 'en', name: 'English', nativeName: 'EN' },
   { code: 'ar', name: 'Arabic', nativeName: 'العربية' },
   { code: 'ru', name: 'Russian', nativeName: 'RU' },
-] as const;
-
-/**
- * RTL language codes.
- */
-const RTL_LANGUAGES = new Set(['he', 'ar']);
+];
 
 // =============================================================================
 // CONTEXT
@@ -99,102 +94,43 @@ export const useLanguage = (): LanguageContextValue => {
 // PROVIDER
 // =============================================================================
 
-/**
- * Props for LanguageProvider component.
- */
 interface LanguageProviderProps {
+  /** Locale from the `[lang]` route param, resolved on the server. */
+  lang: SupportedLocale;
   children: React.ReactNode;
 }
 
-/**
- * Language provider component.
- * Manages language state, URL synchronization, and document direction.
- */
-export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
+export const LanguageProvider: React.FC<LanguageProviderProps> = ({ lang, children }) => {
   const router = useRouter();
   const pathname = usePathname();
+  const isRTL = isRTLLocale(lang);
 
   /**
-   * Detect initial language from URL path.
+   * Navigates to the current path under another locale.
    */
-  const getLanguageFromUrl = useCallback((): string => {
-    if (!pathname) return 'he';
-    const pathSegments = pathname.split('/').filter(Boolean);
-    const urlLang = pathSegments[0];
-    const isValidLang = SUPPORTED_LANGUAGES.some((l) => l.code === urlLang);
-    return isValidLang ? urlLang : 'he';
-  }, [pathname]);
-
-  // Current language state - initialized from URL
-  const [currentLanguage, setCurrentLanguage] = useState(() => getLanguageFromUrl());
-
-  // Compute RTL status
-  const isRTL = RTL_LANGUAGES.has(currentLanguage);
-
-  /**
-   * Sync language from URL changes (browser back/forward navigation).
-   * IMPORTANT: currentLanguage must NOT be in deps — including it causes a race
-   * condition where the effect fires immediately after switchLanguage() sets state
-   * but before router.push() updates the URL, reverting every language switch.
-   */
-  useEffect(() => {
-    const urlLang = getLanguageFromUrl();
-    if (urlLang !== currentLanguage) {
-      setCurrentLanguage(urlLang);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pathname]); // only re-run when the URL actually changes
-
-  /**
-   * Update document direction and language attributes.
-   */
-  useEffect(() => {
-    document.documentElement.dir = isRTL ? 'rtl' : 'ltr';
-    document.documentElement.lang = currentLanguage;
-  }, [currentLanguage, isRTL]);
-
-  /**
-   * Switches the active language and updates the URL.
-   */
-  const switchLanguage = useCallback((lang: string) => {
-    // Validate language is supported
-    const isSupported = SUPPORTED_LANGUAGES.some((l) => l.code === lang);
-    if (!isSupported) {
-      console.warn(`[LanguageContext] Unsupported language: ${lang}`);
+  const switchLanguage = useCallback((next: string) => {
+    if (!isLocale(next)) {
+      console.warn(`[LanguageContext] Unsupported language: ${next}`);
       return;
     }
+    if (next === lang) return;
 
-    setCurrentLanguage(lang);
+    const segments = (pathname || '/').split('/').filter(Boolean);
+    if (isLocale(segments[0])) segments[0] = next;
+    else segments.unshift(next);
 
-    // Update URL to include language
-    if (!pathname) return;
-    const pathSegments = pathname.split('/').filter(Boolean);
-    const currentPathHasLang = SUPPORTED_LANGUAGES.some((l) => l.code === pathSegments[0]);
+    const query = typeof window !== 'undefined' ? window.location.search : '';
+    router.push('/' + segments.join('/') + query);
+  }, [lang, pathname, router]);
 
-    let newPath: string;
-    if (currentPathHasLang) {
-      // Replace existing language segment
-      pathSegments[0] = lang;
-      newPath = '/' + pathSegments.join('/');
-    } else {
-      // Prepend language to path
-      newPath = '/' + lang + pathname;
-    }
-
-    router.push(newPath);
-  }, [pathname, router]);
-
-  /**
-   * Memoized context value.
-   */
   const contextValue = useMemo<LanguageContextValue>(
     () => ({
-      currentLanguage,
+      currentLanguage: lang,
       switchLanguage,
       isRTL,
       supportedLanguages: SUPPORTED_LANGUAGES,
     }),
-    [currentLanguage, switchLanguage, isRTL]
+    [lang, switchLanguage, isRTL]
   );
 
   return (

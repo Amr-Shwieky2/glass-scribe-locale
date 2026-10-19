@@ -1,9 +1,11 @@
-'use client';
 import React from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { CheckCircle, Mail } from 'lucide-react';
-import { CONTACT_INFO, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
+import { CONTACT_INFO } from '@/data/contact';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 const services = [
   { en: 'Shower enclosures for residential projects', he: 'מארזי מקלחת לפרויקטים למגורים', ar: 'حاويات الدش للمشاريع السكنية', ru: 'Душевые кабины для жилых проектов' },
@@ -32,8 +34,10 @@ const ContractorServices: React.FC<{ locale: SupportedLocale }> = ({ locale }) =
         </CardContent></Card>
         <div className="text-center mt-8 sm:mt-10 md:mt-12">
           <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-base">{getLocalizedText(UI_STRINGS.contractorsSendDrawings, locale)}</p>
-          <Button size="lg" onClick={() => { window.location.href = `mailto:${CONTACT_INFO.email}?subject=${encodeURIComponent(getLocalizedText(UI_STRINGS.contractorsEmailSubject, locale))}`; }} className="rounded-full px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base">
-            <Mail className="mr-2 w-4 h-4 sm:w-5 sm:h-5" /><span className="truncate">{CONTACT_INFO.email}</span>
+          <Button size="lg" asChild className="rounded-full px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base">
+            <a href={`mailto:${CONTACT_INFO.email}?subject=${encodeURIComponent(getLocalizedText(UI_STRINGS.contractorsEmailSubject, locale))}`}>
+              <Mail className="mr-2 w-4 h-4 sm:w-5 sm:h-5" /><span className="truncate">{CONTACT_INFO.email}</span>
+            </a>
           </Button>
         </div>
       </div>

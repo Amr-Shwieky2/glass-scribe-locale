@@ -16,7 +16,8 @@ import {
 } from '@/lib/cloudinary';
 import { setServiceCardImage, removeServiceCardImage } from '@/lib/cloudinary/admin-api';
 import { SERVICES } from '@/data/services';
-import { getLocalizedText, type SupportedLocale } from '@/data';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 import { ADMIN_STRINGS, getAdminText, type AdminLocale } from '@/data/admin-strings';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -45,7 +46,7 @@ const getServiceCardId = (image: CloudinaryImage): string | null => {
 };
 
 const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange }) => {
-  const { token } = useAdmin();
+  const { isAuthenticated } = useAdmin();
   const { toast } = useToast();
   const { currentLanguage } = useLanguage();
   const locale = currentLanguage as AdminLocale;
@@ -95,24 +96,24 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
   }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSelectImage = async (image: CloudinaryImage) => {
-    if (selectedService === null || !token) return;
+    if (selectedService === null || !isAuthenticated) return;
 
     setIsSaving(true);
     try {
       // Remove the image from any existing service card assignment
       const existingServiceId = getServiceCardId(image);
       if (existingServiceId) {
-        await removeServiceCardImage(image.public_id, existingServiceId, token);
+        await removeServiceCardImage(image.public_id, existingServiceId);
       }
 
       // Remove current image from this service if any
       const currentImage = serviceImages[selectedService];
       if (currentImage) {
-        await removeServiceCardImage(currentImage.public_id, selectedService, token);
+        await removeServiceCardImage(currentImage.public_id, selectedService);
       }
 
       // Set new image for this service
-      await setServiceCardImage(image.public_id, selectedService, token);
+      await setServiceCardImage(image.public_id, selectedService);
 
       // Update local state
       const newServiceImages = { ...serviceImages };
@@ -149,13 +150,13 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
   };
 
   const handleRemoveFromService = async (serviceId: string) => {
-    if (!token) return;
+    if (!isAuthenticated) return;
     const image = serviceImages[serviceId];
     if (!image) return;
 
     setIsSaving(true);
     try {
-      await removeServiceCardImage(image.public_id, serviceId, token);
+      await removeServiceCardImage(image.public_id, serviceId);
 
       const newServiceImages = { ...serviceImages };
       newServiceImages[serviceId] = null;

@@ -1,8 +1,11 @@
 'use client';
 import React from 'react';
+import Image from 'next/image';
 import { ZoomIn } from 'lucide-react';
-import { getThumbnailUrl } from '@/hooks/cloudinary';
-import { UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
+import { getThumbnailUrl } from '@/lib/cloudinary/urls';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 import type { CloudinaryImage } from '@/lib/cloudinary';
 
 interface ProjectGridItemProps {
@@ -21,13 +24,12 @@ const ProjectGridItem: React.FC<ProjectGridItemProps> = ({
     className="group relative overflow-hidden rounded-xl sm:rounded-2xl shadow-lg aspect-[4/3] cursor-pointer"
     onClick={onClick}
   >
-    <img
+    <Image
       src={getThumbnailUrl(img.public_id, 600)}
       alt={altText}
-      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-      loading="lazy"
-      width={600}
-      height={450}
+      fill
+      sizes="(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw"
+      className="object-cover group-hover:scale-110 transition-transform duration-500"
     />
     <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
       <div className="transform translate-y-4 group-hover:translate-y-0 transition-all duration-300 opacity-0 group-hover:opacity-100 bg-white/20 backdrop-blur-sm p-3 rounded-full text-white">

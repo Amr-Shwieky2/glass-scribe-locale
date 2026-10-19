@@ -3,8 +3,11 @@ import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Phone, MessageCircle, Globe, ChevronDown } from 'lucide-react';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
-import { NAVIGATION, UI_STRINGS, getLocalizedText, type SupportedLocale } from '@/data';
+import SimpleMenu from '@/components/ui/simple-menu';
+import { NAVIGATION } from '@/data/navigation';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 interface Props { navigation: { href: string; label: string }[]; isActive: (h: string) => boolean; locale: SupportedLocale; supportedLanguages: { code: string; nativeName: string }[]; currentLanguage: string; onSwitchLanguage: (c: string) => void; onWhatsApp: () => void; onCall: () => void; }
 
@@ -19,29 +22,32 @@ const DesktopNav: React.FC<Props> = ({ navigation, isActive, locale, supportedLa
       ))}
     </nav>
     <div className="hidden md:flex items-center gap-2">
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button size="lg" className="bg-brand-gold hover:bg-brand-gold/90 text-brand-navy font-semibold px-6 rounded-full">
+      <SimpleMenu
+        className="w-48"
+        trigger={(props) => (
+          <Button {...props} size="lg" className="bg-brand-gold hover:bg-brand-gold/90 text-brand-navy font-semibold px-6 rounded-full">
             <Phone className="w-4 h-4 mr-2" /><span>{getLocalizedText(NAVIGATION.cta.label, locale)}</span><ChevronDown className="w-4 h-4 ml-2" />
           </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-48">
-          <DropdownMenuItem onClick={onCall}><Phone className="w-4 h-4 mr-2" />{getLocalizedText(UI_STRINGS.callNow, locale)}</DropdownMenuItem>
-          <DropdownMenuItem onClick={onWhatsApp}><MessageCircle className="w-4 h-4 mr-2" />WhatsApp</DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button variant="ghost" size="sm" className="text-brand-navy">
+        )}
+        items={[
+          { key: 'call', label: <><Phone className="w-4 h-4 mr-2" />{getLocalizedText(UI_STRINGS.callNow, locale)}</>, onSelect: onCall },
+          { key: 'whatsapp', label: <><MessageCircle className="w-4 h-4 mr-2" />WhatsApp</>, onSelect: onWhatsApp },
+        ]}
+      />
+      <SimpleMenu
+        className="w-32"
+        trigger={(props) => (
+          <Button {...props} variant="ghost" size="sm" className="text-brand-navy" aria-label="Change language">
             <Globe className="w-4 h-4 mr-1" /><span className="text-xs font-medium">{supportedLanguages.find(l => l.code === currentLanguage)?.nativeName}</span>
           </Button>
-        </DropdownMenuTrigger>
-        <DropdownMenuContent align="end" className="w-32">
-          {supportedLanguages.map((lang) => (
-            <DropdownMenuItem key={lang.code} onClick={() => onSwitchLanguage(lang.code)} className={currentLanguage === lang.code ? 'bg-brand-gold/10' : ''}>{lang.nativeName}</DropdownMenuItem>
-          ))}
-        </DropdownMenuContent>
-      </DropdownMenu>
+        )}
+        items={supportedLanguages.map((lang) => ({
+          key: lang.code,
+          label: lang.nativeName,
+          onSelect: () => onSwitchLanguage(lang.code),
+          className: currentLanguage === lang.code ? 'bg-brand-gold/10' : '',
+        }))}
+      />
     </div>
   </>
 );

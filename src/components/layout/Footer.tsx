@@ -1,14 +1,16 @@
-'use client';
 /**
- * Footer Component - Orchestrator
+ * Footer Component - Orchestrator (Server Component)
  */
 
 import React from 'react';
-import Link from 'next/link';;
-import { useLanguage } from '@/contexts/LanguageContext';
+import Link from 'next/link';
+import Image from 'next/image';
 import FooterLinks from './FooterLinks';
 import FooterContact from './FooterContact';
-import { BUSINESS_INFO, FOOTER_CONTENT, getLocalizedText, type SupportedLocale } from '@/data';
+import { BUSINESS_INFO } from '@/data/business-info';
+import { FOOTER_CONTENT } from '@/data/footer';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 // Legal links labels
 const LEGAL_LINKS = {
@@ -32,9 +34,8 @@ const LEGAL_LINKS = {
   },
 };
 
-const Footer: React.FC = () => {
-  const { currentLanguage } = useLanguage();
-  const locale = currentLanguage as SupportedLocale;
+const Footer: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {
+  const currentLanguage = locale;
   const t = (obj: Record<string, string>) => getLocalizedText(obj, locale);
 
   return (
@@ -44,7 +45,7 @@ const Footer: React.FC = () => {
           {/* Brand Section */}
           <div className="sm:col-span-2 lg:col-span-1">
             <div className="flex items-center gap-3 mb-4 sm:mb-6">
-              <img src="/logo-64.png" alt="Shwaki Brothers Logo" width="56" height="56" className="w-12 h-12 sm:w-14 sm:h-14 object-contain" />
+              <Image src="/logo-64.png" alt="Shwaki Brothers Logo" width={56} height={56} className="w-12 h-12 sm:w-14 sm:h-14 object-contain" />
               <div><h3 className="font-bold text-base sm:text-lg text-white">{getLocalizedText(BUSINESS_INFO.name, locale)}</h3></div>
             </div>
             <p className="text-gray-300 mb-4 sm:mb-6 leading-relaxed text-sm sm:text-base">{getLocalizedText(FOOTER_CONTENT.description, locale)}</p>

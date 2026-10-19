@@ -1,15 +1,15 @@
 'use client';
 /**
  * @fileoverview Admin Authentication Context
- * @description Simple password-based authentication for admin panel.
- * 
+ * @description Password-based authentication for the admin panel.
+ *
  * SECURITY:
- * - Password hashed and compared server-side
- * - Session stored in localStorage with 24-hour expiry
- * - Token validated on each API request
- * 
+ * - Password compared server-side in constant time (/api/auth/login)
+ * - Session is a signed 24h token in an httpOnly, Secure, SameSite=Strict
+ *   cookie — JavaScript never sees it, nothing is stored in localStorage
+ * - Admin API routes verify the cookie on every request
+ *
  * NOTE: This is a simple solution for a single admin.
- * For multiple users, consider Supabase Auth or similar.
  */
 
 import {
@@ -26,25 +26,15 @@ import {
 // TYPES
 // =============================================================================
 
-interface AdminSession {
-  token: string;
-  expiresAt: number;
-}
-
 interface AdminContextValue {
   isAuthenticated: boolean;
   isLoading: boolean;
-  token: string | null;
   login: (password: string) => Promise<{ success: boolean; error?: string }>;
-  logout: () => void;
+  logout: () => Promise<void>;
 }
 
-// =============================================================================
-// CONSTANTS
-// =============================================================================
-
-const STORAGE_KEY = 'shwaki_admin_session';
-const SESSION_DURATION = 24 * 60 * 60 * 1000; // 24 hours in milliseconds
+// Pre-cookie versions stored a permanent token here — remove it if present
+const LEGACY_STORAGE_KEY = 'shwaki_admin_session';
 
 // =============================================================================
 // CONTEXT
@@ -57,78 +47,61 @@ const AdminContext = createContext<AdminContextValue | null>(null);
 // =============================================================================
 
 export const AdminProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [session, setSession] = useState<AdminSession | null>(null);
+  const [expiresAt, setExpiresAt] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Load session from localStorage on mount
-  useEffect(() => {
-    const stored = localStorage.getItem(STORAGE_KEY);
-    
-    if (stored) {
-      try {
-        const parsed: AdminSession = JSON.parse(stored);
-        
-        // Check if session is still valid
-        if (parsed.expiresAt > Date.now()) {
-          setSession(parsed);
-        } else {
-          // Session expired, clean up
-          localStorage.removeItem(STORAGE_KEY);
-        }
-      } catch {
-        // Invalid JSON, clean up
-        localStorage.removeItem(STORAGE_KEY);
-      }
+  const checkSession = useCallback(async () => {
+    try {
+      const res = await fetch('/api/auth/session', { credentials: 'same-origin', cache: 'no-store' });
+      const data = await res.json();
+      setExpiresAt(data.authenticated ? data.expiresAt : null);
+    } catch {
+      setExpiresAt(null);
+    } finally {
+      setIsLoading(false);
     }
-    
-    setIsLoading(false);
   }, []);
+
+  // Only the admin page needs to know — skip the request everywhere else
+  useEffect(() => {
+    try { localStorage.removeItem(LEGACY_STORAGE_KEY); } catch { /* storage unavailable */ }
+    if (/^\/[a-z]{2}\/admin(\/|$)/.test(window.location.pathname)) checkSession();
+    else setIsLoading(false);
+  }, [checkSession]);
 
   // Login function
   const login = useCallback(async (password: string): Promise<{ success: boolean; error?: string }> => {
     try {
       const response = await fetch('/api/auth/login', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        credentials: 'same-origin',
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ password }),
       });
-
-      const data = await response.json();
-
+      const data = await response.json().catch(() => ({}));
       if (!response.ok) {
         return { success: false, error: data.error || 'Login failed' };
       }
-
-      // Create session
-      const newSession: AdminSession = {
-        token: data.token,
-        expiresAt: Date.now() + SESSION_DURATION,
-      };
-
-      // Save to localStorage
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(newSession));
-      setSession(newSession);
-
+      await checkSession();
       return { success: true };
     } catch (error) {
       console.error('Login error:', error);
       return { success: false, error: 'Network error. Please try again.' };
     }
-  }, []);
+  }, [checkSession]);
 
   // Logout function
-  const logout = useCallback(() => {
-    localStorage.removeItem(STORAGE_KEY);
-    setSession(null);
+  const logout = useCallback(async () => {
+    try {
+      await fetch('/api/auth/logout', { method: 'POST', credentials: 'same-origin' });
+    } finally {
+      setExpiresAt(null);
+    }
   }, []);
 
-  // Context value
   const value: AdminContextValue = {
-    isAuthenticated: session !== null && session.expiresAt > Date.now(),
+    isAuthenticated: expiresAt !== null && expiresAt > Date.now(),
     isLoading,
-    token: session?.token ?? null,
     login,
     logout,
   };

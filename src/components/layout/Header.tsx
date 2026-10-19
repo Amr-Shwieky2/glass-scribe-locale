@@ -6,15 +6,18 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
-import { useSpring, animated } from '@react-spring/web';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { Button } from '@/components/ui/button';
 import { Menu, X, Globe, ChevronDown } from 'lucide-react';
 import { useScrollDetection } from '@/hooks/useScrollDetection';
-import { SPRING_CONFIGS } from '@/constants/animation';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
-import { BUSINESS_INFO, CONTACT_INFO, NAVIGATION, getLocalizedText, type SupportedLocale } from '@/data';
+import Image from 'next/image';
+import { BUSINESS_INFO } from '@/data/business-info';
+import { CONTACT_INFO } from '@/data/contact';
+import { NAVIGATION } from '@/data/navigation';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 // Short language codes for display
 const langShort: Record<string, string> = {
@@ -51,25 +54,21 @@ const Header: React.FC = () => {
     setIsLangOpen(false);
   };
 
-  const headerSpring = useSpring({
-    backgroundColor: scrolled ? 'rgba(255, 255, 255, 0.98)' : 'rgba(255, 255, 255, 0.95)',
-    boxShadow: scrolled ? '0 4px 12px rgba(0, 0, 0, 0.08)' : '0 2px 8px rgba(0, 0, 0, 0.04)',
-    config: SPRING_CONFIGS.smooth,
-  });
-
-  const logoSpring = useSpring({ transform: scrolled ? 'scale(0.9)' : 'scale(1)', config: SPRING_CONFIGS.wobbly });
-
   return (
-    <animated.header style={headerSpring} className="sticky top-0 left-0 right-0 z-50 backdrop-blur-md">
+    <header
+      className={`sticky top-0 left-0 right-0 z-50 backdrop-blur-md transition-[background-color,box-shadow] duration-300 ${
+        scrolled ? 'bg-white/[0.98] shadow-[0_4px_12px_rgba(0,0,0,0.08)]' : 'bg-white/95 shadow-[0_2px_8px_rgba(0,0,0,0.04)]'
+      }`}
+    >
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 sm:h-20">
           <Link href={`/${currentLanguage}`} className="group flex-shrink-0">
-            <animated.div style={logoSpring} className="flex items-center gap-2 sm:gap-3">
-              <img src="/logo-64.png" alt="Shwaki Brothers Logo" width="48" height="48" className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
+            <div className={`flex items-center gap-2 sm:gap-3 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${scrolled ? 'scale-90' : 'scale-100'}`}>
+              <Image src="/logo-64.png" alt="Shwaki Brothers Logo" width={48} height={48} priority className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
               <div className="hidden xs:block sm:block">
                 <span className="font-bold text-brand-navy text-sm sm:text-base">{getLocalizedText(BUSINESS_INFO.name, locale)}</span>
               </div>
-            </animated.div>
+            </div>
           </Link>
 
           <DesktopNav navigation={navigation} isActive={isActive} locale={locale} supportedLanguages={supportedLanguages} currentLanguage={currentLanguage} onSwitchLanguage={switchLanguage} onWhatsApp={handleWhatsApp} onCall={handlePhoneCall} />
@@ -134,7 +133,7 @@ const Header: React.FC = () => {
       {isMenuOpen && (
         <MobileNav navigation={navigation} isActive={isActive} locale={locale} supportedLanguages={supportedLanguages} currentLanguage={currentLanguage} onSwitchLanguage={switchLanguage} onWhatsApp={handleWhatsApp} onCall={handlePhoneCall} onClose={closeMobileMenu} />
       )}
-    </animated.header>
+    </header>
   );
 };
 

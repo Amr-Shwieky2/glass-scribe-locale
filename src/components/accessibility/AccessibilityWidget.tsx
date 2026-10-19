@@ -127,7 +127,8 @@ const AccessibilityWidget: React.FC = () => {
     const body = document.body;
 
     // Font size
-    root.style.fontSize = `${settings.fontSize}%`;
+    // Only override the stylesheet when the user changed the size (avoids a layout shift on load)
+    root.style.fontSize = settings.fontSize === 100 ? '' : `${settings.fontSize}%`;
 
     // High contrast
     if (settings.highContrast) {

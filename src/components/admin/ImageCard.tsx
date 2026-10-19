@@ -1,5 +1,6 @@
 'use client';
 import { type FC } from 'react';
+import Image from 'next/image';
 import {
   type CloudinaryImage,
   getThumbnailUrl,
@@ -56,14 +57,15 @@ const ImageCard: FC<ImageCardProps> = ({
       {/* Image */}
       <button
         onClick={() => onPreview(image)}
-        className="w-full aspect-square cursor-pointer"
+        className="relative block w-full aspect-square cursor-pointer"
       >
-        <img
+        <Image
           src={getThumbnailUrl(image.public_id, 400)}
           alt={image.context?.custom?.alt || 'Gallery image'}
-          className="w-full h-full object-cover transition-transform group-hover:scale-105"
-          loading="lazy"
-          onError={(e) => { (e.target as HTMLImageElement).src = BROKEN_IMG_FALLBACK; }}
+          fill
+          sizes="(min-width: 1024px) 20vw, (min-width: 640px) 33vw, 50vw"
+          className="object-cover transition-transform group-hover:scale-105"
+          onError={(e) => { e.currentTarget.src = BROKEN_IMG_FALLBACK; e.currentTarget.srcset = ''; }}
         />
       </button>
 

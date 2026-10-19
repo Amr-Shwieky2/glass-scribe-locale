@@ -1,6 +1,9 @@
 import React from 'react';
 import AnimatedPageHeader from '@/components/AnimatedPageHeader';
-import { getLocalizedText, UI_STRINGS, PROJECT_CATEGORIES, type SupportedLocale, type LocalizedText } from '@/data';
+import { getLocalizedText } from '@/data/helpers';
+import { UI_STRINGS } from '@/data/ui-strings';
+import { PROJECT_CATEGORIES } from '@/data/project-categories';
+import type { SupportedLocale, LocalizedText } from '@/data/types';
 
 interface Props {
   locale: SupportedLocale;

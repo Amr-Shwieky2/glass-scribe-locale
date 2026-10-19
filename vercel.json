@@ -45,10 +45,6 @@
           "value": "DENY"
         },
         {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
         },
@@ -86,10 +82,6 @@
           "value": "DENY"
         },
         {
-          "key": "X-XSS-Protection",
-          "value": "1; mode=block"
-        },
-        {
           "key": "Referrer-Policy",
           "value": "strict-origin-when-cross-origin"
         },
@@ -111,7 +103,7 @@
         },
         {
           "key": "Cross-Origin-Opener-Policy",
-          "value": "same-origin"
+          "value": "same-origin-allow-popups"
         },
         {
           "key": "Cross-Origin-Resource-Policy",
@@ -119,7 +111,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://plausible.io https://upload-widget.cloudinary.com https://fonts.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com https://www.instagram.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://res.cloudinary.com https://*.cloudinary.com https://www.google-analytics.com https://images.unsplash.com https://*.instagram.com; connect-src 'self' https://plausible.io https://api.cloudinary.com https://*.cloudinary.com https://www.google-analytics.com https://api.telegram.org; frame-src 'self' https://upload-widget.cloudinary.com https://www.google.com https://www.instagram.com; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me; upgrade-insecure-requests; block-all-mixed-content"
+          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://plausible.io https://upload-widget.cloudinary.com https://fonts.googleapis.com https://www.googletagmanager.com https://www.google-analytics.com https://www.instagram.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https://res.cloudinary.com https://lh3.googleusercontent.com https://*.cloudinary.com https://www.google-analytics.com https://images.unsplash.com https://*.instagram.com; connect-src 'self' https://plausible.io https://api.cloudinary.com https://*.cloudinary.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://www.googletagmanager.com https://api.telegram.org; frame-src 'self' https://upload-widget.cloudinary.com https://www.google.com https://www.instagram.com; object-src 'none'; base-uri 'self'; form-action 'self' https://wa.me; upgrade-insecure-requests; block-all-mixed-content"
         }
       ]
     },

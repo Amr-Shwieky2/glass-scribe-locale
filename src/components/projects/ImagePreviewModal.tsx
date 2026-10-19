@@ -1,7 +1,8 @@
 'use client';
 import React, { useState, TouchEvent, useEffect } from 'react';
+import NextImage from 'next/image';
 import { X, ChevronLeft, ChevronRight, Hand } from 'lucide-react';
-import { getGalleryUrl } from '@/hooks/cloudinary';
+import { getGalleryUrl } from '@/lib/cloudinary/urls';
 import type { CloudinaryImage } from '@/lib/cloudinary';
 
 interface ImagePreviewModalProps {
@@ -82,10 +83,13 @@ const ImagePreviewModal: React.FC<ImagePreviewModalProps> = ({
       onTouchMove={onTouchMove}
       onTouchEnd={onTouchEndHandler}
     >
-      <img
+      <NextImage
         src={getGalleryUrl(image.public_id)}
         alt={image.context?.custom?.alt || 'Preview'}
-        className="max-h-[70vh] max-w-full object-contain rounded-lg"
+        width={image.width || 1200}
+        height={image.height || 900}
+        sizes="(min-width: 1280px) 1200px, 100vw"
+        className="max-h-[70vh] max-w-full w-auto h-auto object-contain rounded-lg"
       />
       {images.length > 1 && (
         <>

@@ -1,64 +1,42 @@
-'use client';
-import React, { useMemo, useState } from 'react';
-import { usePathname, useParams, redirect } from 'next/navigation';
-import Link from 'next/link';;
-;
-import { CheckCircle, Phone, MessageCircle, ArrowLeft, ArrowRight, Camera } from 'lucide-react';
-import { useLanguage } from '@/contexts/LanguageContext';
-import { 
-  getServiceSeoPageByServiceId,
-  getServiceSeoPageBySlug,
-  SERVICE_SEO_SECTION_TITLES, 
+/**
+ * Service landing page (Server Component), e.g. /he/glass-shower-installation.
+ * Project photos are fetched on the server (cached) and handed to a small client gallery.
+ */
+import React from 'react';
+import Link from 'next/link';
+import { CheckCircle, Phone, MessageCircle, ArrowLeft, ArrowRight } from 'lucide-react';
+import {
+  SERVICE_SEO_SECTION_TITLES,
   LOCATION_SEO_LINKS,
-  LOCATION_SEO_ALIAS_PREFIX
+  type ServiceSeoPage,
 } from '@/data/service-seo-content';
-import { getLocalizedText, getLocalizedArray, CONTACT_INFO, UI_STRINGS, type SupportedLocale } from '@/data';
+import { getLocalizedText, getLocalizedArray } from '@/data/helpers';
+import { CONTACT_INFO } from '@/data/contact';
+import { UI_STRINGS } from '@/data/ui-strings';
+import type { SupportedLocale } from '@/data/types';
 import { BLOG_POSTS } from '@/data/blog-posts';
+import { hasLocationPage } from '@/data/locations';
+import { isRTLLocale } from '@/lib/i18n';
+import { getImagesByFolder } from '@/lib/cloudinary/server';
 import ServiceJsonLd from '@/components/ServiceJsonLd';
-import { useCloudinaryImages, getThumbnailUrl, getGalleryUrl } from '@/hooks/cloudinary';
-import ImagePreviewModal from '@/components/projects/ImagePreviewModal';
-import type { CloudinaryImage } from '@/lib/cloudinary';
+import ServicePhotos from '@/components/services/ServicePhotos';
 
-const ServiceDetail: React.FC = () => {
-  const { lang, serviceId } = useParams<{ lang: string; serviceId: string }>();
-  const location = { pathname: usePathname() };
-  const { currentLanguage, isRTL } = useLanguage();
-  const locale = (lang || currentLanguage) as SupportedLocale;
+interface ServiceDetailProps {
+  locale: SupportedLocale;
+  service: ServiceSeoPage;
+}
 
-  const service = useMemo(() => {
-    // First try by serviceId param (from /:lang/services/:serviceId route)
-    if (serviceId) {
-      return getServiceSeoPageByServiceId(serviceId);
-    }
-    // Fallback: extract slug from URL path (for SEO slug-based routes like /:lang/glass-shower-installation)
-    const pathSegments = location.pathname.split('/');
-    const slug = pathSegments[pathSegments.length - 1] || pathSegments[pathSegments.length - 2];
-    if (slug) {
-      return getServiceSeoPageBySlug(slug);
-    }
-    return null;
-  }, [serviceId, location.pathname]);
-
-  if (!service) {
-    redirect(`/${locale}/services`);
-    return null;
-  }
-
+const ServiceDetail = async ({ locale, service }: ServiceDetailProps) => {
+  const isRTL = isRTLLocale(locale);
   const t = (obj: unknown) => getLocalizedText(obj as Record<SupportedLocale, string>, locale);
   const titles = SERVICE_SEO_SECTION_TITLES;
 
-  // Fetch project photos from matching Cloudinary category
-  const { images: projectImages, isLoading: imagesLoading } = useCloudinaryImages(service.cloudinaryCategory, { limit: 8 });
-  const [previewImage, setPreviewImage] = useState<CloudinaryImage | null>(null);
-  const [previewIndex, setPreviewIndex] = useState(0);
-
-  const openPreview = (img: CloudinaryImage, idx: number) => { setPreviewImage(img); setPreviewIndex(idx); };
-  const handlePrev = () => { const i = previewIndex === 0 ? projectImages.length - 1 : previewIndex - 1; setPreviewIndex(i); setPreviewImage(projectImages[i]); };
-  const handleNext = () => { const i = previewIndex === projectImages.length - 1 ? 0 : previewIndex + 1; setPreviewIndex(i); setPreviewImage(projectImages[i]); };
+  // Project photos from the matching Cloudinary folder (server-side, cached 1h)
+  const projectImages = await getImagesByFolder(service.cloudinaryCategory, 8);
 
   const whatsappMessage = `שלום, אשמח לקבל הצעת מחיר עבור ${t(service.heroTitle)}`;
 
-  const relatedPosts = useMemo(() => BLOG_POSTS.filter((p) => p.relatedServiceId === service.serviceId).slice(0, 4), [service.serviceId]);
+  const relatedPosts = BLOG_POSTS.filter((p) => p.relatedServiceId === service.serviceId).slice(0, 4);
 
   return (
     <div className="min-h-screen bg-brand-light">
@@ -107,42 +85,13 @@ const ServiceDetail: React.FC = () => {
             </div>
 
             {/* Project Photos Gallery */}
-            {projectImages.length > 0 && (
-              <div className="mt-12 pt-10 border-t border-gray-200">
-                <div className="flex items-center justify-between mb-6">
-                  <h2 className="text-2xl sm:text-3xl font-bold text-brand-navy flex items-center gap-2">
-                    <Camera className="w-6 h-6 text-brand-gold" />
-                    {t(titles.photos)}
-                  </h2>
-                  <Link
-                    href={`/${locale}/projects?category=${service.projectCategoryId}`}
-                    className="text-sm text-brand-gold hover:text-brand-navy font-medium transition-colors"
-                  >
-                    {locale === 'he' ? 'כל התמונות →' : locale === 'ar' ? 'جميع الصور →' : locale === 'ru' ? 'Все фото →' : 'All photos →'}
-                  </Link>
-                </div>
-                <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                  {projectImages.map((img, idx) => (
-                    <button
-                      key={img.public_id}
-                      onClick={() => openPreview(img, idx)}
-                      className="group relative aspect-square rounded-xl overflow-hidden shadow-sm hover:shadow-lg transition-all duration-300"
-                    >
-                      <img
-                        src={getThumbnailUrl(img.public_id, 400)}
-                        alt={img.context?.custom?.alt || t(service.heroTitle)}
-                        loading="lazy"
-                        decoding="async"
-                        className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      />
-                      <div className="absolute inset-0 bg-brand-navy/0 group-hover:bg-brand-navy/30 transition-colors duration-300 flex items-center justify-center">
-                        <Camera className="w-6 h-6 text-white opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            )}
+            <ServicePhotos
+              images={projectImages}
+              title={t(titles.photos)}
+              altFallback={t(service.heroTitle)}
+              allPhotosHref={`/${locale}/projects?category=${service.projectCategoryId}`}
+              allPhotosLabel={locale === 'he' ? 'כל התמונות →' : locale === 'ar' ? 'جميع الصور →' : locale === 'ru' ? 'Все фото →' : 'All photos →'}
+            />
 
             {/* FAQs */}
             <div className="mt-16 pt-12 border-t border-gray-200">
@@ -224,10 +173,17 @@ const ServiceDetail: React.FC = () => {
                 {service.relatedLocations.map((slug: string) => {
                   const loc = LOCATION_SEO_LINKS.find(l => l.slug === slug);
                   if (!loc) return null;
+                  if (!hasLocationPage(slug)) {
+                    return (
+                      <span key={slug} className="text-xs bg-gray-50 text-brand-navy border border-gray-200 px-3 py-1.5 rounded-full">
+                        {t(loc.label)}
+                      </span>
+                    );
+                  }
                   return (
                     <Link 
                       key={slug}
-                      href={`/${locale}/${LOCATION_SEO_ALIAS_PREFIX}-${slug}`}
+                      href={`/${locale}/${slug}`}
                       className="text-xs bg-gray-50 hover:bg-brand-navy hover:text-white text-brand-navy border border-gray-200 px-3 py-1.5 rounded-full transition-colors"
                     >
                       {t(loc.label)}
@@ -240,18 +196,6 @@ const ServiceDetail: React.FC = () => {
         </div>
       </section>
 
-      {/* Image Preview Modal */}
-      {previewImage && (
-        <ImagePreviewModal
-          image={previewImage}
-          images={projectImages}
-          previewIndex={previewIndex}
-          onClose={() => setPreviewImage(null)}
-          onPrev={handlePrev}
-          onNext={handleNext}
-          getImageCategory={() => t(service.heroTitle)}
-        />
-      )}
     </div>
   );
 };

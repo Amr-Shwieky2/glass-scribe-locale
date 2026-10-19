@@ -4,9 +4,9 @@
  */
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Phone, Ruler, PenTool, Truck, CheckCircle } from 'lucide-react';
-import { getLocalizedText, type SupportedLocale } from '@/data';
+import { getLocalizedText } from '@/data/helpers';
+import type { SupportedLocale } from '@/data/types';
 
 interface ProcessSectionProps {
   locale: SupportedLocale;
@@ -163,12 +163,10 @@ const ProcessSection: React.FC<ProcessSectionProps> = ({ locale }) => {
           
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
             {STEPS.map((step, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.15 }}
+                data-reveal
+                style={{ '--reveal-delay': `${index * 150}ms` } as React.CSSProperties}
                 className="relative text-center"
               >
                 {/* Step Number & Icon */}
@@ -191,7 +189,7 @@ const ProcessSection: React.FC<ProcessSectionProps> = ({ locale }) => {
                 <div className="inline-flex items-center px-3 py-1 bg-brand-gold/10 rounded-full text-xs sm:text-sm text-brand-gold font-medium border border-brand-gold/20">
                   ⏱ {t(step.duration)}
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
         </div>
