@@ -4,6 +4,7 @@
  * Allows admin to select which image represents each service
  */
 import { useState, useEffect, type FC } from 'react';
+import Image from 'next/image';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
@@ -244,11 +245,13 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
                   disabled={isSaving}
                   className="relative aspect-square rounded-lg overflow-hidden border-2 border-transparent hover:border-brand-gold transition-all disabled:opacity-50"
                 >
-                  <img
+                  <Image
                     src={getThumbnailUrl(image.public_id, 200)}
                     alt={image.context?.custom?.alt || ''}
-                    className="w-full h-full object-cover"
-                    onError={(e) => { (e.target as HTMLImageElement).src = BROKEN_IMG_FALLBACK; }}
+                    fill
+                    sizes="(min-width: 1024px) 200px, (min-width: 768px) 25vw, 33vw"
+                    className="object-cover"
+                    onError={(e) => { e.currentTarget.src = BROKEN_IMG_FALLBACK; e.currentTarget.srcset = ''; }}
                   />
                   {/* Category badge */}
                   <div className="absolute bottom-1 left-1 right-1">
@@ -278,11 +281,13 @@ const ServiceCardManager: FC<ServiceCardManagerProps> = ({ open, onOpenChange })
                   <CardContent className="p-2">
                     {serviceImages[service.id] ? (
                       <div className="relative aspect-[4/3] rounded-lg overflow-hidden group">
-                        <img
+                        <Image
                           src={getThumbnailUrl(serviceImages[service.id]!.public_id, 300)}
                           alt={getLocalizedText(service.title, locale as SupportedLocale)}
-                          className="w-full h-full object-cover"
-                          onError={(e) => { (e.target as HTMLImageElement).src = BROKEN_IMG_FALLBACK; }}
+                          fill
+                          sizes="(min-width: 768px) 330px, 50vw"
+                          className="object-cover"
+                          onError={(e) => { e.currentTarget.src = BROKEN_IMG_FALLBACK; e.currentTarget.srcset = ''; }}
                         />
                         <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2">
                           <Button size="sm" onClick={() => setSelectedService(service.id)}>
