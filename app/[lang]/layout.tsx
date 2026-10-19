@@ -9,9 +9,8 @@ import JsonLdSchema from '@/components/JsonLdSchema';
 import '@/index.css'; // Global styles
 import { isLocale, isRTLLocale, localeParams } from '@/lib/i18n';
 import { getAggregateRating } from '@/lib/google-places';
+import { GA_ID } from '@/lib/gtag';
 import { DEFAULT_SEO, SITE_URL } from '@/data/seo';
-
-const GA_ID = 'G-ZMSX4TGLBJ';
 
 // Self-hosted by next/font (no render-blocking Google Fonts stylesheet).
 // Heebo covers Hebrew + Latin; Arabic/Cyrillic fall back to system fonts.
@@ -91,7 +90,7 @@ export default async function RootLayout({
                on the first interaction or 3.5s after page load, so it never competes with the LCP image. */}
         <script
           dangerouslySetInnerHTML={{
-            __html: `document.documentElement.classList.add('js');window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}',{page_path:location.pathname});(function(){var done=false;function load(){if(done)return;done=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=${GA_ID}';document.head.appendChild(s);}['pointerdown','keydown','touchstart','scroll'].forEach(function(e){addEventListener(e,load,{once:true,passive:true});});addEventListener('load',function(){setTimeout(load,3500);});})();`,
+            __html: `document.documentElement.classList.add('js');window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${GA_ID}');(function(){var done=false;function load(){if(done)return;done=true;var s=document.createElement('script');s.async=true;s.src='https://www.googletagmanager.com/gtag/js?id=${GA_ID}';document.head.appendChild(s);}['pointerdown','keydown','touchstart','scroll'].forEach(function(e){addEventListener(e,load,{once:true,passive:true});});addEventListener('load',function(){setTimeout(load,3500);});})();`,
           }}
         />
         <JsonLdSchema lang={lang} rating={rating} />
