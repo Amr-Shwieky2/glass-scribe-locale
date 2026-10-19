@@ -18,7 +18,6 @@ import { usePathname } from 'next/navigation';
 import { Loader2, Sparkles, X } from 'lucide-react';
 import { trackEvent } from '@/lib/gtag';
 import type { ChatLauncherStrings } from '@/data/chat';
-import type { QuestionAnswer } from '@/data/faq';
 import type { SupportedLocale } from '@/data/types';
 import { CHAT_TRIGGER_ATTR, OPEN_CHAT_EVENT, hasCookieConsent, loadChatPanel, type ChatSeed } from './chat-events';
 
@@ -31,9 +30,11 @@ const NO_KEYBOARD_INPUTS = new Set(['checkbox', 'radio', 'button', 'submit', 're
 
 const isMobile = () => window.matchMedia('(max-width: 1023px)').matches;
 
-/** On a phone, a focused text field means the on-screen keyboard is open. */
+/** On a phone: a focused text field, or a visual viewport squeezed by the on-screen keyboard. */
 function keyboardOpen(): boolean {
   if (!isMobile()) return false;
+  const vv = window.visualViewport;
+  if (vv && vv.height < window.innerHeight * 0.75) return true;
   const el = document.activeElement;
   if (!(el instanceof HTMLElement)) return false;
   if (el instanceof HTMLInputElement) return !NO_KEYBOARD_INPUTS.has(el.type);
@@ -58,14 +59,18 @@ function markGreetingSeen(): void {
 
 const isShown = (el: HTMLElement | null | undefined): el is HTMLElement => !!el && el.isConnected && el.getClientRects().length > 0;
 
+/** Focus the first visible always-on chat button (launcher on desktop, bottom bar on phones, then header). */
+function focusChatButton(preferred?: HTMLElement | null): void {
+  const triggers = Array.from(document.querySelectorAll<HTMLElement>(`[${CHAT_TRIGGER_ATTR}]`));
+  [preferred, ...triggers].find(isShown)?.focus();
+}
+
 interface ChatLauncherProps {
   lang: SupportedLocale;
   strings: ChatLauncherStrings;
-  /** Popular questions with their official answers (the chat's starter chips). */
-  starters: QuestionAnswer[];
 }
 
-const ChatLauncher: React.FC<ChatLauncherProps> = ({ lang, strings, starters }) => {
+const ChatLauncher: React.FC<ChatLauncherProps> = ({ lang, strings }) => {
   const pathname = usePathname();
   const isAdmin = !!pathname?.includes('/admin');
   const [open, setOpen] = useState(false);
@@ -74,7 +79,10 @@ const ChatLauncher: React.FC<ChatLauncherProps> = ({ lang, strings, starters }) 
   /** True once the lazily loaded panel has mounted (until then a loading state is shown). */
   const [panelReady, setPanelReady] = useState(false);
   const [greeting, setGreeting] = useState(false);
+  /** The visitor is pointing at or focused in the greeting: don't let it disappear under them. */
+  const [greetingHeld, setGreetingHeld] = useState(false);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const greetingRef = useRef<HTMLDivElement>(null);
   /** The control that opened the chat, to get focus back on close. */
   const openerRef = useRef<HTMLElement | null>(null);
 
@@ -115,25 +123,32 @@ const ChatLauncher: React.FC<ChatLauncherProps> = ({ lang, strings, starters }) 
     return () => clearTimeout(timer);
   }, [isAdmin]);
 
+  /** Hides the greeting; if focus was in it, focus moves to the chat button instead of getting lost. */
+  const hideGreeting = useCallback(() => {
+    const hadFocus = !!greetingRef.current?.contains(document.activeElement);
+    setGreeting(false);
+    setGreetingHeld(false);
+    if (hadFocus) setTimeout(() => focusChatButton(buttonRef.current), 0);
+  }, []);
+
+  // Auto-hide after 10 s (paused while hovered or focused); hide at once if the phone keyboard opens
   useEffect(() => {
     if (!greeting) return;
-    const hide = () => setGreeting(false);
-    const timer = setTimeout(hide, GREETING_VISIBLE_MS);
-    const onFocusIn = () => { if (keyboardOpen()) hide(); };
-    document.addEventListener('focusin', onFocusIn);
+    const timer = greetingHeld ? undefined : setTimeout(hideGreeting, GREETING_VISIBLE_MS);
+    const onKeyboard = () => { if (keyboardOpen()) hideGreeting(); };
+    document.addEventListener('focusin', onKeyboard);
+    window.visualViewport?.addEventListener('resize', onKeyboard);
     return () => {
       clearTimeout(timer);
-      document.removeEventListener('focusin', onFocusIn);
+      document.removeEventListener('focusin', onKeyboard);
+      window.visualViewport?.removeEventListener('resize', onKeyboard);
     };
-  }, [greeting]);
+  }, [greeting, greetingHeld, hideGreeting]);
 
   const close = useCallback(() => {
     setOpen(false);
     // Back to whatever opened the chat; if it is gone (e.g. the mobile menu closed), to a visible chat button
-    setTimeout(() => {
-      const triggers = Array.from(document.querySelectorAll<HTMLElement>(`[${CHAT_TRIGGER_ATTR}]`));
-      [openerRef.current, buttonRef.current, ...triggers].find(isShown)?.focus();
-    }, 0);
+    setTimeout(() => focusChatButton(isShown(openerRef.current) ? openerRef.current : buttonRef.current), 0);
   }, []);
 
   const onPanelReady = useCallback(() => setPanelReady(true), []);
@@ -165,16 +180,32 @@ const ChatLauncher: React.FC<ChatLauncherProps> = ({ lang, strings, starters }) 
         </button>
       )}
 
-      {/* Phones: the panel is a full-screen sheet, so show its place while the chunk loads */}
+      {/* Phones: the panel is a full-screen sheet, so show its place while the chunk loads (announced below) */}
       {loading && (
-        <div role="status" className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-3 bg-white lg:hidden">
+        <div className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-3 bg-white lg:hidden">
           <Loader2 className="h-8 w-8 text-brand-gold motion-safe:animate-spin" aria-hidden="true" />
-          <span className="text-sm text-brand-navy">{strings.loading}</span>
+          <span className="text-sm text-brand-navy" aria-hidden="true">{strings.loading}</span>
+          {/* A way back if the connection stalls */}
+          <button
+            type="button"
+            onClick={close}
+            aria-label={strings.dismiss}
+            className="absolute end-3 top-3 inline-flex h-11 w-11 items-center justify-center rounded-full text-brand-navy hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-navy"
+          >
+            <X className="h-6 w-6" aria-hidden="true" />
+          </button>
         </div>
       )}
 
       {greeting && !open && (
-        <div className="chat-greeting fixed z-40 chat-greeting-in">
+        <div
+          ref={greetingRef}
+          className="chat-greeting fixed z-40 chat-greeting-in"
+          onPointerEnter={() => setGreetingHeld(true)}
+          onPointerLeave={() => setGreetingHeld(false)}
+          onFocus={() => setGreetingHeld(true)}
+          onBlur={(e) => { if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setGreetingHeld(false); }}
+        >
           <div className="relative flex items-start gap-1 rounded-2xl border border-brand-gold/60 bg-white p-1 shadow-xl">
             <button
               type="button"
@@ -182,16 +213,16 @@ const ChatLauncher: React.FC<ChatLauncherProps> = ({ lang, strings, starters }) 
               onPointerEnter={loadChatPanel}
               onFocus={loadChatPanel}
               aria-haspopup="dialog"
-              className="min-w-0 flex-1 rounded-xl px-3 py-2 text-start text-sm font-medium leading-snug text-brand-navy hover:bg-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold"
+              className="min-w-0 flex-1 rounded-xl px-3 py-2 text-start text-sm font-medium leading-snug text-brand-navy hover:bg-brand-light focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-navy"
             >
               {strings.greeting}
             </button>
             <button
               type="button"
-              onClick={() => setGreeting(false)}
+              onClick={hideGreeting}
               aria-label={strings.dismiss}
               title={strings.dismiss}
-              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-gold"
+              className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-gray-600 hover:bg-gray-100 focus-visible:outline focus-visible:outline-2 focus-visible:outline-brand-navy"
             >
               <X className="h-4 w-4" aria-hidden="true" />
             </button>
@@ -200,7 +231,8 @@ const ChatLauncher: React.FC<ChatLauncherProps> = ({ lang, strings, starters }) 
           </div>
         </div>
       )}
-      <div className="sr-only" aria-live="polite">{greeting && !open ? strings.greeting : ''}</div>
+      {/* Always mounted, so the greeting and the loading notice are announced when they appear */}
+      <div className="sr-only" aria-live="polite">{loading ? strings.loading : greeting && !open ? strings.greeting : ''}</div>
 
       {everOpened && (
         <ChatPanel
@@ -210,7 +242,6 @@ const ChatLauncher: React.FC<ChatLauncherProps> = ({ lang, strings, starters }) 
           seed={seed}
           onSeedConsumed={onSeedConsumed}
           onReady={onPanelReady}
-          starters={starters}
         />
       )}
     </>

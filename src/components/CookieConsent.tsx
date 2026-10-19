@@ -154,9 +154,10 @@ const CookieConsent: React.FC = () => {
   if (!visible) return null;
 
   return (
-    // Phones/tablets: above the bottom CTA bar (MobileCTA), so its buttons — Ask AI included — stay usable
-    <div ref={bannerRef} className="fixed bottom-16 sm:bottom-[4.5rem] lg:bottom-0 left-0 right-0 z-50 p-4 sm:p-6">
-      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+    // Phones/tablets: above the bottom CTA bar (MobileCTA), so its buttons — Ask AI included — stay usable,
+    // and capped below the header (scrolls inside on short screens). Desktop: under the open chat panel (z-[46]).
+    <div ref={bannerRef} className="fixed bottom-16 sm:bottom-[4.75rem] lg:bottom-0 left-0 right-0 z-50 lg:z-[45] p-4 sm:p-6">
+      <div className="max-w-4xl mx-auto bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-y-auto max-h-[calc(100dvh-10rem)] sm:max-h-[calc(100dvh-12.75rem)] lg:max-h-none">
         {/* Main Banner */}
         <div className="p-4 sm:p-6">
           <div className="flex items-start gap-4">

@@ -206,7 +206,7 @@ const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, contin
                     onPointerEnter={loadChatPanel}
                     onFocus={loadChatPanel}
                     aria-haspopup="dialog"
-                    className="rounded-full border border-brand-navy/15 bg-brand-light px-4 py-2 text-sm text-brand-navy hover:border-brand-gold hover:bg-brand-gold/10 transition-colors"
+                    className="rounded-full border border-brand-navy/15 bg-brand-light px-4 py-2 text-sm text-brand-navy hover:border-brand-gold hover:bg-brand-gold/10 transition-colors focus-visible:outline-brand-navy"
                   >
                     {qa.question}
                   </button>
@@ -231,7 +231,7 @@ const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, contin
                         <Arrow className="w-4 h-4 mt-1 text-gray-400 group-hover:text-brand-gold flex-shrink-0" aria-hidden="true" />
                       </>
                     );
-                    const itemClass = 'group flex w-full items-start gap-3 p-4 text-start hover:bg-brand-light transition-colors';
+                    const itemClass = 'group flex w-full items-start gap-3 p-4 text-start hover:bg-brand-light transition-colors focus-visible:outline-brand-navy focus-visible:-outline-offset-2';
                     return (
                       <li key={hit.id}>
                         {/* FAQ entries have no section to link to: their official answer opens in the chat */}

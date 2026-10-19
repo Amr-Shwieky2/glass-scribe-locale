@@ -14,6 +14,7 @@ export interface Passage {
   type: SearchDoc['type'];
   snippet: string;
   keywords: string;
+  service?: string;
   text: string;
 }
 
@@ -45,14 +46,14 @@ const indexes = new Map<SupportedLocale, MiniSearch<Passage>>();
 function getIndex(locale: SupportedLocale): MiniSearch<Passage> {
   let index = indexes.get(locale);
   if (!index) {
-    index = new MiniSearch<Passage>({ ...SEARCH_OPTIONS, storeFields: ['title', 'url', 'type', 'keywords', 'text'] });
+    index = new MiniSearch<Passage>({ ...SEARCH_OPTIONS, storeFields: ['title', 'url', 'type', 'service', 'text'] });
     index.addAll(buildSearchDocs(locale).flatMap(toPassages));
     indexes.set(locale, index);
   }
   return index;
 }
 
-export type RetrievedPassage = Pick<Passage, 'title' | 'url' | 'type' | 'keywords' | 'text'>;
+export type RetrievedPassage = Pick<Passage, 'title' | 'url' | 'type' | 'service' | 'text'>;
 
 /**
  * Top passages for a question: FAQ entries weighted up (at most MAX_FAQ_PASSAGES),
@@ -66,7 +67,7 @@ export function retrievePassages(question: string, locale: SupportedLocale, limi
   const out: RetrievedPassage[] = [];
   let faqs = 0;
   for (const r of results) {
-    const passage: RetrievedPassage = { title: r.title, url: r.url, type: r.type, keywords: r.keywords, text: r.text };
+    const passage: RetrievedPassage = { title: r.title, url: r.url, type: r.type, service: r.service, text: r.text };
     if (passage.type === 'faq') {
       if (faqs >= MAX_FAQ_PASSAGES) continue;
       faqs++;
@@ -89,7 +90,7 @@ export function formatSiteContent(passages: RetrievedPassage[]): string {
   const items = passages.map((p, i) => {
     const url = p.url ? `\nURL: ${p.url}` : '';
     return p.type === 'faq'
-      ? `[${i + 1}] Official FAQ${p.keywords ? ` (${p.keywords})` : ''}${url}\nQ: ${p.title}\nA: ${p.text}`
+      ? `[${i + 1}] Official FAQ${p.service ? ` (${p.service})` : ''}${url}\nQ: ${p.title}\nA: ${p.text}`
       : `[${i + 1}] ${p.title}${url}\n${p.text}`;
   });
   return ['<site_content>', ...items, '</site_content>'].join('\n');

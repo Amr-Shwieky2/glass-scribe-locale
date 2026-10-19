@@ -27,8 +27,10 @@ export interface SearchDoc {
    * For an FAQ entry: the page it belongs to, or '' (home FAQ — no page of its own).
    */
   url: string;
-  /** Extra short terms boosted in ranking. For an FAQ entry of a service page: that service's name. */
+  /** Extra short terms boosted in ranking. */
   keywords: string;
+  /** FAQ entries of a service page: that service's name (shown to the AI, not indexed). */
+  service?: string;
   /** Searchable body (truncated in the browser index, full on the server). For an FAQ entry: its official answer. */
   text: string;
 }
@@ -108,7 +110,9 @@ export function buildSearchDocs(locale: SupportedLocale): SearchDoc[] {
         title: faq.question[locale],
         snippet: oneLine(faq.answer[locale]),
         url: L(`/${page.slug}`),
-        keywords: page.heroTitle[locale],
+        // Not in keywords: the name would rank all of a service's FAQs above the one that answers the question
+        keywords: '',
+        service: page.heroTitle[locale],
         text: faq.answer[locale],
       });
     });

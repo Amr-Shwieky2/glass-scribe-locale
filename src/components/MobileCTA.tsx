@@ -15,8 +15,9 @@ import { getLocalizedText } from '@/data/helpers';
 import type { SupportedLocale } from '@/data/types';
 import { loadChatPanel, openChat } from '@/components/chat/chat-events';
 
-// Widths follow the labels (flex-auto), so three fit on a 360px phone in every language
-const BUTTON_CLASS = 'flex-auto min-w-0 px-2 font-semibold rounded-lg sm:rounded-xl py-4 sm:py-6 text-[13px] sm:text-base shadow-lg';
+// Widths follow the labels (flex-auto) with tight padding, so all three fit on one line from 360px in every
+// language; on narrower screens or with larger text a label wraps instead of being cut off. Same height for all three.
+const BUTTON_CLASS = 'flex-auto min-w-0 h-auto min-h-11 sm:min-h-12 py-1.5 whitespace-normal leading-tight gap-1.5 sm:gap-2 px-1.5 sm:px-2 max-[359px]:gap-1 max-[359px]:px-1 font-semibold rounded-lg sm:rounded-xl text-[0.8125rem] max-[359px]:text-xs sm:text-base shadow-lg';
 
 const MobileCTA: React.FC = () => {
   const { currentLanguage } = useLanguage();
@@ -51,7 +52,7 @@ const MobileCTA: React.FC = () => {
                 className={`${BUTTON_CLASS} bg-brand-navy hover:bg-brand-navy/90 text-white`}
               >
                 <Phone className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-                <span className="truncate">{labels.call}</span>
+                <span>{labels.call}</span>
               </Button>
               <Button
                 onClick={handleWhatsApp}
@@ -59,7 +60,7 @@ const MobileCTA: React.FC = () => {
                 className={`${BUTTON_CLASS} bg-brand-gold hover:bg-brand-gold/90 text-brand-navy`}
               >
                 <MessageCircle className="w-4 h-4 sm:w-5 sm:h-5" aria-hidden="true" />
-                <span className="truncate">{labels.whatsapp}</span>
+                <span>{labels.whatsapp}</span>
               </Button>
               {showAskAi && (
                 <Button
@@ -69,10 +70,10 @@ const MobileCTA: React.FC = () => {
                   aria-haspopup="dialog"
                   data-chat-trigger=""
                   size="lg"
-                  className={`${BUTTON_CLASS} bg-white hover:bg-brand-light text-brand-navy border-2 border-brand-navy`}
+                  className={`${BUTTON_CLASS} bg-white hover:bg-brand-light text-brand-navy ring-2 ring-inset ring-brand-navy focus-visible:ring-brand-navy focus-visible:ring-offset-0 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-navy`}
                 >
                   <Sparkles className="w-4 h-4 sm:w-5 sm:h-5 text-brand-gold" aria-hidden="true" />
-                  <span className="truncate">{labels.askAi}</span>
+                  <span>{labels.askAi}</span>
                 </Button>
               )}
             </div>

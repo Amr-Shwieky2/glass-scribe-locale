@@ -8,7 +8,7 @@ Website for **Shwaki Brothers Glassworks** (אחים שוואקי זכוכית),
 - **Images:** Cloudinary, fetched on the server and cached for 1 hour, with an admin panel at `/he/admin`
 - **Leads:** contact form sends to Telegram
 - **Ask AI:** home-page search with instant results from site content and short AI answers (Claude)
-- **Chat assistant:** "Ask us" chat on every page — grounded answers, follow-up questions, and quote requests sent to Telegram after the visitor confirms
+- **Chat assistant:** "Ask our AI" on every page — grounded answers, our official FAQ answers, follow-up questions, and quote requests sent to Telegram after the visitor confirms
 
 ## Quick start
 
@@ -77,15 +77,21 @@ Public pages fetch Cloudinary images on the server through `unstable_cache` (1 h
 - Without `ANTHROPIC_API_KEY`, or when a limit is hit, the section still shows instant results plus a WhatsApp prompt.
 - Logging: only the question text (phone numbers and emails scrubbed) and its language. No IPs or names.
 - **Continue in chat**: under an AI answer, opens the chat assistant with that question and answer already in the conversation.
+- **Popular questions**: six FAQ questions (`getPopularQuestions` in `src/data/faq.ts`). Clicking one opens the chat with our official answer, instantly and without an AI call; FAQ entries among the instant results do the same.
 
 ### Chat assistant
 
-- **Widget** (`src/components/chat/`): a small "Ask us" button on every page (not admin). The panel's code is loaded only when the visitor first opens it. Desktop: ~380×600 panel; mobile: full-screen sheet that follows the on-screen keyboard. The conversation lives only in `sessionStorage` (survives page changes; "New conversation" clears it).
+- **Always visible** (not on admin pages): a floating "Ask our AI" button on desktop (above the cookie banner while it is shown), "Ask AI" in the mobile bottom bar, and "Ask AI" in the header and the mobile menu. A greeting bubble appears once per session about 8 seconds after load (never over the cookie banner or the mobile keyboard). Other code opens the chat with `openChat()` from `src/components/chat/chat-events.ts`.
+- **Widget** (`src/components/chat/`): the panel's code is loaded only when the visitor first opens it. Desktop: ~380×600 panel; mobile: full-screen sheet that follows the on-screen keyboard. The conversation lives only in `sessionStorage` (survives page changes; "New conversation" clears it). The starter chips are the popular FAQ questions, answered with the official text without an AI call.
 - **API** `POST /api/chat`: `{ messages, lang }`, last 12 messages, visitor messages ≤ 500 characters, roles must alternate. Same-origin check, 30 messages per IP per hour, daily cap `AI_CHAT_DAILY_LIMIT`, `max_tokens` 500, cached system prompt (`src/lib/search/chat-prompt.ts`). Each turn is grounded with passages retrieved from our content. Streams NDJSON (`src/lib/chat-protocol.ts`).
 - **Quote requests**: the model can call `prepare_quote_request` only after the visitor asked for a quote and gave a name and phone. That only shows an editable confirmation card (including the visitor's chat messages that go with the request); nothing is sent until the visitor ticks consent and presses Send, which calls `POST /api/chat/lead` (CSRF + consent + validation, 3 per IP per hour) → Telegram via `src/lib/telegram.ts`.
-- **Fallback**: without `ANTHROPIC_API_KEY`, when a limit is hit, or if the API fails, the chat shows 3 matching site pages plus WhatsApp and call buttons.
+- **Fallback**: without `ANTHROPIC_API_KEY`, when a limit is hit, or if the API fails, the chat shows 3 matching site results (an FAQ entry opens its official answer) plus WhatsApp and call buttons.
 - **Privacy**: conversations aren't stored on the server. Logs contain only the event name, language and message count. Names, phones and the visitor's chat messages reach us only in a confirmed quote request; the messages are shown in the quote form and can be edited or deleted before sending.
 - **Live check**: `node scripts/chat-smoke-test.mjs https://www.shwakiglassworks.com` sends a few test conversations (four languages, a price question, an off-topic request, a prompt-injection attempt, a quote request) and checks the replies. It never sends a lead. Needs `ANTHROPIC_API_KEY` on that deployment.
+
+### FAQ
+
+`SHOW_FAQ_SECTIONS` in `src/data/site-features.ts` (now `false`) shows or hides the home FAQ section and the service pages' FAQ blocks, together with their FAQPage JSON-LD (Google requires the markup to match visible FAQ text). Service pages show an "Ask our AI" line in place of the block. The FAQ content stays in `src/data/faq.ts` and `src/data/service-seo-content.ts`: every question/answer pair is its own search document, weighted up when grounding AI answers and marked "Official FAQ" in the prompt, and both system prompts tell the model to follow those answers.
 
 ## Environment variables
 

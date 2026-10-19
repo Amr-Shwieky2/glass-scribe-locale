@@ -22,7 +22,7 @@ const AskAiLine: React.FC<AskAiLineProps> = ({ question, cta, draft }) => (
     onPointerEnter={loadChatPanel}
     onFocus={loadChatPanel}
     aria-haspopup="dialog"
-    className="group inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-brand-navy/15 bg-white px-5 py-3 text-start text-base text-brand-navy shadow-sm transition-colors hover:border-brand-gold hover:bg-brand-gold/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
+    className="group inline-flex flex-wrap items-center gap-x-2 gap-y-1 rounded-full border border-brand-navy/15 bg-white px-5 py-3 text-start text-base text-brand-navy shadow-sm transition-colors hover:border-brand-gold hover:bg-brand-gold/10 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-navy"
   >
     <Sparkles className="h-5 w-5 shrink-0 text-brand-gold" aria-hidden="true" />
     <span>{question}</span>{' '}

@@ -25,7 +25,7 @@ import { CHAT_LIMITS, type ChatFallbackReason, type ChatStreamEvent, type ChatTu
 import { loadSiteSearch, searchSiteOrDefaults } from '@/lib/search/client';
 import { getChatStrings } from '@/data/chat';
 import { CONTACT_INFO } from '@/data/contact';
-import type { QuestionAnswer } from '@/data/faq';
+import { getPopularQuestions, type QuestionAnswer } from '@/data/faq';
 import type { SupportedLocale } from '@/data/types';
 
 interface ChatPanelProps {
@@ -36,8 +36,6 @@ interface ChatPanelProps {
   onSeedConsumed: () => void;
   /** Called once mounted, so the launcher can stop showing its loading spinner. */
   onReady?: () => void;
-  /** Popular questions with their official answers, shown as starter chips (answered without an AI call). */
-  starters: QuestionAnswer[];
 }
 
 const WHATSAPP_NUMBER = CONTACT_INFO.whatsapp.replace('+', '');
@@ -95,8 +93,16 @@ const WhatsAppIcon: React.FC<{ className?: string }> = ({ className }) => (
   </svg>
 );
 
-const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSeedConsumed, onReady, starters }) => {
+/** Grows the composer with its text, up to 128px. */
+function autosize(el: HTMLTextAreaElement): void {
+  el.style.height = 'auto';
+  el.style.height = `${Math.min(el.scrollHeight, 128)}px`;
+}
+
+const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSeedConsumed, onReady }) => {
   const s = useMemo(() => getChatStrings(locale), [locale]);
+  // Starter chips: our popular FAQ questions, answered with the official text (bundled with this lazy chunk)
+  const starters = useMemo(() => getPopularQuestions(locale), [locale]);
   const titleId = useId();
   const inputId = useId();
   const counterId = useId();
@@ -165,14 +171,17 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
       setTimeout(() => {
         const el = inputRef.current;
         if (!el) return;
+        autosize(el);
         el.focus();
         el.setSelectionRange(el.value.length, el.value.length);
       }, 50);
     } else {
+      // A ready answer waits until a reply in progress has finished, so the two don't interleave
+      if (busy) return;
       addAnswered(seed.question, seed.answer, seed.faq);
     }
     onSeedConsumed();
-  }, [restored, seed, onSeedConsumed, addAnswered]);
+  }, [restored, seed, busy, onSeedConsumed, addAnswered]);
 
   // ---- open/closed indicator (re-checked every minute while open) --------------
   useEffect(() => {
@@ -415,9 +424,7 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
 
   const onInputChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
     setInput(e.target.value.slice(0, CHAT_LIMITS.maxUserChars));
-    const el = e.target;
-    el.style.height = 'auto';
-    el.style.height = `${Math.min(el.scrollHeight, 128)}px`;
+    autosize(e.target);
   };
 
   const onStarter = ({ question, answer }: QuestionAnswer) => {
@@ -491,10 +498,10 @@ const ChatPanel: React.FC<ChatPanelProps> = ({ locale, open, onClose, seed, onSe
       aria-labelledby={titleId}
       tabIndex={-1}
       style={viewport ? { height: viewport.height, top: viewport.top } : undefined}
-      // Mobile: full-screen sheet above everything. Desktop: below the site's own dialogs
-      // (accessibility panel, lightbox, cookie banner), docked above the cookie banner /
-      // accessibility button (.chat-dock, index.css) and clear of the sticky header.
-      className={`${open ? 'flex' : 'hidden'} chat-dock chat-dock-panel fixed z-[60] lg:z-40 inset-x-0 top-0 h-[100dvh] flex-col bg-white shadow-2xl outline-none chat-panel-in
+      // Mobile: full-screen sheet above everything. Desktop: below the site's own dialogs (z-50),
+      // above the cookie banner (lg:z-[45]) in case it must overlap it on a short screen; docked
+      // clear of the accessibility button and the sticky header (.chat-dock-panel, index.css).
+      className={`${open ? 'flex' : 'hidden'} chat-dock-panel fixed z-[60] lg:z-[46] inset-x-0 top-0 h-[100dvh] flex-col bg-white shadow-2xl outline-none chat-panel-in
         lg:inset-x-auto lg:top-auto lg:end-4 lg:h-[600px] lg:w-[380px] lg:rounded-2xl lg:border lg:border-gray-200 lg:overflow-hidden`}
     >
       {/* Header */}

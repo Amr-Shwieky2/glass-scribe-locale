@@ -23,7 +23,8 @@ const DesktopNav: React.FC<Props> = ({ navigation, isActive, locale, supportedLa
       ))}
     </nav>
     <div className="hidden md:flex items-center gap-2">
-      {/* Icon only at 1024–1199px, where the header has no room for another label (Russian, English); text from 1200px */}
+      {/* 1024–1199px: icon only (navy, so the icon alone is legible), text from 1200px. Russian has no room
+          at 1024–1199px even for the icon, so it starts at 1200px; the floating chat button covers that range. */}
       {onAskAi && (
         <Button
           size="lg"
@@ -35,9 +36,9 @@ const DesktopNav: React.FC<Props> = ({ navigation, isActive, locale, supportedLa
           title={getLocalizedText(UI_STRINGS.askAi, locale)}
           aria-haspopup="dialog"
           data-chat-trigger=""
-          className="hidden lg:inline-flex h-10 w-10 p-0 xl:h-11 xl:w-auto xl:px-5 bg-white text-brand-navy font-semibold rounded-full border-2 border-brand-navy hover:bg-brand-navy hover:text-white"
+          className={`${locale === 'ru' ? 'hidden min-[1200px]:inline-flex' : 'hidden lg:inline-flex'} h-10 w-10 p-0 min-[1200px]:h-11 min-[1200px]:w-auto min-[1200px]:px-5 bg-white text-brand-navy font-semibold rounded-full border-2 border-brand-navy hover:bg-brand-navy hover:text-white focus-visible:ring-brand-navy`}
         >
-          <Sparkles className="w-4 h-4 text-brand-gold" aria-hidden="true" /><span className="hidden xl:inline">{getLocalizedText(UI_STRINGS.askAi, locale)}</span>
+          <Sparkles className="w-4 h-4 min-[1200px]:text-brand-gold" aria-hidden="true" /><span className="hidden min-[1200px]:inline">{getLocalizedText(UI_STRINGS.askAi, locale)}</span>
         </Button>
       )}
       <SimpleMenu
