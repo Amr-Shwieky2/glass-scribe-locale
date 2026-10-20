@@ -8,6 +8,9 @@
  *   npm run test:answers -- --lang he    one language
  *   npm run test:answers -- --quiet      summary only
  *   npm run test:answers -- --tuning     leave out the held-out questions (when tuning content)
+ *   npm run test:answers -- --file <path>  another question file:
+ *     tests/answer-engine/he-blind-2.json  blind Hebrew batch (all held out: run it with --quiet, never tune on it)
+ *     tests/answer-engine/he-probes.json   Hebrew tuning probes (phone-style, typos, long chatty messages)
  *
  * Fails (exit 1) when a language is under 85% correct direct answers, any
  * out-of-scope question gets a direct answer, or the knowledge base has errors.
@@ -37,8 +40,9 @@ if (onlyLang && !LANGS.includes(onlyLang)) {
 }
 const quiet = args.includes('--quiet');
 const tuning = args.includes('--tuning');
+const file = args.includes('--file') ? args[args.indexOf('--file') + 1] : 'tests/answer-engine/questions.json';
 
-const questions = (JSON.parse(readFileSync(join(process.cwd(), 'tests/answer-engine/questions.json'), 'utf8')) as TestQuestion[])
+const questions = (JSON.parse(readFileSync(join(process.cwd(), file), 'utf8')) as TestQuestion[])
   .filter((q) => (!onlyLang || q.lang === onlyLang) && (!tuning || !q.holdout));
 
 let failed = false;

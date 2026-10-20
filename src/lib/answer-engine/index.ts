@@ -24,7 +24,7 @@ import {
   findCity, isCityQuestion, isComplaint, isContactQuestion, isHoursQuestion, isPriceQuestion,
   acknowledgement, looksOutOfScope, offeredQuote, quoteRequest, readMessage, smallTalk, withoutGreeting, type MessageText,
 } from './intents';
-import { messageConcepts, searchKnowledge, textUnits, type Match } from './kb-index';
+import { messageConcepts, searchKnowledge, textUnits, unknownShare, type Match } from './kb-index';
 import { pageLinks } from './pages';
 
 export { searchKnowledge } from './kb-index';
@@ -75,12 +75,19 @@ const PLACE_CONCEPTS = /^~(region|village|far|nationwide|location)$/;
 const GENERIC_CONCEPTS = /^~(time|human|contact|repair|clean|city-.*)$/;
 
 /**
+ * Synonym concepts that tie a message to us only loosely when much of it is words we never use:
+ * "how much is a flight to Eilat?", "do you have glass for eyeglasses?" (see THRESHOLDS.weakAnchorUnknown).
+ */
+const WEAK_CONCEPTS = /^~(price|glass|install)$/;
+
+/**
  * Whether a message talks about our domain (a product, material, service, price,
  * warranty…): without such an anchor only a confident match is answered and no
  * "Did you mean…?" is offered, so off-topic messages ("who won the game?") aren't
- * matched on stray words.
+ * matched on stray words. `unknown`: the message's share of words the knowledge base never uses.
  */
-const isAnchored = (concepts: Set<string>) => [...concepts].some((c) => !GENERIC_CONCEPTS.test(c));
+const isAnchored = (concepts: Set<string>, unknown = 0) =>
+  [...concepts].some((c) => !GENERIC_CONCEPTS.test(c) && (!WEAK_CONCEPTS.test(c) || unknown < THRESHOLDS.weakAnchorUnknown));
 
 function entryActions(entry: KnowledgeEntry): ReplyAction[] {
   if (entry.generated === 'contact' || entry.generated === 'hours') return ['whatsapp', 'call'];
@@ -170,14 +177,17 @@ const COVERAGE_IDS = new Set(['areas-all-israel', 'areas-regions', 'areas-small-
 /**
  * The best match, if it is a clear winner over the runner-up (see config.ts).
  * Unanchored messages need high confidence and at least two content words ("ok" is not a question).
+ * A long message (the visitor's situation first, then the question) spreads its weight over many
+ * words, so even the right answer covers less of it and the runner-up comes closer: it needs a smaller lead.
  */
-function clearWinner(matches: Match[], anchored = true, words = Infinity): Match | null {
+function clearWinner(matches: Match[], anchored = true, words = Infinity, long = false): Match | null {
   const [top, second] = matches;
   if (!top) return null;
   if (!anchored && words < THRESHOLDS.unanchoredMinWords) return null;
   const lead = top.confidence - (second?.confidence ?? 0);
   if (top.confidence >= THRESHOLDS.answer && lead >= THRESHOLDS.margin) return top;
-  if (anchored && !top.offProduct && top.confidence >= THRESHOLDS.answerLow && lead >= THRESHOLDS.marginLow) return top;
+  const marginLow = long ? THRESHOLDS.marginLowLong : THRESHOLDS.marginLow;
+  if (anchored && !top.offProduct && top.confidence >= THRESHOLDS.answerLow && lead >= marginLow) return top;
   return null;
 }
 
@@ -204,7 +214,7 @@ export function answerMessage({ message, pageLocale, history = [] }: EngineInput
 
   const text = withoutGreeting(message).trim() || message;
   const m = readMessage(text);
-  const concepts = messageConcepts(text);
+  const concepts = messageConcepts(text, lang);
 
   if (isComplaint(m)) {
     return { kind: 'smalltalk', lang, text: ASSISTANT_REPLIES.complaint[lang], actions: ['whatsapp', 'call'], layer: 3, confidence: 1 };
@@ -227,7 +237,7 @@ export function answerMessage({ message, pageLocale, history = [] }: EngineInput
   // A short follow-up ("and for 10 mm?") is also searched together with the previous question —
   // only when it continues it: it names something itself, has a number, or starts like a follow-up
   const words = contentWords(text);
-  const ownAnchored = isAnchored(concepts);
+  const ownAnchored = isAnchored(concepts, unknownShare(text, lang));
   const previous = history.filter((t) => t.role === 'user').at(-1)?.content;
   let combinedUsed = false;
   const continues = ownAnchored || /\d/.test(text) || FOLLOW_UP_START.test(normalizeText(text).trim());
@@ -245,7 +255,8 @@ export function answerMessage({ message, pageLocale, history = [] }: EngineInput
   if (!place && !isCityQuestion(m)) matches = matches.filter((x) => x.entry.generated !== 'city');
   const best = matches[0]?.confidence ?? 0;
   const anchored = ownAnchored || (combinedUsed && isAnchored(messageConcepts(previous ?? '')));
-  const winner = clearWinner(matches, anchored, combinedUsed ? Infinity : words);
+  const long = words >= THRESHOLDS.longWords;
+  const winner = clearWinner(matches, anchored, combinedUsed ? Infinity : words, long);
 
   // "Do you work in <city>?" — "do you work in…" alone is not enough ("…in small bathrooms?"):
   // it needs a place, or nothing else in the message that the question could be about.
@@ -254,8 +265,11 @@ export function answerMessage({ message, pageLocale, history = [] }: EngineInput
   const cityQuestion =
     (isCityQuestion(m) && (place || !aboutSomethingElse)) ||
     (!!city && words <= THRESHOLDS.cityOnlyWords && !aboutSomethingElse);
-  // A specific service-areas entry ("travel fee to Eilat?") beats the city reply; a general coverage one doesn't when a city is named
-  const specificAreaWinner = !!winner && winner.entry.topic === 'service-areas' && !winner.entry.generated && !(city && COVERAGE_IDS.has(winner.entry.id));
+  // A specific service-areas entry ("is the measurement free in Eilat?") beats the city reply when the message
+  // asks about that too; a general coverage one doesn't when a city is named ("do you come to Netanya?" is not
+  // the sea-air entry, even though its wording names coastal towns)
+  const specificAreaWinner =
+    !!winner && winner.entry.topic === 'service-areas' && !winner.entry.generated && !(city && (COVERAGE_IDS.has(winner.entry.id) || !aboutSomethingElse));
   if (cityQuestion && !specificAreaWinner) {
     return { ...generatedReply('city', lang, city?.slug, !!city), confidence: Math.max(best, 0.9) };
   }
@@ -263,7 +277,12 @@ export function answerMessage({ message, pageLocale, history = [] }: EngineInput
   if (winner) return answerFromEntry(winner.entry, lang, { confidence: winner.confidence, city: city?.slug, cityKnown: !!city });
 
   if (isHoursQuestion(m)) return { ...generatedReply('hours', lang), confidence: Math.max(best, 0.9) };
-  if (isContactQuestion(m)) return { ...generatedReply('contact', lang), confidence: Math.max(best, 0.9) };
+  if (isContactQuestion(m)) {
+    // "I'd rather talk to a real person" is the human entry, not only our phone number
+    const contactEntry = matches[0]?.entry.topic === 'contact' ? clearWinner(matches, true, words, long) : null;
+    if (contactEntry) return answerFromEntry(contactEntry.entry, lang, { confidence: contactEntry.confidence });
+    return { ...generatedReply('contact', lang), confidence: Math.max(best, 0.9) };
+  }
   if (quote === 'maybe') return quoteReply(lang, m, concepts, ASSISTANT_REPLIES.quoteStart[lang], best);
 
   const options = anchored ? matches.filter((x) => x.confidence >= THRESHOLDS.suggest).slice(0, THRESHOLDS.maxSuggestions) : [];

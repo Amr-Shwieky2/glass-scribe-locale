@@ -20,6 +20,9 @@ const STOP_WORDS = new Set([
   'the', 'a', 'an', 'and', 'or', 'of', 'to', 'in', 'on', 'for', 'is', 'are', 'do', 'does', 'you', 'your', 'i', 'my', 'me', 'what', 'how', 'it', 'with', 'can', 'much', 'which',
   // he
   'של', 'את', 'על', 'עם', 'זה', 'מה', 'איך', 'כמה', 'האם', 'אני', 'אתם', 'יש', 'לי', 'גם', 'או', 'איזה', 'איזו', 'אילו',
+  // he chat filler ("אחי, שאלה לגבי…", "וואלה פשוט…"): words the knowledge base never needs
+  'אחי', 'אחותי', 'בעצם', 'וואלה', 'ואלה', 'ואללה', 'רציתי', 'לשאול', 'שאלה', 'לגבי', 'בנוגע', 'פשוט',
+  'כאילו', 'סתם', 'ממש', 'נו', 'היי', 'אהלן', 'יאללה', 'סבבה', 'אוקיי', 'אוקי',
   // ar
   'في', 'من', 'على', 'هل', 'ما', 'كم', 'كيف', 'عن', 'مع', 'او', 'هذا', 'اي', 'ماذا',
   // ru
@@ -47,15 +50,86 @@ for (const group of SYNONYM_GROUPS) {
   }
 }
 
+// Single dictionary words by length, for typo lookups (typoConcepts)
+const dictionaryByLength = new Map<number, string[]>();
+for (const word of wordConcepts.keys()) {
+  if (!/^\p{L}+$/u.test(word)) continue;
+  const list = dictionaryByLength.get(word.length) ?? [];
+  list.push(word);
+  dictionaryByLength.set(word.length, list);
+}
+
+// Hebrew letters typed for one another: same sound (ט/ת, כ/ח, ק/כ, א/ע, ס/ש, ב/ו), or look-alikes (ו/י, ן/ם, ה/ח)
+const HE_CONFUSABLE = new Set(['טת', 'כח', 'קכ', 'אע', 'סש', 'בו', 'וי', 'ןם', 'הח', 'אה'].flatMap((p) => [p, p[1] + p[0]]));
+
+/**
+ * How two words are one typo apart: a letter missing or extra ("indel"), two neighbours swapped,
+ * a Hebrew letter typed for one that sounds or looks like it ("similar"), or another letter changed ("sub").
+ */
+function typoKind(a: string, b: string): 'indel' | 'swap' | 'similar' | 'sub' | null {
+  if (a === b || Math.abs(a.length - b.length) > 1) return null;
+  let i = 0;
+  while (i < a.length && i < b.length && a[i] === b[i]) i++;
+  if (a.length !== b.length) {
+    const [long, short] = a.length > b.length ? [a, b] : [b, a];
+    return long.slice(i + 1) === short.slice(i) ? 'indel' : null;
+  }
+  if (a.slice(i + 1) === b.slice(i + 1)) return HE_CONFUSABLE.has(a[i] + b[i]) ? 'similar' : 'sub';
+  return a[i] === b[i + 1] && a[i + 1] === b[i] && a.slice(i + 2) === b.slice(i + 2) ? 'swap' : null;
+}
+
+// typoConcepts is pure and scans the dictionary: remember results
+const typoCache = new Map<string, string[]>();
+const TYPO_CACHE_MAX = 10_000;
+
+/**
+ * Synonym concepts of a dictionary word one typo away ("אחריוט" → warranty, "מחסומת" → tempered,
+ * "מעקא" → railing), for a word the knowledge base doesn't know. Hebrew words are too often one
+ * letter from another real word ("קונים"/"קטנים", "מוכרים"/"מוארים", "טיסה"/"טרסה"), so from 5
+ * letters: a missing, extra or swapped letter, or one that sounds or looks alike; any other changed
+ * letter only from 7; below 5 only the final א/ה slip. Nothing when the nearby words mean different things.
+ */
+export function typoConcepts(word: string): string[] {
+  const cached = typoCache.get(word);
+  if (cached) return [...cached];
+  const result = computeTypoConcepts(word);
+  if (typoCache.size < TYPO_CACHE_MAX) typoCache.set(word, result);
+  return [...result];
+}
+
+function computeTypoConcepts(word: string): string[] {
+  if (wordConcepts.has(word) || !/^\p{L}+$/u.test(word)) return [];
+  const candidates: string[] = [];
+  if (word.length >= 3 && /[אה]$/.test(word)) {
+    const swapped = word.slice(0, -1) + (word.endsWith('א') ? 'ה' : 'א');
+    if (wordConcepts.has(swapped)) candidates.push(swapped);
+  }
+  if (word.length >= 5) {
+    for (const len of [word.length - 1, word.length, word.length + 1]) {
+      for (const d of dictionaryByLength.get(len) ?? []) {
+        const kind = typoKind(word, d);
+        if (kind === 'indel' || kind === 'swap' || kind === 'similar' || (kind === 'sub' && word.length >= 7)) candidates.push(d);
+      }
+    }
+  }
+  const meanings = new Set(candidates.map((c) => wordConcepts.get(c)!.join(' ')));
+  return meanings.size === 1 ? wordConcepts.get(candidates[0])!.map(conceptToken) : [];
+}
+
 // Words whose first letter only looks like a Hebrew prefix ("מעולה" is not מ + "עולה" = costs)
 const HE_NO_PREFIX = new Set(['מעולה', 'מעולים', 'מעולות', 'מעלות', 'מעלה', 'משקל', 'משקוף', 'שקוף', 'מבצע', 'הלו', 'שלום']);
 
-/** Word stems: the word without a glued Hebrew (one or two letters) or Arabic prefix. */
+// Three glued Hebrew prefix letters ("כשהזכוכית", "ושבמקלחון", "ומהמראה"): only these combinations.
+// Not ב/כ/ל + ה: they absorb "the" ("לבית"), so in "שבהתקנה" the ה belongs to the word
+const HE_PREFIX_3 = /^(וכש|כשה|ושה|ושב|ושל|ושמ|ושכ|ומה|שמה)/;
+
+/** Word stems: the word without a glued Hebrew (one to three letters) or Arabic prefix. */
 export function stems(t: string): string[] {
   const out: string[] = [];
   if (/^[\u0590-\u05FF]/.test(t) && t.length > 3 && HE_PREFIX.test(t) && !HE_NO_PREFIX.has(t)) {
     out.push(t.slice(1));
     if (t.length > 4 && HE_PREFIX.test(t.slice(1))) out.push(t.slice(2)); // "ובחיפה"
+    if (t.length > 5 && HE_PREFIX_3.test(t)) out.push(t.slice(3)); // "כשהזכוכית"
   } else if (/^[\u0600-\u06FF]/.test(t)) {
     const prefix = AR_PREFIXES.find((p) => t.startsWith(p) && t.length - p.length >= 2);
     if (prefix) out.push(t.slice(prefix.length));

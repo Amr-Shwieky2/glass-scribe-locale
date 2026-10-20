@@ -13,6 +13,9 @@ export const THRESHOLDS = {
   answerLow: 0.42,
   /** …when the runner-up is at least this much lower. */
   marginLow: 0.08,
+  /** …or this much lower for a message with at least `longWords` content words. */
+  marginLowLong: 0.05,
+  longWords: 8,
   /** "Did you mean…?" at or above this. */
   suggest: 0.3,
   /** Suggestions shown in "Did you mean…?". */
@@ -23,6 +26,8 @@ export const THRESHOLDS = {
   followUpWords: 4,
   /** A message naming a city with at most this many content words (and nothing else asked) is a coverage question. */
   cityOnlyWords: 3,
+  /** A message tied to us only by "price", "glass" or "install" counts as off-domain when this share of it is words the knowledge base never uses. */
+  weakAnchorUnknown: 0.3,
   /** Without a glass/service word, a message needs at least this many content words to be answered. */
   unanchoredMinWords: 2,
   /** Knowledge base entries at least this confident are given to the free-tier AI as grounding. */

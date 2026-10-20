@@ -12,7 +12,7 @@
 import MiniSearch from 'minisearch';
 import { APPROVED_ENTRIES, type KnowledgeEntry } from '@/data/knowledge';
 import type { SupportedLocale } from '@/data/types';
-import { SEARCH_OPTIONS, processTerm, tokenize } from '@/lib/search/tokenize';
+import { SEARCH_OPTIONS, processTerm, tokenize, typoConcepts } from '@/lib/search/tokenize';
 
 /** All variants (word, stems, synonym concepts) of one word of a text. */
 export type Unit = string[];
@@ -129,6 +129,18 @@ function getIndex(lang: SupportedLocale): LangIndex {
 
 const isKnown = (unit: Unit, index: LangIndex) => unit.some((v) => (index.df.get(v) ?? 0) > 0);
 
+/**
+ * The visitor's words as units; a word the knowledge base doesn't know also gets the concepts
+ * of a dictionary word one typo away ("מעקא" → ~railing), so it counts as that word.
+ */
+function queryUnits(message: string, index: LangIndex): Unit[] {
+  return textUnits(message).map((unit) => {
+    if (isKnown(unit, index)) return unit;
+    const typos = new Set(unit.filter((v) => !/^[~=]/.test(v)).flatMap(typoConcepts));
+    return typos.size ? [...unit, ...[...typos].filter((c) => !unit.includes(c))] : unit;
+  });
+}
+
 function unitWeight(unit: Unit, index: LangIndex, p: ScoreParams): number {
   let idf = 0;
   for (const v of unit) idf = Math.max(idf, Math.log(1 + index.docs / ((index.df.get(v) ?? 0) + 1)));
@@ -139,11 +151,11 @@ function unitWeight(unit: Unit, index: LangIndex, p: ScoreParams): number {
 /** Knowledge base entries for a message, best first, with confidence (0–1). */
 export function searchKnowledge(message: string, lang: SupportedLocale, limit = 5, p: ScoreParams = DEFAULT_SCORE): Match[] {
   const index = getIndex(lang);
-  const queryUnits = textUnits(message);
-  if (!queryUnits.length) return [];
-  const queryTerms = new Set(queryUnits.flat());
-  const weights = queryUnits.map((u) => unitWeight(u, index, p));
-  const known = queryUnits.map((u) => isKnown(u, index));
+  const units = queryUnits(message, index);
+  if (!units.length) return [];
+  const queryTerms = new Set(units.flat());
+  const weights = units.map((u) => unitWeight(u, index, p));
+  const known = units.map((u) => isKnown(u, index));
   const totalWeight = weights.reduce((a, b) => a + b, 0) || 1;
 
   const best = new Map<string, { confidence: number; second: number; score: number; unknownShare: number }>();
@@ -155,7 +167,7 @@ export function searchKnowledge(message: string, lang: SupportedLocale, limit = 
 
     let covered = 0;
     let unknown = 0;
-    queryUnits.forEach((u, i) => {
+    units.forEach((u, i) => {
       if (u.some((v) => docTerms.has(v))) covered += weights[i];
       else if (u.some((v) => partial.has(v))) covered += weights[i] * p.partial;
       else if (!known[i]) unknown += weights[i];
@@ -199,7 +211,17 @@ export function searchKnowledge(message: string, lang: SupportedLocale, limit = 
     .map((v) => ({ entry: entryById.get(v.id)!, confidence: Math.round(v.confidence * 1000) / 1000, offProduct: v.offProduct, unknownShare: v.unknownShare }));
 }
 
-/** Concept tokens (~price, ~city-haifa…) in a message. */
-export function messageConcepts(message: string): Set<string> {
-  return new Set(textUnits(message).flat().filter((t) => t.startsWith('~')));
+/** Share of a message's weight in words the knowledge base never uses (0–1; typos of dictionary words count as unknown). */
+export function unknownShare(message: string, lang: SupportedLocale, p: ScoreParams = DEFAULT_SCORE): number {
+  const index = getIndex(lang);
+  const units = textUnits(message);
+  const weights = units.map((u) => unitWeight(u, index, p));
+  const total = weights.reduce((a, b) => a + b, 0);
+  return total ? units.reduce((sum, u, i) => sum + (isKnown(u, index) ? 0 : weights[i]), 0) / total : 0;
+}
+
+/** Concept tokens (~price, ~city-haifa…) in a message; with a language, also those of typos ("אחריוט" → ~warranty, see queryUnits). */
+export function messageConcepts(message: string, lang?: SupportedLocale): Set<string> {
+  const units = lang ? queryUnits(message, getIndex(lang)) : textUnits(message);
+  return new Set(units.flat().filter((t) => t.startsWith('~')));
 }

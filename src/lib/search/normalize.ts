@@ -23,7 +23,14 @@ export function normalizeText(text: string): string {
     .replace(ARABIC_INDIC_DIGITS, (d) => String((d.charCodeAt(0) & 0xf) % 10));
 }
 
+// A number glued to its unit ("8ממ", "10мм", "12mm") is two words, as when written apart ("8 מ"מ").
+// Latin only for units: Arabizi spells letters with digits ("3ard", "2adesh").
+const NUMBER_UNIT = /^(\d+)(\p{Script=Hebrew}+|\p{Script=Cyrillic}+|\p{Script=Arabic}+|mm|cm|m|mtr|kg)$/u;
+
 /** Words of already-normalized text (letters and digits; everything else separates words). */
 export function splitWords(normalized: string): string[] {
-  return normalized.split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+  return normalized.split(/[^\p{L}\p{N}]+/u).filter(Boolean).flatMap((w) => {
+    const unit = NUMBER_UNIT.exec(w);
+    return unit ? [unit[1], unit[2]] : [w];
+  });
 }
