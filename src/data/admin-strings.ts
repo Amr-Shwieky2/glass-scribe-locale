@@ -369,6 +369,32 @@ export const ADMIN_STRINGS = {
     errorUpdateDesc: { he: 'נכשל בעדכון תמונת שירות',                                                           en: 'Failed to update service image',                   ar: 'فشل في تحديث صورة الخدمة',                         ru: 'Не удалось обновить изображение услуги' },
     errorRemoveDesc: { he: 'נכשל בהסרת תמונה',                                                                  en: 'Failed to remove image',                           ar: 'فشل في إزالة الصورة',                              ru: 'Не удалось удалить изображение' },
   },
+
+  // Tabs + Unanswered questions (what the website assistant couldn't answer)
+  tabs: {
+    images:     { he: 'תמונות', en: 'Images', ar: 'الصور', ru: 'Изображения' },
+    unanswered: { he: 'שאלות ללא מענה', en: 'Unanswered questions', ar: 'أسئلة بدون إجابة', ru: 'Вопросы без ответа' },
+  },
+  unanswered: {
+    intro: {
+      he: 'שאלות שהעוזר באתר לא ידע לענות עליהן בביטחון (500 האחרונות), מקובצות לפי דמיון. מספרי טלפון ומיילים הוסרו, וגם שמות אחרי ״קוראים לי…״.',
+      en: "Questions the website assistant couldn't answer with confidence (the last 500), grouped by similarity. Phone numbers, e-mails and names after “my name is…” are removed.",
+      ar: 'أسئلة لم يستطع مساعد الموقع الإجابة عنها بثقة (آخر 500)، مجمّعة حسب التشابه. تمت إزالة أرقام الهواتف والبريد، والأسماء بعد «اسمي…».',
+      ru: 'Вопросы, на которые ассистент сайта не смог уверенно ответить (последние 500), сгруппированы по сходству. Телефоны и e-mail удалены, а также имена после «меня зовут…».',
+    },
+    copy:      { he: 'העתקת הרשימה', en: 'Copy list', ar: 'نسخ القائمة', ru: 'Скопировать список' },
+    copied:    { he: 'הועתק', en: 'Copied', ar: 'تم النسخ', ru: 'Скопировано' },
+    refresh:   { he: 'רענון', en: 'Refresh', ar: 'تحديث', ru: 'Обновить' },
+    empty:     { he: 'אין עדיין שאלות ללא מענה.', en: 'No unanswered questions yet.', ar: 'لا توجد أسئلة بدون إجابة بعد.', ru: 'Пока нет вопросов без ответа.' },
+    loadError: { he: 'טעינת הרשימה נכשלה.', en: 'Failed to load the list.', ar: 'فشل تحميل القائمة.', ru: 'Не удалось загрузить список.' },
+    times:     { he: 'פעמים', en: 'times', ar: 'مرات', ru: 'раз' },
+    total:     { he: 'סה"כ שאלות', en: 'Total questions', ar: 'مجموع الأسئلة', ru: 'Всего вопросов' },
+    answeredByAi: { he: 'נענתה ע"י AI חינמי', en: 'answered by free AI', ar: 'أجاب عنها الذكاء الاصطناعي المجاني', ru: 'ответил бесплатный ИИ' },
+    outOfScope: { he: 'מחוץ לתחום', en: 'out of scope', ar: 'خارج النطاق', ru: 'не по теме' },
+    didYouMean: { he: 'הוצעו שאלות דומות', en: 'offered "Did you mean"', ar: 'عُرض "هل تقصد"', ru: 'предложено «Вы имели в виду»' },
+    priceGeneral: { he: 'קיבלו תשובת מחיר כללית', en: 'got the general price answer', ar: 'حصلوا على جواب السعر العام', ru: 'получили общий ответ о цене' },
+    alsoAsked: { he: 'גם נשאל:', en: 'Also asked:', ar: 'سُئل أيضاً:', ru: 'Также спрашивали:' },
+  },
 } as const;
 
 export type AdminLocale = 'he' | 'en' | 'ar' | 'ru';

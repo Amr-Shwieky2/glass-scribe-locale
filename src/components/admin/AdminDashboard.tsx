@@ -16,6 +16,7 @@ import ImagePreviewDialog from './ImagePreviewDialog';
 import DeleteConfirmDialog from './DeleteConfirmDialog';
 import HeroGalleryManager from './HeroGalleryManager';
 import ServiceCardManager from './ServiceCardManager';
+import UnansweredQuestions from './UnansweredQuestions';
 
 const AdminDashboard: FC = () => {
   const { logout } = useAdmin();
@@ -34,6 +35,7 @@ const AdminDashboard: FC = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [showHeroManager, setShowHeroManager] = useState(false);
   const [showServiceCardManager, setShowServiceCardManager] = useState(false);
+  const [tab, setTab] = useState<'images' | 'unanswered'>('images');
 
   const onConfirmDelete = async (id: string) => {
     setIsDeleting(true);
@@ -49,6 +51,29 @@ const AdminDashboard: FC = () => {
     <div className="min-h-screen bg-brand-light">
       <AdminHeader onLogout={logout} />
       <main className="container mx-auto px-4 py-8">
+        <div role="tablist" aria-label="Admin" className="mb-6 inline-flex rounded-xl bg-white p-1 shadow-sm border border-gray-200">
+          {(['images', 'unanswered'] as const).map((id) => (
+            <button
+              key={id}
+              type="button"
+              role="tab"
+              id={`admin-tab-${id}`}
+              aria-selected={tab === id}
+              aria-controls={`admin-panel-${id}`}
+              onClick={() => setTab(id)}
+              className={`px-4 py-2 rounded-lg text-sm font-semibold transition-colors ${tab === id ? 'bg-brand-navy text-white' : 'text-brand-navy hover:bg-brand-light'}`}
+            >
+              {t(ADMIN_STRINGS.tabs[id])}
+            </button>
+          ))}
+        </div>
+
+        {tab === 'unanswered' ? (
+          <div role="tabpanel" id="admin-panel-unanswered" aria-labelledby="admin-tab-unanswered">
+            <UnansweredQuestions locale={locale} />
+          </div>
+        ) : (
+        <div role="tabpanel" id="admin-panel-images" aria-labelledby="admin-tab-images">
         {/* Home Page Image Managers */}
         <div className="flex flex-wrap gap-3 mb-6">
           <Button
@@ -82,6 +107,8 @@ const AdminDashboard: FC = () => {
               <ImageCard key={image.public_id} image={image} onDelete={(id) => setDeleteConfirm(id)} onToggleFeatured={handleToggleFeatured} onToggleServiceCard={handleToggleServiceCard} onToggleHeroImage={handleToggleHeroImage} onPreview={setPreviewImage} />
             ))}
           </div>
+        )}
+        </div>
         )}
       </main>
       <CategoryPicker open={showUploadPicker} onOpenChange={setShowUploadPicker} onSelect={openUploadWidget} />

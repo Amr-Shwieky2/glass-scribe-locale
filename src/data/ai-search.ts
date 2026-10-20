@@ -59,18 +59,15 @@ export const AI_SEARCH_STRINGS = {
     ar: 'مرحباً، لدي سؤال:',
     ru: 'Здравствуйте, у меня вопрос:',
   },
-  unavailable: {
-    he: 'העוזר החכם לא זמין כרגע. כתבו לנו בוואטסאפ ונחזור אליכם במהירות!',
-    en: 'Our AI assistant is not available right now. Message us on WhatsApp and we’ll get back to you quickly!',
-    ar: 'المساعد الذكي غير متاح حالياً. راسلنا عبر واتساب وسنرد عليك بسرعة!',
-    ru: 'ИИ-помощник сейчас недоступен. Напишите нам в WhatsApp — мы быстро ответим!',
+  notSure: {
+    he: 'אני לא בטוח לגבי זה. הצוות שלנו יכול לענות מהר:',
+    en: "I'm not sure about that one. Our team can answer quickly:",
+    ar: 'لست متأكداً من هذا. فريقنا يقدر يجاوبك بسرعة:',
+    ru: 'Тут я не уверен. Наша команда быстро ответит:',
   },
-  rateLimited: {
-    he: 'הגעתם למספר השאלות המרבי לשעה. נשמח לענות אישית בוואטסאפ!',
-    en: 'You’ve reached the question limit for now. We’d be happy to answer personally on WhatsApp!',
-    ar: 'لقد وصلت إلى الحد الأقصى من الأسئلة حالياً. يسعدنا الرد عليك شخصياً عبر واتساب!',
-    ru: 'Вы достигли лимита вопросов. С радостью ответим лично в WhatsApp!',
-  },
+  getQuote: { he: 'קבלו הצעת מחיר חינם', en: 'Get a free quote', ar: 'احصل على عرض سعر مجاني', ru: 'Бесплатный расчёт' },
+  relatedQuestions: { he: 'שאלות קשורות', en: 'Related questions', ar: 'أسئلة ذات صلة', ru: 'Похожие вопросы' },
+  usefulPages: { he: 'עמודים שימושיים', en: 'Helpful pages', ar: 'صفحات مفيدة', ru: 'Полезные страницы' },
   tooLong: {
     he: 'השאלה ארוכה מדי (עד 300 תווים).',
     en: 'The question is too long (max 300 characters).',

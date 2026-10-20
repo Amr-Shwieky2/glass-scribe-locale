@@ -2,21 +2,23 @@
 /**
  * "Ask AI" search (home page).
  *  - Instant results from our own content while typing: a static per-language
- *    index (/api/search-index/[lang]) searched in the browser — works without AI.
- *  - Enter / "Ask": streams a short AI answer grounded in the same content.
- *  - If the AI is unavailable or rate-limited, the visitor gets a WhatsApp prompt.
+ *    index (/api/search-index/[lang]) searched in the browser.
+ *  - Enter / "Ask": an answer from the website assistant (/api/ask — our own
+ *    answer engine first; see src/lib/assistant.ts) with links, "Did you mean…?"
+ *    options, and a hand-off to our team (free quote in the chat, WhatsApp, call).
  *  - "Popular questions" (and FAQ entries among the instant results) open the
- *    chat with our official answer, shown at once without an AI call.
+ *    chat with our official answer, shown at once without a request.
  */
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
-import { Sparkles, Search, MessageCircle, Phone, Loader2, ArrowLeft, ArrowRight } from 'lucide-react';
+import { Sparkles, Search, MessageCircle, Phone, Loader2, ArrowLeft, ArrowRight, FileText } from 'lucide-react';
 import { trackEvent } from '@/lib/gtag';
 import { getLoadedSiteSearch, loadSiteSearch, searchSite, type SiteHit } from '@/lib/search/client';
 import type { AiSearchStrings } from '@/data/ai-search';
 import { loadChatPanel, openChat } from '@/components/chat/chat-events';
 import type { QuestionAnswer } from '@/data/faq';
 import type { SupportedLocale } from '@/data/types';
+import type { AssistantReply, ReplySuggestion } from '@/lib/chat-protocol';
 
 interface AskAISectionProps {
   id?: string;
@@ -34,8 +36,7 @@ type Hit = SiteHit;
 type AnswerState =
   | { status: 'idle' }
   | { status: 'loading'; question: string }
-  | { status: 'streaming' | 'done'; question: string; text: string }
-  | { status: 'fallback'; question: string; message: string };
+  | { status: 'done'; question: string; reply: AssistantReply };
 
 const MAX_QUESTION = 300;
 
@@ -88,47 +89,42 @@ const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, contin
 
   useEffect(() => () => abortRef.current?.abort(), []);
 
-  const ask = useCallback(async (raw: string) => {
-    const question = raw.trim().slice(0, MAX_QUESTION);
-    if (question.length < 2) return;
-
-    trackEvent({ action: 'ai_search_question', category: 'AI Search', label: locale });
+  /** One request to the assistant; any failure becomes our hand-off reply (never an error). */
+  const request = useCallback(async (body: object, question: string) => {
     abortRef.current?.abort();
     const controller = new AbortController();
     abortRef.current = controller;
     setAnswer({ status: 'loading', question });
-
+    const handOff: AssistantReply = { kind: 'none', lang: locale, text: strings.notSure, actions: ['quote', 'whatsapp', 'call'], layer: 3 };
     try {
       const res = await fetch('/api/ask', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ question, lang: locale }),
+        body: JSON.stringify(body),
         signal: controller.signal,
       });
-
-      const isStream = res.ok && (res.headers.get('content-type') ?? '').startsWith('text/plain') && res.body;
-      if (!isStream) {
-        const data = await res.json().catch(() => ({}));
-        setAnswer({ status: 'fallback', question, message: data.fallback === 'rate_limited' || data.fallback === 'daily_limit' ? strings.rateLimited : strings.unavailable });
-        return;
-      }
-
-      const reader = res.body!.getReader();
-      const decoder = new TextDecoder();
-      let text = '';
-      for (;;) {
-        const { done, value } = await reader.read();
-        if (done) break;
-        text += decoder.decode(value, { stream: true });
-        setAnswer({ status: 'streaming', question, text });
-      }
-      text += decoder.decode();
-      setAnswer(text.trim() ? { status: 'done', question, text } : { status: 'fallback', question, message: strings.unavailable });
+      const data = (await res.json().catch(() => null)) as { reply?: AssistantReply } | null;
+      const reply = res.ok && data?.reply?.text ? data.reply : handOff;
+      setAnswer({ status: 'done', question, reply });
+      trackEvent({ action: 'ai_search_reply', category: 'AI Search', label: `${reply.kind}-L${reply.layer}` });
     } catch (err) {
       if ((err as Error).name === 'AbortError') return;
-      setAnswer({ status: 'fallback', question, message: strings.unavailable });
+      setAnswer({ status: 'done', question, reply: handOff });
     }
-  }, [locale, strings.rateLimited, strings.unavailable]);
+  }, [locale, strings.notSure]);
+
+  const ask = useCallback((raw: string) => {
+    const question = raw.trim().slice(0, MAX_QUESTION);
+    if (question.length < 2) return;
+    trackEvent({ action: 'ai_search_question', category: 'AI Search', label: locale });
+    request({ question, lang: locale }, question);
+  }, [locale, request]);
+
+  /** A "Did you mean" option or related question: its answer. */
+  const askEntry = (suggestion: ReplySuggestion, lang: SupportedLocale) => {
+    trackEvent({ action: 'ai_search_suggestion_clicked', category: 'AI Search', label: locale });
+    request({ entryId: suggestion.id, lang }, suggestion.question);
+  };
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -143,8 +139,14 @@ const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, contin
 
   const askedQuestion = answer.status === 'idle' ? '' : answer.question;
   const whatsappHref = `https://wa.me/${whatsapp.replace('+', '')}?text=${encodeURIComponent(`${strings.whatsappPrefix} ${askedQuestion || query}`.trim())}`;
-  const showCtas = answer.status === 'done' || answer.status === 'fallback';
-  const busy = answer.status === 'loading' || answer.status === 'streaming';
+  const busy = answer.status === 'loading';
+  const reply = answer.status === 'done' ? answer.reply : null;
+  const handOff = !!reply && (reply.kind === 'none' || reply.kind === 'quote');
+  const offerQuote = !!reply && (handOff || !!reply.actions?.includes('quote'));
+  const openQuote = () => {
+    trackEvent({ action: 'ai_search_quote_click', category: 'AI Search', label: locale });
+    openChat({ quote: true, ...reply?.quotePrefill });
+  };
 
   return (
     <section id={id} aria-labelledby="ask-ai-title" className="scroll-mt-16 sm:scroll-mt-20 py-12 sm:py-16 md:py-20 bg-white">
@@ -254,7 +256,7 @@ const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, contin
             </div>
           )}
 
-          {/* AI answer */}
+          {/* Answer */}
           <div aria-live="polite" aria-busy={busy} className="mt-6">
             {answer.status !== 'idle' && (
               <div className="rounded-2xl border border-gray-100 border-s-4 border-s-brand-gold bg-white shadow-lg p-5 sm:p-6">
@@ -269,12 +271,58 @@ const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, contin
                     {strings.thinking}
                   </p>
                 )}
-                {(answer.status === 'streaming' || answer.status === 'done') && <AnswerText text={answer.text} />}
-                {answer.status === 'fallback' && <p className="leading-relaxed text-gray-700 text-base sm:text-lg">{answer.message}</p>}
 
-                {showCtas && (
+                {reply && (
                   <>
-                    <div className="mt-5 flex flex-col sm:flex-row gap-3">
+                    <div dir="auto"><AnswerText text={reply.text} /></div>
+
+                    {!!reply.links?.length && (
+                      <div className="mt-4">
+                        <p className="text-sm font-semibold text-gray-600">{strings.usefulPages}</p>
+                        <ul className="mt-1 flex flex-wrap gap-x-4 gap-y-1">
+                          {reply.links.map((l) => (
+                            <li key={l.url}>
+                              <Link href={l.url} className="font-semibold text-brand-navy underline decoration-brand-gold decoration-2 underline-offset-4 hover:text-brand-gold">
+                                {l.title}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    {!!reply.suggestions?.length && (
+                      <div className="mt-4" role="group" aria-label={reply.kind === 'suggest' ? reply.text : strings.relatedQuestions}>
+                        {reply.kind !== 'suggest' && <p className="text-sm font-semibold text-gray-600">{strings.relatedQuestions}</p>}
+                        <ul className="mt-1 flex flex-wrap gap-2">
+                          {reply.suggestions.map((sug) => (
+                            <li key={sug.id}>
+                              <button
+                                type="button"
+                                onClick={() => askEntry(sug, reply.lang)}
+                                className="rounded-full border border-brand-navy/15 bg-brand-light px-4 py-2 text-start text-sm text-brand-navy hover:border-brand-gold hover:bg-brand-gold/10 transition-colors focus-visible:outline-brand-navy"
+                              >
+                                {sug.question}
+                              </button>
+                            </li>
+                          ))}
+                        </ul>
+                      </div>
+                    )}
+
+                    <div className="mt-5 flex flex-col sm:flex-row sm:flex-wrap gap-3">
+                      {offerQuote && (
+                        <button
+                          type="button"
+                          onClick={openQuote}
+                          onPointerEnter={loadChatPanel}
+                          aria-haspopup="dialog"
+                          className="inline-flex items-center justify-center gap-2 rounded-full bg-brand-navy px-6 py-3 text-base font-semibold text-white hover:bg-[#143a5e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
+                        >
+                          <FileText className="w-5 h-5 text-brand-gold" aria-hidden="true" />
+                          {strings.getQuote}
+                        </button>
+                      )}
                       <a
                         href={whatsappHref}
                         target="_blank"
@@ -294,19 +342,19 @@ const AskAISection: React.FC<AskAISectionProps> = ({ id, locale, strings, contin
                         {strings.callCta}
                       </a>
                     </div>
-                    {answer.status === 'done' && (
-                      <>
-                        <button
-                          type="button"
-                          onClick={() => openChat({ question: answer.question, answer: answer.text })}
-                          className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#143a5e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
-                        >
-                          <MessageCircle className="w-4 h-4 text-brand-gold" aria-hidden="true" />
-                          {continueInChatLabel}
-                        </button>
-                        <p className="mt-4 text-xs text-gray-500">{strings.disclaimer}</p>
-                      </>
+
+                    {reply.kind === 'answer' && (
+                      <button
+                        type="button"
+                        onClick={() => openChat({ question: answer.question, answer: reply.text })}
+                        className="mt-4 inline-flex items-center gap-2 rounded-full bg-brand-navy px-5 py-2.5 text-sm font-semibold text-white hover:bg-[#143a5e] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand-gold"
+                      >
+                        <MessageCircle className="w-4 h-4 text-brand-gold" aria-hidden="true" />
+                        {continueInChatLabel}
+                      </button>
                     )}
+                    {/* Only free-tier AI answers (layer 2) carry the "may contain mistakes" note */}
+                    {reply.layer === 2 && <p className="mt-4 text-xs text-gray-500">{strings.disclaimer}</p>}
                   </>
                 )}
               </div>

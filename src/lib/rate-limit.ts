@@ -7,7 +7,8 @@
  * (a warning is logged once).
  */
 import { Ratelimit } from '@upstash/ratelimit';
-import { Redis } from '@upstash/redis';
+import type { Redis } from '@upstash/redis';
+import { getRedis, redisErrorSummary } from './redis';
 
 export interface RateLimitOptions {
   /** Max requests per window. */
@@ -27,17 +28,8 @@ export interface RateLimitResult {
 // UPSTASH
 // =============================================================================
 
-let redis: Redis | null | undefined;
-function getRedis(): Redis | null {
-  if (redis !== undefined) return redis;
-  const url = process.env.UPSTASH_REDIS_REST_URL;
-  const token = process.env.UPSTASH_REDIS_REST_TOKEN;
-  redis = url && token ? new Redis({ url, token }) : null;
-  if (!redis) {
-    console.warn('[rate-limit] UPSTASH_REDIS_REST_URL/TOKEN not set — using in-memory limiter (not shared across serverless instances).');
-  }
-  return redis;
-}
+/** After this long without an answer from Upstash, the request is counted in memory instead. */
+const UPSTASH_TIMEOUT_MS = 1_500;
 
 const limiters = new Map<string, Ratelimit>();
 function getUpstashLimiter(name: string, { limit, windowSec }: RateLimitOptions, client: Redis): Ratelimit {
@@ -49,6 +41,7 @@ function getUpstashLimiter(name: string, { limit, windowSec }: RateLimitOptions,
       limiter: Ratelimit.slidingWindow(limit, `${windowSec} s`),
       prefix: `rl:${name}`,
       analytics: false,
+      timeout: UPSTASH_TIMEOUT_MS,
     });
     limiters.set(id, limiter);
   }
@@ -82,18 +75,24 @@ function memoryLimit(name: string, key: string, { limit, windowSec }: RateLimitO
 
 /**
  * Counts one request for `key` in bucket `name`.
- * Fails open (allows the request) if Redis itself errors, so an Upstash outage
- * never takes the contact form down.
+ * Fails open (falls back to the per-instance memory limiter) if Redis errors or
+ * doesn't answer within 1.5 s, so an Upstash outage never takes the contact
+ * form down or slows every request.
  */
 export async function rateLimit(name: string, key: string, options: RateLimitOptions): Promise<RateLimitResult> {
   const client = getRedis();
   if (!client) return memoryLimit(name, key, options);
 
   try {
-    const { success, remaining, reset } = await getUpstashLimiter(name, options, client).limit(key);
+    const { success, remaining, reset, reason } = await getUpstashLimiter(name, options, client).limit(key);
+    if (reason === 'timeout') {
+      console.error('[rate-limit] Upstash timed out, falling back to memory');
+      return memoryLimit(name, key, options);
+    }
     return { success, remaining, reset };
   } catch (err) {
-    console.error('[rate-limit] Upstash error, falling back to memory', err);
+    // Only the error's name and text: Upstash adds the command, whose key holds the client IP
+    console.error('[rate-limit] Upstash error, falling back to memory:', redisErrorSummary(err));
     return memoryLimit(name, key, options);
   }
 }

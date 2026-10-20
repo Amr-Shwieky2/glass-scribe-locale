@@ -1,53 +1,45 @@
-import type Anthropic from '@anthropic-ai/sdk';
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { isLocale } from '@/lib/i18n';
-import {
-  aiFallback,
-  checkAiLimits,
-  envLimit,
-  fastAnswerOptions,
-  getAnthropicClient,
-  isSameOrigin,
-  logAnthropicError,
-} from '@/lib/ai';
-import { isBusinessOpen } from '@/lib/business-hours';
-import { conversationLanguage, formatSiteContent, retrievePassages } from '@/lib/search/retrieve';
-import { QUOTE_TOOL, QUOTE_TOOL_NAME, buildChatSystemPrompt } from '@/lib/search/chat-prompt';
-import { CHAT_LIMITS, QUOTE_FIELD_LIMITS, type ChatStreamEvent, type ChatTurn, type QuoteDraft } from '@/lib/chat-protocol';
+import { isSameOrigin } from '@/lib/ai';
+import { assistantReply, entryReply } from '@/lib/assistant';
+import { CHAT_LIMITS, type ChatTurn } from '@/lib/chat-protocol';
+import { getClientIp } from '@/lib/rate-limit';
 import { cleanText, readJsonBody } from '@/lib/validation';
 import type { SupportedLocale } from '@/data/types';
 
 /**
- * Site-wide chat assistant.
- *
- * Streams NDJSON events (see src/lib/chat-protocol.ts). Each turn is grounded
- * in passages retrieved from our own content. The model can ask to show a
- * quote-request form (prepare_quote_request); it never sends anything itself —
- * the visitor confirms in the widget, which then calls /api/chat/lead.
- *
- * Privacy: conversations are not stored. Logs contain only the event name,
- * language and message count.
+ * Site-wide chat assistant (see src/lib/assistant.ts for the layers).
+ * POST { messages, lang } → answer to the last visitor message
+ * POST { entryId, lang }  → a "Did you mean" / related question button
+ * Always { reply } with status 200 for valid requests — no error ever reaches the visitor.
  */
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
-const MAX_TOKENS = 500;
 const MAX_BODY_BYTES = 64 * 1024;
-const MODEL = process.env.AI_CHAT_MODEL || process.env.AI_SEARCH_MODEL || 'claude-haiku-5-5';
-const DAILY_LIMIT = envLimit(process.env.AI_CHAT_DAILY_LIMIT, 1000);
+const ENTRY_ID = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
-type Parsed = { messages: ChatTurn[]; lang: SupportedLocale } | { error: string };
+type Parsed =
+  | { messages: ChatTurn[]; lang: SupportedLocale }
+  | { entryId: string; lang: SupportedLocale }
+  | { error: string };
 
 /** Validates the request; keeps at most the last 12 messages (starting with a visitor message). */
 function parseRequest(body: unknown): Parsed {
   if (!body || typeof body !== 'object' || Array.isArray(body)) return { error: 'Invalid request' };
-  const { messages, lang, ...rest } = body as Record<string, unknown>;
+  const { messages, lang, entryId, ...rest } = body as Record<string, unknown>;
   if (Object.keys(rest).length) return { error: 'Unexpected field' };
   if (lang !== undefined && (typeof lang !== 'string' || !isLocale(lang))) return { error: 'Invalid lang' };
-  if (!Array.isArray(messages) || messages.length === 0 || messages.length > 50) return { error: 'Invalid messages' };
+  const locale = (lang as SupportedLocale | undefined) ?? 'he';
 
+  if (entryId !== undefined) {
+    if (messages !== undefined || typeof entryId !== 'string' || entryId.length > 80 || !ENTRY_ID.test(entryId)) return { error: 'Invalid entryId' };
+    return { entryId, lang: locale };
+  }
+
+  if (!Array.isArray(messages) || messages.length === 0 || messages.length > 50) return { error: 'Invalid messages' };
   const turns: ChatTurn[] = [];
   for (const [i, m] of messages.entries()) {
     if (!m || typeof m !== 'object' || Array.isArray(m)) return { error: 'Invalid message' };
@@ -66,144 +58,31 @@ function parseRequest(body: unknown): Parsed {
 
   let kept = turns.slice(-CHAT_LIMITS.maxMessages);
   if (kept[0].role === 'assistant') kept = kept.slice(1);
-  return { messages: kept, lang: (lang as SupportedLocale | undefined) ?? 'he' };
+  return { messages: kept, lang: locale };
 }
 
-/** Retrieval query: the latest message plus a short summary of what the visitor asked before. */
-function retrievalQuery(messages: ChatTurn[]): string {
-  const userTexts = messages.filter((m) => m.role === 'user').map((m) => m.content);
-  const latest = userTexts[userTexts.length - 1];
-  const earlier = userTexts.slice(-3, -1).join(' ').slice(0, 300);
-  return earlier ? `${latest} ${earlier}` : latest;
-}
-
-const clip = (v: unknown, max: number) => cleanText(v).slice(0, max);
-
-function sanitizeQuote(input: unknown, fallbackLang: SupportedLocale): QuoteDraft {
-  const q = (input && typeof input === 'object' ? input : {}) as Record<string, unknown>;
-  const language = typeof q.language === 'string' && isLocale(q.language) ? q.language : fallbackLang;
-  return {
-    name: clip(q.name, QUOTE_FIELD_LIMITS.name),
-    phone: clip(q.phone, QUOTE_FIELD_LIMITS.phone),
-    city: clip(q.city, QUOTE_FIELD_LIMITS.city),
-    service: clip(q.service, QUOTE_FIELD_LIMITS.service),
-    details: clip(q.details, QUOTE_FIELD_LIMITS.details),
-    language,
-  };
-}
-
-function toAnthropicMessages(messages: ChatTurn[], latestContext: string): Anthropic.MessageParam[] {
-  return messages.map((m, i) => {
-    if (m.role === 'assistant') return { role: 'assistant', content: m.content };
-    const isLatest = i === messages.length - 1;
-    const visitor = `<visitor_message>\n${m.content}\n</visitor_message>`;
-    return { role: 'user', content: isLatest ? `${latestContext}\n\n${visitor}` : visitor };
-  });
-}
+const json = (body: unknown, status = 200) => NextResponse.json(body, { status, headers: { 'Cache-Control': 'no-store' } });
 
 export async function POST(req: NextRequest) {
-  if (!isSameOrigin(req)) {
-    return NextResponse.json({ error: 'Forbidden' }, { status: 403 });
-  }
+  if (!isSameOrigin(req)) return json({ error: 'Forbidden' }, 403);
   const body = await readJsonBody(req, MAX_BODY_BYTES);
-  if (body.tooLarge) return NextResponse.json({ error: 'Request too large' }, { status: 413 });
+  if (body.tooLarge) return json({ error: 'Request too large' }, 413);
 
   const parsed = parseRequest(body.value);
-  if ('error' in parsed) return NextResponse.json({ error: parsed.error }, { status: 400 });
-  const { messages, lang } = parsed;
+  if ('error' in parsed) return json({ error: parsed.error }, 400);
 
-  const anthropic = getAnthropicClient();
-  if (!anthropic) return aiFallback('unavailable', 503);
-
-  const limited = await checkAiLimits(req, { bucket: 'ai-chat', perIp: { limit: 30, windowSec: 3600 }, dailyLimit: DAILY_LIMIT });
-  if (limited) return limited;
-
-  // Language of the conversation: a short "OK" or a phone number doesn't switch it to English
-  const answerLang = conversationLanguage(messages.filter((m) => m.role === 'user').map((m) => m.content), lang);
-  const passages = retrievePassages(retrievalQuery(messages), answerLang, 5);
-
-  console.log(JSON.stringify({ event: 'chat_message', lang: answerLang, messages: messages.length }));
-
-  const latestContext = [
-    formatSiteContent(passages),
-    '',
-    `<business_status>${isBusinessOpen() ? 'open now' : 'closed now'}</business_status>`,
-    `<answer_language>${answerLang}</answer_language>`,
-  ].join('\n');
-
-  const stream = anthropic.messages.stream(
-    {
-      model: MODEL,
-      max_tokens: MAX_TOKENS,
-      ...fastAnswerOptions(MODEL),
-      system: [{ type: 'text', text: buildChatSystemPrompt(), cache_control: { type: 'ephemeral' } }],
-      tools: [QUOTE_TOOL],
-      tool_choice: { type: 'auto' },
-      messages: toAnthropicMessages(messages, latestContext),
-    },
-    { signal: req.signal }
-  );
-
-  // Wait for the first event so a failure to start (bad key, outage) becomes a clean JSON fallback
-  const events = stream[Symbol.asyncIterator]();
-  let first: IteratorResult<Anthropic.MessageStreamEvent>;
-  try {
-    first = await events.next();
-  } catch (err) {
-    logAnthropicError('chat', err);
-    return aiFallback('error', 502);
+  if ('entryId' in parsed) {
+    const reply = entryReply(parsed.entryId, parsed.lang);
+    return reply ? json({ reply }) : json({ error: 'Unknown entry' }, 404);
   }
 
-  const encoder = new TextEncoder();
-  const body$ = new ReadableStream<Uint8Array>({
-    async start(controller) {
-      const send = (event: ChatStreamEvent) => controller.enqueue(encoder.encode(`${JSON.stringify(event)}\n`));
-      let sentText = false;
-      const handle = (event: Anthropic.MessageStreamEvent) => {
-        if (event.type === 'content_block_delta' && event.delta.type === 'text_delta' && event.delta.text) {
-          sentText = true;
-          send({ type: 'text', text: event.delta.text });
-        }
-      };
-
-      try {
-        if (!first.done) handle(first.value);
-        for (let next = await events.next(); !next.done; next = await events.next()) handle(next.value);
-
-        const final = await stream.finalMessage();
-        const toolUse = final.content.find(
-          (b): b is Anthropic.ToolUseBlock => b.type === 'tool_use' && b.name === QUOTE_TOOL_NAME
-        );
-        if (toolUse) {
-          send({ type: 'quote', quote: sanitizeQuote(toolUse.input, answerLang) });
-          console.log(JSON.stringify({ event: 'chat_quote_card', lang: answerLang }));
-        } else if (!sentText) {
-          if (final.stop_reason === 'refusal') console.warn('[chat] refusal', final.stop_details?.category ?? null);
-          send({ type: 'fallback', reason: 'error' });
-        }
-        send({ type: 'done' });
-      } catch (err) {
-        logAnthropicError('chat', err);
-        try {
-          send(sentText ? { type: 'error' } : { type: 'fallback', reason: 'error' });
-        } catch {
-          /* client already gone */
-        }
-      } finally {
-        try { controller.close(); } catch { /* already closed */ }
-      }
-    },
-    cancel() {
-      stream.abort();
-    },
+  const { messages, lang } = parsed;
+  const reply = await assistantReply({
+    message: messages[messages.length - 1].content,
+    history: messages.slice(0, -1),
+    lang,
+    ip: getClientIp(req.headers),
+    surface: 'chat',
   });
-
-  return new Response(body$, {
-    status: 200,
-    headers: {
-      'Content-Type': 'application/x-ndjson; charset=utf-8',
-      'Cache-Control': 'no-store',
-      'X-Content-Type-Options': 'nosniff',
-    },
-  });
+  return json({ reply });
 }

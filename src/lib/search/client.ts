@@ -1,12 +1,12 @@
 /**
  * Browser-side site search shared by the home "Ask AI" box and the chat
- * fallback. MiniSearch and the per-language index (/api/search-index/[lang],
- * built at build time) are only downloaded on first use, then reused.
+ * fallback. MiniSearch, the tokenizer (with its synonym dictionary) and the
+ * per-language index (/api/search-index/[lang], built at build time) are only
+ * downloaded on first use, then reused.
  */
 import type MiniSearch from 'minisearch';
 import type { SupportedLocale } from '@/data/types';
 import type { SearchDoc } from './documents';
-import { SEARCH_OPTIONS } from './tokenize';
 
 export type SiteHit = Pick<SearchDoc, 'id' | 'title' | 'snippet' | 'url' | 'type'> & {
   /** FAQ entries: the official answer (the chat shows it instead of linking to a page). */
@@ -30,9 +30,10 @@ export function loadSiteSearch(locale: SupportedLocale): Promise<MiniSearch<Sear
   if (!pending) {
     pending = Promise.all([
       import('minisearch'),
+      import('./tokenize'),
       fetch(`/api/search-index/${locale}`).then((r) => (r.ok ? r.json() : Promise.reject(new Error(String(r.status))))),
     ])
-      .then(([{ default: MiniSearchCtor }, { docs }]: [typeof import('minisearch'), { docs: SearchDoc[] }]) => {
+      .then(([{ default: MiniSearchCtor }, { SEARCH_OPTIONS }, { docs }]: [typeof import('minisearch'), typeof import('./tokenize'), { docs: SearchDoc[] }]) => {
         const ms = new MiniSearchCtor<SearchDoc>({ ...SEARCH_OPTIONS, storeFields: ['title', 'snippet', 'url', 'type', 'text'] });
         ms.addAll(docs);
         indexes.set(locale, ms);

@@ -1,0 +1,26 @@
+# Quality check for the website assistant's own answer engine (no AI, no keys):
+# knowledge base content rules + the test set in tests/answer-engine/questions.json.
+name: Assistant answers
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  test-answers:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run test:answers -- --quiet
+      # KNOWLEDGE_REVIEW.md must list the current drafts: run `npm run knowledge:review` after changing them
+      - run: npm run knowledge:review && git diff --exit-code KNOWLEDGE_REVIEW.md

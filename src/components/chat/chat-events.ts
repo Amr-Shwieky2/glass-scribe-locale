@@ -4,18 +4,22 @@
  * lazy chat panel until it is needed.
  */
 
+import type { QuoteProduct } from '@/lib/chat-protocol';
+
 export const OPEN_CHAT_EVENT = 'shwaki:open-chat';
 
 export type ChatSeed =
   /** A question with a ready answer: Ask AI "Continue in chat", or an official FAQ answer (`faq`). */
   | { question: string; answer: string; faq?: boolean }
   /** Text put in the message box for the visitor to finish, e.g. "Question about glass railings: ". */
-  | { draft: string };
+  | { draft: string }
+  /** Start the guided quote request (optionally with what we already know). */
+  | { quote: true; product?: QuoteProduct; city?: string };
 
 /** The chat panel chunk. Calling it early (hover, focus, touch) makes opening instant. */
 export const loadChatPanel = () => import('./ChatPanel');
 
-/** Opens the chat; a seed adds a question + answer, or pre-fills the message box. */
+/** Opens the chat; a seed adds a question + answer, pre-fills the message box, or starts a quote request. */
 export function openChat(seed?: ChatSeed): void {
   window.dispatchEvent(new CustomEvent<ChatSeed | undefined>(OPEN_CHAT_EVENT, { detail: seed }));
 }
