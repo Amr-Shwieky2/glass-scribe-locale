@@ -68,6 +68,13 @@ export interface ScoreParams {
 
 export const DEFAULT_SCORE: ScoreParams = { partial: 0.6, answerDoc: 0.75, cityWeight: 0.35, unknownWeight: 1, queryShare: 0.6, support: 0.2, productMismatch: 0.9, officialBonus: 0.03, offProductUnknown: 0.4 };
 
+/**
+ * MiniSearch candidates (best text matches) that get a confidence score. The cut also keeps out
+ * close rival paraphrases: scoring 80, 120 or all candidates (or adding those with a rare query
+ * word) gained some unseen questions but lost more in every language (paraphrase fold check, Oct 2026).
+ */
+const CANDIDATES = 60;
+
 /** Synonym concepts that name a product (see synonyms.ts). */
 const PRODUCT_CONCEPTS = new Set(['~shower', '~railing', '~mirror', '~storefront', '~partition', '~door', '~backsplash', '~shelf']);
 
@@ -159,7 +166,7 @@ export function searchKnowledge(message: string, lang: SupportedLocale, limit = 
   const totalWeight = weights.reduce((a, b) => a + b, 0) || 1;
 
   const best = new Map<string, { confidence: number; second: number; score: number; unknownShare: number }>();
-  for (const r of index.ms.search(message).slice(0, 60)) {
+  for (const r of index.ms.search(message).slice(0, CANDIDATES)) {
     const docUnits = index.units.get(r.id) ?? [];
     const docTerms = new Set(docUnits.flat());
     const partial = new Set<string>(r.queryTerms as string[]); // matched exactly, by prefix or with a typo

@@ -78,7 +78,7 @@ const GENERIC_CONCEPTS = /^~(time|human|contact|repair|clean|city-.*)$/;
  * Synonym concepts that tie a message to us only loosely when much of it is words we never use:
  * "how much is a flight to Eilat?", "do you have glass for eyeglasses?" (see THRESHOLDS.weakAnchorUnknown).
  */
-const WEAK_CONCEPTS = /^~(price|glass|install)$/;
+const WEAK_CONCEPTS = /^~(price|cheap|glass|install)$/;
 
 /**
  * Whether a message talks about our domain (a product, material, service, price,
