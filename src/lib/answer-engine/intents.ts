@@ -855,12 +855,16 @@ const CABINETS = list(
 const CABINET_PART = /^~(glass|door)$/;
 const WARDROBE_STEMS = stemSet(WARDROBES);
 
-// "Without": "…перила из нержавейки без стекла?" names glass only as what it is without
-const WITHOUT_WORDS = new Set(list('without', 'no', 'בלי', 'ללא', 'без', 'بدون', 'بلا', 'غير'));
-/** Every glass word of the message comes right after a "without" word. */
+// "Without", "not", "instead of": "…перила из нержавейки без стекла?", "بدي درابزين حديد مش زجاج" name glass only as what
+// it is without, or is not
+const WITHOUT_WORDS = new Set(list(
+  'without', 'no', 'not', 'instead', 'בלי', 'ללא', 'לא', 'במקום', 'без', 'не', 'вместо', 'بدون', 'بلا', 'غير', 'مش', 'مو', 'موش', 'بدل',
+));
+/** Every glass word of the message comes right after a "without" word (glued "and" too: "ולא זכוכית"; and "instead of glass"). */
 export const onlyWithoutGlass = (m: MessageText) => {
   const glass = m.words.map((w, i) => ([processTerm(w) ?? []].flat().includes('~glass') ? i : -1)).filter((i) => i >= 0);
-  return glass.length > 0 && glass.every((i) => i > 0 && WITHOUT_WORDS.has(m.words[i - 1]));
+  const without = (i: number) => i >= 0 && m.wordForms[i].some((f) => WITHOUT_WORDS.has(f));
+  return glass.length > 0 && glass.every((i) => without(i - 1) || (m.words[i - 1] === 'of' && without(i - 2)));
 };
 
 /**
@@ -1037,12 +1041,14 @@ const PREMISES_WORDS = new Set(list(
   'shop', 'shops', 'store', 'stores', 'חנות', 'חנויות', 'محل', 'محلات', 'магазин', 'магазина', 'магазине', 'магазины', 'магазинов', 'магазину',
 ));
 
-// Words that describe the product a visitor wants, not a question about it ("بدي مراية جديدة محل المراية القديمة")
+// Words that describe the product a visitor wants, not a question about it ("بدي مراية جديدة محل المراية القديمة"), and
+// whose it is ("للمحل تبعي", "לחנות שלי", "для моего магазина")
 const DESCRIPTORS = new Set(list(
-  'new', 'old', 'another', 'replacement', 'instead', 'one',
-  'חדש', 'חדשה', 'חדשים', 'חדשות', 'ישן', 'ישנה', 'הישן', 'הישנה', 'במקום', 'עוד', 'נוסף', 'נוספת',
-  'جديد', 'جديده', 'قديم', 'قديمه', 'بدل', 'محل', 'كمان', 'تاني', 'ثاني', 'واحد', 'وحده',
+  'new', 'old', 'another', 'replacement', 'instead', 'one', 'our', 'mine', 'ours',
+  'חדש', 'חדשה', 'חדשים', 'חדשות', 'ישן', 'ישנה', 'הישן', 'הישנה', 'במקום', 'עוד', 'נוסף', 'נוספת', 'שלי', 'שלנו',
+  'جديد', 'جديده', 'قديم', 'قديمه', 'بدل', 'محل', 'كمان', 'تاني', 'ثاني', 'واحد', 'وحده', 'تبعي', 'تبعتي', 'تبعنا', 'تبعتنا',
   'новый', 'новое', 'новую', 'новая', 'новые', 'старый', 'старое', 'старую', 'старая', 'старые', 'вместо', 'еще', 'одну', 'один',
+  'мой', 'моя', 'мое', 'мою', 'мои', 'моего', 'моей', 'моему', 'моих', 'наш', 'наша', 'наше', 'нашу', 'наши', 'нашего', 'нашей', 'нашему', 'наших',
 ));
 export const isDescriptor = (word: string) => [word, ...stems(word)].some((w) => DESCRIPTORS.has(w));
 

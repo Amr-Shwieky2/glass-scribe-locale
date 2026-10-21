@@ -26,7 +26,7 @@ import {
   asksHow, asksIfWeDo, asksIfWeMake, asksRemoval, isComplaint, isContactQuestion, isDescriptor, isHoursQuestion, isOnePremises, isPremisesWord, isPriceQuestion, isRemark, mentionsTheBot,
   namesRequestSubject, offersServices, onlyWithoutGlass, photoIsTheMeans, plainWindow, sellsToTrade, onlyPlace, otherMeaningQuoteWords, pastCall,
   PLACE_CONCEPT, seeksProfessional,
-  acknowledgement, declinedRequest, looksOutOfScope, speaksToUs, namesOwnArea, offeredQuote, quoteRequest, readMessage, requestWord, smallTalk, wantsSomething, withoutGreeting, withoutIntroduction,
+  acknowledgement, declinedRequest, looksOutOfScope, speaksToUs, namesOwnArea, offeredQuote, quoteRequest, readMessage, requestAsked, requestWord, smallTalk, wantsSomething, withoutGreeting, withoutIntroduction,
   type MessageText,
 } from './intents';
 import { PRODUCT_CONCEPTS as PRODUCT_TOKENS, WEAK_CONCEPTS, entryUncoveredShare, messageConcepts, searchKnowledge, textUnits, unknownShare, type Match, type Unit } from './kb-index';
@@ -264,16 +264,22 @@ function namedProducts(text: string): Set<string> {
   return new Set(textUnits(text).filter((u) => !isPremisesWord(u[0])).flat().filter((c) => PRODUCT_TOKENS.has(c)));
 }
 
-/** Words of a text that are part of a product's name in several words ("חלונות ראווה", "shop window"), normalized. */
-function productPhraseWords(text: string): Set<string> {
+/** Words of a text that are part of a name in several words with one of these concepts ("חלונות ראווה", "shop window", "חדר ישיבות"), normalized. */
+function phraseWords(text: string, concept: (c: string) => boolean): Set<string> {
   const words = splitWords(normalizeText(text));
-  return new Set(phraseSpans(words).filter((sp) => PRODUCT_TOKENS.has(sp.concept)).flatMap((sp) => words.slice(sp.from, sp.to)));
+  return new Set(phraseSpans(words).filter((sp) => concept(sp.concept)).flatMap((sp) => words.slice(sp.from, sp.to)));
 }
+/** …of a product's name ("חלונות ראווה", "shop window"). */
+const productPhraseWords = (text: string) => phraseWords(text, (c) => PRODUCT_TOKENS.has(c));
 
-/** Only the product's name, a shop it is for and words that describe it ("חלון ראווה לחנות", "shop window for my store", "חלון ראווה חדש"). */
+/**
+ * Only the product's name, glass, the room or shop it is for and words that describe it ("חלון ראווה לחנות", "shop window
+ * for my store", "חלון ראווה חדש", "מחיצת זכוכית לחדר ישיבות במשרד").
+ */
 function onlyTheProduct(text: string): boolean {
-  const phrase = productPhraseWords(text);
-  return textUnits(text).every((u) => u[0].startsWith('~') || phrase.has(u[0]) || u.some((v) => PRODUCT_TOKENS.has(v)) || isPremisesWord(u[0]) || isDescriptor(u[0]) || chatWord(u));
+  const placed = (c: string) => PRODUCT_TOKENS.has(c) || c === '~glass' || ROOM_CONCEPTS.test(c);
+  const phrase = phraseWords(text, placed);
+  return textUnits(text).every((u) => u[0].startsWith('~') || phrase.has(u[0]) || u.some(placed) || isPremisesWord(u[0]) || isDescriptor(u[0]) || chatWord(u));
 }
 
 const productsNamedIn = (text: string) => namedProducts(text);
@@ -524,8 +530,12 @@ function bestCandidate(matches: Match[], anchor: Anchor, words: number, long: bo
   // ("שולח לכם תמונות בוואטסאפ" — the runner-up is about the photos, the top one isn't)
   if (second && lead < THRESHOLDS.marginLow && [...concepts].some((c) => second.coveredConcepts.has(c) && !top.coveredConcepts.has(c) && !top.topics.has(c))) return null;
   // One word ("מקלחון", "חזית") or a product alone ("mirror please") matches many entries alike: only a clear lead
-  // (a product named in several words is one: "חלון ראווה לחנות", "shop window for my store")
-  const productOnly = concepts.size === 1 && namedProducts.length === 1 && (words <= 2 || (!!said && onlyTheProduct(said.text)));
+  // (a product named in several words is one: "חלון ראווה לחנות", "shop window for my store"; and so is a glass product
+  // with the room it is for: "מחיצת זכוכית לחדר ישיבות במשרד" is as much the sliding, soundproof or frosted partition —
+  // unless it asks which or what: "למרפסת איזה זכוכית למעקה" asks about the glass)
+  const placedProduct = [...concepts].filter((c) => c !== '~glass' && !ROOM_CONCEPTS.test(c)).length === 1;
+  const productOnly = namedProducts.length === 1 &&
+    (concepts.size === 1 ? words <= 2 || (!!said && onlyTheProduct(said.text)) : placedProduct && !!said && !asksHow(said.m) && onlyTheProduct(said.text));
   if (top.confidence >= THRESHOLDS.answer && lead >= (words <= 1 || productOnly ? THRESHOLDS.marginLow : THRESHOLDS.margin)) return top;
   // Price words alone don't make a message ours ("самый дешевый интернет", "כמה עולה דירה בתל אביב"): only a confident match
   if (!anchor || priceOnly || top.offProduct || top.confidence < THRESHOLDS.answerLow) return null;
@@ -725,12 +735,20 @@ function answerIn({ message, pageLocale, history = [] }: EngineInput): EngineRes
   if (foreignIn(sm, concepts, searchText) || seeksProfessional(sm) || aboutTheTeam(sm) || sellsToTrade(sm)) return noAnswer(lang, 'low-confidence', matches[0]?.confidence ?? 0);
   // "I want a mirror", "אני רוצה מקלחון", "بدي مراية": a product and nothing asked about it — the quote request for it,
   // not whichever entry's wording starts the same way ("i want a mirror wall for my gym"); words that only describe
-  // it don't ask anything either ("بدي مراية جديدة محل المراية القديمة")
-  const nameWords = productPhraseWords(searchText);
+  // it don't ask anything either ("بدي مراية جديدة محل المراية القديمة"), nor glass, what all of them are made of, or the room
+  // it is for ("بدي واجهة زجاج للمحل تبعي" is not the clinics' shop front entry, "I want a glass railing for my balcony" not
+  // where railings go)
+  const placed = (c: string) => PRODUCT_TOKENS.has(c) || c === '~glass' || ROOM_CONCEPTS.test(c);
+  const nameWords = phraseWords(searchText, placed);
   const describedOnly = textUnits(searchText).every((u) =>
-    u[0].startsWith('~') || requestWord(u) || u.some((v) => PRODUCT_TOKENS.has(v)) || nameWords.has(u[0]) || isDescriptor(u[0].replace(/^#/, '')) || /^\d/.test(u[0]));
-  if (concepts.size === 1 && namesProduct && (contentWords(searchText) <= 2 || describedOnly) && !declined && wantsSomething(sm)) {
-    return quoteReply(lang, m, ownConcepts, ASSISTANT_REPLIES.quoteStart[lang], 1);
+    u[0].startsWith('~') || requestWord(u) || u.some(placed) || nameWords.has(u[0]) || isDescriptor(u[0].replace(/^#/, '')) || /^\d/.test(u[0]));
+  const wanted = [...concepts].filter((c) => c !== '~glass' && !ROOM_CONCEPTS.test(c));
+  if (wanted.length === 1 && namesProduct && (contentWords(searchText) <= 2 || describedOnly) && !declined && wantsSomething(sm)) {
+    // (a "need" word may only ask whether it is needed — "צריך מאחז יד במעקה?": an entry that clearly answers that comes first)
+    const words = contentWords(searchText);
+    const answered = !requestAsked(sm) &&
+      !!clearWinner(matches, anchorOf(concepts, unknownShare(searchText, lang)), words, words >= THRESHOLDS.longWords, concepts, /\d/.test(searchText), { text: searchText, m: sm, lang });
+    if (!answered) return quoteReply(lang, m, ownConcepts, ASSISTANT_REPLIES.quoteStart[lang], 1);
   }
   // "Do you do / have / install mirrors?" (see PRODUCT_OVERVIEW)
   if (!declined) {

@@ -7927,5 +7927,137 @@
    "process-production-lead-time"
   ],
   "bug": "R5-after-measurement (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "צריך מאחז יד במעקה?",
+  "expected": "railing-top-handrail",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R7-need-question (a need word that asks whether something is needed: an entry that answers it comes before the quote request)"
+ },
+ {
+  "lang": "he",
+  "q": "האם צריך מאחז יד במעקה?",
+  "expected": "railing-top-handrail",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R7-need-question (a need word that asks whether something is needed: an entry that answers it comes before the quote request)"
+ },
+ {
+  "lang": "he",
+  "q": "צריך מאחז יד במעקה",
+  "expected": "railing-top-handrail",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R7-need-question (a need word that asks whether something is needed: an entry that answers it comes before the quote request)"
+ },
+ {
+  "lang": "en",
+  "q": "need a handrail on the glass railing?",
+  "expected": "railing-top-handrail",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R7-need-question (a need word that asks whether something is needed: an entry that answers it comes before the quote request) (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "нужен поручень на стеклянных перилах?",
+  "expected": "railing-top-handrail",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R7-need-question (a need word that asks whether something is needed: an entry that answers it comes before the quote request) (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "מחיצת זכוכית לחדר ישיבות במשרד",
+  "expected": "quote",
+  "bug": "R7-unnamed-aspect (a product and a room only: entries about an aspect the visitor never names tie, none of them is the answer)"
+ },
+ {
+  "lang": "en",
+  "q": "glass partition for a meeting room in the office",
+  "expected": "quote",
+  "bug": "R7-unnamed-aspect (a product and a room only: entries about an aspect the visitor never names tie, none of them is the answer) (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "стеклянная перегородка для переговорной в офисе",
+  "expected": "quote",
+  "bug": "R7-unnamed-aspect (a product and a room only: entries about an aspect the visitor never names tie, none of them is the answer) (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي درابزين حديد مش زجاج",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R7-not-glass (another material, glass named only as what it is not)"
+ },
+ {
+  "lang": "ar",
+  "q": "درابزين حديد مش زجاج",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R7-not-glass (another material, glass named only as what it is not)"
+ },
+ {
+  "lang": "en",
+  "q": "I want an iron railing, not glass",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R7-not-glass (another material, glass named only as what it is not) (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "אני רוצה מעקה ברזל ולא זכוכית",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R7-not-glass (another material, glass named only as what it is not) (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "хочу железные перила, а не стеклянные",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R7-not-glass (another material, glass named only as what it is not) (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي واجهة زجاج للمحل تبعي",
+  "expected": [
+   "storefront-new-business-renovation"
+  ],
+  "bug": "R7-want-glass-product (I want a glass <product> for my shop: the request, not one narrow entry)"
+ },
+ {
+  "lang": "he",
+  "q": "אני רוצה חזית זכוכית לחנות שלי",
+  "expected": [
+   "storefront-new-business-renovation"
+  ],
+  "bug": "R7-want-glass-product (I want a glass <product> for my shop: the request, not one narrow entry) (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "хочу стеклянную витрину для моего магазина",
+  "expected": [
+   "storefront-new-business-renovation"
+  ],
+  "bug": "R7-want-glass-product (I want a glass <product> for my shop: the request, not one narrow entry) (variants)"
  }
 ]
