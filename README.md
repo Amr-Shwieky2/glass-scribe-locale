@@ -7,7 +7,8 @@ Website for **Shwaki Brothers Glassworks** (אחים שוואקי זכוכית),
 - **Hosting:** Vercel
 - **Images:** Cloudinary, fetched on the server and cached for 1 hour, with an admin panel at `/he/admin`
 - **Leads:** contact form sends to Telegram
-- **Ask AI:** home-page search with instant results from site content and short AI answers (Claude)
+- **Ask AI:** home-page search with instant results from site content and answers from our own knowledge base
+- **Chat assistant:** "Ask our AI" on every page — answers from our own knowledge base (free, no paid AI), a guided quote request sent to Telegram after the visitor confirms, WhatsApp and call
 
 ## Quick start
 
@@ -34,6 +35,8 @@ app/
   global-not-found.tsx     # 404 for URLs outside /[lang] (e.g. /xx)
   api/
     ask/                   # Ask AI (streams a Claude answer)
+    chat/                  # chat assistant (NDJSON stream + quote tool)
+    chat/lead/             # visitor-confirmed quote request → Telegram
     search-index/[lang]/   # static per-language search corpus (built at build time)
     telegram/send/         # contact form → Telegram
     csrf/token/            # CSRF tokens for the contact form
@@ -50,8 +53,11 @@ src/
     google-places.ts       # single source of truth for the rating (omitted when unavailable)
     cloudinary/server.ts   # cached server-side Cloudinary search + input whitelists
     rate-limit.ts          # Upstash Redis limiter (in-memory fallback)
+    ai.ts                  # shared AI route guards: client, same-origin, limits, fallbacks
+    telegram.ts            # Telegram sending: HTML with escaping, plain-text retry
+    business-hours.ts      # open/closed in Israel time (OPENING_HOURS in data/contact.ts)
     admin-session.ts, csrf.ts, signed-token.ts
-    search/                # search corpus, tokenizer (he/ar prefixes), retrieval, AI prompt
+    search/                # search corpus, tokenizer (he/ar prefixes), retrieval, AI prompts (ask + chat)
 ```
 
 ### Content and languages
@@ -64,12 +70,80 @@ Page metadata (title, description, canonical, hreflang) comes from `src/data/seo
 
 Public pages fetch Cloudinary images on the server through `unstable_cache` (1 hour, tag `cloudinary-images`). Admin actions (upload, delete, tag) call `revalidateTag`, so the site updates right away without sending every visitor's request to the Cloudinary Admin API. `next/image` uses a Cloudinary loader (`src/lib/cloudinary/image-loader.ts`), so Cloudinary does the resizing.
 
-### Ask AI
+### Website assistant (free — no paid AI)
 
-- **Instant results** (no AI, no key needed): `/api/search-index/[lang]` is generated at build time from `src/data`. The browser downloads it and MiniSearch only when the visitor focuses the box.
-- **AI answer**: `POST /api/ask` retrieves the best-matching passages from the same corpus and streams a short answer from Claude (`AI_SEARCH_MODEL`, default `claude-haiku-5-5`). It has a same-origin check, a 300-character limit, 10 questions per IP per hour, and a global daily cap (`AI_SEARCH_DAILY_LIMIT`).
-- Without `ANTHROPIC_API_KEY`, or when a limit is hit, the section still shows instant results plus a WhatsApp prompt.
-- Logging: only the question text (phone numbers and emails scrubbed) and its language. No IPs or names.
+The home "Ask AI" box and the chat share one server pipeline (`src/lib/assistant.ts`). With no keys at all it works on layers 1 + 3, and no code path can create an AI bill.
+
+1. **Our own answer engine** (`src/lib/answer-engine/`): no AI company, no API key, no external calls, a few milliseconds per answer.
+   - Normalizes the text (niqqud, Arabic letter forms, "ё", Hebrew/Arabic prefixes), adds synonyms (`src/lib/search/synonyms.ts`) and tolerates typos.
+   - Detects the language from the message itself and simple intents: greeting, thanks, complaint, out-of-scope, quote request, city, opening hours, contact, price.
+   - Searches the knowledge base (`src/data/knowledge/`) with a 0–1 confidence: high → the answer with links and related questions; medium → "Did you mean…?"; low → layer 2 or 3. Thresholds: `src/lib/answer-engine/config.ts`.
+   - Opening hours, contact details and "do you work in <city>?" are built from live data (`business-hours`, `CONTACT_INFO`, locations).
+   - A short follow-up ("and for 10 mm?") is searched together with the previous question.
+2. **Optional free-tier AI** (`src/lib/llm/`), only when layer 1 has no good answer and `AI_PROVIDER` is set.
+   - It only rewrites the best knowledge base entries and page passages into a short answer. Phone numbers, e-mails and names given in common introductions ("my name is…", "קוראים לי…") are removed before sending (`src/lib/llm/privacy.ts`; other names can get through), and quote details are never sent.
+   - Every answer is checked before it is shown: any number not in the provided content, the wrong language, a foreign link, off-topic or empty/too long → dropped, and layer 1/3 answers instead.
+   - Caps: 20 AI answers per IP per hour, `AI_DAILY_LIMIT` per day (counted in Upstash), `max_tokens` 400, temperature 0.2, 8-second timeout. A hit cap or a failing provider silently falls back; visitors never see an error.
+3. **Our team**: a guided quote request in the chat (product → city → size → timing → name → phone; everything but name and phone can be skipped), then the editable confirmation card with consent.
+   - Nothing is sent until the visitor presses Send, which calls `POST /api/chat/lead` (CSRF + consent + validation, 3 per IP per hour) → Telegram (`src/lib/telegram.ts`).
+   - When there's no answer, the visitor gets "I'm not sure about that one. Our team can answer quickly:" with free quote, WhatsApp (pre-filled with their question) and call.
+
+**Knowledge base** (`src/data/knowledge/<topic>.ts`, one file per topic):
+- Each entry has a question and 10+ customer-style paraphrases in he/en/ar/ru, a 40–120-word answer, 1–3 links, related ids, a `source` (where in `src/data` its facts come from), and a status.
+- Only `approved` entries are used. The site's official FAQ pairs are included word for word (`faq-refs.ts`).
+- `draft` entries need a fact from the owner; they are listed in `KNOWLEDGE_REVIEW.md` (`npm run knowledge:review`).
+
+**Quality check**: `npm run test:answers` runs a question file through layer 1 only and prints, per language, the right direct answers, "Did you mean", hand-offs (not sure / quote / WhatsApp) and **wrong confident answers**. A wrong answer is worse than a hand-off, so any wrong answer fails the run. All four sets run in CI (`.github/workflows/answers.yml`):
+- `tests/answer-engine/blind.json` — the **blind set** (40 per language), written separately and never used to write paraphrases, synonyms or rules. **This is the score we report.** It runs with `--report-only` and its failures are hidden by default (`--show-holdout` shows them): don't tune on it.
+- `tests/answer-engine/calibration.json` — a second separate set (24 per language), only for engine thresholds (never for paraphrases or synonyms); also `--report-only`.
+- `tests/answer-engine/regressions.json` — every bug found so far; must never get a wrong answer again. A case may have a `history` (earlier visitor messages) to test follow-ups ("and the price?").
+- `tests/answer-engine/questions.json` — the tuning set (fails under 85% per language).
+
+The run also fails when a knowledge-base wording or a tuning question copies a blind or held-out question (`--file`, `--lang`, `--min`, `--quiet` are listed in `scripts/test-answers.ts`).
+
+**Unanswered questions**: what layer 1 couldn't answer with a specific entry (no answer, out of scope, only "Did you mean" buttons or only the general price reply) is kept in Upstash (last 500, with phone numbers, e-mails and names given in common introductions removed) and shown in **Admin → Unanswered questions**, grouped by similarity, with a "Copy list" button (every wording included).
+- A daily Telegram summary runs from Vercel Cron (`vercel.json`). It needs `CRON_SECRET` and Upstash; turn it off with `UNANSWERED_SUMMARY=off`. A failed read or send is included again the next day.
+
+**Home "Ask AI" box**: instant results from the site while typing (`/api/search-index/[lang]`, built at build time). Enter asks `POST /api/ask`.
+- "Popular questions" (six FAQ questions, `getPopularQuestions` in `src/data/faq.ts`) open the chat with the official answer instantly; FAQ entries among the instant results do the same.
+- "Continue in chat" hands an answer over to the chat.
+
+**Chat widget** (`src/components/chat/`):
+- Always visible except on admin pages: a floating "Ask our AI" button on desktop (above the cookie banner while it is shown), "Ask AI" in the mobile bottom bar, the header and the mobile menu.
+- A greeting bubble appears once per session. Other code opens the chat with `openChat()` from `chat-events.ts`.
+- The panel's code loads on first open. The conversation lives only in `sessionStorage`.
+- `POST /api/chat`: `{ messages, lang }` (last 12, visitor messages ≤ 500 characters, same-origin) or `{ entryId, lang }` for a suggestion button → `{ reply }` (`src/lib/chat-protocol.ts`).
+
+**Privacy**: conversations aren't stored on the server, except the anonymized unanswered questions above. Logs contain only the event, language, layer and message count. Names, phones and the visitor's chat messages reach us only in a confirmed quote request.
+
+**Live check**: `node scripts/chat-smoke-test.mjs https://<deployment>` asks a few questions in each language and prints which layer answered.
+
+#### Optional: enable a free AI (layer 2)
+
+> **Never add a credit card or enable billing on these accounts** — then they can never charge you. When a free quota runs out they just stop answering, and the site falls back to layer 1/3.
+
+Set `AI_PROVIDER` to one provider, or a fallback chain such as `groq,cloudflare` (on a rate limit or failure the next one is tried). Keep `AI_DAILY_LIMIT` (default 300) below the providers' free daily quotas.
+
+- **Groq** (`AI_PROVIDER=groq`):
+  1. Sign up at [console.groq.com](https://console.groq.com) (free, no card).
+  2. Open **API Keys → Create API Key** and copy it.
+  3. In Vercel, set `GROQ_API_KEY` and `AI_PROVIDER=groq`, then redeploy. `GROQ_MODEL` defaults to `llama-3.3-70b-versatile`.
+- **Cloudflare Workers AI** (`AI_PROVIDER=cloudflare`):
+  1. Create a free account at [dash.cloudflare.com](https://dash.cloudflare.com) and copy your **Account ID** (Workers AI page or the account overview).
+  2. **My Profile → API Tokens → Create Token**, use the **Workers AI** template, and copy the token.
+  3. In Vercel, set `CLOUDFLARE_ACCOUNT_ID`, `CLOUDFLARE_API_TOKEN` and `AI_PROVIDER=cloudflare`, then redeploy. The free plan has a daily allocation — don't upgrade to Workers Paid. `CLOUDFLARE_MODEL` defaults to `@cf/meta/llama-3.3-70b-instruct-fp8-fast`.
+- **Google AI Studio / Gemini** (`AI_PROVIDER=gemini`):
+  1. Open [aistudio.google.com](https://aistudio.google.com) and choose **Get API key** in a project *without* billing.
+  2. Copy the key.
+  3. In Vercel, set `GEMINI_API_KEY` and `AI_PROVIDER=gemini`, then redeploy. `GEMINI_MODEL` defaults to `gemini-2.5-flash`.
+  - **Free tier content may be used by Google to improve its products** — we send no personal data (contact details are removed, quote details are never sent).
+- **Anthropic** (`AI_PROVIDER=anthropic`) is a **paid** adapter, kept only as an option. It is never used unless you set it explicitly.
+
+### FAQ
+
+`SHOW_FAQ_SECTIONS` in `src/data/site-features.ts` (now `false`) shows or hides the home FAQ section and the service pages' FAQ blocks, together with their FAQPage JSON-LD. Google requires the markup to match visible FAQ text.
+- Service pages show an "Ask our AI" line in place of the block.
+- The FAQ content stays in `src/data/faq.ts` and `src/data/service-seo-content.ts`, and is part of the assistant's knowledge base.
 
 ## Environment variables
 
@@ -79,8 +153,8 @@ Set these in **Vercel → Project → Settings → Environment Variables**. Copy
 |---|---|---|
 | `ADMIN_PASSWORD` | yes (admin) | Admin login password |
 | `ADMIN_SESSION_SECRET` | yes (admin) | Signs the 24h admin session cookie. Random string, at least 32 characters |
-| `CSRF_SECRET` | yes | Signs contact-form CSRF tokens. Random string, at least 32 characters. The form is disabled if missing |
-| `TELEGRAM_BOT_TOKEN` | yes | Bot that receives contact-form leads |
+| `CSRF_SECRET` | yes | Signs CSRF tokens for the contact form and chat quote requests. Random string, at least 32 characters. Both are disabled if missing |
+| `TELEGRAM_BOT_TOKEN` | yes | Bot that receives contact-form leads and chat quote requests |
 | `TELEGRAM_CHAT_ID` | yes | Chat or group the leads are sent to |
 | `CLOUDINARY_CLOUD_NAME` | yes | Cloudinary account (server) |
 | `CLOUDINARY_API_KEY` | yes | Cloudinary Admin/Search API (server only) |
@@ -90,11 +164,16 @@ Set these in **Vercel → Project → Settings → Environment Variables**. Copy
 | `NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET` | yes (admin) | Unsigned preset for the admin upload widget |
 | `GOOGLE_PLACES_API_KEY` | recommended | Live Google rating in JSON-LD and the home description. Without it the rating is omitted |
 | `GOOGLE_PLACE_ID` | recommended | The business's Google Place ID |
-| `UPSTASH_REDIS_REST_URL` | recommended | Shared rate limiting (login, contact form, AI). Without it limits are per serverless instance |
+| `UPSTASH_REDIS_REST_URL` | recommended | Shared rate limiting (login, contact form, assistant, AI caps, chat leads) and the unanswered-questions list. Without it both are per serverless instance |
 | `UPSTASH_REDIS_REST_TOKEN` | recommended | ″ |
-| `ANTHROPIC_API_KEY` | optional | AI answers in the Ask AI section. Without it, only instant results are shown |
-| `AI_SEARCH_MODEL` | optional | Claude model for AI answers. Default `claude-haiku-5-5` |
-| `AI_SEARCH_DAILY_LIMIT` | optional | Max AI answers per day, site-wide. Default `500` |
+| `AI_PROVIDER` | optional | Free-tier AI for questions our own engine can't answer: `none` (default — no AI at all), `groq`, `cloudflare`, `gemini`, or a chain like `groq,cloudflare`. See "Optional: enable a free AI" |
+| `AI_DAILY_LIMIT` | optional | Max AI answers per day, site-wide (counted in Upstash). Default `300` — keep it below the free quotas. `0` turns the AI off |
+| `GROQ_API_KEY` / `GROQ_MODEL` | optional | Groq free tier. Model default `llama-3.3-70b-versatile` |
+| `CLOUDFLARE_ACCOUNT_ID` / `CLOUDFLARE_API_TOKEN` / `CLOUDFLARE_MODEL` | optional | Cloudflare Workers AI free allocation. Model default `@cf/meta/llama-3.3-70b-instruct-fp8-fast` |
+| `GEMINI_API_KEY` / `GEMINI_MODEL` | optional | Google AI Studio free tier (content may be used by Google — we send no personal data). Model default `gemini-2.5-flash` |
+| `ANTHROPIC_API_KEY` / `AI_CHAT_MODEL` | optional, **paid** | Only used with `AI_PROVIDER=anthropic`. Model default `claude-haiku-5-5` |
+| `CRON_SECRET` | optional | Enables the daily Telegram summary of unanswered questions (Vercel Cron sends it) |
+| `UNANSWERED_SUMMARY` | optional | `off` turns that summary off |
 
 Generate secrets with:
 

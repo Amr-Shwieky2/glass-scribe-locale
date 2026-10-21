@@ -3,6 +3,12 @@
   "version": 2,
   "buildCommand": "npm run build",
   "framework": "nextjs",
+  "crons": [
+    {
+      "path": "/api/cron/unanswered-summary",
+      "schedule": "0 16 * * *"
+    }
+  ],
   "redirects": [
     {
       "source": "/:lang/gallery",

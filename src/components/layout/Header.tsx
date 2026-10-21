@@ -13,6 +13,7 @@ import { useScrollDetection } from '@/hooks/useScrollDetection';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
 import Image from 'next/image';
+import { openChat } from '@/components/chat/chat-events';
 import { BUSINESS_INFO } from '@/data/business-info';
 import { CONTACT_INFO } from '@/data/contact';
 import { NAVIGATION } from '@/data/navigation';
@@ -47,6 +48,8 @@ const Header: React.FC = () => {
   const handleWhatsApp = useCallback(() => { window.open(`https://wa.me/${CONTACT_INFO.whatsapp}`, '_blank'); }, []);
   const handlePhoneCall = useCallback(() => { window.location.href = `tel:${CONTACT_INFO.phoneIntl}`; }, []);
   const closeMobileMenu = useCallback(() => { setIsMenuOpen(false); }, []);
+  // The chat isn't available on admin pages
+  const handleAskAi = useMemo(() => (pathname?.includes('/admin') ? undefined : () => openChat()), [pathname]);
 
   // Handle language switch
   const handleLangSwitch = (code: string) => {
@@ -63,7 +66,7 @@ const Header: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 sm:h-20">
           <Link href={`/${currentLanguage}`} className="group flex-shrink-0">
-            <div className={`flex items-center gap-2 sm:gap-3 transition-transform duration-500 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${scrolled ? 'scale-90' : 'scale-100'}`}>
+            <div className={`flex items-center gap-2 sm:gap-3 transition-transform duration-500 [transition-timing-function:cubic-bezier(0.34,1.56,0.64,1)] ${scrolled ? 'scale-90' : 'scale-100'}`}>
               <Image src="/logo-64.png" alt="Shwaki Brothers Logo" width={48} height={48} priority className="w-10 h-10 sm:w-12 sm:h-12 object-contain" />
               <div className="hidden xs:block sm:block">
                 <span className="font-bold text-brand-navy text-sm sm:text-base">{getLocalizedText(BUSINESS_INFO.name, locale)}</span>
@@ -71,7 +74,7 @@ const Header: React.FC = () => {
             </div>
           </Link>
 
-          <DesktopNav navigation={navigation} isActive={isActive} locale={locale} supportedLanguages={supportedLanguages} currentLanguage={currentLanguage} onSwitchLanguage={switchLanguage} onWhatsApp={handleWhatsApp} onCall={handlePhoneCall} />
+          <DesktopNav navigation={navigation} isActive={isActive} locale={locale} supportedLanguages={supportedLanguages} currentLanguage={currentLanguage} onSwitchLanguage={switchLanguage} onWhatsApp={handleWhatsApp} onCall={handlePhoneCall} onAskAi={handleAskAi} />
 
           {/* Mobile: Language + Menu buttons */}
           <div className="flex items-center gap-2 lg:hidden">
@@ -131,7 +134,7 @@ const Header: React.FC = () => {
       </div>
 
       {isMenuOpen && (
-        <MobileNav navigation={navigation} isActive={isActive} locale={locale} supportedLanguages={supportedLanguages} currentLanguage={currentLanguage} onSwitchLanguage={switchLanguage} onWhatsApp={handleWhatsApp} onCall={handlePhoneCall} onClose={closeMobileMenu} />
+        <MobileNav navigation={navigation} isActive={isActive} locale={locale} supportedLanguages={supportedLanguages} currentLanguage={currentLanguage} onSwitchLanguage={switchLanguage} onWhatsApp={handleWhatsApp} onCall={handlePhoneCall} onAskAi={handleAskAi} onClose={closeMobileMenu} />
       )}
     </header>
   );

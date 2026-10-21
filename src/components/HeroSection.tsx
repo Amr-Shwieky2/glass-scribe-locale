@@ -133,7 +133,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ locale, heroImageId, nextSect
                 className="group relative inline-flex items-center gap-3 bg-brand-gold text-brand-navy font-bold text-lg px-8 py-4 rounded-full overflow-hidden transition-transform duration-200 hover:scale-105 active:scale-[0.98]"
               >
                 {/* Button shine effect */}
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-[600ms]" aria-hidden="true" />
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform [transition-duration:600ms]" aria-hidden="true" />
                 <Phone className="w-5 h-5 relative z-10" />
                 <span className="relative z-10">{text.cta}</span>
               </a>
@@ -146,7 +146,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({ locale, heroImageId, nextSect
                 className="group relative inline-flex items-center gap-3 bg-brand-gold text-brand-navy font-bold text-lg px-8 py-4 rounded-full overflow-hidden transition-transform duration-200 hover:scale-105 active:scale-[0.98]"
               >
                 {/* Button shine effect */}
-                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-[600ms]" aria-hidden="true" />
+                <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform [transition-duration:600ms]" aria-hidden="true" />
                 {/* WhatsApp Icon */}
                 <svg
                   className="w-5 h-5 relative z-10"

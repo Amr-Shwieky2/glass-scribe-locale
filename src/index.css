@@ -1483,3 +1483,60 @@ img {
   .ambient-glow { animation: ambient-glow 4s ease-in-out infinite; }
   .ambient-shimmer { animation: ambient-shimmer 6s linear infinite; }
 }
+
+/* Chat panel entrance — off when the visitor prefers reduced motion */
+@keyframes chat-panel-in {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chat-panel-in { animation: chat-panel-in 0.2s ease-out both; }
+}
+
+/*
+ * Chat dock (desktop): launcher, greeting and panel sit in the inline-end bottom
+ * corner. --chat-base keeps them clear of the accessibility button, which is
+ * fixed bottom-left in every language (so in RTL, where end = left). While the
+ * cookie banner is shown (CookieConsent sets --cookie-banner-h), the launcher
+ * and greeting sit above it; the open panel does too when the viewport is tall
+ * enough for its 600px, otherwise it moves down over the banner (it is stacked
+ * above it on desktop: banner lg:z-[45], panel lg:z-[46]).
+ */
+:root { --chat-base: 1.5rem; }
+:root[dir='rtl'] { --chat-base: 6rem; }
+:root { --chat-bottom: max(calc(var(--cookie-banner-h, 0px) + 1.5rem), var(--chat-base)); }
+@media (min-width: 1024px) {
+  .chat-dock { bottom: var(--chat-bottom); }
+  .chat-dock-panel {
+    --chat-panel-bottom: max(var(--chat-base), min(var(--chat-bottom), calc(100dvh - 43rem)));
+    bottom: var(--chat-panel-bottom);
+    max-height: calc(100dvh - var(--chat-panel-bottom) - 5.5rem);
+  }
+}
+
+/*
+ * Greeting bubble. Phones/tablets: just above the bottom bar, at the inline end
+ * where the bar's "Ask AI" button is, and clear of the accessibility button
+ * (bottom-left) in both directions. Desktop: just above the launcher.
+ */
+.chat-greeting { right: 0.75rem; bottom: 4.75rem; width: min(20rem, calc(100vw - 6rem)); }
+:root[dir='rtl'] .chat-greeting { right: auto; left: 5.25rem; }
+@media (min-width: 640px) {
+  .chat-greeting { bottom: 5.25rem; }
+}
+@media (min-width: 1024px) {
+  .chat-greeting,
+  :root[dir='rtl'] .chat-greeting { left: auto; right: auto; inset-inline-end: 1rem; width: 19rem; bottom: calc(var(--chat-bottom) + 4.25rem); }
+}
+@keyframes chat-greeting-in {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .chat-greeting-in { animation: chat-greeting-in 0.25s ease-out both; }
+}
+
+/* Phones/tablets: keyboard focus and in-page jumps stop clear of the fixed bottom bar (MobileCTA) */
+@media (max-width: 1023px) {
+  html { scroll-padding-bottom: 5.5rem; }
+}

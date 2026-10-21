@@ -1,6 +1,7 @@
 /**
- * FAQ content — server-safe. Rendered on the home page (and its FAQPage
- * JSON-LD), indexed by the site search and used to ground AI answers.
+ * FAQ content — server-safe. Indexed by the site search and used to ground AI
+ * answers; shown on the home page (with its FAQPage JSON-LD) only while
+ * SHOW_FAQ_SECTIONS (src/data/site-features.ts) is on.
  */
 import type { LocalizedText, SupportedLocale } from './types';
 
@@ -119,7 +120,7 @@ const ADDITIONAL_FAQS: FaqItem[] = [
   {
     question: {
       en: 'What is the standard glass thickness for a shower enclosure?',
-      he: 'מהו עובי הזכוכית הסטנדרטי למשקלחון?',
+      he: 'מהו עובי הזכוכית הסטנדרטי למקלחון?',
       ar: 'ما هو سمك الزجاج القياسي لحاجز الدش؟',
       ru: 'Какова стандартная толщина стекла для душевой кабины?',
     },
@@ -253,7 +254,7 @@ export const GENERAL_FAQ: Record<SupportedLocale, { q: string; a: string }[]> = 
     { q: 'כמה עולה התקנת מקלחון זכוכית?', a: 'מחיר מקלחון זכוכית תלוי בגודל, סוג הזכוכית והפרזול. אחים שוואקי מציעים מדידה חינם והצעת מחיר מותאמת אישית ללא עלות.' },
     { q: 'האם אתם מותקנים בכל הארץ?', a: 'כן, אחים שוואקי מציעים שירות בכל ישראל – ירושלים, תל אביב, חיפה, באר שבע, נתניה ועוד.' },
     { q: 'מה ההבדל בין זכוכית מחוסמת לרגילה?', a: 'זכוכית מחוסמת חזקה פי 4-5 מזכוכית רגילה ומתפוררת לרסיסים קטנים כשנשברת – בטוחה יותר ונדרשת בתקן ישראלי למקלחונים ומעקות.' },
-    { q: 'כמה זמן לוקחת ההתקנה?', a: 'רוב ההתקנות מסתיימות תוך יום עסקים אחד. מדידה מוקדמת מתבצעת לפני ההתקנה לדיוק מקסימלי.' },
+    { q: 'כמה זמן לוקחת ההתקנה?', a: 'רוב התקנות הזכוכית הביתיות מסתיימות תוך 1-2 ימים. לאחר המדידה, ייצור זכוכית מותאמת אישית לוקח 3-5 ימי עסקים. ההתקנה עצמה לוקחת בדרך כלל מספר שעות עד יום מלא בהתאם למורכבות. אנו מספקים לוחות זמנים מדויקים במהלך הייעוץ.' },
     { q: 'האם יש אחריות על ההתקנה?', a: 'כן, אחים שוואקי מציעים אחריות מלאה של שנתיים על חומרים ועבודה על כל ההתקנות.' },
     { q: 'מה ההבדל בין מקלחון עם מסגרת למקלחון ללא מסגרת?', a: 'מקלחון ללא מסגרת משתמש בזכוכית עבה יותר (בדרך כלל 8-10 מ"מ) עם פרזול מינימלי, ונראה נקי יותר וקל יותר לניקוי. מקלחון עם מסגרת משתמש בזכוכית דקה יותר התלויה על מסגרת אלומיניום – עולה פחות אך עם קצוות מתכת גלויים.' },
     { q: 'איך בוחרים זגג מקצועי בישראל?', a: 'חשוב לבדוק שימוש בזכוכית בטיחות בתקן ישראלי (ת"י 1226), מדידה חינם בשטח, אחריות בכתב, וביקורות לקוחות מאומתות.' },
@@ -262,7 +263,7 @@ export const GENERAL_FAQ: Record<SupportedLocale, { q: string; a: string }[]> = 
     { q: 'How much does glass shower installation cost in Israel?', a: 'The cost depends on size, glass type, and hardware. Shwaki Brothers offer a free on-site measurement and personalized quote at no charge.' },
     { q: 'Do you serve all of Israel?', a: 'Yes, Shwaki Brothers serve the entire country — Jerusalem, Tel Aviv, Haifa, Beer Sheva, Netanya, and all other cities.' },
     { q: 'What is the difference between tempered and regular glass?', a: 'Tempered glass is 4–5× stronger than regular glass and crumbles into small rounded pieces when broken — required by Israeli building code for showers and railings.' },
-    { q: 'How long does glass installation take?', a: 'Most installations are completed within one business day. A measurement visit is scheduled first to ensure precision.' },
+    { q: 'How long does glass installation take?', a: 'Most residential glass installations are completed in 1-2 days. After measurement, custom glass production takes 3-5 business days. The actual installation typically takes a few hours to a full day depending on complexity. We provide exact timelines during the consultation.' },
     { q: 'Is there a warranty on installations?', a: 'Yes, Shwaki Brothers provide a full 2-year warranty on all materials and workmanship.' },
     { q: 'What is the difference between a frameless and a framed shower enclosure?', a: 'A frameless enclosure uses thicker glass (typically 8-10mm) held by minimal hardware, giving a cleaner look and easier cleaning. A framed enclosure uses thinner glass supported by an aluminum frame, which costs less but has visible metal edges.' },
     { q: 'How do I choose a glass installer in Israel?', a: 'Check for certified safety glass meeting Israeli standard SI 1226, a free on-site measurement, a written warranty, and verified customer reviews.' },
@@ -271,7 +272,7 @@ export const GENERAL_FAQ: Record<SupportedLocale, { q: string; a: string }[]> = 
     { q: 'كم تكلفة تركيب كابينة الدش الزجاجية في إسرائيل؟', a: 'التكلفة تعتمد على الحجم ونوع الزجاج والمعدات. إخوة شواكي يقدمون قياسًا مجانيًا وعرض سعر مخصصًا بدون أي رسوم.' },
     { q: 'هل تخدمون جميع أنحاء إسرائيل؟', a: 'نعم، إخوة شواكي يخدمون جميع أنحاء البلاد — القدس، تل أبيب، حيفا، بئر السبع، ونتانيا وسائر المدن.' },
     { q: 'ما الفرق بين الزجاج المقسى والزجاج العادي؟', a: 'الزجاج المقسى أقوى 4-5 مرات من الزجاج العادي ويتفتت إلى قطع صغيرة مستديرة عند الكسر — وهو مطلوب بموجب قانون البناء الإسرائيلي للدش والدرابزين.' },
-    { q: 'كم يستغرق تركيب الزجاج؟', a: 'تكتمل معظم عمليات التركيب في يوم عمل واحد. يُحدَّد موعد زيارة قياس مسبق لضمان الدقة.' },
+    { q: 'كم يستغرق تركيب الزجاج؟', a: 'يتم إنجاز معظم تركيبات الزجاج السكنية في 1-2 يوم. بعد القياس، يستغرق إنتاج الزجاج المخصص 3-5 أيام عمل. يستغرق التركيب الفعلي عادة بضع ساعات إلى يوم كامل حسب التعقيد. نقدم جداول زمنية دقيقة خلال الاستشارة.' },
     { q: 'هل يوجد ضمان على التركيب؟', a: 'نعم، إخوة شواكي يقدمون ضمانًا كاملًا لمدة سنتين على جميع المواد والعمالة.' },
     { q: 'ما الفرق بين مقصورة دش بدون برواز ومقصورة بإطار؟', a: 'المقصورة بدون برواز تستخدم زجاجاً أثخن (8-10 مم عادة) بتركيبات قليلة، فتبدو أنظف وأسهل في التنظيف. المقصورة بإطار تستخدم زجاجاً أرق محمولاً على إطار ألمنيوم، وتكلفتها أقل لكن حوافها المعدنية ظاهرة.' },
     { q: 'كيف أختار زجّاجًا محترفًا في إسرائيل؟', a: 'تحقق من استخدام زجاج أمان معتمد بالمواصفة الإسرائيلية SI 1226، وقياس مجاني في الموقع، وضمان مكتوب، وتقييمات عملاء موثقة.' },
@@ -280,7 +281,7 @@ export const GENERAL_FAQ: Record<SupportedLocale, { q: string; a: string }[]> = 
     { q: 'Сколько стоит установка стеклянной душевой кабины в Израиле?', a: 'Стоимость зависит от размера, типа стекла и фурнитуры. Братья Шваки предлагают бесплатный выезд для замера и персональное коммерческое предложение.' },
     { q: 'Вы обслуживаете всю территорию Израиля?', a: 'Да, Братья Шваки работают по всей стране — Иерусалим, Тель-Авив, Хайфа, Беэр-Шева, Нетания и все остальные города.' },
     { q: 'В чём разница между закалённым и обычным стеклом?', a: 'Закалённое стекло в 4–5 раз прочнее обычного и при разрушении рассыпается на мелкие округлые осколки. Обязательно по израильскому строительному стандарту для душевых и ограждений.' },
-    { q: 'Сколько времени занимает установка?', a: 'Большинство монтажей завершается за один рабочий день. Перед установкой проводится предварительный выезд для замеров.' },
+    { q: 'Сколько времени занимает установка?', a: 'Большинство бытовых установок стекла выполняются за 1-2 дня. После замера изготовление стекла на заказ занимает 3-5 рабочих дней. Сама установка обычно занимает от нескольких часов до полного дня в зависимости от сложности. Мы предоставляем точные сроки во время консультации.' },
     { q: 'Есть ли гарантия на установку?', a: 'Да, Братья Шваки предоставляют полную гарантию 2 года на материалы и работу.' },
     { q: 'В чём разница между душевой кабиной без рамы и с рамой?', a: 'Кабина без рамы использует более толстое стекло (обычно 8-10 мм) с минимальной фурнитурой — выглядит чище и легче в уборке. Кабина с рамой использует более тонкое стекло на алюминиевом профиле — стоит дешевле, но с заметными металлическими краями.' },
     { q: 'Как выбрать стекольную компанию в Израиле?', a: 'Проверьте использование сертифицированного безопасного стекла по израильскому стандарту SI 1226, бесплатный замер на месте, письменную гарантию и подтверждённые отзывы клиентов.' },
@@ -298,4 +299,35 @@ export function buildHomeFaqSchema(locale: SupportedLocale) {
       acceptedAnswer: { '@type': 'Answer', text: faq.answer[locale] },
     })),
   };
+}
+
+export interface QuestionAnswer {
+  question: string;
+  answer: string;
+}
+
+/**
+ * The home FAQ entries offered as "Popular questions": chips in the home Ask AI
+ * section and the chat's starter suggestions. Clicking one shows its official
+ * answer at once, without an AI call. Listed by their English question, so
+ * reordering the FAQ can't silently swap them.
+ */
+const POPULAR_QUESTIONS_EN = [
+  'How much does glass installation cost in Israel?',
+  'How long does glass installation take?',
+  'What type of glass is best for shower enclosures?',
+  'Do you offer a warranty on glass installations?',
+  'Do you serve all areas in Israel?',
+  'Can I get a free quote without commitment?',
+];
+
+const POPULAR_FAQS: FaqItem[] = POPULAR_QUESTIONS_EN.map((en) => {
+  const item = HOME_FAQ_CONTENT.faqs.find((faq) => faq.question.en === en);
+  if (!item) throw new Error(`Popular question missing from HOME_FAQ_CONTENT: ${en}`);
+  return item;
+});
+
+/** The popular questions with their official answers, in one language. */
+export function getPopularQuestions(locale: SupportedLocale): QuestionAnswer[] {
+  return POPULAR_FAQS.map((faq) => ({ question: faq.question[locale], answer: faq.answer[locale] }));
 }

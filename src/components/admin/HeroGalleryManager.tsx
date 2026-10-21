@@ -4,6 +4,7 @@
  * Easy admin interface to select the main hero image
  */
 import { useState, useEffect, type FC } from 'react';
+import Image from 'next/image';
 import { useAdmin } from '@/contexts/AdminContext';
 import { useLanguage } from '@/contexts/LanguageContext';
 import { useToast } from '@/hooks/use-toast';
@@ -193,12 +194,14 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
               </h3>
               {currentHeroImage ? (
                 <div className="relative max-w-md mx-auto">
-                  <div className="aspect-[4/3] rounded-xl overflow-hidden shadow-xl border-4 border-brand-gold">
-                    <img
+                  <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-xl border-4 border-brand-gold">
+                    <Image
                       src={getThumbnailUrl(currentHeroImage.public_id, 600)}
                       alt={t(ADMIN_STRINGS.heroManager.altText)}
-                      className="w-full h-full object-cover"
-                      onError={(e) => { (e.target as HTMLImageElement).src = BROKEN_IMG_FALLBACK; }}
+                      fill
+                      sizes="(min-width: 480px) 448px, 100vw"
+                      className="object-cover"
+                      onError={(e) => { e.currentTarget.src = BROKEN_IMG_FALLBACK; e.currentTarget.srcset = ''; }}
                     />
                   </div>
                   <Button
@@ -243,11 +246,13 @@ const HeroGalleryManager: FC<HeroGalleryManagerProps> = ({ open, onOpenChange })
                           : 'hover:scale-105 hover:ring-2 hover:ring-brand-gold/50 cursor-pointer'
                       } ${isSaving ? 'opacity-50' : ''}`}
                     >
-                      <img
+                      <Image
                         src={getThumbnailUrl(image.public_id, 300)}
                         alt={image.context?.custom?.alt || t(ADMIN_STRINGS.heroManager.altText)}
-                        className="w-full h-full object-cover"
-                        onError={(e) => { (e.target as HTMLImageElement).src = BROKEN_IMG_FALLBACK; }}
+                        fill
+                        sizes="(min-width: 768px) 250px, (min-width: 640px) 33vw, 50vw"
+                        className="object-cover"
+                        onError={(e) => { e.currentTarget.src = BROKEN_IMG_FALLBACK; e.currentTarget.srcset = ''; }}
                       />
                       {isCurrentHero && (
                         <div className="absolute inset-0 bg-brand-gold/30 flex items-center justify-center">

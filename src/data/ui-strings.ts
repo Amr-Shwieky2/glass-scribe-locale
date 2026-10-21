@@ -390,6 +390,14 @@ whatsappServiceInquiry: {
     ru: 'Позвонить',
   },
 
+  /** Opens the AI chat assistant (mobile bottom bar and header). */
+  askAi: {
+    en: 'Ask AI',
+    he: 'שאלו AI',
+    ar: 'اسأل AI',
+    ru: 'Спросить ИИ',
+  },
+
   // =========================================================================
   // HERO / HEADER STRINGS
   // =========================================================================

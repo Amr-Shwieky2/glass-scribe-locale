@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { verifyCsrfToken } from '@/lib/csrf';
 import { getClientIp, rateLimit, rateLimitHeaders } from '@/lib/rate-limit';
+import { isTelegramConfigured, sendTelegramMessage, type TelegramFormatter } from '@/lib/telegram';
+import { cleanText as clean } from '@/lib/validation';
 
 /**
  * Contact form → Telegram.
@@ -11,20 +13,12 @@ import { getClientIp, rateLimit, rateLimitHeaders } from '@/lib/rate-limit';
  * a lead is never lost.
  */
 
-const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
-const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID;
-
 const ALLOWED_FIELDS = new Set(['name', 'email', 'phone', 'service', 'message', 'website', 'csrfToken']);
 const LIMITS = { name: [2, 100], email: [3, 254], phone: [7, 20], service: [0, 100], message: [10, 2000] } as const;
 const EMAIL_RE = /^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]{2,}$/;
 const PHONE_RE = /^\+?[\d\s\-()]{7,20}$/;
 
 type Lead = { name: string; email: string; phone: string; service: string; message: string };
-
-const escapeHtml = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-
-/** Strips control characters (keeps newlines/tabs) and trims. */
-const clean = (v: unknown) => (typeof v === 'string' ? v.replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g, '').trim() : '');
 
 function validate(body: Record<string, unknown>): { lead: Lead } | { error: string } {
   const lead: Lead = {
@@ -43,9 +37,7 @@ function validate(body: Record<string, unknown>): { lead: Lead } | { error: stri
   return { lead };
 }
 
-function formatMessage(lead: Lead, html: boolean): string {
-  const e = html ? escapeHtml : (s: string) => s;
-  const b = (s: string) => (html ? `<b>${s}</b>` : s);
+function formatMessage(lead: Lead, { bold: b, value: e }: TelegramFormatter): string {
   return [
     `🔔 ${b('פנייה חדשה מהאתר / New Website Inquiry')}`,
     '',
@@ -59,26 +51,8 @@ function formatMessage(lead: Lead, html: boolean): string {
   ].join('\n');
 }
 
-async function sendTelegram(text: string, parseMode?: 'HTML'): Promise<boolean> {
-  const res = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      chat_id: TELEGRAM_CHAT_ID,
-      text,
-      ...(parseMode ? { parse_mode: parseMode } : {}),
-      disable_web_page_preview: true,
-    }),
-  });
-  if (!res.ok) {
-    const detail = await res.text().catch(() => '');
-    console.error(`[telegram] sendMessage failed (${res.status}${parseMode ? ', HTML' : ', plain'}): ${detail.slice(0, 300)}`);
-  }
-  return res.ok;
-}
-
 export async function POST(req: NextRequest) {
-  if (!TELEGRAM_BOT_TOKEN || !TELEGRAM_CHAT_ID) {
+  if (!isTelegramConfigured()) {
     console.error('[telegram] TELEGRAM_BOT_TOKEN / TELEGRAM_CHAT_ID missing');
     return NextResponse.json({ error: 'Service unavailable' }, { status: 500 });
   }
@@ -112,13 +86,8 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: result.error }, { status: 400 });
   }
 
-  try {
-    let ok = await sendTelegram(formatMessage(result.lead, true), 'HTML');
-    if (!ok) ok = await sendTelegram(formatMessage(result.lead, false)); // never lose a lead over formatting
-    if (!ok) return NextResponse.json({ error: 'Failed to send message' }, { status: 502 });
-    return NextResponse.json({ success: true }, { status: 200 });
-  } catch (err) {
-    console.error('[telegram] send error', err);
-    return NextResponse.json({ error: 'Failed to send message' }, { status: 502 });
-  }
+  // HTML first, plain-text retry inside sendTelegramMessage — never lose a lead over formatting
+  const ok = await sendTelegramMessage((f) => formatMessage(result.lead, f));
+  if (!ok) return NextResponse.json({ error: 'Failed to send message' }, { status: 502 });
+  return NextResponse.json({ success: true }, { status: 200 });
 }

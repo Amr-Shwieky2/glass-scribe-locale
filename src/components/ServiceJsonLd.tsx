@@ -6,13 +6,17 @@ import type { SupportedLocale } from '@/data/types';
 
 import { SITE_URL as BASE_URL, pageUrl } from '@/data/seo';
 import { BUSINESS_ID } from './JsonLdSchema';
+import { SHOW_FAQ_SECTIONS } from '@/data/site-features';
 
 interface ServiceJsonLdProps {
   service: ServiceSeoPage;
   locale: SupportedLocale;
 }
 
-/** Server Component — Service, Breadcrumb and FAQPage schemas for a service landing page. */
+/**
+ * Server Component — Service, Breadcrumb and FAQPage schemas for a service landing page.
+ * FAQPage only while the page shows its FAQ block (SHOW_FAQ_SECTIONS): Google requires them to match.
+ */
 const ServiceJsonLd: React.FC<ServiceJsonLdProps> = ({ service, locale }) => {
   const currentUrl = pageUrl(locale, `/${service.slug}`);
   const serviceName = getLocalizedText(service.heroTitle, locale);
@@ -100,7 +104,7 @@ const ServiceJsonLd: React.FC<ServiceJsonLdProps> = ({ service, locale }) => {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }} />
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />
+      {SHOW_FAQ_SECTIONS && <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }} />}
     </>
   );
 };

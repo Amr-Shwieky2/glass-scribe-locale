@@ -1,0 +1,2318 @@
+[
+ {
+  "lang": "he",
+  "q": "היי, יש לנו חדר רחצה ממש קטן בדירה ישנה, יש בכלל מקום למקלחון זכוכית או שזה רק לחדרים גדולים?",
+  "expected": "shower-small-bathroom",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "יש הבדל גדול בין מקלחון עם פרופיל אלומיניום למקלחון בלי פרופיל?",
+  "expected": "shower-frameless-vs-framed",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "ווק אין בלי דלת עושים?",
+  "expected": "shower-walk-in-panel",
+  "holdout": true
+ },
+ {
+  "lang": "he",
+  "q": "פוחדת שהמיים יצאו מהמקלחון החוצה לכל הרצפה",
+  "expected": "shower-water-sealing",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "הקיר אצלי עקום והפתח 93 סמ, תוכלו להתאים מקלחון למידה הזאת?",
+  "expected": "shower-custom-size",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "מעקה מזכוכית למרפסת יוצא כמה לכל מטר רץ?",
+  "expected": "railing-price-per-meter",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "בדופלקס יש מדרגות פנימיות, אפשר לעשות להן מעקה שקוף מזכוכית?",
+  "expected": "railing-stairs",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "צריך הנדרייל מעל הזכוכית במעקה או שזה לא חובה",
+  "expected": "railing-top-handrail",
+  "holdout": true
+ },
+ {
+  "lang": "he",
+  "q": "כמה יעלה לי קיר מראה בחדר השינה בערך",
+  "expected": "mirror-wall-price",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "המראה באמבטיה כל הזמן מתאדה אחרי מקלחת, יש לכם משהו נגד זה?",
+  "expected": "mirror-anti-fog-bathroom",
+  "holdout": true
+ },
+ {
+  "lang": "he",
+  "q": "המראה צריכה לעבור מעל שקע חשמל, אפשר לעשות בה פתח?",
+  "expected": "mirror-cutouts-sockets",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "דחוף!! פרצו לי לחנות ושברו את הוויטרינה, אפשר להחליף עוד היום?",
+  "expected": "storefront-emergency-same-day",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "רוצה חלון ראווה לחנות שאי אפשר לשבור עם אבן, יש כזה?",
+  "expected": "storefront-security-glass",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "מחיצת זכוכת מבודדת רעש? לחדר ישיבות",
+  "expected": "partition-acoustic",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "רוצים לסגור את פינת העבודה בסלון בזכוכית שלא יחשיך, עושים את זה גם בבתים?",
+  "expected": "partition-home-divider",
+  "holdout": true
+ },
+ {
+  "lang": "he",
+  "q": "חיפוי זכוכית ליד הגז לא יסדק מהחום?",
+  "expected": "backsplash-stove-heat",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "שמים על מדף זכוכית אוסף ספרים כבד, הוא יעמוד בזה?",
+  "expected": "shelves-weight-capacity",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "לדלת הכניסה של הוילה כמה מ\"מ זכוכית צריך",
+  "expected": "doors-entrance-thickness",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "למה כולם אומרים מחוסמת? מה היא עושה שרגילה לא",
+  "expected": "glass-tempered-vs-regular",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "שמעתי על טריפלקס, מתי צריכים את זה?",
+  "expected": "glass-laminated-triplex",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "אקסטרה קליר שווה את התוספת במחיר?",
+  "expected": "glass-extra-clear",
+  "holdout": true
+ },
+ {
+  "lang": "he",
+  "q": "יש לנו תאומים בני שנתיים וחתול, זכוכית בבית זה לא מסוכן?",
+  "expected": "safety-kids-pets",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "אם טורקים חזק את הדלת של המקלחון היא יכולה להתנפץ?",
+  "expected": "safety-shower-door-strength",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "אבנית על הזכוכית במקלחת איך מורדים",
+  "expected": "maintenance-remove-limescale",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "מותר לנקות את הזכוכית עם ספוג קסם או צמר פלדה?",
+  "expected": "maintenance-products-to-avoid",
+  "holdout": true
+ },
+ {
+  "lang": "he",
+  "q": "המעקה במרפסת מלא כתמי גשם ואבק, עם מה לנקות אותו?",
+  "expected": "maintenance-railing-cleaning",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "אפשר לשלוח תמונה ולקבל מחיר בלי שתגיעו?",
+  "expected": "price-without-visit",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "מדדו אצלי אתמול, מתי בערך אמורה להגיע ההצעה?",
+  "expected": "price-quote-timing",
+  "holdout": true
+ },
+ {
+  "lang": "he",
+  "q": "יש לכם תור פנוי למדידה השבוע?",
+  "expected": "process-measurement-appointment",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "כמה זמן לוקח לכם לייצר את הזכוכית אחרי שמדדתם",
+  "expected": "process-production-lead-time",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "שלום, התקנתם אצלנו מקלחון לפני כמה חודשים ועכשיו הדלת לא נסגרת עד הסוף ויש קצת נזילה, למי פונים?",
+  "expected": "warranty-problem-after-installation",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "והאחריות זה גם על מעקה או רק על מקלחונים",
+  "expected": "warranty-all-products",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "גרים צמוד לים, הברזלים של המעקה לא יחלידו מהמלח?",
+  "expected": "areas-coastal",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "בלי בוטים בבקשה, תעבירו אותי למישהו מהצוות",
+  "expected": "contact-human",
+  "holdout": true
+ },
+ {
+  "lang": "he",
+  "q": "מעדיפה לכתוב בהודעות בווצאפ, זה אפשרי?",
+  "expected": "contact-whatsapp",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "שבת אתם סגורים נכון?",
+  "expected": "contact-friday-saturday",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "אחי מאיזה שנה אתם בתחום",
+  "expected": "company-experience",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "אני קבלן שיפוצים, אתם עובדים עם קבלנים? יש מחיר מיוחד?",
+  "expected": "company-contractors-architects",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "פתוחים כרגע",
+  "expected": "contact-hours",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "מתי נגמר אצלכם יום העבודה היום",
+  "expected": "contact-hours",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "עובדים בחיפה?",
+  "expected": "areas-city",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "שלום, אנחנו גרים באשדוד, אתם מגיעים גם לשם?",
+  "expected": "areas-city",
+  "holdout": true
+ },
+ {
+  "lang": "he",
+  "q": "בא לי הצעת מחיר למעקה זכוכית למרפסת בנתניה, בערך 6 מטר",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "תחזרו אליי בבקשה אני רוצה להזמין מקלחון",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "אפשר שמישהו יתקשר אליי לגבי מראה גדולה לסלון?",
+  "expected": "quote",
+  "holdout": true
+ },
+ {
+  "lang": "he",
+  "q": "היי, סיימנו שיפוץ בדירה בירושלים וצריך מקלחון וגם מראה גדולה, אפשר לתאם מדידה ולקבל הצעה?",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "תכתוב לי שיר קצר ליום הולדת של אבא שלי",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "מה מזג האוויר מחר בחיפה",
+  "expected": "out-of-scope",
+  "holdout": true
+ },
+ {
+  "lang": "he",
+  "q": "מה התוצאה של בית\"ר אתמול",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "איך כותבים לולאה בפייתון",
+  "expected": "out-of-scope",
+  "holdout": true
+ },
+ {
+  "lang": "he",
+  "q": "כואב לי הגב אחרי שהרמתי משהו כבד מה לקחת",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "my bathroom is realy small, can you even fit a glass shower in there or no",
+  "expected": "shower-small-bathroom",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "for shower what is more better, sliding door or door that open to outside?",
+  "expected": "shower-sliding-vs-hinged",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "just one fixed glass wall, no door at all, walk in style - possible?",
+  "expected": "shower-walk-in-panel",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "old building, the walls are crooked and nothing is standard size. can u still make the shower glass fit exactly",
+  "expected": "shower-custom-size",
+  "holdout": true
+ },
+ {
+  "lang": "en",
+  "q": "glass railing price per meter?",
+  "expected": "railing-price-per-meter",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "do u do glass railing for stairs inside the house",
+  "expected": "railing-stairs",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "railing on posts or the glass sitting in a hidden channel in the floor, what mounting options are there",
+  "expected": "railing-installation-methods",
+  "holdout": true
+ },
+ {
+  "lang": "en",
+  "q": "want a mirror over the sink but theres a socket and a light switch in the way, can you cut holes in it",
+  "expected": "mirror-cutouts-sockets",
+  "holdout": true
+ },
+ {
+  "lang": "en",
+  "q": "mirror that dont fog up after hot shower??",
+  "expected": "mirror-anti-fog-bathroom",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "how much a mirror wall cost",
+  "expected": "mirror-wall-price",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "URGENT someone smashed my shop window last nite, can you replace it today",
+  "expected": "storefront-emergency-same-day",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "need break in resistant glass for my store front, you have this?",
+  "expected": "storefront-security-glass",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "if we do glass walls for the meeting room will ppl outside hear everything we say",
+  "expected": "partition-acoustic",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "hi, we just bought an apartment in Ramat Gan and want to put a glass wall between the kitchen and the living room so the light still comes in. is that something you do?",
+  "expected": "partition-home-divider",
+  "holdout": true
+ },
+ {
+  "lang": "en",
+  "q": "our office is working all week, can you put in the glass partitions without us shutting down, like evenings or weekend",
+  "expected": "partition-active-office",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "what thicknes glass for main entrance door",
+  "expected": "doors-entrance-thickness",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "glass behind the gas stove, wont it crack from the heat",
+  "expected": "backsplash-stove-heat",
+  "holdout": true
+ },
+ {
+  "lang": "en",
+  "q": "tempered vs regular glass whats the diffrence",
+  "expected": "glass-tempered-vs-regular",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "low iron glass worth it?",
+  "expected": "glass-extra-clear",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "fluted glass what is that exactly",
+  "expected": "glass-fluted-patterned",
+  "holdout": true
+ },
+ {
+  "lang": "en",
+  "q": "we got 2 toddlers and a dog running around, is a glass shower door dangerous for them",
+  "expected": "safety-kids-pets",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "is ur glass according to israeli standard",
+  "expected": "safety-israeli-standards",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "white calcium stains on the shower glass wont come off, how do i get rid of them",
+  "expected": "maintenance-remove-limescale",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "can i use steel wool or magic sponge on the glass or will it scratch",
+  "expected": "maintenance-products-to-avoid",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "best way to clean balcony glass railing",
+  "expected": "maintenance-railing-cleaning",
+  "holdout": true
+ },
+ {
+  "lang": "en",
+  "q": "can u just give me a price from photos, without coming to my place",
+  "expected": "price-without-visit",
+  "holdout": true
+ },
+ {
+  "lang": "en",
+  "q": "after the measurement how many days until you send the quote",
+  "expected": "price-quote-timing",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "how fast can someone come to measure",
+  "expected": "process-measurement-appointment",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "will the installation make a lot of dust and mess in the house, we live there",
+  "expected": "process-clean-installation",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "warranty?",
+  "expected": "warranty-installations",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "is there warranty also on railings and mirrors or only showers",
+  "expected": "warranty-all-products",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "we live right by the sea in bat yam, salty air ruins every metal here. will your hardware rust?",
+  "expected": "areas-coastal",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "whatsapp",
+  "expected": "contact-whatsapp",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "can i talk to a real person not a bot",
+  "expected": "contact-human",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "where r u located",
+  "expected": "contact-location",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "how many years u been doing this",
+  "expected": "company-experience",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "im a contractor with a few building projects, do u work with contractors? any special price?",
+  "expected": "company-contractors-architects",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "got pics of jobs you did before?",
+  "expected": "company-projects-gallery",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "r u open now",
+  "expected": "contact-hours",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "what are ur working hours",
+  "expected": "contact-hours",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "do you work in netanya?",
+  "expected": "areas-city",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "do u guys come to ashdod",
+  "expected": "areas-city",
+  "holdout": true
+ },
+ {
+  "lang": "en",
+  "q": "need a price offer for glass railing on my balcony in tel aviv, around 6 meters",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "pls can someone call me back",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "hi, we just moved to a new flat in Modiin, want a frameless shower and a big bathroom mirror. can you send us a quote?",
+  "expected": "quote",
+  "holdout": true
+ },
+ {
+  "lang": "en",
+  "q": "i want quote for kitchen backsplash",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "write me a short poem about love",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "whats the weather tomorrow",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "who won the maccabi game last night",
+  "expected": "out-of-scope",
+  "holdout": true
+ },
+ {
+  "lang": "en",
+  "q": "how do i make shakshuka",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "my react app shows undefined error, can you fix the code",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "my car makes weird noise when i brake any idea why",
+  "expected": "out-of-scope",
+  "holdout": true
+ },
+ {
+  "lang": "ar",
+  "q": "شو الفرق بين كابينة فريملس وكابينة مع الومنيوم؟",
+  "expected": "shower-frameless-vs-framed",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "للدوش احسن باب سحاب ولا باب بفتح لبرا",
+  "expected": "shower-sliding-vs-hinged",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدي بس لوح زجاج ثابت بالدوش من غير باب، بتعملو هيك شي؟",
+  "expected": "shower-walk-in-panel",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "خايفه المي تطلع من الكابينه عالارض",
+  "expected": "shower-water-sealing",
+  "holdout": true
+ },
+ {
+  "lang": "ar",
+  "q": "الدرابزين الزجاج بالمتر بكم بيطلع",
+  "expected": "railing-price-per-meter",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بتركبوا درابزين زجاج عالدرج جوا البيت؟",
+  "expected": "railing-stairs",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "لازم مسكة ايد فوق الزجاج بالدرابزين ولا مش ضروري",
+  "expected": "railing-top-handrail",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "مرحبا، استلمنا شقة بالطابق ال14 وبدنا درابزين زجاج بدون اطار للبلكونة، بس الهوا قوي كتير فوق، هل هو امان؟",
+  "expected": "railing-high-balcony-safe",
+  "holdout": true
+ },
+ {
+  "lang": "ar",
+  "q": "كم سعرالمرايا لحيط كامل",
+  "expected": "mirror-wall-price",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "مراية للحمام ما بتغبش من البخار في عندكم",
+  "expected": "mirror-anti-fog-bathroom",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدي مراية كبيرة بس في بريزة بالنص، بتقدروا تعملولها فتحة؟",
+  "expected": "mirror-cutouts-sockets",
+  "holdout": true
+ },
+ {
+  "lang": "ar",
+  "q": "انكسر زجاج المحل امبارح بالليل، بتقدروا تبدلوه اليوم؟ ضروري",
+  "expected": "storefront-emergency-same-day",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدي زجاج قوي ضد الاقتحام والسرقة لفاترينة المحل",
+  "expected": "storefront-security-glass",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "القواطع الزجاج بتعزل صوت؟ بدنا نعمل غرفة اجتماعات بالمكتب",
+  "expected": "partition-acoustic",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدي افصل بين الصالون والمطبخ بزجاج، بصير؟",
+  "expected": "partition-home-divider",
+  "holdout": true
+ },
+ {
+  "lang": "ar",
+  "q": "بكم بيطلع بارتيشن زجاج للمكتب",
+  "expected": "partition-price",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "الزجاج اللي ورا الغاز بالمطبخ ما بتشقق من الحرارة؟",
+  "expected": "backsplash-stove-heat",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "شو احسن للمطبخ زجاج ولا قيشاني",
+  "expected": "backsplash-vs-tiles",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "رف زجاج قديش بيحمل",
+  "expected": "shelves-weight-capacity",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "shu el far2 bein el zujaj el m2assa wel 3adi",
+  "expected": "glass-tempered-vs-regular",
+  "holdout": true
+ },
+ {
+  "lang": "ar",
+  "q": "اكسترا كلير بستاهل الفرق بالسعر؟",
+  "expected": "glass-extra-clear",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "الزجاج التريبلكس شو هو ووين بستعملوه",
+  "expected": "glass-laminated-triplex",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "عنا ولاد زغار وكلب بالبيت، الزجاج مش خطير عليهم؟",
+  "expected": "safety-kids-pets",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "الزجاج تبعكم حسب المواصفات الاسرائيلية (تيكن)؟",
+  "expected": "safety-israeli-standards",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "كيف بشيل الكلس عن زجاج الشاور صار ابيض",
+  "expected": "maintenance-remove-limescale",
+  "holdout": true
+ },
+ {
+  "lang": "ar",
+  "q": "شو المواد اللي ممنوع انظف فيها الزجاج",
+  "expected": "maintenance-products-to-avoid",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "عرض السعر ببلاش ولا بدفع عليه؟",
+  "expected": "price-free-quote",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بتقدروا تعطوني سعر تقريبي من صورة بدون ما تيجوا؟",
+  "expected": "price-without-visit",
+  "holdout": true
+ },
+ {
+  "lang": "ar",
+  "q": "قديش تكلفة تركيب زجاج بالبلاد بشكل عام؟",
+  "expected": "price-glass-installation-cost",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "التركيب بيطول؟ يوم ولا اكتر",
+  "expected": "process-installation-time",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "ايمتى فاضيين تيجوا تاخدوا مقاسات؟ بكرا بزبط؟",
+  "expected": "process-measurement-appointment",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "الشغل عليه كفالة ولا لا",
+  "expected": "warranty-installations",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "ركبتولي كابينة قبل شهرين وهلأ الباب مش عم يسكر منيح وفي تنقيط مي، شو بعمل؟",
+  "expected": "warranty-problem-after-installation",
+  "holdout": true
+ },
+ {
+  "lang": "ar",
+  "q": "ساكنين قريب عالبحر، البراغي والاكسسوارات رح يصدوا من الرطوبة والملح؟",
+  "expected": "areas-coastal",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدي احكي مع حدا حقيقي مش بوت",
+  "expected": "contact-human",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "wen makankom?",
+  "expected": "contact-location",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "من امتى شغالين بالزجاج؟",
+  "expected": "company-experience",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "وين بقدر اشوف صور من شغلكم؟",
+  "expected": "company-projects-gallery",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "هسا فاتحين ولا مسكرين",
+  "expected": "contact-hours",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "لاي ساعة فاتحين اليوم",
+  "expected": "contact-hours",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بتشتغلو بحيفا؟",
+  "expected": "areas-city",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "احنا من الناصرة، بتوصلوا لعنا؟",
+  "expected": "areas-city",
+  "holdout": true
+ },
+ {
+  "lang": "ar",
+  "q": "مرحبا، بدي عرض سعر لدرابزين زجاج للبرندة، طولها تقريبا 6 متر، احنا بالطيبة",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "ممكن حدا يتصل فيي بكرا الصبح؟ بدي اعمل مراية كبيرة للصالون",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "bade 3ard si3r la kabinet shower",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بنينا بيت جديد بسخنين وبدنا كابينتين دوش، ابعتولي اوفر لو سمحت",
+  "expected": "quote",
+  "holdout": true
+ },
+ {
+  "lang": "ar",
+  "q": "اكتبلي قصيدة حب قصيرة",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "رح تشتي بكرا؟",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "مين احسن ميسي ولا رونالدو",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "كيف بعمل مقلوبة دجاج؟",
+  "expected": "out-of-scope",
+  "holdout": true
+ },
+ {
+  "lang": "ar",
+  "q": "عندي وجع ضرس من امبارح، شو بوخد؟",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "السيارة بتعمل صوت لما ادعس عالفرامل، شو ممكن يكون؟",
+  "expected": "out-of-scope",
+  "holdout": true
+ },
+ {
+  "lang": "ru",
+  "q": "Добрый день, делаем ремонт в ванной, она совсем маленькая, примерно 1.5 на 1.7. Стеклянная душевая туда поместится или лучше шторку повесить?",
+  "expected": "shower-small-bathroom",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "дверь в миклахат какую брать, на рельсах которая едет или открывается наружу",
+  "expected": "shower-sliding-vs-hinged",
+  "holdout": true
+ },
+ {
+  "lang": "ru",
+  "q": "а со стеклянной душевой вода на пол не льётся? у нас без поддона",
+  "expected": "shower-water-sealing",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "стены кривые и проём нестандартный, сделаете кабину под мои размеры?",
+  "expected": "shower-custom-size",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "скок стоит метр стеклянных перил",
+  "expected": "railing-price-per-meter",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "ограждение стеклянное как крепится? на стойках или в профиль в полу, какие варианты есть",
+  "expected": "railing-installation-methods",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "живем на 18 этаже, стеклянные перила на мирпесет это безопасно? ветер там жуткий",
+  "expected": "railing-high-balcony-safe",
+  "holdout": true
+ },
+ {
+  "lang": "ru",
+  "q": "зеркало которое не потеет в ванной есть?",
+  "expected": "mirror-anti-fog-bathroom",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "в зеркале можно дырку под розетку вырезать",
+  "expected": "mirror-cutouts-sockets",
+  "holdout": true
+ },
+ {
+  "lang": "ru",
+  "q": "цена зеркальной стены за квадрат",
+  "expected": "mirror-wall-price",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "ночью разбили витрину в магазине!! можете сегодня приехать поменять стекло",
+  "expected": "storefront-emergency-same-day",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "нужно стекло на витрину понадёжнее, чтоб не разбили и не залезли. есть такое?",
+  "expected": "storefront-security-glass",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "у нас мисрад работает каждый день, перегородки можете ставить вечером или в выходные чтобы не мешать людям?",
+  "expected": "partition-active-office",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "делаем переговорку со стеклом, через неё всё слышно будет?",
+  "expected": "partition-acoustic",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "Здравствуйте! Купили квартиру в Ришоне, хотим отделить кухню от салона стеклом чтобы свет проходил. В квартирах такое делаете?",
+  "expected": "partition-home-divider",
+  "holdout": true
+ },
+ {
+  "lang": "ru",
+  "q": "стекло за варочной панелью не треснет от температуры",
+  "expected": "backsplash-stove-heat",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "фартук на кухню стекло или плитку, что практичнее",
+  "expected": "backsplash-vs-tiles",
+  "holdout": true
+ },
+ {
+  "lang": "ru",
+  "q": "стекляная полка скок кг выдержит",
+  "expected": "shelves-weight-capacity",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "хочу дверь в кабинет из стекла но матовую чтоб не просвечивало, делаете?",
+  "expected": "doors-frosted-privacy",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "закаленое стекло и обычное в чем разнца",
+  "expected": "glass-tempered-vs-regular",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "триплекс что это",
+  "expected": "glass-laminated-triplex",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "экстра клир стоит переплачивать? плитка белая а обычное стекло зеленит",
+  "expected": "glass-extra-clear",
+  "holdout": true
+ },
+ {
+  "lang": "ru",
+  "q": "у нас двое малышей и кошка, стекло в доме не опасно?",
+  "expected": "safety-kids-pets",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "стекло у вас по текену? израильский стандарт есть?",
+  "expected": "safety-israeli-standards",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "как оттереть известку со стекла в душе, уже белые разводы",
+  "expected": "maintenance-remove-limescale",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "меламиновой губкой стекло тереть норм или испорчу",
+  "expected": "maintenance-products-to-avoid",
+  "holdout": true
+ },
+ {
+  "lang": "ru",
+  "q": "балкон со стеклянным ограждением, как его чистить чтоб без разводов и фурнитуру не испортить",
+  "expected": "maintenance-railing-cleaning",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "смета бесплатно? если потом не закажу ничего не должен?",
+  "expected": "price-free-quote",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "а можно примерную цену по фотке, без замера",
+  "expected": "price-without-visit",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "после замера когда цену скажете?",
+  "expected": "price-quote-timing",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "расскажите по этапам как вы работаете, что сначала что потом",
+  "expected": "process-how-it-works",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "замерили позавчера, сколько дней ждать пока стекло изготовят?",
+  "expected": "process-production-lead-time",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "гарнтия на что распространяется? петли и уплотнители входят",
+  "expected": "warranty-what-covered",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "душевую поставили месяц назад, дверь не дозакрывается и подтекает, чё делать",
+  "expected": "warranty-problem-after-installation",
+  "holdout": true
+ },
+ {
+  "lang": "ru",
+  "q": "мы живем в маленьком мошаве, к нам тоже приезжаете или только по большим городам?",
+  "expected": "areas-small-towns",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "живой человек есть?",
+  "expected": "contact-human",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "сколько лет вы на рынке",
+  "expected": "company-experience",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "фото работ",
+  "expected": "company-projects-gallery",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "вы щас открыты?",
+  "expected": "contact-hours",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "до скольки работаете",
+  "expected": "contact-hours",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "в Хайфе работаете?",
+  "expected": "areas-city",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "а в Ашдод приезжаете? там у нас квартира новая",
+  "expected": "areas-city",
+  "holdout": true
+ },
+ {
+  "lang": "ru",
+  "q": "Здравствуйте, хочу получить предложение по цене на душевую кабину, квартира в Хайфе",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "перезвоните мне пожалуйста по поводу стеклянных перил на балкон",
+  "expected": "quote",
+  "holdout": true
+ },
+ {
+  "lang": "ru",
+  "q": "запишите на замер",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "нужен расчёт на стеклянную перегородку в офис, свяжитесь со мной",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "напиши стих про любовь",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "какая погода завтра в Тель Авиве",
+  "expected": "out-of-scope",
+  "holdout": true
+ },
+ {
+  "lang": "ru",
+  "q": "кто вчера выиграл Маккаби или Хапоэль",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "скиньте рецепт борща",
+  "expected": "out-of-scope",
+  "holdout": true
+ },
+ {
+  "lang": "ru",
+  "q": "как поменять тормозные колодки на мазде",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "помоги написать код на питоне сортировка списка",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "האמבטיה שלנו קטנטנה בקושי מטר וחצי יש טעם לשים מקלחן זכוכית",
+  "expected": "shower-small-bathroom",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "רוצה מקלחת פתוחה בלי דלת רק זכוכית אחת קבועה עושים כזה",
+  "expected": "shower-walk-in-panel",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "פוחדת שהמים יברחו מהמקלחון ויציפו לי את כל הרצפה בחוץ",
+  "expected": "shower-water-sealing",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "בית ישן והקירות באמבטיה עקומים לגמרי, תצליחו לעשות מקלחון שיתאים בדיוק?",
+  "expected": "shower-custom-size",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "יש לנו מדרגות פנימיות בדופלקס אפשר לשים שם מעקה מזכוכית",
+  "expected": "railing-stairs",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "מעקה זכוכית איך מתחבר, עם עמודונים או שזה נכנס לתוך הריצפה?",
+  "expected": "railing-installation-methods",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "צריך מאחז יד מעל הזכוכית במעקה או אפשר להשאיר בלי כלום למעלה",
+  "expected": "railing-top-handrail",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "יש מראה אנטי פוג לאמבטיה",
+  "expected": "mirror-anti-fog-bathroom",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "המראה צריכה לעבור על השקע של הפן, אפשר לעשות בה חור?",
+  "expected": "mirror-cutouts-sockets",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "המסדרון צר וחשוך אם נשים מראה גדולה זה ייראה יותר מרווח?",
+  "expected": "mirror-small-room-bigger",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "שברו לי את הויטרינה בחנות הלילה, אפשר להחליף עוד היום?",
+  "expected": "storefront-emergency-same-day",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "יש זכוכית נגד פורצים לחנות",
+  "expected": "storefront-security-glass",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "שמים מחיצת זכוכית לחדר ישיבות, ישמעו מבחוץ את מה שמדברים בפנים?",
+  "expected": "partition-acoustic",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "רוצה לסגור פינת עבודה בסלון עם קיר זכוכית שלא יחשיך, אפשר?",
+  "expected": "partition-home-divider",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "כמה מילימטר צריכה להיות זכוכית בדלת כניסה",
+  "expected": "doors-entrance-thickness",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "זכוכית מאחורי הגז לא תתפוצץ מהחום?",
+  "expected": "backsplash-stove-heat",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "מתלבטים בקיר של המטבח בין קרמיקה לזכוכית מה יותר שווה",
+  "expected": "backsplash-vs-tiles",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "מדף זכוכית יחזיק ספרים כבדים או שזה יקרוס לי",
+  "expected": "shelves-weight-capacity",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "אקסטרה קליר שווה או לא? רואים בכלל הבדל",
+  "expected": "glass-extra-clear",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "יש לנו שני קטנים וכלב משוגע, זכוכית בבית זה לא מסוכן?",
+  "expected": "safety-kids-pets",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "יש לכם תו תקן?",
+  "expected": "safety-israeli-standards",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "המקלחון מלא אבנית לא יורד עם שום דבר איך מורדים את זה",
+  "expected": "maintenance-remove-limescale",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "מותר לשפשף את הזכוכית עם ספוג פלא או שזה שורט",
+  "expected": "maintenance-products-to-avoid",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "תגיד לי בערך מחיר כבר עכשיו בטלפון, אין לי כוח שיבואו למדוד",
+  "expected": "price-without-visit",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "אחרי שהמודד בא כמה זמן לוקח עד שיש הצעה ביד",
+  "expected": "price-quote-timing",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "על מה המחיר תלוי בעצם? כל זגג אומר לי משהו אחר",
+  "expected": "price-what-affects",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "אפשר מדידה כבר מחר? כמה מהר אתם מגיעים",
+  "expected": "process-measurement-appointment",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "ההתקנה עושה הרבה אבק ולכלוך? הבית כבר משופץ וגמור",
+  "expected": "process-clean-installation",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "התקנתם לי מקלחון לפני חודשיים והדלת לא נסגרת עד הסוף, מה עושים",
+  "expected": "warranty-problem-after-installation",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "האחריות זה רק על מקלחונים או גם על המעקה שעשיתם לי",
+  "expected": "warranty-all-products",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "בבאר שבע בקיץ 45 מעלות הזכוכית לא תיסדק מהחום?",
+  "expected": "areas-negev-heat",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "אנחנו גרים במושב קטן, יש סיכוי שתגיעו עד אלינו?",
+  "expected": "areas-small-towns",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "עובדים בשישי?",
+  "expected": "contact-friday-saturday",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "די עם הבוט אפשר לדבר עם מישהו אמיתי",
+  "expected": "contact-human",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "יש לכם פורטפוליו? בא לי לראות עבודות",
+  "expected": "company-projects-gallery",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "אני קבלן שיפוצים עם כמה פרויקטים במקביל, עובדים עם קבלנים?",
+  "expected": "company-contractors-architects",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "רוצה הצעת מחיר למקלחון פינתי 90 על 90 בחולון, אפשר שתתקשרו אליי?",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "תשלחו מישהו למדוד מעקה זכוכית למרפסת, אני בראשון לציון",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "אני רוצה לסגור עבודה של קיר מראות לסטודיו שלי, תחזרו אליי בבקשה",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "יש לך מתכון טוב לשקשוקה?",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "יש לי סתימה בכיור אתם עושים גם אינסטלציה",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "המחשב שלי לא נדלק מה לעשות",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה טיסה לאילת בסוכות",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "walk in panel no door ok?",
+  "expected": "shower-walk-in-panel",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "shower with alu frame or frameless whats the diffrence between them",
+  "expected": "shower-frameless-vs-framed",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "that nano coating for the shower glass is it really worth paying extra or just marketing",
+  "expected": "shower-protective-coating",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "will water come out under the glass door to the bathroom floor? dont want puddles",
+  "expected": "shower-water-sealing",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "is a hand rail on top a must? want clean look only glass edge",
+  "expected": "railing-top-handrail",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "how u fix the glass railing, posts with clamps or in a channel inside the floor?",
+  "expected": "railing-installation-methods",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "we on 18th floor and its very windy up here, frameless glass on the balcony gonna be safe??",
+  "expected": "railing-high-balcony-safe",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "need mirror over the sink but theres a socket and a light on that wall, can u cut holes in it",
+  "expected": "mirror-cutouts-sockets",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "anti fog mirrors?",
+  "expected": "mirror-anti-fog-bathroom",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "our hallway very narrow and dark, mirror on the wall will make it feel wider?",
+  "expected": "mirror-small-room-bigger",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "someone smashed my shop window last nite!! can u replace it today",
+  "expected": "storefront-emergency-same-day",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "i have jewelry store need front glass that thiefs cant break easy",
+  "expected": "storefront-security-glass",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "glass meeting room in the office - people outside gonna hear everything we say inside?",
+  "expected": "partition-acoustic",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "thinking of glass wall between kitchen and salon in our apartment, possible?",
+  "expected": "partition-home-divider",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "our office cant close for renovation, can ur guys put up the glass rooms while everyone still working",
+  "expected": "partition-active-office",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "pivot vs sliding door tight space",
+  "expected": "doors-sliding-vs-pivot",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "kitchen glass in exactly same colour like my cabinets? its RAL 6021",
+  "expected": "backsplash-color-match",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "how many kg glass shelf can carry, want to put books on it",
+  "expected": "shelves-weight-capacity",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "why tempered better then normal glass",
+  "expected": "glass-tempered-vs-regular",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "someone told me take low iron cuz normal glass looks green on white tiles, true?",
+  "expected": "glass-extra-clear",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "the glass with the vertical lines ribs in it whats it called",
+  "expected": "glass-fluted-patterned",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "got 2 toddlers and a big dog, glass in the house safe or no",
+  "expected": "safety-kids-pets",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "the glass u use is up to israeli safety standard?",
+  "expected": "safety-israeli-standards",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "white hard water stains on my shower glass wont come off whatever i do how to get rid",
+  "expected": "maintenance-remove-limescale",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "how to clean balcony glass railing its always dusty and full of marks",
+  "expected": "maintenance-railing-cleaning",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "can u give price from photos only, dont want somebody to come",
+  "expected": "price-without-visit",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "after u measure how many days till i get the price offer",
+  "expected": "price-quote-timing",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "we just finished painting everything, the install gonna make dust and mess?",
+  "expected": "process-clean-installation",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "what are the steps from first call until the install is done",
+  "expected": "process-how-it-works",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "u guys installed our shower few months ago and now the door not closing properly what do i do",
+  "expected": "warranty-problem-after-installation",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "the 2 years guarantee is also on mirrors and railings or only showers",
+  "expected": "warranty-all-products",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "apartment right on the beach in bat yam, wont the fittings rust from the sea?",
+  "expected": "areas-coastal",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "in beer sheva its 45 degree in summer, the glass survive that?",
+  "expected": "areas-negev-heat",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "human pls not a bot",
+  "expected": "contact-human",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "open on shabat?",
+  "expected": "contact-friday-saturday",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "any reviews from past clients",
+  "expected": "company-reviews",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "how many years ur in business",
+  "expected": "company-experience",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "hi we need glass railing for balcony about 6 meters in modiin, can someone come measure and give price",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "pls call me back i want shower glass for our new bathroom, my name is dana",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "want a quote for mirror wall in my gym 4m x 2.5m in netanya",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "who won the maccabi game yesterday",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "how to make shakshuka",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "my toilet leaking need plumber asap",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "wifi router keeps disconnecting how fix",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "en",
+  "q": "cheap flights to cyprus in december?",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "الحمام عنا كتير زغير، بزبط نحط فيه زجاج للدوش ولا رح يضيق؟",
+  "expected": "shower-small-bathroom",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدي بس قطعة زجاج واقفة بالشاور بلا باب بزبط هيك",
+  "expected": "shower-walk-in-panel",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "خايفه المي تطلع ع الارض من تحت زجاج الدوش، بصير هيك؟",
+  "expected": "shower-water-sealing",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "درج البيت بدنا نعمللو دربزين زجاج بتعملو للدرج",
+  "expected": "railing-stairs",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "الدربزين الزجاج بدو حديدة فوق يمسك عليها الواحد ولا بنفع زجاج بس",
+  "expected": "railing-top-handrail",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "احنا بالطابق 16 والهوا قوي كتير، الزجاج بالبلكون بيصمد؟",
+  "expected": "railing-high-balcony-safe",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدي مرايه للحمام ما تتغبش من البخار",
+  "expected": "mirror-anti-fog-bathroom",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بالحيط اللي بدي اعلق عليه المرايه في بريزه وضو بتقدرو تقصو المرايه حواليهم",
+  "expected": "mirror-cutouts-sockets",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "الكوريدور عنا ضيق وعتم اذا حطيت مرايه كبيره بيبين اوسع؟",
+  "expected": "mirror-small-room-bigger",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "كسرولي واجهة المحل بالليل!! بتقدرو تبدلوها اليوم؟",
+  "expected": "storefront-emergency-same-day",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدي اللوغو واسم المحل ينطبعو ع زجاج الواجهة وجزء مغبش من تحت",
+  "expected": "storefront-privacy-branding",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "قاطع زجاج لغرفة الاجتماعات، رح نسمع الحكي من برا ولا لا",
+  "expected": "partition-acoustic",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدنا نسكر المطبخ عن القعدة بزجاج بس ما بدنا نخسر الضو",
+  "expected": "partition-home-divider",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "المكتب عنا شغال ما بنقدر نوقف الشغل، بتركبو القواطع بعد الدوام او بالويكند؟",
+  "expected": "partition-active-office",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدنا باب زجاج ع مدخل البيت قديش مم بيكون",
+  "expected": "doors-entrance-thickness",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "زجاج ورا الغاز ما بيطق من الشوب؟",
+  "expected": "backsplash-stove-heat",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدي الزجاج بالمطبخ يطلع نفس لون الخزاين بالزبط بتقدرو",
+  "expected": "backsplash-color-match",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "رف زجاج بيشيل كتب تقال؟ لحد قديش كيلو",
+  "expected": "shelves-weight-capacity",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "الزجاج العادي لونو مخضر شوي، في اشي شفاف ع الاخر وبيسوى المصاري؟",
+  "expected": "glass-extra-clear",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "زجاج مضلع شو يعني",
+  "expected": "glass-fluted-patterned",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "shu ya3ni triplex",
+  "expected": "glass-laminated-triplex",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "عنا ولاد زغار وكلب بيركض بكل البيت مش خطر الزجاج عليهم",
+  "expected": "safety-kids-pets",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "ابني بيخبط باب الدوش كل مرة، الزجاج بيستحمل ولا بيطق؟",
+  "expected": "safety-shower-door-strength",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "الكلس معبي زجاج الدوش ومش راضي يروح شو بحط عليه",
+  "expected": "maintenance-remove-limescale",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بنفع امسح زجاج الدوش بالماجيك او سلك الجلي؟",
+  "expected": "maintenance-products-to-avoid",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "فيكم تحكولي السعر ع التلفون من غير ما تيجو تشوفو؟",
+  "expected": "price-without-visit",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بعد ما اجا الفني وقاس امتى بيوصلني عرض السعر",
+  "expected": "price-quote-timing",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "ليش الاسعار بتختلف هيك من شغلة لشغلة، شو اللي بيرفع السعر",
+  "expected": "price-what-affects",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "قديش بدي استنى لحتى تيجو تقيسو",
+  "expected": "process-measurement-appointment",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "البيت لسا مدهون جديد، رح تعملو غبرة ووسخ وقت التركيب؟",
+  "expected": "process-clean-installation",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "fi kafale?",
+  "expected": "warranty-installations",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "ركبتولي الدوش من شهرين وهلأ الباب صار يعلق وما بيتسكر عدل، لمين احكي؟",
+  "expected": "warranty-problem-after-installation",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بتوصلو ع الطيبة؟",
+  "expected": "areas-city",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "ساكنين ع شط البحر بحيفا، الملح والرطوبة ما بيخربو الزجاج والمفصلات؟",
+  "expected": "areas-coastal",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدي احكي مع بني ادم مش مع روبوت",
+  "expected": "contact-human",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "btshtghlo yom el sabt",
+  "expected": "contact-friday-saturday",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "من قديش انتو بشغلة الزجاج",
+  "expected": "company-experience",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "انا مقاول، في اسعار خاصة للمقاولين؟",
+  "expected": "company-contractors-architects",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدنا نعمل دوش زجاج بالحمام الجديد, بدي حدا ييجي ياخد قياسات الاسبوع الجاي احنا بالناصرة",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "بدي عرض سعر لدربزين زجاج للبلكون طولو تقريبا 7 متر",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "ممكن حدا يتصل فيي بخصوص مرايه كبيره للصالون",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "مين فاز بماتش ريال مدريد مبارح",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "الكهربا بتفصل عندي كل شوي بتبعتولي كهربائي؟",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "عندي وجع ضهر من اسبوع شو بتنصحوني اخد",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ar",
+  "q": "قديش بتكلف تذكرة طيارة لانطاليا",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "вы давно в этом деле?",
+  "expected": "company-experience",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "где глянуть что про вас люди пишут, отзывы реальные",
+  "expected": "company-reviews",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "я дизайнер интерьеров, с дизайнерами работаете? есть спец условия для нас",
+  "expected": "company-contractors-architects",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "в шабат открыты",
+  "expected": "contact-friday-saturday",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "дайте нормального человека а не бота пожалуста",
+  "expected": "contact-human",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "у меня план от архитектора в пдф, на имейл кинуть можно?",
+  "expected": "contact-email-plans",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "рифленка шо такое, стекло в полосочку?",
+  "expected": "glass-fluted-patterned",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "экстра клир стоит переплачивать или обычное норм",
+  "expected": "glass-extra-clear",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "триплекс это чё",
+  "expected": "glass-laminated-triplex",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "можно стекло мыть меламиновой губкой или хлоркой? боюсь поцарапать",
+  "expected": "maintenance-products-to-avoid",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "на стекле в душе белый налет от воды ничем не оттирается, чем убрать??",
+  "expected": "maintenance-remove-limescale",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "чем можно мыть резинки и петли на миклахоне чтоб не испортить их",
+  "expected": "maintenance-hardware-seals",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "в зеркале нужна дырка под розетку и бра, сделаете?",
+  "expected": "mirror-cutouts-sockets",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "зеркало не потеющее для ванной есть",
+  "expected": "mirror-anti-fog-bathroom",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "коридор узкий темный, если зеркало повесить визуально шире станет?",
+  "expected": "mirror-small-room-bigger",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "в маленький кабинет стеклянную дверь лучше откатную или на оси которая крутится",
+  "expected": "doors-sliding-vs-pivot",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "стекло за газовой плитой не треснет от жара?",
+  "expected": "backsplash-stove-heat",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "скок кг выдержит стекляная полка? хочу под книги",
+  "expected": "shelves-weight-capacity",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "делаем кухню, на стенку над столешницей думаем стекло или плитку положить, что практичней",
+  "expected": "backsplash-vs-tiles",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "хотим стеклом отделить кухню от салона в квартире, такое делаете?",
+  "expected": "partition-home-divider",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "ставим стеклянную перегородку в переговорку, через нее всё слышно будет или нет",
+  "expected": "partition-acoustic",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "а без замера никак? по телефону примерно не скажете цену",
+  "expected": "price-without-visit",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "после замера через скока дней пришлете цену",
+  "expected": "price-quote-timing",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "замерщик быстро приезжает или неделю ждать",
+  "expected": "process-measurement-appointment",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "мы только закончили шипуц, после вашей установки много пыли грязи будет?",
+  "expected": "process-clean-installation",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "на лестницу в доме стеклянные перила ставите? у нас двухэтажный коттедж",
+  "expected": "railing-stairs",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "а сверху на стекле поручень обязательно? хочу чтоб чисто стекло было",
+  "expected": "railing-top-handrail",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "метр стеклянного маке на мирпесет почем выходит",
+  "expected": "railing-price-per-meter",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "у нас двое малышей и собака, не опасно стекло дома?",
+  "expected": "safety-kids-pets",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "если дверью душевой сильно хлопнуть она не разлетится?",
+  "expected": "safety-shower-door-strength",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "мы в беер шеве, летом под 45, стекло выдержит такую жару?",
+  "expected": "areas-negev-heat",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "мы в мошаве маленьком живем, к нам тоже приезжаете или только в большие города",
+  "expected": "areas-small-towns",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "хочу в душе просто одно стекло без дверцы, так можно?",
+  "expected": "shower-walk-in-panel",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "дверь в душевую раздвижную брать или распашную? че практичнее",
+  "expected": "shower-sliding-vs-hinged",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "со стеклянной кабины вода на пол не будет течь? у старой занавески вечно лужа",
+  "expected": "shower-water-sealing",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "ночью витрину разбили в магазе, вы в тот же день меняете?",
+  "expected": "storefront-emergency-same-day",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "для ювелирного магазина нужна витрина противоударная, есть такое стекло?",
+  "expected": "storefront-security-glass",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "вы нам ставили душевую пару месяцев назад, дверца теперь не закрывается до конца, че делать",
+  "expected": "warranty-problem-after-installation",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "здравствуйте хочу заказать стеклянную душевую в новую квартиру в ашдоде, приедьте замерить на этой неделе",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "перезвоните пожалста насчет перил на мирпесет, около 6 метров, ришон",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "посчитайте мне фартук на кухню 3.20 на 60 белый, когда сможете приехать",
+  "expected": "quote",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "кто вчера выиграл маккаби или хапоэль",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "как сделать сырники чтоб не разваливались",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "кран в ванной течет, сантехник есть у вас?",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "к какому врачу идти если спина болит, в купат холим не могу записаться",
+  "expected": "out-of-scope",
+  "holdout": false
+ },
+ {
+  "lang": "ru",
+  "q": "где дешевле всего сделать тест на машину в иерусалиме",
+  "expected": "out-of-scope",
+  "holdout": false
+ }
+]

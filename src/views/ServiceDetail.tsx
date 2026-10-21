@@ -20,6 +20,9 @@ import { isRTLLocale } from '@/lib/i18n';
 import { getImagesByFolder } from '@/lib/cloudinary/server';
 import ServiceJsonLd from '@/components/ServiceJsonLd';
 import ServicePhotos from '@/components/services/ServicePhotos';
+import AskAiLine from '@/components/chat/AskAiLine';
+import { SERVICE_ASK_AI } from '@/data/chat';
+import { SHOW_FAQ_SECTIONS } from '@/data/site-features';
 
 interface ServiceDetailProps {
   locale: SupportedLocale;
@@ -93,18 +96,28 @@ const ServiceDetail = async ({ locale, service }: ServiceDetailProps) => {
               allPhotosLabel={locale === 'he' ? 'כל התמונות →' : locale === 'ar' ? 'جميع الصور →' : locale === 'ru' ? 'Все фото →' : 'All photos →'}
             />
 
-            {/* FAQs */}
-            <div className="mt-16 pt-12 border-t border-gray-200">
-              <h2 className="text-3xl font-bold text-brand-navy mb-8">{t(titles.faq)}</h2>
-              <div className="space-y-6">
-                {service.faqs.map((faq: { question: unknown, answer: unknown }, idx: number) => (
-                  <div key={idx} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
-                    <h3 className="text-xl font-bold text-brand-navy mb-3">{t(faq.question)}</h3>
-                    <p className="text-gray-700 leading-relaxed">{t(faq.answer)}</p>
-                  </div>
-                ))}
+            {/* FAQs — while SHOW_FAQ_SECTIONS is off, one line opens the AI chat instead (it knows these answers) */}
+            {SHOW_FAQ_SECTIONS ? (
+              <div className="mt-16 pt-12 border-t border-gray-200">
+                <h2 className="text-3xl font-bold text-brand-navy mb-8">{t(titles.faq)}</h2>
+                <div className="space-y-6">
+                  {service.faqs.map((faq: { question: unknown, answer: unknown }, idx: number) => (
+                    <div key={idx} className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
+                      <h3 className="text-xl font-bold text-brand-navy mb-3">{t(faq.question)}</h3>
+                      <p className="text-gray-700 leading-relaxed">{t(faq.answer)}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            ) : (
+              <div className="mt-12 pt-8 border-t border-gray-200">
+                <AskAiLine
+                  question={t(SERVICE_ASK_AI.question).replace('{service}', t(service.heroTitle))}
+                  cta={t(SERVICE_ASK_AI.cta)}
+                  draft={t(SERVICE_ASK_AI.draft).replace('{service}', t(service.heroTitle))}
+                />
+              </div>
+            )}
 
             {/* Related Articles - SEO Internal Linking */}
             {relatedPosts.length > 0 && (

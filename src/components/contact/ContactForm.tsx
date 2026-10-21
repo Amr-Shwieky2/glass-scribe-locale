@@ -14,6 +14,7 @@ import { UI_STRINGS } from '@/data/ui-strings';
 import { getLocalizedText } from '@/data/helpers';
 import type { SupportedLocale } from '@/data/types';
 import { trackEvent } from '@/lib/gtag';
+import { CONSENT_LABELS, PRIVACY_LINK_LABELS } from '@/data/consent';
 
 type ContactFormState = {
   name: string;
@@ -48,21 +49,6 @@ const isValidEmail = (email: string): boolean => {
 const isValidPhone = (phone: string): boolean => {
   const phoneRegex = /^[\d\s\-+()]{7,20}$/;
   return phoneRegex.test(phone);
-};
-
-// Consent checkbox labels
-const CONSENT_LABELS = {
-  he: 'אני מסכים/ה שהמידע שלי ישמש ליצירת קשר בנוגע לפנייתי.',
-  en: 'I agree that my data will be used to contact me regarding my request.',
-  ar: 'أوافق على استخدام بياناتي للتواصل معي بخصوص طلبي.',
-  ru: 'Я согласен, что мои данные будут использоваться для связи со мной по моему запросу.',
-};
-
-const PRIVACY_LINK_LABELS = {
-  he: 'מדיניות פרטיות',
-  en: 'Privacy Policy',
-  ar: 'سياسة الخصوصية',
-  ru: 'Политика конфиденциальности',
 };
 
 const ContactForm: React.FC<{ locale: SupportedLocale }> = ({ locale }) => {

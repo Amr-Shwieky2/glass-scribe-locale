@@ -2,16 +2,17 @@
 import React from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { Phone, MessageCircle, Globe, ChevronDown } from 'lucide-react';
+import { Phone, MessageCircle, Globe, ChevronDown, Sparkles } from 'lucide-react';
+import { loadChatPanel } from '@/components/chat/chat-events';
 import SimpleMenu from '@/components/ui/simple-menu';
 import { NAVIGATION } from '@/data/navigation';
 import { UI_STRINGS } from '@/data/ui-strings';
 import { getLocalizedText } from '@/data/helpers';
 import type { SupportedLocale } from '@/data/types';
 
-interface Props { navigation: { href: string; label: string }[]; isActive: (h: string) => boolean; locale: SupportedLocale; supportedLanguages: { code: string; nativeName: string }[]; currentLanguage: string; onSwitchLanguage: (c: string) => void; onWhatsApp: () => void; onCall: () => void; }
+interface Props { navigation: { href: string; label: string }[]; isActive: (h: string) => boolean; locale: SupportedLocale; supportedLanguages: { code: string; nativeName: string }[]; currentLanguage: string; onSwitchLanguage: (c: string) => void; onWhatsApp: () => void; onCall: () => void; /** Opens the AI chat (absent where the chat isn't available). */ onAskAi?: () => void; }
 
-const DesktopNav: React.FC<Props> = ({ navigation, isActive, locale, supportedLanguages, currentLanguage, onSwitchLanguage, onWhatsApp, onCall }) => (
+const DesktopNav: React.FC<Props> = ({ navigation, isActive, locale, supportedLanguages, currentLanguage, onSwitchLanguage, onWhatsApp, onCall, onAskAi }) => (
   <>
     <nav className="hidden lg:flex items-center gap-4 xl:gap-6">
       {navigation.map((item) => (
@@ -22,6 +23,24 @@ const DesktopNav: React.FC<Props> = ({ navigation, isActive, locale, supportedLa
       ))}
     </nav>
     <div className="hidden md:flex items-center gap-2">
+      {/* 1024–1199px: icon only (navy, so the icon alone is legible), text from 1200px. Russian has no room
+          at 1024–1199px even for the icon, so it starts at 1200px; the floating chat button covers that range. */}
+      {onAskAi && (
+        <Button
+          size="lg"
+          variant="outline"
+          onClick={onAskAi}
+          onPointerEnter={loadChatPanel}
+          onFocus={loadChatPanel}
+          aria-label={getLocalizedText(UI_STRINGS.askAi, locale)}
+          title={getLocalizedText(UI_STRINGS.askAi, locale)}
+          aria-haspopup="dialog"
+          data-chat-trigger=""
+          className={`${locale === 'ru' ? 'hidden min-[1200px]:inline-flex' : 'hidden lg:inline-flex'} h-10 w-10 p-0 min-[1200px]:h-11 min-[1200px]:w-auto min-[1200px]:px-5 bg-white text-brand-navy font-semibold rounded-full border-2 border-brand-navy hover:bg-brand-navy hover:text-white focus-visible:ring-brand-navy`}
+        >
+          <Sparkles className="w-4 h-4 min-[1200px]:text-brand-gold" aria-hidden="true" /><span className="hidden min-[1200px]:inline">{getLocalizedText(UI_STRINGS.askAi, locale)}</span>
+        </Button>
+      )}
       <SimpleMenu
         className="w-48"
         trigger={(props) => (
