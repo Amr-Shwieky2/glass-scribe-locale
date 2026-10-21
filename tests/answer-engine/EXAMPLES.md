@@ -5,12 +5,11 @@ Exact replies from `POST /api/chat` on a local production build. Buttons are lis
 ## Hebrew
 
 **Q:** כמה עולה מקלחון?  
-_answer · layer 1 · price-glass-installation-cost_
+_suggest · layer 1_
 
-> עלות התקנת זכוכית משתנה בהתאם לסוג, גודל ומורכבות. מקלחונים נעים בדרך כלל בין ₪3,000-15,000, מעקות זכוכית בין ₪1,200-2,500 למטר, וקירות מראה בין ₪800-2,000 למ"ר. אנו מציעים מדידות חינם באתר והצעות מחיר מפורטות ללא התחייבות.
+> התכוונתם לאחת מהשאלות האלה?
 
-- Links: [שירותים](/he/services), [צור קשר](/he/contact)
-- Related: “מה משפיע על המחיר של עבודת זכוכית?” · “מה המחיר למטר או למ"ר?”
+- Options: “כמה עולה התקנת זכוכית בישראל?” · “איך אפשר להוזיל את המחיר?” · “מה משפיע על המחיר של עבודת זכוכית?”
 - Buttons: quote
 
 **Q:** כמה זמן לוקחת ההתקנה?  
@@ -74,7 +73,7 @@ _answer · layer 1 · railing-high-balcony-safe_
 **Q:** מה שעות הפעילות?  
 _answer · layer 1 · contact-hours_
 
-> אנחנו פתוחים עכשיו. שעות הפעילות שלנו: ראשון - חמישי: 8:00 - 18:00 | שישי: 8:00 - 14:00.
+> כרגע אנחנו סגורים — השאירו הודעה ונחזור אליכם ביום העסקים הבא. שעות הפעילות שלנו: ראשון - חמישי: 8:00 - 18:00 | שישי: 8:00 - 14:00.
 
 - Links: [צור קשר](/he/contact)
 - Related: “אתם עובדים בשישי ובשבת?” · “איך אפשר ליצור איתכם קשר?”
@@ -115,12 +114,11 @@ _answer · layer 1 · railing-stairs_
 - Buttons: quote
 
 **Q:** is the measurement free  
-_answer · layer 1 · price-free-quote_
+_suggest · layer 1_
 
-> Absolutely! We offer free on-site consultations and measurements with no obligation. Our expert will visit your location, assess your needs, take precise measurements, and provide a detailed quote within 24-48 hours. There's no pressure to proceed - you can take your time to decide.
+> Did you mean…?
 
-- Links: [Contact](/en/contact)
-- Related: “How do I get a price quote?” · “How soon will I get the quote?”
+- Options: “Can I get a free quote without commitment?” · “Is the on-site measurement free even if I live far away?” · “How soon will I get the quote?”
 - Buttons: quote
 
 **Q:** what thickness glass for a shower  
@@ -251,15 +249,12 @@ _answer · layer 1 · glass-tempered-vs-regular_
 - Buttons: quote
 
 **Q:** كيف بنظف الزجاج من الكلس؟  
-_answer · layer 1 · maintenance-remove-limescale_
+_suggest · layer 1_
 
-> المياه القاسية في إسرائيل هي العدو الأكبر لكبائن الدش الزجاجية: القطرات تجف وتترك ترسبات كلسية عنيدة.
-> خليط منزلي من الخل الأبيض والماء وقليل من سائل الجلي يذيبها بأمان وفعالية، وللتنظيف الأعمق يمكنك أيضاً استخدام منظف زجاج غير كاشط. وبعد ذلك، مسحة سريعة بالمكشطة بعد كل استحمام تساعد على منع عودتها.
-> تجنب إسفنجة السحر (الميلامين) وصوف الصلب والليف الخشن لأنها قد تخدش الزجاج، وتجنب الأحماض القوية لأنها تضر بطبقة الحماية والمطاط العازل وتشطيب الإكسسوارات.
-> لست متأكداً مما يناسب زجاجك؟ أرسل لنا صورة عبر واتساب ويسعدنا أن ننصحك.
+> هل تقصد…؟
 
-- Links: [نصائح للحفاظ على كبائن الدش الزجاجية](/ar/blog/tips-maintaining-glass-showers), [تركيب زجاج الدش](/ar/glass-shower-installation)
-- Related: “كيف أمنع بقع الماء والترسبات الكلسية على زجاج الدش؟” · “ما مواد التنظيف التي يجب تجنبها على الزجاج؟”
+- Options: “كيف أزيل الترسبات الكلسية وبقع الماء القاسي عن زجاج الدش؟” · “كيف أمنع بقع الماء والترسبات الكلسية على زجاج الدش؟” · “ما مواد التنظيف التي يجب تجنبها على الزجاج؟”
+- Buttons: quote
 
 **Q:** شو رقم تلفونكم؟  
 _answer · layer 1 · contact-details_
@@ -354,7 +349,7 @@ _answer · layer 1 · price-free-quote_
 **Q:** до скольки вы работаете?  
 _answer · layer 1 · contact-hours_
 
-> Сейчас мы открыты. Наши часы работы: Воскресенье - Четверг: 8:00 - 18:00 | Пятница: 8:00 - 14:00.
+> Сейчас мы закрыты — оставьте сообщение, и мы ответим в следующий рабочий день. Наши часы работы: Воскресенье - Четверг: 8:00 - 18:00 | Пятница: 8:00 - 14:00.
 
 - Links: [Контакты](/ru/contact)
 - Related: “Вы работаете в пятницу и субботу?” · “Как с вами связаться?”

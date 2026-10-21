@@ -1467,7 +1467,6 @@ const entries: KnowledgeEntry[] = [
       ],
       en: [
         'mirror thickness',
-        'how thick are your mirrors?',
         'what mm mirror do you use',
         '4mm or 6mm mirror',
         'thick mirror for a big wall',

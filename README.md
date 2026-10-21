@@ -93,9 +93,13 @@ The home "Ask AI" box and the chat share one server pipeline (`src/lib/assistant
 - Only `approved` entries are used. The site's official FAQ pairs are included word for word (`faq-refs.ts`).
 - `draft` entries need a fact from the owner; they are listed in `KNOWLEDGE_REVIEW.md` (`npm run knowledge:review`).
 
-**Quality check**: `npm run test:answers` runs `tests/answer-engine/questions.json` (realistic customer questions with typos, slang, very short and out-of-scope ones) through layer 1 only.
-- It prints accuracy per language, the "Did you mean" and "no answer" rates and every failure.
-- It fails under 85% per language or on any direct answer to an out-of-scope question. It runs in CI (`.github/workflows/answers.yml`).
+**Quality check**: `npm run test:answers` runs a question file through layer 1 only and prints, per language, the right direct answers, "Did you mean", hand-offs (not sure / quote / WhatsApp) and **wrong confident answers**. A wrong answer is worse than a hand-off, so any wrong answer fails the run. All four sets run in CI (`.github/workflows/answers.yml`):
+- `tests/answer-engine/blind.json` — the **blind set** (40 per language), written separately and never used to write paraphrases, synonyms or rules. **This is the score we report.** It runs with `--report-only` and its failures are hidden by default (`--show-holdout` shows them): don't tune on it.
+- `tests/answer-engine/calibration.json` — a second separate set (24 per language), only for engine thresholds (never for paraphrases or synonyms); also `--report-only`.
+- `tests/answer-engine/regressions.json` — every bug found so far; must never get a wrong answer again. A case may have a `history` (earlier visitor messages) to test follow-ups ("and the price?").
+- `tests/answer-engine/questions.json` — the tuning set (fails under 85% per language).
+
+The run also fails when a knowledge-base wording or a tuning question copies a blind or held-out question (`--file`, `--lang`, `--min`, `--quiet` are listed in `scripts/test-answers.ts`).
 
 **Unanswered questions**: what layer 1 couldn't answer with a specific entry (no answer, out of scope, only "Did you mean" buttons or only the general price reply) is kept in Upstash (last 500, with phone numbers, e-mails and names given in common introductions removed) and shown in **Admin → Unanswered questions**, grouped by similarity, with a "Copy list" button (every wording included).
 - A daily Telegram summary runs from Vercel Cron (`vercel.json`). It needs `CRON_SECRET` and Upstash; turn it off with `UNANSWERED_SUMMARY=off`. A failed read or send is included again the next day.

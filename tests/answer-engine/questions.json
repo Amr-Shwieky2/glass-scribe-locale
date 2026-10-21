@@ -295,12 +295,6 @@
  },
  {
   "lang": "he",
-  "q": "מתכון לשקשוקה טובה",
-  "expected": "out-of-scope",
-  "holdout": false
- },
- {
-  "lang": "he",
   "q": "איך כותבים לולאה בפייתון",
   "expected": "out-of-scope",
   "holdout": true
@@ -1363,12 +1357,6 @@
  },
  {
   "lang": "he",
-  "q": "מה זה טריפלקס",
-  "expected": "glass-laminated-triplex",
-  "holdout": false
- },
- {
-  "lang": "he",
   "q": "יש לנו שני קטנים וכלב משוגע, זכוכית בבית זה לא מסוכן?",
   "expected": "safety-kids-pets",
   "holdout": false
@@ -1459,12 +1447,6 @@
  },
  {
   "lang": "he",
-  "q": "כמה שנים אתם בתחום",
-  "expected": "company-experience",
-  "holdout": false
- },
- {
-  "lang": "he",
   "q": "יש לכם פורטפוליו? בא לי לראות עבודות",
   "expected": "company-projects-gallery",
   "holdout": false
@@ -1491,12 +1473,6 @@
   "lang": "he",
   "q": "אני רוצה לסגור עבודה של קיר מראות לסטודיו שלי, תחזרו אליי בבקשה",
   "expected": "quote",
-  "holdout": false
- },
- {
-  "lang": "he",
-  "q": "מי ניצח אתמול במשחק של מכבי",
-  "expected": "out-of-scope",
   "holdout": false
  },
  {
@@ -1617,12 +1593,6 @@
   "lang": "en",
   "q": "pivot vs sliding door tight space",
   "expected": "doors-sliding-vs-pivot",
-  "holdout": false
- },
- {
-  "lang": "en",
-  "q": "glass behind the gas stove wont crack from the heat of the fire?",
-  "expected": "backsplash-stove-heat",
   "holdout": false
  },
  {
@@ -2048,12 +2018,6 @@
  {
   "lang": "ar",
   "q": "مين فاز بماتش ريال مدريد مبارح",
-  "expected": "out-of-scope",
-  "holdout": false
- },
- {
-  "lang": "ar",
-  "q": "كيف بعمل مقلوبة دجاج",
   "expected": "out-of-scope",
   "holdout": false
  },

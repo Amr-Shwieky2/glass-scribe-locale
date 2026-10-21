@@ -1,0 +1,7931 @@
+[
+ {
+  "lang": "he",
+  "q": "איזו זכוכית הכי מעולה למקלחון?",
+  "expected": "shower-best-glass",
+  "bug": "F1-maaleh"
+ },
+ {
+  "lang": "he",
+  "q": "איזה סוג מראה הכי מעולה לחדר רחצה?",
+  "expected": [
+   "mirror-bathroom-preparation",
+   "mirror-anti-fog-bathroom"
+  ],
+  "bug": "F1-maaleh"
+ },
+ {
+  "lang": "he",
+  "q": "יש לכם זכוכית מעולה למעקה?",
+  "expected": [
+   "railing-balcony-glass-type",
+   "railing-glass-thickness"
+  ],
+  "bug": "F1-maaleh"
+ },
+ {
+  "lang": "he",
+  "q": "השירות שלכם מעולה",
+  "expected": "out-of-scope",
+  "bug": "F1-maaleh"
+ },
+ {
+  "lang": "he",
+  "q": "איך מכינים עוגה מעולה?",
+  "expected": "out-of-scope",
+  "bug": "F1-maaleh"
+ },
+ {
+  "lang": "he",
+  "q": "מעולה, תודה",
+  "expected": "out-of-scope",
+  "bug": "F1-maaleh"
+ },
+ {
+  "lang": "he",
+  "q": "ההתקנה יצאה מעולה, תודה רבה לכם",
+  "expected": "out-of-scope",
+  "bug": "F1-maaleh"
+ },
+ {
+  "lang": "he",
+  "q": "איזה מעקה זכוכית הכי מעולה למרפסת?",
+  "expected": [
+   "railing-balcony-glass-type",
+   "railing-installation-methods"
+  ],
+  "bug": "F1-maaleh"
+ },
+ {
+  "lang": "he",
+  "q": "קיבלתי שירות מעולה מהמתקין שלכם",
+  "expected": "out-of-scope",
+  "bug": "F1-maaleh"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים גם בערב?",
+  "expected": "contact-hours",
+  "bug": "F2-gam-city"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקינים גם בקומה גבוהה?",
+  "expected": "railing-high-balcony-safe",
+  "bug": "F2-gam-city"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים גם בלילה?",
+  "expected": "contact-hours",
+  "bug": "F2-gam-city"
+ },
+ {
+  "lang": "he",
+  "q": "אתם נותנים שירות גם לעסקים?",
+  "expected": "handoff",
+  "bug": "F2-gam-city"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים עבודות גם לבתים פרטיים?",
+  "expected": "handoff",
+  "bug": "F2-gam-city"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקינים גם בבניינים ישנים?",
+  "expected": "handoff",
+  "bug": "F2-gam-city"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים גם בלי מע\"מ?",
+  "expected": "handoff",
+  "bug": "F2-gam-city"
+ },
+ {
+  "lang": "he",
+  "q": "שלום רב, אנחנו משפחה מחיפה ומתכננים מעקה זכוכית למרפסת. רציתי לדעת כמה שנים אחריות יש על המעקה, והאם אתם מגיעים גם בשישי בבוקר להתקנה?",
+  "expected": [
+   "warranty-installations",
+   "warranty-all-products",
+   "contact-friday-saturday"
+  ],
+  "bug": "F2-gam-city"
+ },
+ {
+  "lang": "en",
+  "q": "do you also work in the evening?",
+  "expected": "contact-hours",
+  "bug": "F2-gam-city"
+ },
+ {
+  "lang": "en",
+  "q": "do you install on high floors too?",
+  "expected": "railing-high-balcony-safe",
+  "bug": "F2-gam-city"
+ },
+ {
+  "lang": "ar",
+  "q": "بتشتغلوا كمان بالليل؟",
+  "expected": "contact-hours",
+  "bug": "F2-gam-city"
+ },
+ {
+  "lang": "ru",
+  "q": "вы работаете в субботу?",
+  "expected": "contact-friday-saturday",
+  "bug": "F2-gam-city"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מודיעים לפני שמגיעים?",
+  "expected": "handoff",
+  "bug": "F3-typo-city"
+ },
+ {
+  "lang": "he",
+  "q": "מודיעים מראש?",
+  "expected": "handoff",
+  "bug": "F3-typo-city"
+ },
+ {
+  "lang": "he",
+  "q": "זאת איילת",
+  "expected": "out-of-scope",
+  "bug": "F3-typo-city"
+ },
+ {
+  "lang": "he",
+  "q": "זאת איילת מהבנק",
+  "expected": "out-of-scope",
+  "bug": "F3-typo-city"
+ },
+ {
+  "lang": "en",
+  "q": "is my colon healthy?",
+  "expected": "out-of-scope",
+  "bug": "F3-typo-city"
+ },
+ {
+  "lang": "he",
+  "q": "נתינה זה הדבר הכי חשוב בחיים",
+  "expected": "out-of-scope",
+  "bug": "F3-typo-city"
+ },
+ {
+  "lang": "he",
+  "q": "אני יהודי דתי, מתי יוצא החג?",
+  "expected": "out-of-scope",
+  "bug": "F3-typo-city"
+ },
+ {
+  "lang": "en",
+  "q": "colon cleanse tips",
+  "expected": "out-of-scope",
+  "bug": "F3-typo-city"
+ },
+ {
+  "lang": "ru",
+  "q": "можно изменить заказ?",
+  "expected": "handoff",
+  "bug": "F4-typo-other-scripts"
+ },
+ {
+  "lang": "ru",
+  "q": "можно изменить пароль?",
+  "expected": "out-of-scope",
+  "bug": "F4-typo-other-scripts"
+ },
+ {
+  "lang": "en",
+  "q": "I am missing my dog",
+  "expected": "out-of-scope",
+  "bug": "F4-typo-other-scripts"
+ },
+ {
+  "lang": "en",
+  "q": "my shower door hinge is failing",
+  "expected": [
+   "warranty-problem-after-installation",
+   "maintenance-hardware-seals"
+  ],
+  "bug": "F4-typo-other-scripts"
+ },
+ {
+  "lang": "en",
+  "q": "recommend social media marketing",
+  "expected": "out-of-scope",
+  "bug": "F4-typo-other-scripts"
+ },
+ {
+  "lang": "en",
+  "q": "do you install in a batch of apartments?",
+  "expected": "company-contractors-architects",
+  "bug": "F4-typo-other-scripts"
+ },
+ {
+  "lang": "ar",
+  "q": "ما هي ابعاد المقلحون القياسية؟",
+  "expected": "shower-custom-size",
+  "bug": "F4-typo-other-scripts"
+ },
+ {
+  "lang": "en",
+  "q": "the rubber seal on my shower door is failing",
+  "expected": [
+   "warranty-problem-after-installation",
+   "maintenance-hardware-seals"
+  ],
+  "bug": "F4-typo-other-scripts"
+ },
+ {
+  "lang": "ru",
+  "q": "не могу поверить в это",
+  "expected": "out-of-scope",
+  "bug": "F4-typo-other-scripts"
+ },
+ {
+  "lang": "ar",
+  "q": "وين بلاقي تعليمات تشغيل الغسالة؟",
+  "expected": "out-of-scope",
+  "bug": "F4-typo-other-scripts"
+ },
+ {
+  "lang": "he",
+  "q": "אנחנו בחיפושים אחרי מקלחון, תתקשרו אליי",
+  "expected": "quote",
+  "forbid": [
+   "prefill:backsplash"
+  ],
+  "bug": "F5-sub-chipushim"
+ },
+ {
+  "lang": "he",
+  "q": "אני בחיפושים אחרי מראה לסלון, אשמח להצעת מחיר",
+  "expected": "quote",
+  "forbid": [
+   "prefill:backsplash"
+  ],
+  "bug": "F5-sub-chipushim"
+ },
+ {
+  "lang": "he",
+  "q": "אני בחיפושים אחרי עבודה",
+  "expected": "out-of-scope",
+  "bug": "F5-sub-chipushim"
+ },
+ {
+  "lang": "he",
+  "q": "אנחנו בחיפושים אחרי מחיצת זכוכית למשרד, כמה זה עולה?",
+  "expected": "partition-price",
+  "forbid": [
+   "prefill:backsplash"
+  ],
+  "bug": "F5-sub-chipushim"
+ },
+ {
+  "lang": "he",
+  "q": "בחיפושים אחרי דירה להשכרה בירושלים",
+  "expected": "out-of-scope",
+  "bug": "F5-sub-chipushim"
+ },
+ {
+  "lang": "he",
+  "q": "תתקשרו לפני המדידה?",
+  "expected": [
+   "process-measurement-appointment",
+   "process-measurement-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F6-titkashru"
+ },
+ {
+  "lang": "he",
+  "q": "אל תתקשרו, תשלחו לי מחיר בוואטסאפ",
+  "expected": [
+   "contact-whatsapp",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F6-titkashru"
+ },
+ {
+  "lang": "he",
+  "q": "אתם תתקשרו לפני שאתם מגיעים להתקנה?",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F6-titkashru"
+ },
+ {
+  "lang": "he",
+  "q": "מתי תתקשרו?",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F6-titkashru"
+ },
+ {
+  "lang": "he",
+  "q": "אל תתקשרו אליי, רק תכתבו לי בוואטסאפ",
+  "expected": [
+   "contact-whatsapp",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F6-titkashru"
+ },
+ {
+  "lang": "en",
+  "q": "please don't call me, just send me the price on whatsapp",
+  "expected": [
+   "contact-whatsapp",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F6-titkashru"
+ },
+ {
+  "lang": "en",
+  "q": "will you call me before the measurement?",
+  "expected": [
+   "process-measurement-appointment",
+   "process-measurement-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F6-titkashru"
+ },
+ {
+  "lang": "ru",
+  "q": "не нужно мне перезванивать, просто напишите цену в ватсап",
+  "expected": [
+   "contact-whatsapp",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F6-titkashru"
+ },
+ {
+  "lang": "he",
+  "q": "התקנת זכוכית 2x1 מטר כמה?",
+  "expected": [
+   "price-per-meter",
+   "price-glass-installation-cost",
+   "price-without-visit"
+  ],
+  "bug": "F7-size-anchor"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה זכוכית 120x80?",
+  "expected": [
+   "price-per-meter",
+   "price-glass-installation-cost",
+   "price-without-visit"
+  ],
+  "bug": "F7-size-anchor"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה זכוכית 120 על 80?",
+  "expected": [
+   "price-per-meter",
+   "price-glass-installation-cost",
+   "price-without-visit"
+  ],
+  "bug": "F7-size-anchor"
+ },
+ {
+  "lang": "en",
+  "q": "how much for a 90x190 glass panel",
+  "expected": [
+   "price-per-meter",
+   "price-glass-installation-cost",
+   "price-without-visit"
+  ],
+  "bug": "F7-size-anchor"
+ },
+ {
+  "lang": "ar",
+  "q": "كم سعر زجاج ١٠٠×٢٠٠",
+  "expected": [
+   "price-per-meter",
+   "price-glass-installation-cost",
+   "price-without-visit"
+  ],
+  "bug": "F7-size-anchor"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה פלטת זכוכית 100x50?",
+  "expected": [
+   "price-per-meter",
+   "price-glass-installation-cost",
+   "price-without-visit"
+  ],
+  "bug": "F7-size-anchor"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит стекло 120 на 80?",
+  "expected": [
+   "price-per-meter",
+   "price-glass-installation-cost",
+   "price-without-visit"
+  ],
+  "bug": "F7-size-anchor"
+ },
+ {
+  "lang": "en",
+  "q": "We are renovating a restaurant and need glass partitions between tables plus a mirror wall near the bar and maybe railings on the upper floor, how does the process work with you?",
+  "expected": "process-how-it-works",
+  "bug": "F8-long-margin"
+ },
+ {
+  "lang": "he",
+  "q": "אנחנו משפצים משרד וצריכים מחיצות זכוכית בין החדרים, אולי גם קיר מראה בכניסה ומעקה זכוכית במדרגות. איך התהליך עובד אצלכם מההתחלה ועד הסוף?",
+  "expected": "process-how-it-works",
+  "bug": "F8-long-margin"
+ },
+ {
+  "lang": "ru",
+  "q": "Мы делаем ремонт в кафе: нужны стеклянные перегородки между столиками, зеркальная стена у бара и, может быть, перила на втором этаже. Как у вас проходит работа от первого звонка до установки?",
+  "expected": "process-how-it-works",
+  "bug": "F8-long-margin"
+ },
+ {
+  "lang": "ar",
+  "q": "عم نرمم مطعم وبدنا فواصل زجاج بين الطاولات ومراية كبيرة جنب البار ويمكن درابزين بالطابق التاني، كيف بتمشي الشغلة عندكم من اول اتصال للتركيب؟",
+  "expected": "process-how-it-works",
+  "bug": "F8-long-margin"
+ },
+ {
+  "lang": "he",
+  "q": "במה תלויה העלות?",
+  "expected": "price-what-affects",
+  "bug": "F9-candidate-cut"
+ },
+ {
+  "lang": "he",
+  "q": "ממה תלוי המחיר הסופי של העבודה?",
+  "expected": "price-what-affects",
+  "bug": "F9-candidate-cut"
+ },
+ {
+  "lang": "ru",
+  "q": "от чего зависит итоговая стоимость?",
+  "expected": "price-what-affects",
+  "bug": "F9-candidate-cut"
+ },
+ {
+  "lang": "ru",
+  "q": "зеркало подешевле",
+  "expected": [
+   "mirror-wall-price",
+   "price-ways-to-save"
+  ],
+  "bug": "F10-ru-cheap-answer"
+ },
+ {
+  "lang": "ru",
+  "q": "зеркало дешевле",
+  "expected": [
+   "mirror-wall-price",
+   "price-ways-to-save"
+  ],
+  "bug": "F10-ru-cheap-answer"
+ },
+ {
+  "lang": "ru",
+  "q": "недорогое зеркало",
+  "expected": [
+   "mirror-wall-price",
+   "price-ways-to-save"
+  ],
+  "bug": "F10-ru-cheap-answer"
+ },
+ {
+  "lang": "ru",
+  "q": "где дешевле?",
+  "expected": "handoff",
+  "bug": "F10-ru-cheap-answer"
+ },
+ {
+  "lang": "ru",
+  "q": "самое дешевое зеркало в ванную",
+  "expected": [
+   "mirror-wall-price",
+   "price-ways-to-save"
+  ],
+  "bug": "F10-ru-cheap-answer"
+ },
+ {
+  "lang": "he",
+  "q": "מראה זולה לאמבטיה",
+  "expected": [
+   "mirror-wall-price",
+   "price-ways-to-save"
+  ],
+  "bug": "F10-ru-cheap-answer"
+ },
+ {
+  "lang": "en",
+  "q": "how much do sailing lessons cost",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "how much do sailing boats cost",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "how much are nailing guns",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "how much do canister vacuums cost",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "what is the price of a mailing list service",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "what is an arrest warrant",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "what is a warrant canary",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "how to remove slime from carpet",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "how do i get over my anger",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "tips for raising a puppy",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "is my ailing grandmother eligible for care",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "cheat codes for gta",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "fatness and diet tips",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "seize the day meaning",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "how much does a scuba diver course cost",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "how thick is a cello string",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "payment for a sewing class",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "how do roof shutters work",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a boating trip in eilat",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "how much do scented candles cost",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "en",
+  "q": "best singing teacher in tel aviv",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה ביטוח דירה",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "he",
+  "q": "קורס ערבית מדוברת למתחילים",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "he",
+  "q": "השכנים שלי ממש מעצבנים",
+  "expected": "out-of-scope",
+  "bug": "F11-typo-everyday"
+ },
+ {
+  "lang": "he",
+  "q": "מלחמה",
+  "expected": "out-of-scope",
+  "bug": "F12-milchama"
+ },
+ {
+  "lang": "he",
+  "q": "מה עם המלחמה?",
+  "expected": "out-of-scope",
+  "bug": "F12-milchama"
+ },
+ {
+  "lang": "he",
+  "q": "מתי תיגמר המלחמה",
+  "expected": "out-of-scope",
+  "bug": "F12-milchama"
+ },
+ {
+  "lang": "he",
+  "q": "המלחמה בעזה",
+  "expected": "out-of-scope",
+  "bug": "F12-milchama"
+ },
+ {
+  "lang": "he",
+  "q": "חדשות על המלחמה",
+  "expected": "out-of-scope",
+  "bug": "F12-milchama"
+ },
+ {
+  "lang": "he",
+  "q": "כמה הרוגים במלחמה",
+  "expected": "out-of-scope",
+  "bug": "F12-milchama"
+ },
+ {
+  "lang": "he",
+  "q": "ומה עם המלחמה?",
+  "expected": "out-of-scope",
+  "bug": "F12-milchama"
+ },
+ {
+  "lang": "he",
+  "q": "בגלל המלחמה יש עיכובים?",
+  "expected": "handoff",
+  "bug": "F12-milchama"
+ },
+ {
+  "lang": "he",
+  "q": "מה המצב עם המלחמה בצפון?",
+  "expected": "out-of-scope",
+  "bug": "F12-milchama"
+ },
+ {
+  "lang": "ar",
+  "q": "امتى رح تخلص الحرب؟",
+  "expected": "out-of-scope",
+  "bug": "F12-milchama"
+ },
+ {
+  "lang": "en",
+  "q": "what about the war?",
+  "expected": "out-of-scope",
+  "bug": "F12-milchama"
+ },
+ {
+  "lang": "ru",
+  "q": "когда закончится война?",
+  "expected": "out-of-scope",
+  "bug": "F12-milchama"
+ },
+ {
+  "lang": "he",
+  "q": "איפה הסניף של הדואר",
+  "expected": "out-of-scope",
+  "bug": "F13-snif"
+ },
+ {
+  "lang": "he",
+  "q": "איפה הסניף הכי קרוב של בנק לאומי",
+  "expected": "out-of-scope",
+  "bug": "F13-snif"
+ },
+ {
+  "lang": "he",
+  "q": "סניפים של איקאה",
+  "expected": "out-of-scope",
+  "bug": "F13-snif"
+ },
+ {
+  "lang": "he",
+  "q": "מתי הסניף של הבנק פתוח",
+  "expected": "out-of-scope",
+  "bug": "F13-snif"
+ },
+ {
+  "lang": "he",
+  "q": "באיזה סניף של סופר פארם יש בדיקת לחץ דם?",
+  "expected": "out-of-scope",
+  "bug": "F13-snif"
+ },
+ {
+  "lang": "en",
+  "q": "where is the nearest bank hapoalim branch",
+  "expected": "out-of-scope",
+  "bug": "F13-snif"
+ },
+ {
+  "lang": "ru",
+  "q": "где ближайшее отделение почты?",
+  "expected": "out-of-scope",
+  "bug": "F13-snif"
+ },
+ {
+  "lang": "he",
+  "q": "כמה סניפים יש לכם?",
+  "expected": "contact-location",
+  "bug": "F13-snif"
+ },
+ {
+  "lang": "he",
+  "q": "עובדים גם בבתי מלון?",
+  "expected": "handoff",
+  "bug": "F14-city-phrases"
+ },
+ {
+  "lang": "he",
+  "q": "עושים עבודות גם לבתי כנסת?",
+  "expected": "handoff",
+  "bug": "F14-city-phrases"
+ },
+ {
+  "lang": "he",
+  "q": "נותנים שירות גם לבעלי עסקים?",
+  "expected": "handoff",
+  "bug": "F14-city-phrases"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקינים גם במוסדות?",
+  "expected": "handoff",
+  "bug": "F14-city-phrases"
+ },
+ {
+  "lang": "he",
+  "q": "יש חשמלאי טוב בעיר שלנו?",
+  "expected": "out-of-scope",
+  "bug": "F14-city-phrases"
+ },
+ {
+  "lang": "he",
+  "q": "אינסטלטור מומלץ באזור שלנו",
+  "expected": "out-of-scope",
+  "bug": "F14-city-phrases"
+ },
+ {
+  "lang": "he",
+  "q": "איך הפקקים לעיר שלי היום",
+  "expected": "out-of-scope",
+  "bug": "F14-city-phrases"
+ },
+ {
+  "lang": "ar",
+  "q": "في مطعم منيح بمدينتي؟",
+  "expected": "out-of-scope",
+  "bug": "F14-city-phrases"
+ },
+ {
+  "lang": "en",
+  "q": "is there a good dentist in my area?",
+  "expected": "out-of-scope",
+  "bug": "F14-city-phrases"
+ },
+ {
+  "lang": "ru",
+  "q": "какие новости про мой город?",
+  "expected": "out-of-scope",
+  "bug": "F14-city-phrases"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит пицца",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит маникюр",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה פיצה משפחתית",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה בקבוק יין",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה להחליף מסך לאייפון",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر البندورة اليوم",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر الايفون الجديد",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر كيلو اللحمة",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a ticket to see the prince of egypt musical",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a pizza",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה טיסה לאילת",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה כוס יין",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה כרטיס לסרט",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה מונית לנתב״ג?",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a haircut",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит такси до аэропорта",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה טיסה לאילת בסוכות",
+  "expected": "out-of-scope",
+  "bug": "F19-quote-scored-correct"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش بتكلف تذكرة طيارة لانطاليا",
+  "expected": "out-of-scope",
+  "bug": "F19-quote-scored-correct"
+ },
+ {
+  "lang": "en",
+  "q": "how much does a pizza cost",
+  "expected": "out-of-scope",
+  "bug": "F19-quote-scored-correct"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит билет в кино",
+  "expected": "out-of-scope",
+  "bug": "F19-quote-scored-correct"
+ },
+ {
+  "lang": "ru",
+  "q": "где купить дешевый телефон",
+  "expected": "out-of-scope",
+  "bug": "F16-ru-cheap-anchor"
+ },
+ {
+  "lang": "ru",
+  "q": "самый дешевый интернет в Израиле",
+  "expected": "out-of-scope",
+  "bug": "F16-ru-cheap-anchor"
+ },
+ {
+  "lang": "ru",
+  "q": "недорогие квартиры в Бат-Яме",
+  "expected": "out-of-scope",
+  "bug": "F16-ru-cheap-anchor"
+ },
+ {
+  "lang": "ru",
+  "q": "недорогой ремонт машины в Хайфе",
+  "expected": "out-of-scope",
+  "bug": "F16-ru-cheap-anchor"
+ },
+ {
+  "lang": "he",
+  "q": "איפה קונים טלפון זול?",
+  "expected": "out-of-scope",
+  "bug": "F16-ru-cheap-anchor"
+ },
+ {
+  "lang": "en",
+  "q": "where can I buy a cheap phone",
+  "expected": "out-of-scope",
+  "bug": "F16-ru-cheap-anchor"
+ },
+ {
+  "lang": "he",
+  "q": "יש לכם הצעות לעיצוב מקלחון לחדר קטן? אשמח לרעיונות",
+  "expected": "shower-small-bathroom",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F20-hatzaot"
+ },
+ {
+  "lang": "he",
+  "q": "יש לכם הצעות איזו זכוכית לשים במקלחון? אשמח לרעיונות",
+  "expected": [
+   "shower-glass-finishes",
+   "shower-best-glass"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F20-hatzaot"
+ },
+ {
+  "lang": "he",
+  "q": "אשמח להצעות לצבע של חיפוי זכוכית שיתאים למטבח הקיים",
+  "expected": "backsplash-color-match",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F20-hatzaot"
+ },
+ {
+  "lang": "he",
+  "q": "לא צריך שתתקשרו, מה המחיר למקלחון?",
+  "expected": [
+   "price-glass-installation-cost",
+   "price-per-meter",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F21-callback-negation"
+ },
+ {
+  "lang": "he",
+  "q": "אשמח לקבל הצעות עבודה אצלכם",
+  "expected": "out-of-scope",
+  "bug": "F21-callback-negation"
+ },
+ {
+  "lang": "he",
+  "q": "אני רוצה לעשות הצעת נישואין מיוחדת",
+  "expected": "out-of-scope",
+  "bug": "F21-callback-negation"
+ },
+ {
+  "lang": "en",
+  "q": "no need to call me, how much is a glass shower?",
+  "expected": [
+   "price-glass-installation-cost",
+   "price-per-meter",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F21-callback-negation"
+ },
+ {
+  "lang": "ar",
+  "q": "ما في داعي تتصلوا، قديش سعر الشاور؟",
+  "expected": [
+   "price-glass-installation-cost",
+   "price-per-meter",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F21-callback-negation"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים גם בחיפה?",
+  "expected": "areas-city",
+  "bug": "control-city"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקינים גם במודיעין?",
+  "expected": "areas-city",
+  "bug": "control-city"
+ },
+ {
+  "lang": "en",
+  "q": "do you also work in Haifa?",
+  "expected": "areas-city",
+  "bug": "control-city"
+ },
+ {
+  "lang": "ru",
+  "q": "вы работаете и в Хайфе?",
+  "expected": "areas-city",
+  "bug": "control-city"
+ },
+ {
+  "lang": "ar",
+  "q": "بتشتغلوا كمان بحيفا؟",
+  "expected": "areas-city",
+  "bug": "control-city"
+ },
+ {
+  "lang": "he",
+  "q": "יש אחריוט על ההתקנה?",
+  "expected": "warranty-installations",
+  "bug": "control-typo"
+ },
+ {
+  "lang": "he",
+  "q": "מה ההבדל בין זכוכית מחוסמט לזכוכית רגילה?",
+  "expected": "glass-tempered-vs-regular",
+  "bug": "control-typo"
+ },
+ {
+  "lang": "he",
+  "q": "אפשר מעקה זכוכית למדרגוט בבית?",
+  "expected": "railing-stairs",
+  "bug": "control-typo"
+ },
+ {
+  "lang": "en",
+  "q": "glass railng for the stairs",
+  "expected": "railing-stairs",
+  "bug": "control-typo"
+ },
+ {
+  "lang": "ru",
+  "q": "даете гарнтию на установку?",
+  "expected": "warranty-installations",
+  "bug": "control-typo"
+ },
+ {
+  "lang": "ar",
+  "q": "درابزن زجاج للدرج",
+  "expected": "railing-stairs",
+  "bug": "control-typo"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה מעקה זכוכית למטר?",
+  "expected": "railing-price-per-meter",
+  "bug": "control-price"
+ },
+ {
+  "lang": "he",
+  "q": "כמה זה עולה?",
+  "expected": [
+   "price-free-quote",
+   "price-glass-installation-cost",
+   "price-what-affects",
+   "price-how-to-get-quote",
+   "price-without-visit"
+  ],
+  "bug": "control-price"
+ },
+ {
+  "lang": "en",
+  "q": "how much does a glass partition cost?",
+  "expected": "partition-price",
+  "bug": "control-price"
+ },
+ {
+  "lang": "ru",
+  "q": "почем зеркало?",
+  "expected": "mirror-wall-price",
+  "bug": "control-price"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر حيفوي زجاج للمطبخ؟",
+  "expected": "backsplash-price",
+  "bug": "control-price"
+ },
+ {
+  "lang": "he",
+  "q": "תתקשרו אליי לגבי מקלחון",
+  "expected": "quote",
+  "bug": "control-callback"
+ },
+ {
+  "lang": "en",
+  "q": "please call me back about a glass railing",
+  "expected": "quote",
+  "bug": "control-callback"
+ },
+ {
+  "lang": "ru",
+  "q": "перезвоните мне насчет зеркала",
+  "expected": "quote",
+  "bug": "control-callback"
+ },
+ {
+  "lang": "ar",
+  "q": "رنولي بخصوص درابزين زجاج",
+  "expected": "quote",
+  "bug": "control-callback"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים גם בחגים?",
+  "expected": "handoff",
+  "bug": "extra-holidays"
+ },
+ {
+  "lang": "he",
+  "q": "אשמח שתחזרו אליי, מעוניין במעקה זכוכית",
+  "expected": "quote",
+  "bug": "extra-callback"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מדברים ערבית?",
+  "expected": "handoff",
+  "bug": "extra-typo-vowel-letter (ערבית read as ערבות = warranty)"
+ },
+ {
+  "lang": "he",
+  "q": "מה הזכויות שלי כצרכן?",
+  "expected": "out-of-scope",
+  "bug": "extra-typo-indel (זכויות read as זכוכיות = glass)"
+ },
+ {
+  "lang": "he",
+  "q": "אנחנו בוטחים בכם",
+  "expected": "out-of-scope",
+  "bug": "extra-typo-vowel-swap (בוטחים read as בטוחים = safety)"
+ },
+ {
+  "lang": "he",
+  "q": "מה המומחיות שלכם?",
+  "expected": [
+   "company-about-us",
+   "company-experience",
+   "company-why-choose-us"
+  ],
+  "bug": "extra-typo-two-prefix-stem (מומחיות → מחיות → מחיצות = partition)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים בחגים?",
+  "expected": "handoff",
+  "bug": "extra-holidays (holiday words answered with the Friday/Saturday hours, or the city reply)"
+ },
+ {
+  "lang": "en",
+  "q": "do you work on holidays?",
+  "expected": "handoff",
+  "bug": "extra-holidays"
+ },
+ {
+  "lang": "ru",
+  "q": "вы работаете в праздники?",
+  "expected": "handoff",
+  "bug": "extra-holidays"
+ },
+ {
+  "lang": "ar",
+  "q": "بتشتغلوا بالعيد؟",
+  "expected": "handoff",
+  "bug": "extra-holidays"
+ },
+ {
+  "lang": "he",
+  "q": "פעם שמנו מראה גדולה בכניסה וההשתקפות יצאה עקומה כמו בלונה פארק, איך אתם מתקינים שזה לא יקרה?",
+  "expected": "mirror-mounting-wall",
+  "bug": "extra-yikre (יקרה = will happen, not expensive)"
+ },
+ {
+  "lang": "he",
+  "q": "בא לי פרייס על חיפוי למטבח, תתקשרו",
+  "expected": "quote",
+  "bug": "control-callback (bare תתקשרו at the end of a request still asks for a call)"
+ },
+ {
+  "lang": "he",
+  "q": "מתי תתקשרו אליי?",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F6-titkashru (a question about the call)"
+ },
+ {
+  "lang": "en",
+  "q": "will you call me before installation?",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F6-titkashru (a question about the call)"
+ },
+ {
+  "lang": "ru",
+  "q": "когда вы перезвоните?",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "F6-titkashru (a question about the call)"
+ },
+ {
+  "lang": "he",
+  "q": "לא צריך מדידה, תשלחו הצעת מחיר",
+  "expected": "quote",
+  "bug": "extra-negation-clause (the negation belongs to the other clause)"
+ },
+ {
+  "lang": "he",
+  "q": "לא רוצה הצעת מחיר, רק תגידו לי בערך כמה עולה מקלחון",
+  "expected": [
+   "price-glass-installation-cost",
+   "price-per-meter",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "extra-declined-quote"
+ },
+ {
+  "lang": "en",
+  "q": "I don't need a quote, just a rough price for a shower",
+  "expected": [
+   "price-glass-installation-cost",
+   "price-per-meter",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "extra-declined-quote"
+ },
+ {
+  "lang": "en",
+  "q": "how much for a glass panel",
+  "expected": [
+   "price-per-meter",
+   "price-glass-installation-cost",
+   "price-without-visit"
+  ],
+  "bug": "F7-size-anchor (a price question naming no product got the kitchen backsplash price)"
+ },
+ {
+  "lang": "he",
+  "q": "אנחנו מחיפה, אתם עובדים גם בערב?",
+  "expected": "contact-hours",
+  "bug": "F2-gam-city (a city elsewhere in the message does not make it a city question)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים בירוחם?",
+  "expected": "areas-city",
+  "bug": "control-city (a town we have no name for)"
+ },
+ {
+  "lang": "en",
+  "q": "do you come to my area?",
+  "expected": "areas-city",
+  "bug": "control-city (my area)"
+ },
+ {
+  "lang": "he",
+  "q": "מגיעים גם לאזור שלנו?",
+  "expected": [
+   "areas-city",
+   "areas-regions",
+   "areas-all-israel"
+  ],
+  "bug": "control-city (גם + our area)"
+ },
+ {
+  "lang": "he",
+  "q": "מה המחירים שלכם?",
+  "expected": [
+   "price-glass-installation-cost",
+   "price-free-quote",
+   "price-what-affects",
+   "price-how-to-get-quote",
+   "price-without-visit"
+  ],
+  "bug": "control-price"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה דירה בתל אביב",
+  "expected": "out-of-scope",
+  "bug": "F15-offtopic-price-quote (price words alone)"
+ },
+ {
+  "lang": "he",
+  "q": "השכנים שלנו מעצבנים, אתם יכולים לעזור?",
+  "expected": "out-of-scope",
+  "bug": "extra-typo-indel (מעצבנים read as מעצבים = contractor)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם פתוחים בחגים?",
+  "expected": "handoff",
+  "bug": "extra-holidays (holiday hours got the regular opening hours, \"we're open now\")"
+ },
+ {
+  "lang": "en",
+  "q": "are you open on christmas?",
+  "expected": "handoff",
+  "bug": "extra-holidays"
+ },
+ {
+  "lang": "ru",
+  "q": "вы открыты в праздники?",
+  "expected": "handoff",
+  "bug": "extra-holidays"
+ },
+ {
+  "lang": "ar",
+  "q": "فاتحين بالعيد؟",
+  "expected": "handoff",
+  "bug": "extra-holidays"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מגיעים גם לירוחם?",
+  "expected": "areas-city",
+  "bug": "control-city (גם + a town)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה זמן לוקח, תוך כמה שבועות?",
+  "expected": [
+   "process-installation-time",
+   "process-production-lead-time"
+  ],
+  "bug": "control-holiday-words (שבועות = weeks, not the holiday)"
+ },
+ {
+  "lang": "en",
+  "q": "how long does a glass railing last",
+  "expected": "handoff",
+  "bug": "R3-lifespan"
+ },
+ {
+  "lang": "en",
+  "q": "how long does a glass partition last",
+  "expected": "handoff",
+  "bug": "R3-lifespan"
+ },
+ {
+  "lang": "en",
+  "q": "how long does the railing glass stay clear",
+  "expected": "handoff",
+  "bug": "R3-lifespan"
+ },
+ {
+  "lang": "ru",
+  "q": "какой срок службы у душевой кабины?",
+  "expected": "handoff",
+  "bug": "R3-lifespan"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش بيعيش الدرابزين الزجاج؟",
+  "expected": "handoff",
+  "bug": "R3-lifespan"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش بيطول عمر الشاور الزجاج؟",
+  "expected": "handoff",
+  "bug": "R3-lifespan"
+ },
+ {
+  "lang": "he",
+  "q": "מה אורך החיים של מקלחון זכוכית?",
+  "expected": "handoff",
+  "bug": "R3-lifespan"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько лет прослужит стеклянная перегородка?",
+  "expected": "handoff",
+  "bug": "R3-lifespan"
+ },
+ {
+  "lang": "en",
+  "q": "how many years will a glass shower last?",
+  "expected": "handoff",
+  "bug": "R3-lifespan"
+ },
+ {
+  "lang": "ar",
+  "q": "adesh bta5od wa2t el tarkib?",
+  "expected": "process-installation-time",
+  "bug": "R3-adesh-time"
+ },
+ {
+  "lang": "ar",
+  "q": "adesh smakit el zjaj lal shawer?",
+  "expected": "shower-standard-thickness",
+  "bug": "R3-adesh-time"
+ },
+ {
+  "lang": "ar",
+  "q": "adesh smakit el zjaj lal drabzin?",
+  "expected": "railing-glass-thickness",
+  "bug": "R3-adesh-time"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش بياخد وقت التركيب؟",
+  "expected": "process-installation-time",
+  "bug": "R3-adesh-time"
+ },
+ {
+  "lang": "en",
+  "q": "how much does a railing weigh",
+  "expected": "handoff",
+  "bug": "R3-weight"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько весит стекло для душевой?",
+  "expected": "handoff",
+  "bug": "R3-weight"
+ },
+ {
+  "lang": "he",
+  "q": "כמה שוקל מקלחון זכוכית?",
+  "expected": "handoff",
+  "bug": "R3-weight"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش بيوزن زجاج الشاور؟",
+  "expected": "handoff",
+  "bug": "R3-weight"
+ },
+ {
+  "lang": "en",
+  "q": "how much weight can a glass shelf hold?",
+  "expected": "shelves-weight-capacity",
+  "bug": "R3-weight (control)"
+ },
+ {
+  "lang": "en",
+  "q": "how long is the quote valid?",
+  "expected": "handoff",
+  "bug": "R3-quote-validity"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش مدة صلاحية عرض السعر؟",
+  "expected": "handoff",
+  "bug": "R3-quote-validity"
+ },
+ {
+  "lang": "he",
+  "q": "כמה זמן הצעת המחיר בתוקף?",
+  "expected": "handoff",
+  "bug": "R3-quote-validity"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько времени действительна смета?",
+  "expected": "handoff",
+  "bug": "R3-quote-validity"
+ },
+ {
+  "lang": "en",
+  "q": "can the railing go on top of my existing wall?",
+  "expected": "railing-installation-methods",
+  "bug": "R3-on-top"
+ },
+ {
+  "lang": "he",
+  "q": "אפשר לשים מעקה זכוכית על קיר קיים?",
+  "expected": "railing-installation-methods",
+  "bug": "R3-on-top"
+ },
+ {
+  "lang": "ar",
+  "q": "لازم اكون بالبيت وقت التركيب؟",
+  "expected": "handoff",
+  "bug": "R3-during-install"
+ },
+ {
+  "lang": "he",
+  "q": "אני צריך להיות בבית בזמן ההתקנה?",
+  "expected": "handoff",
+  "bug": "R3-during-install"
+ },
+ {
+  "lang": "en",
+  "q": "do I need to be home during the installation?",
+  "expected": "handoff",
+  "bug": "R3-during-install"
+ },
+ {
+  "lang": "ru",
+  "q": "нужно ли мне быть дома во время установки?",
+  "expected": "handoff",
+  "bug": "R3-during-install"
+ },
+ {
+  "lang": "ar",
+  "q": "عرض السعر بيتغير بعد القياس؟",
+  "expected": "handoff",
+  "bug": "R3-quote-change"
+ },
+ {
+  "lang": "en",
+  "q": "can the quote change after measuring?",
+  "expected": "handoff",
+  "bug": "R3-quote-change"
+ },
+ {
+  "lang": "he",
+  "q": "הצעת המחיר יכולה להשתנות אחרי המדידה?",
+  "expected": "handoff",
+  "bug": "R3-quote-change"
+ },
+ {
+  "lang": "ru",
+  "q": "может ли смета измениться после замера?",
+  "expected": "handoff",
+  "bug": "R3-quote-change"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر البيت بحيفا",
+  "expected": "out-of-scope",
+  "bug": "R3-house-price"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה בית בחיפה?",
+  "expected": "out-of-scope",
+  "bug": "R3-house-price"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a house in haifa",
+  "expected": "out-of-scope",
+  "bug": "R3-house-price"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит дом в хайфе",
+  "expected": "out-of-scope",
+  "bug": "R3-house-price"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي عرض سعر لتأمين السيارة",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي تسعيرة لتصليح السيارة",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي عرض سعر لرحلة لتركيا",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "ar",
+  "q": "ابعتولي عرض سعر لحفلة عرس",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "ar",
+  "q": "ابعتولي عرض سعر للتأمين الصحي",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي عرض سعر لمطبخ خشب",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "ar",
+  "q": "bdi 3ard si3r la ta2meen el sayara",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "пришлите смету на ремонт машины",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "нужна смета на ремонт квартиры",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "хочу расчет стоимости свадьбы",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "хочу смету на кухню из дерева",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "he",
+  "q": "אני רוצה הצעת מחיר לביטוח רכב",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "i want a quote for car insurance",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "I want a quote for a glass shower",
+  "expected": "quote",
+  "bug": "R3-quote-foreign (control)"
+ },
+ {
+  "lang": "en",
+  "q": "can you send me a quote from the bible",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-citation"
+ },
+ {
+  "lang": "en",
+  "q": "give me an inspirational quote",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-citation"
+ },
+ {
+  "lang": "en",
+  "q": "quote of the day",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-citation"
+ },
+ {
+  "lang": "en",
+  "q": "send me a famous quote about life",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-citation"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a quote for home insurance",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign-subject"
+ },
+ {
+  "lang": "ar",
+  "q": "عرض سعر لكاميرات مراقبة",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign-subject"
+ },
+ {
+  "lang": "he",
+  "q": "הצעת מחיר למצלמות אבטחה",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign-subject"
+ },
+ {
+  "lang": "en",
+  "q": "how do i throw a baby shower on a budget",
+  "expected": "out-of-scope",
+  "bug": "R3-baby-shower"
+ },
+ {
+  "lang": "en",
+  "q": "bridal shower ideas",
+  "expected": "out-of-scope",
+  "bug": "R3-baby-shower"
+ },
+ {
+  "lang": "en",
+  "q": "meteor shower tonight",
+  "expected": "out-of-scope",
+  "bug": "R3-baby-shower"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش بتكلف حفلة بيبي شاور؟",
+  "expected": "out-of-scope",
+  "bug": "R3-baby-shower"
+ },
+ {
+  "lang": "en",
+  "q": "cheap shower curtains",
+  "expected": "out-of-scope",
+  "bug": "R3-shower-curtain"
+ },
+ {
+  "lang": "en",
+  "q": "price of a shower curtain rod",
+  "expected": "out-of-scope",
+  "bug": "R3-shower-curtain"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит карниз для шторки",
+  "expected": "out-of-scope",
+  "bug": "R3-shower-curtain"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה וילון למקלחת?",
+  "expected": "out-of-scope",
+  "bug": "R3-shower-curtain"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر برداية للشاور؟",
+  "expected": "out-of-scope",
+  "bug": "R3-shower-curtain"
+ },
+ {
+  "lang": "ru",
+  "q": "дешевые душевые лейки",
+  "expected": "out-of-scope",
+  "bug": "R3-ru-word-forms"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоят душевые лейки?",
+  "expected": "out-of-scope",
+  "bug": "R3-ru-word-forms"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит фартук для повара",
+  "expected": "out-of-scope",
+  "bug": "R3-apron"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит оценка квартиры",
+  "expected": "out-of-scope",
+  "bug": "R3-appraisal"
+ },
+ {
+  "lang": "ru",
+  "q": "нужна оценка дома для банка",
+  "expected": "out-of-scope",
+  "bug": "R3-appraisal"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה הערכת שווי לדירה?",
+  "expected": "out-of-scope",
+  "bug": "R3-appraisal"
+ },
+ {
+  "lang": "en",
+  "q": "how much is an estimate of my house value",
+  "expected": "out-of-scope",
+  "bug": "R3-appraisal"
+ },
+ {
+  "lang": "ru",
+  "q": "дверь машины не закрывается",
+  "expected": "out-of-scope",
+  "bug": "R3-vehicle"
+ },
+ {
+  "lang": "en",
+  "q": "is tinted glass legal for cars?",
+  "expected": "out-of-scope",
+  "bug": "R3-vehicle"
+ },
+ {
+  "lang": "ru",
+  "q": "кабина грузовика сколько стоит",
+  "expected": "out-of-scope",
+  "bug": "R3-vehicle"
+ },
+ {
+  "lang": "he",
+  "q": "דלת הרכב לא נסגרת",
+  "expected": "out-of-scope",
+  "bug": "R3-vehicle"
+ },
+ {
+  "lang": "ar",
+  "q": "باب السيارة ما بسكر",
+  "expected": "out-of-scope",
+  "bug": "R3-vehicle"
+ },
+ {
+  "lang": "en",
+  "q": "my car door won't close",
+  "expected": "out-of-scope",
+  "bug": "R3-vehicle"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит покраска перил",
+  "expected": "out-of-scope",
+  "bug": "R3-paint"
+ },
+ {
+  "lang": "en",
+  "q": "how much to paint a railing",
+  "expected": "out-of-scope",
+  "bug": "R3-paint"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה צביעה של מעקה?",
+  "expected": "out-of-scope",
+  "bug": "R3-paint"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит стекло для часов",
+  "expected": "out-of-scope",
+  "bug": "R3-watch-glass"
+ },
+ {
+  "lang": "en",
+  "q": "my watch glass is scratched",
+  "expected": "out-of-scope",
+  "bug": "R3-watch-glass"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה זכוכית לשעון?",
+  "expected": "out-of-scope",
+  "bug": "R3-watch-glass"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر زجاج الساعة؟",
+  "expected": "out-of-scope",
+  "bug": "R3-watch-glass"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر قاطع كهربا",
+  "expected": "out-of-scope",
+  "bug": "R3-homograph"
+ },
+ {
+  "lang": "ar",
+  "q": "متى بخلص الفاصل الاعلاني",
+  "expected": "out-of-scope",
+  "bug": "R3-homograph"
+ },
+ {
+  "lang": "ar",
+  "q": "كابينة الكهربا بالعمارة فيها مشكلة",
+  "expected": "out-of-scope",
+  "bug": "R3-homograph"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر دش ستلايت",
+  "expected": "out-of-scope",
+  "bug": "R3-homograph"
+ },
+ {
+  "lang": "ar",
+  "q": "3andkom drabzin 7adid?",
+  "expected": "handoff",
+  "bug": "R3-arabizi-material"
+ },
+ {
+  "lang": "ar",
+  "q": "3andkom bab khashab?",
+  "expected": "handoff",
+  "bug": "R3-arabizi-material"
+ },
+ {
+  "lang": "ar",
+  "q": "انا اسمي كرمل وبدي مراية",
+  "expected": "mirror-custom-size",
+  "bug": "R3-intro-name"
+ },
+ {
+  "lang": "en",
+  "q": "my name is carmel and i want a mirror",
+  "expected": "mirror-custom-size",
+  "bug": "R3-intro-name"
+ },
+ {
+  "lang": "he",
+  "q": "קוראים לי כרמל ואני רוצה מראה",
+  "expected": "mirror-custom-size",
+  "bug": "R3-intro-name"
+ },
+ {
+  "lang": "ar",
+  "q": "بتعملوا زجاج دبل للشبابيك؟",
+  "expected": "handoff",
+  "bug": "R3-double-glazing"
+ },
+ {
+  "lang": "en",
+  "q": "do you do low-e glass for windows?",
+  "expected": "handoff",
+  "bug": "R3-double-glazing"
+ },
+ {
+  "lang": "en",
+  "q": "do you sell glass blocks?",
+  "expected": "handoff",
+  "bug": "R3-double-glazing"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים זכוכית דאבל לחלונות?",
+  "expected": "handoff",
+  "bug": "R3-double-glazing"
+ },
+ {
+  "lang": "ru",
+  "q": "вы делаете стеклопакеты для окон?",
+  "expected": "handoff",
+  "bug": "R3-double-glazing"
+ },
+ {
+  "lang": "en",
+  "q": "do you do fire rated glass?",
+  "expected": "handoff",
+  "bug": "R3-fire-rated"
+ },
+ {
+  "lang": "en",
+  "q": "do you have fire resistant glass?",
+  "expected": "handoff",
+  "bug": "R3-fire-rated"
+ },
+ {
+  "lang": "he",
+  "q": "יש לכם זכוכית חסינת אש?",
+  "expected": "handoff",
+  "bug": "R3-fire-rated"
+ },
+ {
+  "lang": "ru",
+  "q": "у вас есть огнестойкое стекло?",
+  "expected": "handoff",
+  "bug": "R3-fire-rated"
+ },
+ {
+  "lang": "en",
+  "q": "do you do bronze mirrors?",
+  "expected": "handoff",
+  "bug": "R3-answer-text-only"
+ },
+ {
+  "lang": "en",
+  "q": "do you do bulletproof glass?",
+  "expected": "storefront-security-glass",
+  "bug": "R3-answer-text-only"
+ },
+ {
+  "lang": "en",
+  "q": "can I come to your showroom?",
+  "expected": [
+   "contact-location"
+  ],
+  "bug": "R3-answer-text-only"
+ },
+ {
+  "lang": "he",
+  "q": "אפשר לבוא לאולם התצוגה שלכם?",
+  "expected": [
+   "contact-location"
+  ],
+  "bug": "R3-answer-text-only"
+ },
+ {
+  "lang": "ru",
+  "q": "можно приехать к вам в шоурум?",
+  "expected": [
+   "contact-location"
+  ],
+  "bug": "R3-answer-text-only"
+ },
+ {
+  "lang": "ar",
+  "q": "بقدر اجي على المعرض عندكم؟",
+  "expected": [
+   "contact-location"
+  ],
+  "bug": "R3-answer-text-only"
+ },
+ {
+  "lang": "ar",
+  "q": "بتصلحوا خدش بزجاج الشاور؟",
+  "expected": "handoff",
+  "bug": "R3-scratch-repair"
+ },
+ {
+  "lang": "en",
+  "q": "can you polish scratches out of glass?",
+  "expected": "handoff",
+  "bug": "R3-scratch-repair"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקנים שריטות בזכוכית של המקלחון?",
+  "expected": "handoff",
+  "bug": "R3-scratch-repair"
+ },
+ {
+  "lang": "ru",
+  "q": "вы убираете царапины со стекла душевой?",
+  "expected": "handoff",
+  "bug": "R3-scratch-repair"
+ },
+ {
+  "lang": "en",
+  "q": "cleaning tips for my oven glass door",
+  "expected": "out-of-scope",
+  "bug": "R3-appliance-glass"
+ },
+ {
+  "lang": "en",
+  "q": "glass for my fireplace door",
+  "expected": "out-of-scope",
+  "bug": "R3-appliance-glass"
+ },
+ {
+  "lang": "he",
+  "q": "איך מנקים את הזכוכית של התנור?",
+  "expected": "out-of-scope",
+  "bug": "R3-appliance-glass"
+ },
+ {
+  "lang": "ru",
+  "q": "как почистить стекло духовки?",
+  "expected": "out-of-scope",
+  "bug": "R3-appliance-glass"
+ },
+ {
+  "lang": "ar",
+  "q": "كيف بنظف زجاج الفرن؟",
+  "expected": "out-of-scope",
+  "bug": "R3-appliance-glass"
+ },
+ {
+  "lang": "en",
+  "q": "can a glass backsplash handle the heat behind a stove?",
+  "expected": "backsplash-stove-heat",
+  "bug": "R3-appliance-glass (control)"
+ },
+ {
+  "lang": "en",
+  "q": "stop calling me",
+  "expected": "handoff",
+  "bug": "R3-stop-contact"
+ },
+ {
+  "lang": "ru",
+  "q": "не пишите мне в ватсап",
+  "expected": "handoff",
+  "bug": "R3-stop-contact"
+ },
+ {
+  "lang": "en",
+  "q": "don't send me whatsapp messages anymore",
+  "expected": "handoff",
+  "bug": "R3-stop-contact"
+ },
+ {
+  "lang": "he",
+  "q": "תפסיקו להתקשר אליי",
+  "expected": "handoff",
+  "bug": "R3-stop-contact"
+ },
+ {
+  "lang": "ar",
+  "q": "بطلوا تتصلوا فيي",
+  "expected": "handoff",
+  "bug": "R3-stop-contact"
+ },
+ {
+  "lang": "ru",
+  "q": "хочу понять, зачем нужен замер на месте",
+  "expected": "process-measurement-visit",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-want-to-know"
+ },
+ {
+  "lang": "ru",
+  "q": "хочу узнать, сколько ждать смету после замера",
+  "expected": "price-quote-timing",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-want-to-know"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي افهم ليش لازم قياس بالبيت",
+  "expected": "process-measurement-visit",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-want-to-know"
+ },
+ {
+  "lang": "en",
+  "q": "i want to understand why you need to measure on site",
+  "expected": "process-measurement-visit",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-want-to-know"
+ },
+ {
+  "lang": "he",
+  "q": "אני רוצה להבין למה צריך מדידה בבית",
+  "expected": "process-measurement-visit",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-want-to-know"
+ },
+ {
+  "lang": "he",
+  "q": "ובכמה?",
+  "history": [
+   "אתם מתקינים מזגנים?"
+  ],
+  "expected": "handoff",
+  "bug": "R3-followup-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "а сколько стоит?",
+  "history": [
+   "вы ставите кондиционеры?"
+  ],
+  "expected": "handoff",
+  "bug": "R3-followup-foreign"
+ },
+ {
+  "lang": "he",
+  "q": "וכמה זה עולה?",
+  "history": [
+   "אתם מתקינים פרגולות מעץ?"
+  ],
+  "expected": "handoff",
+  "bug": "R3-followup-foreign"
+ },
+ {
+  "lang": "he",
+  "q": "וכמה זה עולה למטר?",
+  "history": [
+   "אתם עושים פרקט?"
+  ],
+  "expected": "handoff",
+  "bug": "R3-followup-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "and the price?",
+  "history": [
+   "do you do wooden doors?"
+  ],
+  "expected": "handoff",
+  "bug": "R3-followup-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "а сколько стоит?",
+  "history": [
+   "вы делаете деревянные перегородки?"
+  ],
+  "expected": "handoff",
+  "bug": "R3-followup-foreign"
+ },
+ {
+  "lang": "he",
+  "q": "ובמחיר זול?",
+  "history": [
+   "כמה עולה טיסה לאילת?"
+  ],
+  "expected": "out-of-scope",
+  "bug": "R3-followup-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "and on friday?",
+  "history": [
+   "what time does the post office close?"
+  ],
+  "expected": "out-of-scope",
+  "bug": "R3-followup-someone-else"
+ },
+ {
+  "lang": "he",
+  "q": "ובשישי?",
+  "history": [
+   "מה שעות הפתיחה של הבנק?"
+  ],
+  "expected": "out-of-scope",
+  "bug": "R3-followup-someone-else"
+ },
+ {
+  "lang": "en",
+  "q": "please don't call, whatsapp only 0521234567",
+  "expected": "contact-whatsapp",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-phone-decline"
+ },
+ {
+  "lang": "he",
+  "q": "אל תתקשרו, רק וואטסאפ 0521234567",
+  "expected": "contact-whatsapp",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-phone-decline"
+ },
+ {
+  "lang": "ru",
+  "q": "не звоните, только ватсап 0521234567",
+  "expected": "contact-whatsapp",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-phone-decline"
+ },
+ {
+  "lang": "en",
+  "q": "where are you with my quote?",
+  "expected": "handoff",
+  "bug": "R3-status"
+ },
+ {
+  "lang": "en",
+  "q": "hi, where are you with my installation? it's been two weeks",
+  "expected": "handoff",
+  "bug": "R3-status"
+ },
+ {
+  "lang": "he",
+  "q": "איפה אתם? המתקין לא הגיע",
+  "expected": "handoff",
+  "bug": "R3-status"
+ },
+ {
+  "lang": "ru",
+  "q": "где вы? мастер так и не пришел",
+  "expected": "handoff",
+  "bug": "R3-status"
+ },
+ {
+  "lang": "ar",
+  "q": "وينكم؟ الفني ما اجا",
+  "expected": "handoff",
+  "bug": "R3-status"
+ },
+ {
+  "lang": "en",
+  "q": "where are you located?",
+  "expected": "contact-location",
+  "bug": "R3-status (control)"
+ },
+ {
+  "lang": "he",
+  "q": "אפשר מקלחון זכוכית בחדר השינה?",
+  "expected": "handoff",
+  "bug": "R3-product-not-covered"
+ },
+ {
+  "lang": "he",
+  "q": "מקלחון לחדר שינה",
+  "expected": "handoff",
+  "bug": "R3-product-not-covered"
+ },
+ {
+  "lang": "he",
+  "q": "מקלחון לחדר שינה בקריות",
+  "expected": "handoff",
+  "bug": "R3-product-not-covered"
+ },
+ {
+  "lang": "en",
+  "q": "can I put a glass shower in the bedroom?",
+  "expected": "handoff",
+  "bug": "R3-product-not-covered"
+ },
+ {
+  "lang": "ru",
+  "q": "какое расстояние между стеклом и полом в душевой?",
+  "expected": "handoff",
+  "bug": "R3-uncovered-subject"
+ },
+ {
+  "lang": "en",
+  "q": "can you add a fold-down seat in a walk-in shower?",
+  "expected": "handoff",
+  "bug": "R3-uncovered-subject"
+ },
+ {
+  "lang": "he",
+  "q": "אפשר להוסיף מושב מתקפל במקלחון?",
+  "expected": "handoff",
+  "bug": "R3-uncovered-subject"
+ },
+ {
+  "lang": "en",
+  "q": "what is the gap between the shower glass and the floor?",
+  "expected": "handoff",
+  "bug": "R3-uncovered-subject"
+ },
+ {
+  "lang": "en",
+  "q": "how long does the warranty last?",
+  "expected": [
+   "warranty-installations",
+   "warranty-what-covered"
+  ],
+  "bug": "R3-lifespan (control: a warranty has a duration)"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько прослужит зеркало в ванной?",
+  "expected": "handoff",
+  "bug": "R3-lifespan"
+ },
+ {
+  "lang": "he",
+  "q": "עד מתי ההצעה בתוקף?",
+  "expected": "handoff",
+  "bug": "R3-quote-validity"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько кг выдержит стеклянная полка?",
+  "expected": "shelves-weight-capacity",
+  "bug": "R3-weight (control)"
+ },
+ {
+  "lang": "en",
+  "q": "replacement glass for my oven door",
+  "expected": "out-of-scope",
+  "bug": "R3-appliance-glass"
+ },
+ {
+  "lang": "en",
+  "q": "the glass shelf in my fridge broke",
+  "expected": "out-of-scope",
+  "bug": "R3-appliance-glass"
+ },
+ {
+  "lang": "he",
+  "q": "נשבר המדף זכוכית במקרר",
+  "expected": "out-of-scope",
+  "bug": "R3-appliance-glass"
+ },
+ {
+  "lang": "en",
+  "q": "do you fix truck mirrors?",
+  "expected": "out-of-scope",
+  "bug": "R3-vehicle"
+ },
+ {
+  "lang": "en",
+  "q": "do you install glass partitions in car showrooms?",
+  "expected": [
+   "partition-not-only-offices",
+   "storefront-offices-clinics",
+   "partition-active-office"
+  ],
+  "bug": "R3-vehicle (control: premises)"
+ },
+ {
+  "lang": "en",
+  "q": "please stop sending me messages",
+  "expected": "handoff",
+  "bug": "R3-stop-contact"
+ },
+ {
+  "lang": "he",
+  "q": "אל תשלחו לי הודעות בוואטסאפ",
+  "expected": "handoff",
+  "bug": "R3-stop-contact"
+ },
+ {
+  "lang": "en",
+  "q": "and how much?",
+  "history": [
+   "do you install solar water heaters?"
+  ],
+  "expected": "handoff",
+  "bug": "R3-followup-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "and for stairs?",
+  "history": [
+   "how much is a glass railing?"
+  ],
+  "expected": [
+   "railing-stairs",
+   "railing-price-per-meter"
+  ],
+  "bug": "R3-followup-foreign (control)"
+ },
+ {
+  "lang": "he",
+  "q": "ובמחיר זול?",
+  "history": [
+   "כמה עולה מקלחון?"
+  ],
+  "expected": [
+   "price-ways-to-save",
+   "price-glass-installation-cost"
+  ],
+  "bug": "R3-followup-foreign (control)"
+ },
+ {
+  "lang": "en",
+  "q": "where is my order? it's been a month",
+  "expected": "handoff",
+  "bug": "R3-status"
+ },
+ {
+  "lang": "he",
+  "q": "עדיין מחכה להצעת מחיר",
+  "expected": "handoff",
+  "bug": "R3-status"
+ },
+ {
+  "lang": "en",
+  "q": "i want to know how long installation takes",
+  "expected": "process-installation-time",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-want-to-know"
+ },
+ {
+  "lang": "he",
+  "q": "רציתי לדעת מתי אתם יכולים לבוא למדוד",
+  "expected": "process-measurement-appointment",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-want-to-know"
+ },
+ {
+  "lang": "en",
+  "q": "i need a quote for a wooden pergola",
+  "expected": "out-of-scope",
+  "bug": "R3-quote-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит покрасить двери",
+  "expected": "out-of-scope",
+  "bug": "R3-paint"
+ },
+ {
+  "lang": "en",
+  "q": "we just finished painting everything, will the installation make dust?",
+  "expected": "process-clean-installation",
+  "bug": "R3-paint (control: painting not of our product)"
+ },
+ {
+  "lang": "en",
+  "q": "i want a shower",
+  "expected": "quote",
+  "bug": "R3-intro-name (a product alone is a quote request)"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سماكة زجاج الدرابزين؟",
+  "expected": "railing-glass-thickness",
+  "bug": "R3-adesh-time (control)"
+ },
+ {
+  "lang": "en",
+  "q": "how much time does the installation take?",
+  "expected": "process-installation-time",
+  "bug": "R3-adesh-time (how much + time)"
+ },
+ {
+  "lang": "ru",
+  "q": "во время установки будет много пыли?",
+  "expected": "process-clean-installation",
+  "bug": "R3-during-install (во время = during)"
+ },
+ {
+  "lang": "en",
+  "q": "how much for car window tint?",
+  "expected": "out-of-scope",
+  "bug": "R3-vehicle"
+ },
+ {
+  "lang": "he",
+  "q": "מתי אתם יכולים לבוא למדוד?",
+  "expected": "process-measurement-appointment",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-come-to-measure (control: a question about the visit)"
+ },
+ {
+  "lang": "en",
+  "q": "and your opening hours?",
+  "history": [
+   "what time does the bank close?"
+  ],
+  "expected": "contact-hours",
+  "bug": "R3-followup-someone-else (control: turns to us)"
+ },
+ {
+  "lang": "en",
+  "q": "do you work in haifa?",
+  "history": [
+   "who won the game yesterday?"
+  ],
+  "expected": "areas-city",
+  "bug": "R3-followup-foreign (control: a question of its own)"
+ },
+ {
+  "lang": "he",
+  "q": "ובחיפה?",
+  "history": [
+   "אתם מתקינים מזגנים?"
+  ],
+  "expected": "handoff",
+  "bug": "R3-followup-foreign"
+ },
+ {
+  "lang": "he",
+  "q": "כמה זמן הזכוכית של המעקה נשארת שקופה?",
+  "expected": "handoff",
+  "bug": "R3-lifespan"
+ },
+ {
+  "lang": "ru",
+  "q": "как долго стекло перил останется прозрачным?",
+  "expected": "handoff",
+  "bug": "R3-lifespan"
+ },
+ {
+  "lang": "en",
+  "q": "mirror that stays clear after a shower",
+  "expected": "mirror-anti-fog-bathroom",
+  "bug": "R3-lifespan (control: stays clear = anti-fog)"
+ },
+ {
+  "lang": "he",
+  "q": "מעקה זכוכית מחזיק מעמד בשמש ובגשם?",
+  "expected": "railing-indoor-vs-outdoor",
+  "bug": "R3-lifespan (control: an entry about it)"
+ },
+ {
+  "lang": "ar",
+  "q": "الزجاج ورا الغاز بتحمل الحرارة؟",
+  "expected": "backsplash-stove-heat",
+  "bug": "R3-weight (control: بتحمل = withstands)"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит стеклянный парапет?",
+  "expected": [
+   "railing-price-per-meter"
+  ],
+  "bug": "R3-on-top (control: a glass parapet is the railing)"
+ },
+ {
+  "lang": "he",
+  "q": "נפל טיל בחיפה",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקינים בשבת?",
+  "expected": "contact-friday-saturday",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "שבת שלום",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "יום נעים",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "לא הבנתי",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם הכי טובים",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אפשר לעבוד אצלכם?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים בזמן המלחמה?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "רק שלא תתקשרו אליי, אני בעבודה",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "עזבו, לא צריך הצעת מחיר",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אני רוצה לבטל את המדידה",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים גם חשמל?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקינים גם מטבחים?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקינים גם אמבטיות?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה מטבח חדש?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה לצבוע דירה?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה מזגן?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "מראה לאמבטיה בכמה?",
+  "expected": "mirror-wall-price",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "איפה האולם תצוגה שלכם?",
+  "expected": "contact-location",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "שלום, קוראים לי ערד",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "הרחובות מוצפים היום",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "איך מגיעים לחיפה מתל אביב?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים באוגוסט?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים בצוות?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים לפי שעה?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקינים לבד או עם עוזר?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "מקלחון",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה מראה צד לרכב",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "יש לכם זכוכית מחוסמת לאייפון?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "מה לעשות כשיש עובש במקלחת?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "ממליץ בחום על המתקין",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה דלת פלדלת?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה מחיצת גבס?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה טלפון חדש?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "מה המחיר למטר בנייה בחיפה?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה קבלן שיפוצים?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "יש אחריות על האייפון?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "מה מספר הטלפון של כללית?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "I don't want you to call me, just tell me the price of a shower",
+  "expected": [
+   "price-glass-installation-cost",
+   "price-per-meter",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "I don't want anyone to call me",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "I'd rather you didn't call me, just email me",
+  "expected": "contact-details",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "why didn't anyone call me?",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "I don't want a quote, I just want to know how much a shower costs",
+  "expected": [
+   "price-glass-installation-cost",
+   "price-per-meter",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "I'd like an estimate of how long it takes to install a shower",
+  "expected": "process-installation-time",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "I don't need anyone to come measure, I'll send photos",
+  "expected": [
+   "contact-send-photos",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "I want to measure the space myself first, how do I do that?",
+  "expected": "process-measurement-visit",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you also do railings?",
+  "expected": "railing-where-install",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you do mirrors too?",
+  "expected": [
+   "mirror-custom-size"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you also do iron railings?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you have an online shop?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you also do shower doors?",
+  "expected": "shower-enclosure-types",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you also do wooden doors?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "can I get a discount?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "my name is Eilat",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you work on yom rishon?",
+  "expected": "contact-hours",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you work in English?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "rooftop bar in tel aviv",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "yoga classes in haifa",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "good clothing store in haifa?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "what is the price per square meter of an apartment in haifa?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "how much does laminate flooring cost per meter?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "how much do bathroom tiles cost per meter?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "my roof is leaking what do I do",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you build walk-in closets?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "how do I remove coffee stains from a shirt?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you do kitchen cabinets?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a new stove?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "what's the warranty on a new car in israel?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "my car mirror broke, can you replace it?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "how do I convert a pdf to word?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "what's the best website builder?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "sea view apartments in netanya",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a door bell installation?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "can I pay in installments?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "can the glass be black?",
+  "expected": "glass-tinted-frosted-options",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you come to measure in the evening?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "my window is cracked, can you replace it?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "ما بدي انه حدا من عندكم يتصل فيي، بس ابعتولي السعر",
+  "expected": [
+   "price-without-visit",
+   "contact-whatsapp"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "ما بدي عرض سعر، بس بدي اعرف تقريبا قديش الشاور",
+  "expected": [
+   "price-glass-installation-cost",
+   "price-per-meter",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "بتعملوا كمان مرايات؟",
+  "expected": [
+   "mirror-custom-size"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "fi 3andkom zjaj lal sayara?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "ممكن خصم؟",
+  "expected": "price-ways-to-save",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "اسمي كرمل",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "اسمي يافا",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر تركيب الاسنان؟",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش بكلف تركيب مكيف؟",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر حمايات الشبابيك؟",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي سياج حديد للجنينة قديش بكلف؟",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "بتعملوا مطابخ؟",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر فرن غاز؟",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "كل الاحترام والتقدير الكم",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "وين في مطعم سمك بعكا؟",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "بتعملوا تصوير اعراس؟",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "كيف بدفع فاتورة الكهربا؟",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "في تقسيط؟",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "بتركبوا تلفزيون عالحيط؟",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر المتر بالشقق بحيفا؟",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "بتعملوا طاولات زجاج مدورة؟",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "بتعملوا ابواب خشب؟",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "محل ملابس بالناصرة",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي مصمم مواقع",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "متى بنزل معاش الضمان؟",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "بتوصلوا بسرعة؟",
+  "expected": "process-measurement-appointment",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "вы работаете в шиши?",
+  "expected": "contact-friday-saturday",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "вы работаете в хаг?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "вы работаете в августе?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "вы работаете в йом ришон?",
+  "expected": "contact-hours",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "меня зовут Кармель",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "хочу уточнить, расчет можно наличными?",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "расчет наличными или картой?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "можно оплатить картой?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "а скидку можно?",
+  "expected": "price-ways-to-save",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "операция на носовой перегородке сколько стоит?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "как получить гарантию на холодильник?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "где в Хайфе хорошая йога?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "воры залезли в машину, что делать?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "цена за квадратный метр квартиры в Хайфе",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "вы делаете кухни на заказ?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "защитное стекло на айфон поклеите?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "как убрать накипь в чайнике?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "вы делаете ремонт квартир под ключ?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит ограждение участка?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "магазин одежды в Хайфе",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "квартира с балконом в Иерусалиме",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "ищу дизайнера интерьера",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "вы делаете также двери из дерева?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит душевая лейка?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים בפרספקס?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you work in plexiglass?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "вы работаете в кредит?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אפשר בתשלומים?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "צריך מקדמה?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "cracked shower glass",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "I broke my glasses, can you fix them?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקנים מקלחונים?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "can the shower door open on both sides?",
+  "expected": "shower-sliding-vs-hinged",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "עד איזה שעה הסופר פתוח?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "is ikea open on saturday?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "מה מספר הטלפון של העירייה?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "مين احسن ممثل بالعالم؟",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "I want to cancel my measurement",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "через сколько вы перезвоните?",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אני מעוניין בהצעה לעבודה אצלכם כזגג",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מגיעים לחיפה בשבת?",
+  "expected": "contact-friday-saturday",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים בתל אביב בחגים?",
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "וכמה עולה טיסה?",
+  "history": [
+   "כמה עולה מקלחון?"
+  ],
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "0521234567",
+  "history": [
+   "כמה עולה מקלחון?"
+  ],
+  "expected": "handoff",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת פרקט?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת מזגן?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you install toilet?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "how much does a new kitchen cost?",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "my shower door hinge is failing",
+  "expected": [
+   "warranty-problem-after-installation",
+   "maintenance-hardware-seals"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ar",
+  "q": "my shower door hinge is failing",
+  "expected": [
+   "warranty-problem-after-installation",
+   "maintenance-hardware-seals"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "ru",
+  "q": "my shower door hinge is failing",
+  "expected": [
+   "warranty-problem-after-installation",
+   "maintenance-hardware-seals"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you work in the old city?",
+  "expected": "areas-city",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "my name is Arad",
+  "expected": "out-of-scope",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקינים בחוץ?",
+  "expected": [
+   "railing-indoor-vs-outdoor",
+   "doors-interior-exterior"
+  ],
+  "bug": "R1-review"
+ },
+ {
+  "lang": "en",
+  "q": "my phone number is 0501234567",
+  "expected": "quote",
+  "bug": "R1-review"
+ },
+ {
+  "lang": "he",
+  "q": "history: \"אתם מתקינים מזגנים?\" then \"ובכמה?\"",
+  "expected": "handoff",
+  "bug": "R2-review"
+ },
+ {
+  "lang": "en",
+  "q": "history: \"do you do wooden doors?\" then \"and the price?\"",
+  "expected": "handoff",
+  "bug": "R2-review"
+ },
+ {
+  "lang": "he",
+  "q": "history: \"כמה עולה טיסה לאילת?\" then \"ובמחיר זול?\"",
+  "expected": "out-of-scope",
+  "bug": "R2-review"
+ },
+ {
+  "lang": "en",
+  "q": "history: \"what time does the post office close?\" then \"and on friday?\"",
+  "expected": "out-of-scope",
+  "bug": "R2-review"
+ },
+ {
+  "lang": "he",
+  "q": "אני רוצה לשאול משהו",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "השירות המעולה שלכם",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים במעלות?",
+  "expected": "areas-city",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "מרוצה מהמקלחון",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "בכמה ימים מתקינים מקלחון?",
+  "expected": "process-installation-time",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "ובכמה זמן?",
+  "history": [
+   "כמה עולה מקלחון?"
+  ],
+  "expected": [
+   "process-installation-time",
+   "process-production-lead-time"
+  ],
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה זה גבוה?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים מעקות?",
+  "expected": "railing-where-install",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "יש לכם מראות?",
+  "expected": "mirror-custom-size",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקינים מראות?",
+  "expected": "mirror-custom-size",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים חיפוי למטבח?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "יש לכם גם חנות?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "מדביקים זכוכית מחוסמת לסמסונג?",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "מה קורה בדרום?",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "אני ספק זכוכית, רוצה לתת לכם הצעת מחיר",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "קיבלתי שיחה מ-0521234567, זה אתם?",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "מראה למרפסת",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "דלת המקלחון יוצאת מהמקום",
+  "expected": "warranty-problem-after-installation",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "אני זגג עם 10 שנות ניסיון",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "יש לכם מתקין?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "מה הכתובת שלכם בחיפה?",
+  "expected": "contact-location",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים במרכז מסחרי?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה חלון?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה ביקור בבית?",
+  "expected": "price-free-quote",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה לבוא למדוד?",
+  "expected": "price-free-quote",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה חיפוי קרמיקה למטבח?",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקינים גם מקלחונים וגם אמבטיות?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים גם מראות וגם מסגרות לתמונות?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "בכמה נגמר המשחק אתמול?",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "חזית הבית שלי צריכה שיפוץ",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "adesh si3r el benzin",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "adesh si3r el dahab",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "skolko stoit benzin",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "skolko stoit dollar",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "I need a quote for a website design",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "i want a quote for painting my apartment",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "please call me back about the apartment for rent",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي عرض سعر لتصميم موقع",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "رنولي بخصوص الشقة للايجار",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "хочу смету на сайт",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "перезвоните мне по поводу кредита",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "don't call me, just send me a quote by email",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "звонить не надо, пришлите смету на почту",
+  "expected": [
+   "contact-email-plans",
+   "price-without-visit"
+  ],
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "do I have to pay if you come to measure?",
+  "expected": "price-free-quote",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "did you just call me?",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "я вам перезвоню",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "мне уже перезвонили, спасибо",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "my headphones broke, is there a warranty?",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "how long is the warranty on my sofa",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "كفالة الموبايل قديش",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "في كفالة عالكنباية؟",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "гарантия на ноутбук",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "какая гарантия на диван",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "customer reviews for amazon",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "hotel reviews in eilat",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "где почитать отзывы о гостиницах в Эйлате",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "best beach near the sea in netanya",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "احسن شط عالبحر بحيفا",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "какое сегодня море в Нетании?",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش المسافة من حيفا لعكا",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "какое расстояние от Хайфы до Нетании",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "where can I print photos",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر طباعة الصور",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "где распечатать фотографии",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "ремонт телефона в Хайфе",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش بياخد وقت تجديد الجواز",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "من باب الفضول، قديش سعر الذهب اليوم؟",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "how to remove limescale from my dishwasher",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "как удалить известковый налет с утюга",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "безопасен ли самокат для детей",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "how thick should my mattress be",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит детское ограждение для кровати",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "how many glasses of water a day",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "adesh el kafale 3al mobile",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "adesh si3r el bab el 7adid",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر باب مصفح",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит межкомнатная дверь из МДФ",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a steel security door",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر الدوش المطري",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر الكاسات الزجاج",
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "is your showroom in haifa?",
+  "expected": "contact-location",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you do smart glass that turns opaque?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "есть смарт стекло которое становится матовым?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "do I need a permit for a glass balcony railing",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "البس بيكسر زجاج الشاور؟",
+  "expected": [
+   "safety-kids-pets",
+   "safety-shower-door-strength"
+  ],
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "зеркало во всю стену в зал сколько будет",
+  "expected": "mirror-wall-price",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "do you also do glass for kitchen cabinets",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "дверь в подъезд не закрывается",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "وقديش سعر الذهب؟",
+  "history": [
+   "قديش سعر متر الدرابزين"
+  ],
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "а диван?",
+  "history": [
+   "сколько стоит зеркало?"
+  ],
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "and an iron one?",
+  "history": [
+   "how much is a glass railing per meter?"
+  ],
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "وتجديد الجواز؟",
+  "history": [
+   "قديش بياخد التركيب؟"
+  ],
+  "expected": "out-of-scope",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "הזכוכית עולה עד התקרה?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "המעקה עולה עד גובה של מטר?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "עד איפה עולה החיפוי במטבח?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "הלחות עולה על המראה באמבטיה, יש פתרון?",
+  "expected": "mirror-anti-fog-bathroom",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "هل الزجاج بيضل شفاف على الدوام؟",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "احنا فاتحين محل جديد، بتعملوا واجهات زجاج؟",
+  "expected": "storefront-new-business-renovation",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם פתוחים להצעות של המעצבת שלי?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "יש לכם חנות?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "Where is your store?",
+  "expected": "contact-location",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي مراية جديدة محل المراية القديمة",
+  "expected": "quote",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "and a mirror?",
+  "history": [
+   "how much is a glass railing per meter?"
+  ],
+  "expected": "mirror-wall-price",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "and a backsplash?",
+  "history": [
+   "how much is a mirror wall?"
+  ],
+  "expected": "backsplash-price",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "and for doors?",
+  "history": [
+   "do you do frosted glass for showers?"
+  ],
+  "expected": "doors-frosted-privacy",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "וכמה זה עולה?",
+  "history": [
+   "כמה זמן לוקחת התקנה של מעקה?"
+  ],
+  "expected": "railing-price-per-meter",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ar",
+  "q": "والسعر؟",
+  "history": [
+   "قديش بياخد وقت تركيب الشاور؟"
+  ],
+  "expected": "price-glass-installation-cost",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "האם הזכוכית יכולה להתלקח?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "יש פטריות בפינות של המקלחון",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים גדר לחצר?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "הצעת המחיר כוללת מע\"מ?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "Does the technician call me before he arrives?",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "Is your WhatsApp 058-502-2264?",
+  "expected": "contact-whatsapp",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "Does the representative who measures also install?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "ru",
+  "q": "Ваш менеджер сам делает замер или мастер?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקינים במרכז מסחרי?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "What is the success rate of your installations?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "Will your installer show up on time?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "אחרי כמה זמן אפשר להתקלח?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "he",
+  "q": "הנציג שמגיע למדידה הוא גם המתקין?",
+  "expected": "handoff",
+  "bug": "R3-review"
+ },
+ {
+  "lang": "en",
+  "q": "glass for kitchen cabinet doors",
+  "expected": "handoff",
+  "bug": "R4-cabinet-door (a cabinet door is furniture, not our glass door)"
+ },
+ {
+  "lang": "he",
+  "q": "זכוכית לדלתות של ארונות המטבח",
+  "expected": "handoff",
+  "bug": "R4-cabinet-door"
+ },
+ {
+  "lang": "en",
+  "q": "glass door for my walk-in closet",
+  "expected": [
+   "doors-types-options"
+  ],
+  "bug": "R4-cabinet-door (control: a closet glass door is ours)"
+ },
+ {
+  "lang": "en",
+  "q": "mirror for my wardrobe door",
+  "expected": [
+   "mirror-custom-size"
+  ],
+  "bug": "R4-cabinet-door (control: a mirror is named)"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش عالي الدرابزين؟",
+  "expected": "handoff",
+  "bug": "R4-how-high (a height, not the price or a high balcony)"
+ },
+ {
+  "lang": "ru",
+  "q": "какой высоты должны быть стеклянные перила?",
+  "expected": "handoff",
+  "bug": "R4-how-high"
+ },
+ {
+  "lang": "en",
+  "q": "how high should a glass railing be?",
+  "expected": "handoff",
+  "bug": "R4-how-high"
+ },
+ {
+  "lang": "he",
+  "q": "כמה גבוה המעקה צריך להיות?",
+  "expected": "handoff",
+  "bug": "R4-how-high"
+ },
+ {
+  "lang": "he",
+  "q": "אם אפשר שתבואו למדוד מחר",
+  "expected": "quote",
+  "bug": "R4-conditional (control: \"if possible\" is a request)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם פתוחים היום?",
+  "expected": "contact-hours",
+  "bug": "R4-hours-mask (control)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים במרכז הארץ?",
+  "expected": [
+   "areas-regions",
+   "areas-city"
+  ],
+  "bug": "R4-region-mask (control: the centre of the country)"
+ },
+ {
+  "lang": "ru",
+  "q": "вы делаете перила?",
+  "expected": [
+   "railing-where-install"
+  ],
+  "bug": "R4-overview (control)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מתקינים מקלחונים?",
+  "expected": [
+   "shower-enclosure-types"
+  ],
+  "bug": "R4-overview (control)"
+ },
+ {
+  "lang": "ar",
+  "q": "عندكم محل؟",
+  "expected": "handoff",
+  "bug": "R4-premises (our shop, not a shop front)"
+ },
+ {
+  "lang": "en",
+  "q": "do you have a store?",
+  "expected": "handoff",
+  "bug": "R4-premises"
+ },
+ {
+  "lang": "he",
+  "q": "שעות פתיחה של חדר הכושר",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (another place's opening hours, named by a word the knowledge base knows)"
+ },
+ {
+  "lang": "he",
+  "q": "שעות פתיחה של הספרייה",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (another place's opening hours, named by a word the knowledge base knows)"
+ },
+ {
+  "lang": "he",
+  "q": "שעות פעילות של המרפאה",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (another place's opening hours, named by a word the knowledge base knows)"
+ },
+ {
+  "lang": "he",
+  "q": "שעות פתיחה של מלון דן",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (another place's opening hours, named by a word the knowledge base knows)"
+ },
+ {
+  "lang": "he",
+  "q": "שעות פעילות של משרד הבריאות",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (another place's opening hours, named by a word the knowledge base knows)"
+ },
+ {
+  "lang": "he",
+  "q": "שעות פעילות של משרד הקליטה",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (another place's opening hours, named by a word the knowledge base knows)"
+ },
+ {
+  "lang": "he",
+  "q": "שעות פתיחה של מוזיאון ישראל",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (another place's opening hours, named by a word the knowledge base knows)"
+ },
+ {
+  "lang": "he",
+  "q": "עד איזה שעה הבריכה פתוחה",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (another place's opening hours, named by a word the knowledge base knows)"
+ },
+ {
+  "lang": "he",
+  "q": "שעות פתיחה של הים בנתניה",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (another place's opening hours, named by a word the knowledge base knows)"
+ },
+ {
+  "lang": "ru",
+  "q": "часы работы клиники",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else"
+ },
+ {
+  "lang": "ru",
+  "q": "часы работы офиса МВД",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else"
+ },
+ {
+  "lang": "ru",
+  "q": "до скольки работает офис МВД?",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else"
+ },
+ {
+  "lang": "ru",
+  "q": "часы работы бассейна",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else"
+ },
+ {
+  "lang": "ru",
+  "q": "часы работы спортзала",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else"
+ },
+ {
+  "lang": "ru",
+  "q": "часы работы душевых на пляже",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else"
+ },
+ {
+  "lang": "ar",
+  "q": "شو ساعات الدوام بالعيادة؟",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else"
+ },
+ {
+  "lang": "ar",
+  "q": "شو ساعات الدوام بالمدرسة؟",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else"
+ },
+ {
+  "lang": "ar",
+  "q": "شو ساعات الدوام بمكتب الداخلية؟",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else"
+ },
+ {
+  "lang": "ar",
+  "q": "شو ساعات الدوام بالمكتب تبع المحامي؟",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else"
+ },
+ {
+  "lang": "en",
+  "q": "what are the opening hours of the gym?",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else"
+ },
+ {
+  "lang": "en",
+  "q": "library opening hours",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else"
+ },
+ {
+  "lang": "he",
+  "q": "מה שעות הפעילות שלכם?",
+  "expected": "contact-hours",
+  "bug": "R5-hours-someone-else (control)"
+ },
+ {
+  "lang": "he",
+  "q": "שעות פתיחה?",
+  "expected": "contact-hours",
+  "bug": "R5-hours-someone-else (control)"
+ },
+ {
+  "lang": "ru",
+  "q": "какие у вас часы работы?",
+  "expected": "contact-hours",
+  "bug": "R5-hours-someone-else (control)"
+ },
+ {
+  "lang": "ar",
+  "q": "شو ساعات الدوام عندكم؟",
+  "expected": "contact-hours",
+  "bug": "R5-hours-someone-else (control)"
+ },
+ {
+  "lang": "he",
+  "q": "מה המספר של מוקד 106",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "מוקד 100",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "מוקד 101",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "מוקד 104",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "מספר של מוקד חירום",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "מספר המוקד של מגן דוד",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "מה הטלפון של מוקד התמיכה של סלקום",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "נציג שירות של פלאפון",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "מוקד שירות לקוחות של הוט",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "אני רוצה לדבר עם נציג אנושי בחברת החשמל",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "מה המייל של משרד הפנים",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "מספר הטלפון של משרד הרישוי",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "איך יוצרים קשר עם משרד התחבורה",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "מספר הטלפון של משרד הקליטה",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "מספר טלפון של חדר כושר באזור",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "he",
+  "q": "אימייל של בית הספר",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else (a hotline, a ministry or a company: not our phone number)"
+ },
+ {
+  "lang": "ru",
+  "q": "номер телефона клиники",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else"
+ },
+ {
+  "lang": "ru",
+  "q": "как связаться с клиникой?",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else"
+ },
+ {
+  "lang": "ar",
+  "q": "رقم تلفون العيادة",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else"
+ },
+ {
+  "lang": "ar",
+  "q": "كيف بعمل ايميل جديد؟",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else"
+ },
+ {
+  "lang": "en",
+  "q": "what is the phone number of the clinic?",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else"
+ },
+ {
+  "lang": "en",
+  "q": "email of the school",
+  "expected": "out-of-scope",
+  "bug": "R5-contact-someone-else"
+ },
+ {
+  "lang": "he",
+  "q": "מה מספר הטלפון שלכם?",
+  "expected": [
+   "contact-details",
+   "contact-human"
+  ],
+  "bug": "R5-contact-someone-else (control)"
+ },
+ {
+  "lang": "he",
+  "q": "אפשר לדבר עם נציג?",
+  "expected": [
+   "contact-details",
+   "contact-human"
+  ],
+  "bug": "R5-contact-someone-else (control)"
+ },
+ {
+  "lang": "ru",
+  "q": "какой у вас номер телефона?",
+  "expected": [
+   "contact-details"
+  ],
+  "bug": "R5-contact-someone-else (control)"
+ },
+ {
+  "lang": "he",
+  "q": "מסעדות פתוחות בשבת",
+  "expected": "out-of-scope",
+  "bug": "R5-weekend-someone-else (another business open on Saturday)"
+ },
+ {
+  "lang": "he",
+  "q": "חנויות פתוחות בשישי",
+  "expected": "out-of-scope",
+  "bug": "R5-weekend-someone-else (another business open on Saturday)"
+ },
+ {
+  "lang": "ar",
+  "q": "الجيم فاتح يوم السبت؟",
+  "expected": "out-of-scope",
+  "bug": "R5-weekend-someone-else"
+ },
+ {
+  "lang": "ru",
+  "q": "рестораны открыты в субботу?",
+  "expected": "out-of-scope",
+  "bug": "R5-weekend-someone-else"
+ },
+ {
+  "lang": "en",
+  "q": "are restaurants open on saturday?",
+  "expected": "out-of-scope",
+  "bug": "R5-weekend-someone-else"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עובדים בשבת?",
+  "expected": "contact-friday-saturday",
+  "bug": "R5-weekend-someone-else (control)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת ג'קוזי",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "מחיר התקנת סאונה",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה להתקין ג'קוזי",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת סאונה",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת פרגולה",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת ממ\"ד",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת מעלית",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת פאנלים סולאריים",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת תריס חשמלי",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת רשת נגד יתושים",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת קמין",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת גגון",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת פח זבל",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת טרמפולינה",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת דשא סינטטי",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (the price of installing something we don't make: install alone is not our work)"
+ },
+ {
+  "lang": "en",
+  "q": "how much does it cost to install a boiler",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "how much to install a ceiling fan",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "how much to install a water heater",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "how much to install solar panels",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "how much to install an alarm system",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "how much to install blinds",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "how much to install a chandelier",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "how much to install a jacuzzi",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "how much to install wallpaper",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "how much to install gutters",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "how much is installation for a satellite dish",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "what is the cost of installing an elevator",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה להתקין boiler",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит установка boiler",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит установить бойлер",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "установка Windows сколько стоит?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит установка бойлера?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит установка антенны?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит установка сигнализации?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит установка счетчика?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит установка жалюзи?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит монтаж ламината?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "монтаж натяжного потолка цена",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит установка солнечных панелей?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش بكلف تركيب سخان",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر تركيب ويندوز؟",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر تركيب برنامج؟",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر تركيب ستلايت؟",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر تركيب سخان؟",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر تركيب الواح شمسية؟",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "skolko stoit ustanovka kondicionera?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-translit (Russian in Latin letters)"
+ },
+ {
+  "lang": "ru",
+  "q": "skolko stoit ustanovka unitaza?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-translit (Russian in Latin letters)"
+ },
+ {
+  "lang": "ru",
+  "q": "skolko stoit ustanovka bojlera?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-translit (Russian in Latin letters)"
+ },
+ {
+  "lang": "ru",
+  "q": "skolko stoit ustanovka televizora?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-translit (Russian in Latin letters)"
+ },
+ {
+  "lang": "ru",
+  "q": "skolko stoit ustanovka plitki?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-translit (Russian in Latin letters)"
+ },
+ {
+  "lang": "ru",
+  "q": "skolko stoit ustanovka okna?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-translit (Russian in Latin letters)"
+ },
+ {
+  "lang": "ru",
+  "q": "skolko stoit ustanovka kuhni?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-translit (Russian in Latin letters)"
+ },
+ {
+  "lang": "ru",
+  "q": "skolko stoit ustanovka windows?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-translit (Russian in Latin letters)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת מקלחון?",
+  "expected": [
+   "price-glass-installation-cost"
+  ],
+  "bug": "R5-install-price-foreign (control)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה כוס זכוכית",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price (glassware, optics: glass alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה אגרטל זכוכית",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price (glassware, optics: glass alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה צנצנת זכוכית",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price (glassware, optics: glass alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה פסל זכוכית",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price (glassware, optics: glass alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה חרוזי זכוכית",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price (glassware, optics: glass alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה קערת זכוכית",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price (glassware, optics: glass alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה זכוכית לנברשת",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price (glassware, optics: glass alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה זכוכית לפנס",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price (glassware, optics: glass alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה זכוכית למשקפת",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price (glassware, optics: glass alone is not our work)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה זכוכית לטלסקופ",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price (glassware, optics: glass alone is not our work)"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر مزهرية زجاج؟",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر قنينة زجاج للعصير؟",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر ابريق زجاج؟",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر طفاية زجاج؟",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر نرجيلة زجاج؟",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر صحن زجاج؟",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر خرز زجاج؟",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر حماية شاشة زجاج؟",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит стеклянная ваза?",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит стеклянный чайник?",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит стеклянная пепельница?",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ru",
+  "q": "почем стеклянные стаканы?",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит стекло для фары?",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит стеклянная банка?",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит стеклянный кальян?",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит стеклянная елочная игрушка?",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a glass eye prosthetic",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "en",
+  "q": "glass fiber internet in haifa price",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a glass vase?",
+  "expected": "out-of-scope",
+  "bug": "R5-glass-object-price"
+ },
+ {
+  "lang": "he",
+  "q": "כמה זמן לוקח להתקין מטבח",
+  "expected": "out-of-scope",
+  "bug": "R5-install-time-object (how long installing something else takes)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה זמן לוקח להתקין אמבטיה",
+  "expected": "out-of-scope",
+  "bug": "R5-install-time-object (how long installing something else takes)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה זמן לוקח להתקין שיש",
+  "expected": "out-of-scope",
+  "bug": "R5-install-time-object (how long installing something else takes)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה זמן לוקח להתקין חלון",
+  "expected": "handoff",
+  "bug": "R5-install-time-object (how long installing something else takes)"
+ },
+ {
+  "lang": "en",
+  "q": "how long does it take to install a kitchen?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-time-object"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько времени занимает установка кухни?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-time-object"
+ },
+ {
+  "lang": "he",
+  "q": "כמה זמן לוקח להתקין מקלחון?",
+  "expected": [
+   "process-installation-time"
+  ],
+  "bug": "R5-install-time-object (control)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנה של אמבטיה",
+  "expected": "handoff",
+  "bug": "R5-bathtub-install-price (a bathtub is not glass work)"
+ },
+ {
+  "lang": "en",
+  "q": "how much does it cost to install a bathtub?",
+  "expected": "handoff",
+  "bug": "R5-bathtub-install-price"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит установка ванны?",
+  "expected": "handoff",
+  "bug": "R5-bathtub-install-price"
+ },
+ {
+  "lang": "he",
+  "q": "תתקשרו אליי לגבי ההלוואה",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (the one word besides the request names another subject)"
+ },
+ {
+  "lang": "he",
+  "q": "אשמח שתחזרו אליי לגבי המשרה",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (the one word besides the request names another subject)"
+ },
+ {
+  "lang": "he",
+  "q": "תחזרו אליי לגבי הראיון",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (the one word besides the request names another subject)"
+ },
+ {
+  "lang": "he",
+  "q": "אשמח שתחזרו אליי לגבי הקורס",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (the one word besides the request names another subject)"
+ },
+ {
+  "lang": "he",
+  "q": "תתקשרו אליי לגבי הטיול",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (the one word besides the request names another subject)"
+ },
+ {
+  "lang": "he",
+  "q": "תתקשרו אליי לגבי הכלב",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (the one word besides the request names another subject)"
+ },
+ {
+  "lang": "he",
+  "q": "תתקשרו אליי לגבי האירוע",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (the one word besides the request names another subject)"
+ },
+ {
+  "lang": "he",
+  "q": "תחזרו אליי לגבי הגן",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (the one word besides the request names another subject)"
+ },
+ {
+  "lang": "he",
+  "q": "תתקשרו אליי לגבי הדירה",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (the one word besides the request names another subject)"
+ },
+ {
+  "lang": "en",
+  "q": "I want a quote for painting",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject"
+ },
+ {
+  "lang": "en",
+  "q": "I want a quote for plumbing",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject"
+ },
+ {
+  "lang": "en",
+  "q": "I need a quote for moving",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject"
+ },
+ {
+  "lang": "en",
+  "q": "I need a quote for a pergola",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject"
+ },
+ {
+  "lang": "en",
+  "q": "call me back about tiles",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject"
+ },
+ {
+  "lang": "ar",
+  "q": "رنولي بخصوص القرض",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject"
+ },
+ {
+  "lang": "he",
+  "q": "תתקשרו אליי לגבי המקלחון",
+  "expected": "quote",
+  "bug": "R5-callback-other-subject (control)"
+ },
+ {
+  "lang": "he",
+  "q": "תחזרו אליי מחר",
+  "expected": "quote",
+  "bug": "R5-callback-other-subject (control)"
+ },
+ {
+  "lang": "en",
+  "q": "call me back please, I'm in haifa",
+  "expected": "quote",
+  "bug": "R5-callback-other-subject (control)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים זכוכית לחלונות ראווה?",
+  "expected": [
+   "storefront-new-business-renovation",
+   "storefront-glass-type"
+  ],
+  "bug": "R5-storefront-new (a new shop window is not the emergency entry)"
+ },
+ {
+  "lang": "he",
+  "q": "צריך חלון ראווה חדש לחנות",
+  "expected": [
+   "storefront-new-business-renovation"
+  ],
+  "bug": "R5-storefront-new (a new shop window is not the emergency entry)"
+ },
+ {
+  "lang": "en",
+  "q": "do you do glass for shop windows?",
+  "expected": [
+   "storefront-new-business-renovation",
+   "storefront-glass-type"
+  ],
+  "bug": "R5-storefront-new"
+ },
+ {
+  "lang": "ru",
+  "q": "вы делаете стекло для витрин?",
+  "expected": [
+   "storefront-new-business-renovation",
+   "storefront-glass-type"
+  ],
+  "bug": "R5-storefront-new"
+ },
+ {
+  "lang": "he",
+  "q": "חלון ראווה לחנות",
+  "expected": [
+   "storefront-new-business-renovation"
+  ],
+  "bug": "R5-storefront-product-only (a product name alone matches every storefront entry alike)"
+ },
+ {
+  "lang": "he",
+  "q": "חלון ראווה חדש",
+  "expected": [
+   "storefront-new-business-renovation"
+  ],
+  "bug": "R5-storefront-product-only (a product name alone matches every storefront entry alike)"
+ },
+ {
+  "lang": "en",
+  "q": "shop window for my store",
+  "expected": [
+   "storefront-new-business-renovation"
+  ],
+  "bug": "R5-storefront-product-only"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים מדבקות לחלונות בבית?",
+  "expected": "handoff",
+  "bug": "R5-window-stickers (home window films are not a shop front)"
+ },
+ {
+  "lang": "he",
+  "q": "מדבקה לחלון בבית",
+  "expected": "handoff",
+  "bug": "R5-window-stickers (home window films are not a shop front)"
+ },
+ {
+  "lang": "he",
+  "q": "מדבקת פרטיות לחלון האמבטיה",
+  "expected": "handoff",
+  "bug": "R5-window-stickers (home window films are not a shop front)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מדביקים גם מדבקות על חלונות?",
+  "expected": "handoff",
+  "bug": "R5-window-stickers (home window films are not a shop front)"
+ },
+ {
+  "lang": "he",
+  "q": "מדבקת פרטיות לחלון",
+  "expected": "handoff",
+  "bug": "R5-window-stickers (home window films are not a shop front)"
+ },
+ {
+  "lang": "en",
+  "q": "do you put privacy film on home windows?",
+  "expected": "handoff",
+  "bug": "R5-window-stickers"
+ },
+ {
+  "lang": "ru",
+  "q": "клеите пленку на окна в квартире?",
+  "expected": "handoff",
+  "bug": "R5-window-stickers"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה זכוכית לתמונה",
+  "expected": "handoff",
+  "bug": "R5-photo-price (the photo is what they want priced, not how)"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر برواز للصورة؟",
+  "expected": "out-of-scope",
+  "bug": "R5-photo-price"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر برواز صور؟",
+  "expected": "out-of-scope",
+  "bug": "R5-photo-price"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر زجاج للصور؟",
+  "expected": "out-of-scope",
+  "bug": "R5-photo-price"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит фото?",
+  "expected": "out-of-scope",
+  "bug": "R5-photo-price"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a picture frame?",
+  "expected": "out-of-scope",
+  "bug": "R5-photo-price"
+ },
+ {
+  "lang": "he",
+  "q": "אפשר לקבל מחיר לפי תמונה?",
+  "expected": [
+   "price-without-visit",
+   "contact-send-photos"
+  ],
+  "bug": "R5-photo-price (control)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם חותכים זכוכית?",
+  "expected": "handoff",
+  "bug": "R5-do-you-verb (\"do you cut/clean glass?\" asks for a service, not how shards cut or how to clean)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מנקים זכוכית?",
+  "expected": "handoff",
+  "bug": "R5-do-you-verb (\"do you cut/clean glass?\" asks for a service, not how shards cut or how to clean)"
+ },
+ {
+  "lang": "en",
+  "q": "do you cut glass?",
+  "expected": "handoff",
+  "bug": "R5-do-you-verb"
+ },
+ {
+  "lang": "en",
+  "q": "do you clean glass?",
+  "expected": "handoff",
+  "bug": "R5-do-you-verb"
+ },
+ {
+  "lang": "ar",
+  "q": "بتقصوا زجاج؟",
+  "expected": "handoff",
+  "bug": "R5-do-you-verb"
+ },
+ {
+  "lang": "he",
+  "q": "איך מנקים את המראה באמבטיה",
+  "expected": "handoff",
+  "bug": "R5-mirror-care (a care question needs a care entry)"
+ },
+ {
+  "lang": "he",
+  "q": "איך מורידים דבק מהמראה",
+  "expected": "handoff",
+  "bug": "R5-mirror-care (a care question needs a care entry)"
+ },
+ {
+  "lang": "en",
+  "q": "how do i clean the bathroom mirror?",
+  "expected": "handoff",
+  "bug": "R5-mirror-care"
+ },
+ {
+  "lang": "en",
+  "q": "how do i remove glue from a mirror?",
+  "expected": "handoff",
+  "bug": "R5-mirror-care"
+ },
+ {
+  "lang": "ru",
+  "q": "как почистить зеркало в ванной?",
+  "expected": "handoff",
+  "bug": "R5-mirror-care"
+ },
+ {
+  "lang": "he",
+  "q": "כמה זמן עד שמגיע המקלחון אחרי המדידה",
+  "expected": [
+   "process-production-lead-time"
+  ],
+  "bug": "R5-after-measurement (time after the measurement is the production lead time)"
+ },
+ {
+  "lang": "en",
+  "q": "what's the lead time after you measure?",
+  "expected": [
+   "process-production-lead-time"
+  ],
+  "bug": "R5-after-measurement"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько ждать после замера?",
+  "expected": [
+   "process-production-lead-time"
+  ],
+  "bug": "R5-after-measurement"
+ },
+ {
+  "lang": "he",
+  "q": "אפשר לשלוח לכם את התיק עבודות שלי?",
+  "expected": "out-of-scope",
+  "bug": "R5-portfolio (a job seeker's portfolio)"
+ },
+ {
+  "lang": "en",
+  "q": "can I send you my portfolio?",
+  "expected": "out-of-scope",
+  "bug": "R5-portfolio"
+ },
+ {
+  "lang": "ru",
+  "q": "можно отправить вам мое портфолио?",
+  "expected": "out-of-scope",
+  "bug": "R5-portfolio"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים דלת זכוכית לארון?",
+  "expected": "handoff",
+  "bug": "R5-closet-door (a wardrobe or cabinet door is furniture, not our room door)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים דלתות זכוכית לארונות?",
+  "expected": "handoff",
+  "bug": "R5-closet-door (a wardrobe or cabinet door is furniture, not our room door)"
+ },
+ {
+  "lang": "he",
+  "q": "דלת הזזה לארון",
+  "expected": "handoff",
+  "bug": "R5-closet-door (a wardrobe or cabinet door is furniture, not our room door)"
+ },
+ {
+  "lang": "en",
+  "q": "do you make glass doors for a wardrobe?",
+  "expected": "handoff",
+  "bug": "R5-closet-door"
+ },
+ {
+  "lang": "ru",
+  "q": "делаете стеклянные дверцы для шкафа?",
+  "expected": "handoff",
+  "bug": "R5-closet-door"
+ },
+ {
+  "lang": "he",
+  "q": "אפשר להתקין מקלחון על אמבטיה?",
+  "expected": "handoff",
+  "bug": "R5-bathtub-screen (a bath screen is not the small-bathroom shower entry)"
+ },
+ {
+  "lang": "en",
+  "q": "can you put a glass screen on a bathtub?",
+  "expected": "handoff",
+  "bug": "R5-bathtub-screen"
+ },
+ {
+  "lang": "ru",
+  "q": "можно поставить стеклянную шторку на ванну?",
+  "expected": "handoff",
+  "bug": "R5-bathtub-screen"
+ },
+ {
+  "lang": "he",
+  "q": "המעקה זז כשנשענים עליו",
+  "expected": [
+   "warranty-problem-after-installation",
+   "safety-secure-installation"
+  ],
+  "bug": "R5-railing-moves (a defect report, not the general safety answer)"
+ },
+ {
+  "lang": "en",
+  "q": "the railing wobbles when you lean on it",
+  "expected": [
+   "warranty-problem-after-installation",
+   "safety-secure-installation"
+  ],
+  "bug": "R5-railing-moves"
+ },
+ {
+  "lang": "ru",
+  "q": "перила шатаются, когда на них опираешься",
+  "expected": [
+   "warranty-problem-after-installation",
+   "safety-secure-installation"
+  ],
+  "bug": "R5-railing-moves"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي عرض سعر لبلاط الحمام",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-tiles (tiles and rooms are not our work)"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي عرض سعر لبلاط المطبخ",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-tiles (tiles and rooms are not our work)"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي تسعيرة لتركيب بلاط",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-tiles (tiles and rooms are not our work)"
+ },
+ {
+  "lang": "ar",
+  "q": "رنولي بخصوص بلاط الحمام",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-tiles (tiles and rooms are not our work)"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي حدا يجي يقيس الحمام لبلاط",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-tiles (tiles and rooms are not our work)"
+ },
+ {
+  "lang": "ar",
+  "q": "bdi 3ard si3r la blat el 7ammam",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-tiles (tiles and rooms are not our work)"
+ },
+ {
+  "lang": "ru",
+  "q": "пришлите смету на укладку плитки",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-tiles"
+ },
+ {
+  "lang": "ru",
+  "q": "перезвоните мне насчет плитки",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-tiles"
+ },
+ {
+  "lang": "he",
+  "q": "אני רוצה הצעת מחיר לריצוף האמבטיה",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-tiles"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي عرض سعر لتركيب ويندوز",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-install-foreign (install/glass words alone are not our work in a quote request)"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي عرض سعر لتركيب سخان",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-install-foreign (install/glass words alone are not our work in a quote request)"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي عرض سعر لتركيب الواح شمسية",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-install-foreign (install/glass words alone are not our work in a quote request)"
+ },
+ {
+  "lang": "ar",
+  "q": "ابعتولي تسعيرة لتركيب ستلايت",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-install-foreign (install/glass words alone are not our work in a quote request)"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي عرض سعر لفازة زجاج",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-install-foreign (install/glass words alone are not our work in a quote request)"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي عرض سعر لكاسات زجاج",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-install-foreign (install/glass words alone are not our work in a quote request)"
+ },
+ {
+  "lang": "ru",
+  "q": "хочу смету на ламинат",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-install-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "хочу смету на бойлер",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-install-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "хочу смету на жалюзи",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-install-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "нужна смета на установку бойлера",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-install-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "хочу расчет стоимости монтажа ламината",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-install-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "нужна смета на стеклянную вазу",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-install-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "нужна смета на шторы",
+  "expected": "handoff",
+  "bug": "R5-quote-install-foreign"
+ },
+ {
+  "lang": "ru",
+  "q": "нужна смета на пергола",
+  "expected": "handoff",
+  "bug": "R5-quote-install-foreign"
+ },
+ {
+  "lang": "en",
+  "q": "I want a quote for installing a boiler",
+  "expected": "out-of-scope",
+  "bug": "R5-quote-install-foreign"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي عرض سعر لدرابزين زجاج",
+  "expected": "quote",
+  "bug": "R5-quote-install-foreign (control)"
+ },
+ {
+  "lang": "ru",
+  "q": "хочу смету на стеклянные перила",
+  "expected": "quote",
+  "bug": "R5-quote-install-foreign (control)"
+ },
+ {
+  "lang": "ru",
+  "q": "нужен замер давления",
+  "expected": "out-of-scope",
+  "bug": "R5-maybe-quote (a measurement or estimate of something else)"
+ },
+ {
+  "lang": "ru",
+  "q": "нужен замер для натяжного потолка",
+  "expected": "out-of-scope",
+  "bug": "R5-maybe-quote (a measurement or estimate of something else)"
+ },
+ {
+  "lang": "ru",
+  "q": "нужен замер для ламината?",
+  "expected": "out-of-scope",
+  "bug": "R5-maybe-quote (a measurement or estimate of something else)"
+ },
+ {
+  "lang": "ru",
+  "q": "нужен ли замер для штор?",
+  "expected": "out-of-scope",
+  "bug": "R5-maybe-quote (a measurement or estimate of something else)"
+ },
+ {
+  "lang": "ru",
+  "q": "нужен замер для жалюзи",
+  "expected": "out-of-scope",
+  "bug": "R5-maybe-quote (a measurement or estimate of something else)"
+ },
+ {
+  "lang": "ru",
+  "q": "нужна смета для банка?",
+  "expected": "handoff",
+  "bug": "R5-maybe-quote (a measurement or estimate of something else)"
+ },
+ {
+  "lang": "ar",
+  "q": "بدي حدا يجي يقيس الستاير",
+  "expected": "out-of-scope",
+  "bug": "R5-maybe-quote"
+ },
+ {
+  "lang": "he",
+  "q": "צריך מדידה ללחץ דם",
+  "expected": "out-of-scope",
+  "bug": "R5-maybe-quote"
+ },
+ {
+  "lang": "en",
+  "q": "need a measurement for blinds",
+  "expected": "out-of-scope",
+  "bug": "R5-maybe-quote"
+ },
+ {
+  "lang": "ar",
+  "q": "وصلني اتصال من 0541234567",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R5-past-call (a call the visitor got, in other word orders)"
+ },
+ {
+  "lang": "ar",
+  "q": "مبارح اتصل فيي حدا من 0541234567",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R5-past-call (a call the visitor got, in other word orders)"
+ },
+ {
+  "lang": "ar",
+  "q": "اتصل فيي حدا من 0541234567 بخصوص قرض",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R5-past-call (a call the visitor got, in other word orders)"
+ },
+ {
+  "lang": "ar",
+  "q": "etasalu fiye mn 0541234567 mbare7",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R5-past-call (a call the visitor got, in other word orders)"
+ },
+ {
+  "lang": "ru",
+  "q": "мне звонил кто-то с 0541234567",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R5-past-call"
+ },
+ {
+  "lang": "ru",
+  "q": "вчера мне позвонили с 0541234567 насчет кредита",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R5-past-call"
+ },
+ {
+  "lang": "ru",
+  "q": "mne zvonili s 0541234567",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R5-past-call"
+ },
+ {
+  "lang": "en",
+  "q": "someone called me from 0541234567",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R5-past-call"
+ },
+ {
+  "lang": "ru",
+  "q": "я мастер по установке стекла, мой номер 0541234567",
+  "expected": "out-of-scope",
+  "bug": "R5-tradesperson-number (an installer introducing themselves with a number)"
+ },
+ {
+  "lang": "ar",
+  "q": "انا فني تركيب، رقمي 0541234567",
+  "expected": "out-of-scope",
+  "bug": "R5-tradesperson-number"
+ },
+ {
+  "lang": "he",
+  "q": "אני מתקין זכוכית, המספר שלי 0541234567",
+  "expected": "out-of-scope",
+  "bug": "R5-tradesperson-number"
+ },
+ {
+  "lang": "ru",
+  "q": "мой номер 0541234567, хочу узнать про кредит",
+  "expected": "out-of-scope",
+  "bug": "R5-number-other-subject (a phone number does not make a loan question ours)"
+ },
+ {
+  "lang": "ar",
+  "q": "هاد رقمي 0541234567 بدي اسأل عن قرض",
+  "expected": "out-of-scope",
+  "bug": "R5-number-other-subject"
+ },
+ {
+  "lang": "en",
+  "q": "call me 052-765-4321 about a pizza order",
+  "expected": "out-of-scope",
+  "bug": "R5-number-other-subject"
+ },
+ {
+  "lang": "en",
+  "q": "I need a website, call me 0501234567",
+  "expected": "out-of-scope",
+  "bug": "R5-number-other-subject"
+ },
+ {
+  "lang": "en",
+  "q": "my number is 0521234567, call me about the apartment for rent",
+  "expected": "out-of-scope",
+  "bug": "R5-number-other-subject"
+ },
+ {
+  "lang": "en",
+  "q": "call me back about the mortgage 0541234567",
+  "expected": "out-of-scope",
+  "bug": "R5-number-other-subject"
+ },
+ {
+  "lang": "en",
+  "q": "0541234567 interested in yoga classes",
+  "expected": "out-of-scope",
+  "bug": "R5-number-other-subject"
+ },
+ {
+  "lang": "he",
+  "q": "תתקשרו אליי 0541234567 לגבי המשכנתא",
+  "expected": "out-of-scope",
+  "bug": "R5-number-other-subject"
+ },
+ {
+  "lang": "en",
+  "q": "call me 0541234567 about a shower",
+  "expected": "quote",
+  "bug": "R5-number-other-subject (control)"
+ },
+ {
+  "lang": "he",
+  "q": "0541234567",
+  "expected": "quote",
+  "bug": "R5-number-other-subject (control)"
+ },
+ {
+  "lang": "ru",
+  "q": "перила из нержавейки делаете?",
+  "expected": "handoff",
+  "bug": "R5-railing-material (a stainless or aluminium railing without glass)"
+ },
+ {
+  "lang": "ru",
+  "q": "а перила из нержавейки делаете?",
+  "expected": "handoff",
+  "bug": "R5-railing-material (a stainless or aluminium railing without glass)"
+ },
+ {
+  "lang": "ru",
+  "q": "вы делаете перила из нержавейки без стекла?",
+  "expected": "handoff",
+  "bug": "R5-railing-material (a stainless or aluminium railing without glass)"
+ },
+ {
+  "lang": "ar",
+  "q": "بتعملوا درابزين المنيوم؟",
+  "expected": "handoff",
+  "bug": "R5-railing-material"
+ },
+ {
+  "lang": "en",
+  "q": "do you make aluminium railings?",
+  "expected": "handoff",
+  "bug": "R5-railing-material"
+ },
+ {
+  "lang": "ru",
+  "q": "вы делаете лестницы?",
+  "expected": "handoff",
+  "bug": "R5-stairs (stairs themselves are not ours)"
+ },
+ {
+  "lang": "ru",
+  "q": "вы делаете ступени для лестницы?",
+  "expected": "handoff",
+  "bug": "R5-stairs (stairs themselves are not ours)"
+ },
+ {
+  "lang": "ar",
+  "q": "بتعملوا سلالم؟",
+  "expected": "handoff",
+  "bug": "R5-stairs"
+ },
+ {
+  "lang": "ar",
+  "q": "بتعملوا درج؟",
+  "expected": "handoff",
+  "bug": "R5-stairs"
+ },
+ {
+  "lang": "en",
+  "q": "do you build stairs?",
+  "expected": "handoff",
+  "bug": "R5-stairs"
+ },
+ {
+  "lang": "he",
+  "q": "אתם בונים מדרגות?",
+  "expected": "handoff",
+  "bug": "R5-stairs"
+ },
+ {
+  "lang": "en",
+  "q": "glass railing for the stairs",
+  "expected": [
+   "railing-stairs"
+  ],
+  "bug": "R5-stairs (control)"
+ },
+ {
+  "lang": "ar",
+  "q": "بتقصوا زجاج عالقياس؟",
+  "expected": "handoff",
+  "bug": "R5-cut-to-size (no product named: not the mirror entry)"
+ },
+ {
+  "lang": "en",
+  "q": "do you cut glass to size?",
+  "expected": "handoff",
+  "bug": "R5-cut-to-size"
+ },
+ {
+  "lang": "ru",
+  "q": "вы делаете звукоизоляцию стен?",
+  "expected": "handoff",
+  "bug": "R5-soundproof-walls (soundproofing walls is another trade)"
+ },
+ {
+  "lang": "en",
+  "q": "do you soundproof walls?",
+  "expected": "handoff",
+  "bug": "R5-soundproof-walls"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים בידוד אקוסטי לקירות?",
+  "expected": "handoff",
+  "bug": "R5-soundproof-walls"
+ },
+ {
+  "lang": "ru",
+  "q": "где почитать отзывы о враче?",
+  "expected": "out-of-scope",
+  "bug": "R5-reviews-someone-else (reviews of a doctor)"
+ },
+ {
+  "lang": "en",
+  "q": "where can I read reviews about a doctor?",
+  "expected": "out-of-scope",
+  "bug": "R5-reviews-someone-else"
+ },
+ {
+  "lang": "he",
+  "q": "איפה אפשר לקרוא ביקורות על רופא?",
+  "expected": "out-of-scope",
+  "bug": "R5-reviews-someone-else"
+ },
+ {
+  "lang": "ru",
+  "q": "дверца шкафа не закрывается",
+  "expected": "out-of-scope",
+  "bug": "R5-cupboard-door (a cupboard door is furniture)"
+ },
+ {
+  "lang": "en",
+  "q": "the cupboard door won't close",
+  "expected": "out-of-scope",
+  "bug": "R5-cupboard-door"
+ },
+ {
+  "lang": "he",
+  "q": "דלת הארון לא נסגרת",
+  "expected": "out-of-scope",
+  "bug": "R5-cupboard-door"
+ },
+ {
+  "lang": "ru",
+  "q": "у меня сломалась ручка двери",
+  "expected": "handoff",
+  "bug": "R5-door-handle (nothing says we installed it)"
+ },
+ {
+  "lang": "en",
+  "q": "my door handle broke",
+  "expected": "handoff",
+  "bug": "R5-door-handle"
+ },
+ {
+  "lang": "ar",
+  "q": "بتعملوا صيانة للشاور؟",
+  "expected": "handoff",
+  "bug": "R5-maintenance-service (a maintenance service, not cleaning instructions)"
+ },
+ {
+  "lang": "en",
+  "q": "do you service showers?",
+  "expected": "handoff",
+  "bug": "R5-maintenance-service"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים תחזוקה למקלחונים?",
+  "expected": "handoff",
+  "bug": "R5-maintenance-service"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "is there a good dentist in tel aviv?"
+  ],
+  "q": "and in haifa?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (a city follow-up of a question that isn't ours)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "best hummus in akko"
+  ],
+  "q": "what about jerusalem?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (a city follow-up of a question that isn't ours)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "how much is a pizza in tel aviv?"
+  ],
+  "q": "haifa?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (a city follow-up of a question that isn't ours)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "how much is a hotel room in tel aviv"
+  ],
+  "q": "in eilat?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (a city follow-up of a question that isn't ours)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "how long is the drive from tel aviv to haifa"
+  ],
+  "q": "and eilat?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (a city follow-up of a question that isn't ours)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "how long is the drive from tel aviv to haifa"
+  ],
+  "q": "and to eilat?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (a city follow-up of a question that isn't ours)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "how much is a beer in tel aviv?"
+  ],
+  "q": "and in eilat?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (a city follow-up of a question that isn't ours)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "yoga classes in tel aviv"
+  ],
+  "q": "and in haifa?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (a city follow-up of a question that isn't ours)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "rooftop bar in tel aviv"
+  ],
+  "q": "and in haifa?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (a city follow-up of a question that isn't ours)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "where can I park in tel aviv?"
+  ],
+  "q": "and in haifa?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (a city follow-up of a question that isn't ours)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "how's the traffic in tel aviv today"
+  ],
+  "q": "and haifa?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (a city follow-up of a question that isn't ours)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "any good sushi place in herzliya?"
+  ],
+  "q": "what about netanya?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (a city follow-up of a question that isn't ours)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "any good shawarma in tel aviv?"
+  ],
+  "q": "and in jerusalem?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (a city follow-up of a question that isn't ours)"
+ },
+ {
+  "lang": "he",
+  "history": [
+   "איפה יש חומוס טוב בעכו?"
+  ],
+  "q": "ובחיפה?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up"
+ },
+ {
+  "lang": "ru",
+  "history": [
+   "где хороший стоматолог в Тель-Авиве?"
+  ],
+  "q": "а в Хайфе?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up"
+ },
+ {
+  "lang": "ar",
+  "history": [
+   "وين في مطعم منيح بعكا؟"
+  ],
+  "q": "وبحيفا؟",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "do you work in tel aviv?"
+  ],
+  "q": "and in haifa?",
+  "expected": [
+   "areas-city"
+  ],
+  "bug": "R5-city-follow-up (control)"
+ },
+ {
+  "lang": "en",
+  "q": "how much does a painter charge per square meter",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (another trade's price per square meter)"
+ },
+ {
+  "lang": "en",
+  "q": "how much does an architect charge per square meter",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (another trade's price per square meter)"
+ },
+ {
+  "lang": "en",
+  "q": "how much does a tiler charge per square meter",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (another trade's price per square meter)"
+ },
+ {
+  "lang": "en",
+  "q": "how much does a designer charge per square meter",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (another trade's price per square meter)"
+ },
+ {
+  "lang": "en",
+  "q": "how much does a builder charge per square meter",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (another trade's price per square meter)"
+ },
+ {
+  "lang": "en",
+  "q": "how much does a cleaner charge per square meter",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (another trade's price per square meter)"
+ },
+ {
+  "lang": "en",
+  "q": "how much does a roofer charge per square meter",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (another trade's price per square meter)"
+ },
+ {
+  "lang": "en",
+  "q": "what does a gardener charge per square meter",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (another trade's price per square meter)"
+ },
+ {
+  "lang": "en",
+  "q": "how much do contractors charge per square meter",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (another trade's price per square meter)"
+ },
+ {
+  "lang": "en",
+  "q": "price per square meter for painting",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (another trade's price per square meter)"
+ },
+ {
+  "lang": "en",
+  "q": "how much per square meter for a renovation",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (another trade's price per square meter)"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a square meter in haifa",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (another trade's price per square meter)"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько берет painter за квадратный метр",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько берет плиточник за квадратный метр",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter"
+ },
+ {
+  "lang": "he",
+  "q": "כמה לוקח צבעי למטר מרובע",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter"
+ },
+ {
+  "lang": "en",
+  "q": "how much do you charge per square meter of glass?",
+  "expected": [
+   "price-per-meter"
+  ],
+  "bug": "R5-trade-per-meter (control)"
+ },
+ {
+  "lang": "en",
+  "q": "store hours?",
+  "expected": [
+   "contact-hours"
+  ],
+  "bug": "R5-store-hours (\"store hours\" asks our opening hours)"
+ },
+ {
+  "lang": "en",
+  "q": "store hours",
+  "expected": [
+   "contact-hours"
+  ],
+  "bug": "R5-store-hours (\"store hours\" asks our opening hours)"
+ },
+ {
+  "lang": "en",
+  "q": "what are the store hours",
+  "expected": [
+   "contact-hours"
+  ],
+  "bug": "R5-store-hours (\"store hours\" asks our opening hours)"
+ },
+ {
+  "lang": "he",
+  "q": "store hours",
+  "expected": [
+   "contact-hours"
+  ],
+  "bug": "R5-store-hours (\"store hours\" asks our opening hours)"
+ },
+ {
+  "lang": "en",
+  "q": "do you also do the plumbing for the shower?",
+  "expected": "handoff",
+  "bug": "R5-plumbing (plumbing is another trade)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים גם אינסטלציה למקלחת?",
+  "expected": "handoff",
+  "bug": "R5-plumbing"
+ },
+ {
+  "lang": "en",
+  "q": "do you sell glass to other glaziers?",
+  "expected": "handoff",
+  "bug": "R5-sell-to-glaziers (selling glass to other glaziers)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מוכרים זכוכית לזגגים אחרים?",
+  "expected": "handoff",
+  "bug": "R5-sell-to-glaziers"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "do you sell car insurance?"
+  ],
+  "q": "call me",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-follow-up (\"call me\" after an off-topic question)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "how much is a pizza?"
+  ],
+  "q": "ok call me back",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-follow-up (\"call me\" after an off-topic question)"
+ },
+ {
+  "lang": "he",
+  "history": [
+   "אתם מוכרים ביטוח רכב?"
+  ],
+  "q": "תתקשרו אליי",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-follow-up"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "how much is a glass shower?"
+  ],
+  "q": "call me",
+  "expected": "quote",
+  "bug": "R5-callback-follow-up (control)"
+ },
+ {
+  "lang": "en",
+  "history": [
+   "how much is a shower in tel aviv?"
+  ],
+  "q": "and in haifa?",
+  "expected": [
+   "price-glass-installation-cost"
+  ],
+  "bug": "R5-price-city-follow-up (a price follow-up that names a city is still a price question)"
+ },
+ {
+  "lang": "he",
+  "history": [
+   "כמה עולה מקלחון בתל אביב?"
+  ],
+  "q": "ובחיפה?",
+  "expected": [
+   "price-glass-installation-cost"
+  ],
+  "bug": "R5-price-city-follow-up"
+ },
+ {
+  "lang": "en",
+  "q": "do you do glass shelves for a shop display?",
+  "expected": [
+   "shelves-floating-thickness"
+  ],
+  "bug": "R5-shelves-display (\"do you do glass shelves for a shop display?\")"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים מדפי זכוכית לתצוגה בחנות?",
+  "expected": [
+   "shelves-floating-thickness"
+  ],
+  "bug": "R5-shelves-display"
+ },
+ {
+  "lang": "en",
+  "q": "shower curtain or glass?",
+  "expected": "handoff",
+  "bug": "R5-curtain-or-glass (nothing about a small bathroom)"
+ },
+ {
+  "lang": "he",
+  "q": "וילון או מקלחון?",
+  "expected": "handoff",
+  "bug": "R5-curtain-or-glass"
+ },
+ {
+  "lang": "he",
+  "q": "אתם שוברים זכוכית?",
+  "expected": "handoff",
+  "bug": "R5-do-you-verb (borderline: \"do you break glass?\" is not the tempered-glass breakage entry)"
+ },
+ {
+  "lang": "he",
+  "q": "מה שעות הפתיחה של הדואר המרכזי",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "שעות פתיחה של סניף הבנק",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "שעות קבלה של רופא המשפחה",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "שעות פעילות של הספא",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "שעות פתיחה של גן החיות",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "מספר הטלפון של המוסך",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "מה הטלפון של בית החולים",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "מספר טלפון של מונית",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "מה המייל של העירייה",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "הקניון פתוח בשבת?",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "הבריכה פתוחה בשישי?",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "מתי פותחים את הספרייה?",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "מה שעות הפעילות שלכם בשישי?",
+  "expected": [
+   "contact-hours",
+   "contact-friday-saturday"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "עד מתי אתם פתוחים היום?",
+  "expected": [
+   "contact-hours",
+   "contact-friday-saturday"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "שעות פתיחה בשישי?",
+  "expected": [
+   "contact-hours",
+   "contact-friday-saturday"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "מה מספר הוואטסאפ שלכם?",
+  "expected": [
+   "contact-details",
+   "contact-whatsapp"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "טלפון?",
+  "expected": [
+   "contact-details",
+   "contact-whatsapp"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "פתוחים בשישי?",
+  "expected": [
+   "contact-friday-saturday",
+   "contact-hours"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "opening hours of the dentist",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "phone number of the hotel",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "what's the email of the municipality",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "hours of the swimming pool",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "is the mall open on saturday?",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "what time does the library close?",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "phone number for the pizza place",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "what are your hours on friday?",
+  "expected": [
+   "contact-hours",
+   "contact-friday-saturday"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "opening hours?",
+  "expected": [
+   "contact-hours",
+   "contact-friday-saturday"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "what's your phone number?",
+  "expected": [
+   "contact-details"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "do you work on saturdays?",
+  "expected": [
+   "contact-friday-saturday"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "ساعات الدوام في البنك",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "رقم تلفون الفندق",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "ايميل البلديه",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "المطاعم فاتحه يوم السبت؟",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "ساعات الدوام بالمستشفى",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "شو ساعات الدوام تبعكم؟",
+  "expected": [
+   "contact-hours"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "رقم تلفونكم؟",
+  "expected": [
+   "contact-details"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "часы работы почты",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "телефон гостиницы",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "часы работы стоматологии",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "магазины работают в субботу?",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "номер телефона больницы",
+  "expected": "out-of-scope",
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "до скольки вы работаете в пятницу?",
+  "expected": [
+   "contact-hours",
+   "contact-friday-saturday"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "ваш телефон?",
+  "expected": [
+   "contact-details"
+  ],
+  "bug": "R5-hours-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת מזגן",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה להתקין דוד",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "מחיר התקנת מטבח",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת תאורה",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה זמן לוקח להתקין מזגן",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה בקבוק זכוכית",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת פרגולה מעץ",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה התקנת מעקה?",
+  "expected": [
+   "railing-price-per-meter",
+   "price-glass-installation-cost"
+  ],
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "how much to install a kitchen",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "cost to install a dishwasher",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "price to install a ceiling light",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "how long to install a dishwasher?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a glass bowl",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "how long does installing a window take?",
+  "expected": "handoff",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "how long does installation take?",
+  "expected": [
+   "process-installation-time"
+  ],
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش بياخد وقت تركيب المطبخ؟",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر كاسة زجاج",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر تركيب مكيف؟",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر تركيب مراية؟",
+  "expected": [
+   "mirror-wall-price",
+   "price-glass-installation-cost",
+   "mirror-custom-size"
+  ],
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит стеклянная тарелка",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит установка кухни?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит установка люстры?",
+  "expected": "out-of-scope",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько времени занимает установка окна?",
+  "expected": "handoff",
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит установка зеркала?",
+  "expected": [
+   "mirror-wall-price",
+   "price-glass-installation-cost",
+   "mirror-custom-size"
+  ],
+  "bug": "R5-install-price-foreign (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "תחזרו אליי בעניין ההלוואה",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "תתקשרו אליי בקשר לביטוח",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "0541234567 בקשר להלוואה",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "054-1234567 לגבי הדירה להשכרה",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "תתקשרו אליי לגבי מעקה זכוכית",
+  "expected": "quote",
+  "bug": "R5-callback-other-subject (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "דני 0541234567",
+  "expected": "quote",
+  "bug": "R5-callback-other-subject (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "תחזרו אליי, שמי דני",
+  "expected": "quote",
+  "bug": "R5-callback-other-subject (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "call me back about my loan",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "call me about the job",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "call me back about the glass railing",
+  "expected": "quote",
+  "bug": "R5-callback-other-subject (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "my number 0541234567 call me about the shower",
+  "expected": "quote",
+  "bug": "R5-callback-other-subject (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "перезвоните насчет кредита",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "رنولي بخصوص الشغل",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-other-subject (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "התקשרו אליי אתמול מ-0541234567",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R5-past-call (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "מי זה 0541234567? התקשרו אליי",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R5-past-call (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "got a call from 0541234567 is that you?",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R5-past-call (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "حدا رن علي من 0541234567",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R5-past-call (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "вчера звонили с номера 0541234567",
+  "expected": "handoff",
+  "forbid": [
+   "quote"
+  ],
+  "bug": "R5-past-call (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "אני מתקין מקלחונים, הטלפון שלי 0541234567",
+  "expected": "out-of-scope",
+  "bug": "R5-tradesperson-number (a trade named with a number, nothing asked)"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a photo frame?",
+  "expected": "out-of-scope",
+  "bug": "R5-photo-price (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "how much to frame a picture",
+  "expected": "out-of-scope",
+  "bug": "R5-photo-price (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה עולה מסגרת לתמונה",
+  "expected": "out-of-scope",
+  "bug": "R5-photo-price (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит рамка для фото?",
+  "expected": "out-of-scope",
+  "bug": "R5-photo-price (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش سعر طباعة صور",
+  "expected": "out-of-scope",
+  "bug": "R5-photo-price (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "can I get a price from a photo?",
+  "expected": [
+   "price-without-visit",
+   "contact-send-photos"
+  ],
+  "bug": "R5-photo-price (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "אפשר לשלוח תמונה ולקבל מחיר?",
+  "expected": [
+   "price-without-visit",
+   "contact-send-photos"
+  ],
+  "bug": "R5-photo-price (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "можно цену по фото?",
+  "expected": [
+   "price-without-visit",
+   "contact-send-photos"
+  ],
+  "bug": "R5-photo-price (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מלטשים זכוכית?",
+  "expected": "handoff",
+  "bug": "R5-do-you-verb (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "do you polish glass?",
+  "expected": "handoff",
+  "bug": "R5-do-you-verb (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "вы режете стекло?",
+  "expected": "handoff",
+  "bug": "R5-do-you-verb (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "بتنظفوا زجاج؟",
+  "expected": "handoff",
+  "bug": "R5-do-you-verb (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "איך מנקים זכוכית של מקלחון?",
+  "expected": [
+   "maintenance-clean-shower-doors",
+   "maintenance-products-to-avoid"
+  ],
+  "bug": "R5-do-you-verb (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "how do I clean my glass railing?",
+  "expected": [
+   "maintenance-railing-cleaning"
+  ],
+  "bug": "R5-do-you-verb (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "איך מנקים מראה בלי פסים?",
+  "expected": "handoff",
+  "bug": "R5-mirror-care (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "how to clean a mirror without streaks",
+  "expected": "handoff",
+  "bug": "R5-mirror-care (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "كيف بنظف المراية؟",
+  "expected": "handoff",
+  "bug": "R5-mirror-care (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "דלת זכוכית לארון הבגדים",
+  "expected": "handoff",
+  "bug": "R5-closet-door (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "glass sliding doors for my closet",
+  "expected": "handoff",
+  "bug": "R5-closet-door (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "стеклянная дверь для шкафа",
+  "expected": "handoff",
+  "bug": "R5-closet-door (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "باب زجاج للخزانه",
+  "expected": "handoff",
+  "bug": "R5-closet-door (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "glass door for the walk-in closet",
+  "expected": [
+   "doors-types-options"
+  ],
+  "bug": "R5-closet-door (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "do you install staircases?",
+  "expected": "handoff",
+  "bug": "R5-stairs (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים מדרגות?",
+  "expected": "handoff",
+  "bug": "R5-stairs (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "بتركبوا درج؟",
+  "expected": "handoff",
+  "bug": "R5-stairs (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים בידוד רעשים לדירה?",
+  "expected": "handoff",
+  "bug": "R5-soundproof-walls (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "بتعملوا عزل صوت للحيطان؟",
+  "expected": "handoff",
+  "bug": "R5-soundproof-walls (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "is a glass partition soundproof?",
+  "expected": [
+   "partition-acoustic"
+  ],
+  "bug": "R5-soundproof-walls (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "reviews of restaurants in haifa",
+  "expected": "out-of-scope",
+  "bug": "R5-reviews-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "ביקורות על מסעדות בחיפה",
+  "expected": "out-of-scope",
+  "bug": "R5-reviews-someone-else (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "وين بلاقي تقييمات عن دكتور اسنان؟",
+  "expected": "out-of-scope",
+  "bug": "R5-reviews-someone-else (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "where can I see your reviews?",
+  "expected": [
+   "company-reviews"
+  ],
+  "bug": "R5-reviews-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "יש לכם ביקורות?",
+  "expected": [
+   "company-reviews"
+  ],
+  "bug": "R5-reviews-someone-else (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "כמה לוקח רצף למטר",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "сколько стоит покраска за квадратный метр?",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "قديش بياخد الدهين عالمتر؟",
+  "expected": "out-of-scope",
+  "bug": "R5-trade-per-meter (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "how much is a glass railing per meter?",
+  "expected": [
+   "railing-price-per-meter"
+  ],
+  "bug": "R5-trade-per-meter (variants)"
+ },
+ {
+  "lang": "he",
+  "history": [
+   "איפה אפשר לחנות בתל אביב?"
+  ],
+  "q": "ובחיפה?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (\"לחנות\" after \"where can I\" is to park, not to the shop)"
+ },
+ {
+  "lang": "ar",
+  "history": [
+   "وين في دكتور اسنان منيح بحيفا؟"
+  ],
+  "q": "وبعكا؟",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (variants)"
+ },
+ {
+  "lang": "ru",
+  "history": [
+   "где поесть в Хайфе?"
+  ],
+  "q": "а в Тель-Авиве?",
+  "expected": "out-of-scope",
+  "bug": "R5-city-follow-up (variants)"
+ },
+ {
+  "lang": "he",
+  "history": [
+   "אתם עובדים בתל אביב?"
+  ],
+  "q": "ובחיפה?",
+  "expected": [
+   "areas-city"
+  ],
+  "bug": "R5-city-follow-up (variants)"
+ },
+ {
+  "lang": "ru",
+  "history": [
+   "вы работаете в Хайфе?"
+  ],
+  "q": "а в Тель-Авиве?",
+  "expected": [
+   "areas-city"
+  ],
+  "bug": "R5-city-follow-up (variants)"
+ },
+ {
+  "lang": "he",
+  "history": [
+   "כמה עולה פיצה?"
+  ],
+  "q": "תחזרו אליי",
+  "expected": "out-of-scope",
+  "bug": "R5-callback-follow-up (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "privacy film for my bedroom window",
+  "expected": "handoff",
+  "bug": "R5-window-stickers (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "матовая пленка на окно",
+  "expected": "handoff",
+  "bug": "R5-window-stickers (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "ستيكر للشباك",
+  "expected": "handoff",
+  "bug": "R5-window-stickers (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "glass screen for the bathtub",
+  "expected": "handoff",
+  "bug": "R5-bathtub-screen (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "زجاج على البانيو",
+  "expected": "handoff",
+  "bug": "R5-bathtub-screen (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "вы делаете сантехнику?",
+  "expected": "handoff",
+  "bug": "R5-plumbing (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "بتعملوا سباكه للحمام؟",
+  "expected": "handoff",
+  "bug": "R5-plumbing (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם עושים מעקות אלומיניום?",
+  "expected": "handoff",
+  "bug": "R5-railing-material (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "do you do stainless steel railings?",
+  "expected": "handoff",
+  "bug": "R5-railing-material (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "הידית של הדלת נשברה",
+  "expected": "handoff",
+  "bug": "R5-door-handle (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "the door handle is broken",
+  "expected": "handoff",
+  "bug": "R5-door-handle (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "ستارة ولا كابينة زجاج؟",
+  "expected": "handoff",
+  "bug": "R5-curtain-or-glass (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "אתם מוכרים זכוכית בסיטונאות?",
+  "expected": "handoff",
+  "bug": "R5-sell-to-glaziers (variants)"
+ },
+ {
+  "lang": "ru",
+  "q": "продаете стекло оптом?",
+  "expected": "handoff",
+  "bug": "R5-sell-to-glaziers (variants)"
+ },
+ {
+  "lang": "he",
+  "q": "אחרי שמדדתם מתי מגיעים להתקין?",
+  "expected": [
+   "process-production-lead-time"
+  ],
+  "bug": "R5-after-measurement (variants)"
+ },
+ {
+  "lang": "ar",
+  "q": "كم يوم بعد القياس بيجهز الزجاج؟",
+  "expected": [
+   "process-production-lead-time"
+  ],
+  "bug": "R5-after-measurement (variants)"
+ },
+ {
+  "lang": "en",
+  "q": "how long after measuring until installation?",
+  "expected": [
+   "process-production-lead-time"
+  ],
+  "bug": "R5-after-measurement (variants)"
+ }
+]

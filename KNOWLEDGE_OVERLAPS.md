@@ -129,7 +129,9 @@ Results of the assistant's own engine (no AI), before → after:
 | Blind Hebrew batch (63, never used for tuning) | 90.5% (0 wrong) | 90.5% (0 wrong) |
 | Off-topic questions answered as if they were ours | 0 | 0 |
 
-Hebrew held-out is now 10 of 12; one more would pass the 85% goal. The merges and links above remove the cases where the assistant cannot know which of two near-identical entries you meant.
+_Correction: the Hebrew held-out rise (75.0 → 83.3, "10 of 12") came only from one new example question that copied a held-out question ("צמר פלדה על זכוכית מותר?"). It has been removed, so this work did not change the Hebrew held-out score (75.0, 9 of 12). The blind batch shares wording with the Hebrew practice questions, so its 90.5% is not a clean blind score; `tests/answer-engine/blind.json` replaces it._
+
+The merges and links above remove the cases where the assistant cannot know which of two near-identical entries you meant.
 
 Then the same work in Russian: 532 Russian example questions on 67 entries, again so each side of a pair uses its own words (for example "предотвратить/не допустить" for preventing limescale, "удалить/отмыть" for removing it; "душевая" on the shower entries; "далеко/отдалённый район" on the far-away measurement entry). No question, answer, status, link or Hebrew/English/Arabic text changed.
 
@@ -142,6 +144,21 @@ Then the same work in Russian: 532 Russian example questions on 67 entries, agai
 | Off-topic questions answered as if they were ours | 0 | 0 |
 
 Russian held-out stays at 10 of 12 (the two misses are a "Did you mean" and a "no answer", not wrong answers); one more would pass the 85% goal. As in Hebrew, the merges and links above are what fix the remaining near-identical pairs.
+
+_These Russian rows are as of commit 3ca2e88. The later Russian "cheap" group (8e16f01) moved the hidden-question check from 70.8% to 71.0% (2,327 of 3,278). One new Russian example question that reused a held-out question's wording ("меламиновой губкой можно тереть стекло душевой?") has been removed._
+
+## Current numbers (after the code-review fixes)
+
+After a code review the engine was made stricter, because a wrong answer is worse than "Did you mean…?" or a hand-off to the team: typo guesses only for Hebrew product words of 5+ letters (never a town or a price word), "do you also…" is a city question only before a place, a declined call or quote ("אל תתקשרו", "don't call me") is not a request, price words alone don't make a message ours, and close or partial matches get "Did you mean…?" instead of a guess. Every case found is kept in `tests/answer-engine/regressions.json`. Four example questions that nearly copied a held-out or blind question, and eleven that repeated another wording of the same entry, were removed.
+
+| Test | Now |
+|---|---|
+| Main test set (386 questions): he / en / ar / ru | 95.7 / 97.9 / 96.9 / 95.9 — 0 wrong answers |
+| Held-out questions (never used for tuning): he / en / ar / ru | 66.7 / 91.7 / 100 / 83.3 — 0 wrong answers |
+| Hebrew practice questions (539) | 96.5% — 2 wrong answers |
+| Regression cases (206) | 0 wrong answers |
+
+The hidden-question check in the tables above was not re-run after these changes.
 
 ## How the pairs were found
 

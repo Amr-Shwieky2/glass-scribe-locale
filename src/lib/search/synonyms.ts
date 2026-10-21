@@ -11,8 +11,8 @@
  * - Russian and English get no stemming: list the case forms / plurals.
  * - Abbreviations that become real words once gershayim are removed are left
  *   out: ת"א → "תא" (תא מקלחת), י"ם → "ים" (sea); "י-ם" is kept.
- * - Groups stay narrow: bathroom is not shower, door is not partition. Kitchen
- *   is in "backsplash" (the only kitchen product), extra-clear is in "clear-glass".
+ * - Groups stay narrow: bathroom is not shower, door is not partition, a kitchen or
+ *   an oven is not the backsplash ("kitchen"), extra-clear is in "clear-glass".
  * - City ids: "city-<slug>" — for the five city pages the slug without dashes
  *   must equal the location slug (see findCity in answer-engine/intents.ts).
  *   Neighbourhoods and nearby towns listed on a city page belong to that city.
@@ -21,14 +21,18 @@
  * - A short Hebrew word also matches longer words that start with a prefix
  *   letter: "שנה" would catch "משנה" (changes), "לים" would catch "כלים" (dishes),
  *   "ימי" is "days of" — such forms are written as phrases ("מאיזו שנה", "צמוד לים").
- * - Every concept except time/human/contact/repair/clean/city-* marks a message
- *   as being about our business (isAnchored in answer-engine/index.ts), so words
+ * - Every concept except time/human/contact/repair/clean/holiday/lifespan/weight/validity/change/existing-wall/dimension/city-* marks a message
+ *   as being about our business (anchorOf in answer-engine/index.ts; price, cheap, glass,
+ *   install and region words only loosely), so words
  *   common in small talk are left out ("כבד", "kids", "dog", "years", "weight",
  *   "hot", "beach", "wind", "stolen", "sweats") or only listed in the form a
  *   customer uses with us ("your address", "free quote", "write to you", "dust"
  *   and "mess" in "clean"). Emergency words are in "time" and "door won't
  *   close" / "stuck" in "repair" for the same reason. A town without a page of
  *   its own goes in "city-towns" (findCity reads it as "another city").
+ * - Typos (typoConcepts in tokenize.ts) only reach product and service words of 5+ Hebrew
+ *   letters ("מחוסמט" → tempered): city names, places and price words match only as
+ *   written here, so their common spellings are listed ("ירושליים", "פרייס").
  * - Transliterations must not be English words once apostrophes are removed:
  *   "whats" is "what's", "let"/"god" are not "лет"/"год".
  * - Words that are also used for another meaning in the knowledge base stay out
@@ -45,6 +49,12 @@ export interface SynonymGroup {
    * niqqud, Arabic diacritics/alef forms and "ё" don't matter.
    */
   terms: string[];
+  /**
+   * Places only: names that are also everyday words or first names ("רחובות" = streets, "ערד", "كرمل"). They
+   * name the place only where a place is asked about ("do you work in…?", "I live in…": see intents.ts), so
+   * they give no concept to the search.
+   */
+  contextTerms?: string[];
 }
 
 export const SYNONYM_GROUPS: SynonymGroup[] = [
@@ -53,22 +63,23 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
     concept: 'price',
     terms: [
       'מחיר', 'מחירים', 'מחירי', 'מחירון', 'מחירונים', 'עולה', 'כמה עולה', 'כמה עולים', 'כמה עולות', 'כמה יעלה',
-      'כמה זה', 'כמה כסף', 'עלות', 'עלויות', 'הצעת מחיר', 'תמחור', 'תעריף', 'תעריפים', 'יקר', 'יקרה', 'יקרים',
-      'זול', 'זולה', 'זולים', 'תקציב', 'ש"ח', 'שקלים', 'הנחה', 'הנחות', 'פרייס', 'פרייסים', 'פרייס ליסט',
+      'כמה זה', 'כמה כסף', 'עלות', 'עלויות', 'הצעת מחיר', 'תמחור', 'תעריף', 'תעריפים', 'יקר', 'יקרים',
+      // not bare "יקרה": also "will happen" ("מה יקרה אם הזכוכית תישבר?")
+      'כל כך יקרה', 'יותר יקרה', 'פחות יקרה', 'יקרה מדי',
+      'זול', 'זולה', 'זולים', 'תקציב', 'ש"ח', 'שקלים', 'פרייס', 'פרייסים', 'פרייס ליסט', 'בכמה',
       'سعر', 'اسعار', 'تسعيرة', 'تسعير', 'تكلفة', 'تكاليف', 'كلفة', 'يكلف', 'بكلف', 'بيكلف', 'كم يكلف', 'كم بكلف',
       'قديش', 'اديش', 'قداش', 'كديش', 'بقديش', 'بكم', 'ثمن', 'مصاري', 'رخيص', 'رخيصة', 'ارخص', 'اغلى', 'مكلف',
-      'شيكل', 'شيقل', 'شواقل', 'ميزانية', 'خصم', 'تخفيض', 's3r', 'si3r', 'se3r', 'sa3r', 'as3ar', 'adesh', '2adesh',
+      'شيكل', 'شيقل', 'شواقل', 'ميزانية', 's3r', 'si3r', 'se3r', 'sa3r', 'as3ar', 'adesh', '2adesh',
       'addesh',
       'цена', 'цены', 'цене', 'цену', 'ценой', 'цен', 'ценам', 'ценах', 'ценник', 'расценки', 'расценок',
       'стоимость', 'стоимости', 'стоимостью', 'стоить', 'сколько стоит', 'сколько стоят', 'сколько будет стоить',
       'сколко стоит', 'скока стоит', 'скок стоит', 'скоко стоит', 'за метр', 'за квадрат', 'за квадратный метр',
-      'скидка', 'скидки', 'скидку',
       'почем', 'прайс', 'прайслист', 'прайс лист', 'тариф', 'тарифы', 'дорого', 'дороже',
       'бюджет', 'бюджета', 'обойдется', 'шекель', 'шекелей', 'шекеля', 'tsena',
       'price', 'prices', 'pricing', 'priced', 'cost', 'costs', 'costing', 'how much', 'quote price', 'price list',
       'pricelist', 'price range', 'rate', 'rates', 'fee', 'fees', 'expensive', 'cheap', 'cheaper', 'cheapest',
       'affordable', 'budget', 'shekel', 'shekels', 'nis', 'ils', 'per meter', 'per metre', 'per square meter',
-      'per sqm', 'per m2', 'discount', 'discounts', 'prise',
+      'per sqm', 'per m2', 'prise',
       'mechir', 'mehir', 'kama ole', 'bikalef', 'btkalef', 'kam se3r', 'kam si3r', 'skolko stoit', 'stoimost', 'cena',
       'мехир',
       'سعره', 'سعرها', 'اسعاركم', 'بتكلف',
@@ -76,6 +87,15 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'сколько выйдет', 'во сколько выйдет', 'почем выходит', 'во что обойдется', 'сколько берете',
       'сколько возьмете', 'כמה זה יוצא', 'כמה יוצא', 'כמה זה יעלה לי', 'how much would it be',
       'how much will it be',
+    ],
+  },
+  {
+    // Discounts: not in "price" ("can I get a discount?" is not "can I get a price?"). No approved entry is about
+    // them yet, so a discount question goes to the team.
+    concept: 'discount',
+    terms: [
+      'הנחה', 'הנחות', 'מבצע הנחה', 'خصم', 'خصومات', 'تخفيض', 'تخفيضات', 'скидка', 'скидки', 'скидку', 'скидкой', 'скидок',
+      'discount', 'discounts', 'discounted',
     ],
   },
   {
@@ -96,8 +116,10 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
   {
     concept: 'quote',
     terms: [
-      'הצעת מחיר', 'הצעות מחיר', 'הצעה', 'הצעות', 'הצעת', 'הערכת מחיר', 'הערכת עלות', 'הערכה', 'אומדן',
-      'عرض سعر', 'عرض اسعار', 'عروض اسعار', 'تقدير', 'تقدير سعر', 'تقدير تكلفة', 'تخمين',
+      // not bare "הצעות"/"הצעת": suggestions, job offers, a marriage proposal ("הצעות לעיצוב", "הצעת נישואין")
+      'הצעת מחיר', 'הצעות מחיר', 'הצעה', 'הערכת מחיר', 'הערכת עלות', 'הערכה', 'אומדן',
+      // not bare "تقدير": also appreciation ("كل الاحترام والتقدير")
+      'عرض سعر', 'عرض اسعار', 'عروض اسعار', 'تقدير سعر', 'تقدير تكلفة', 'تقدير للسعر', 'تخمين',
       'смета', 'смету', 'сметы', 'смете', 'сметой', 'расчет', 'расчета', 'расчеты', 'рассчитать', 'рассчитайте',
       'просчет', 'просчитать', 'просчитайте', 'оценка', 'оценку', 'оценки', 'коммерческое предложение',
       'калькуляция', 'калькуляцию',
@@ -111,7 +133,7 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
   {
     concept: 'shower',
     terms: [
-      'מקלחון', 'מקלחונים', 'מקלחוני', 'מקלחן', 'מיקלחון', 'מקלחת', 'מקלחות', 'תא מקלחת', 'תאי מקלחת',
+      'מקלחון', 'מקלחונים', 'מקלחוני', 'מקלחן', 'מקלחנים', 'מיקלחון', 'מקלחת', 'מקלחות', 'תא מקלחת', 'תאי מקלחת',
       'תא מקלחון', 'להתקלח', 'מתקלחים', 'פרגוד', 'פרגודים', 'ווק אין', 'וואק אין', 'שאוור', 'שאואר', 'miklahon',
       'miklachon',
       'كابينة', 'كابينات', 'كبينة', 'كابين', 'دش', 'دوش', 'شاور', 'شاورات', 'مقصورة دش', 'واك ان', 'ووك ان',
@@ -121,7 +143,7 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'душевым', 'кабина', 'кабины', 'кабину', 'кабиной', 'кабин', 'кабине', 'кабинка', 'кабинки', 'кабинку',
       'душевой уголок', 'шторка', 'шторки', 'шторку', 'шторкой', 'dush',
       'shower', 'showers', 'shower enclosure', 'shower enclosures', 'shower screen', 'shower cabin',
-      'shower stall', 'walk-in', 'walkin', 'bath screen', 'bathtub screen', 'tub screen', 'showr',
+      'shower stall', 'walk in shower', 'walkin shower', 'bath screen', 'bathtub screen', 'tub screen', 'showr',
       'shover', 'shawer',
       'دشات', 'دوشات', 'كبينات',
     ],
@@ -147,7 +169,7 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'מאחז יד', 'מאחזי יד',
       'בלוסטרדה', 'באלוסטרדה', 'maake',
       'درابزين', 'درابزينات', 'دربزين', 'دربزينات', 'درابزون', 'ترابزين', 'درابزينة', 'سياج',
-      'حمايات', 'حماية بلكون', 'حماية درج', 'سور زجاج', 'drabzin', 'darabzin',
+      'حماية بلكون', 'حماية درج', 'حمايات بلكون', 'حمايات درج', 'سور زجاج', 'drabzin', 'darabzin',
       'перила', 'перил', 'перилам', 'перилами', 'перилах', 'перилла', 'ограждение', 'ограждения', 'ограждений',
       'ограждению', 'ограждением', 'ограждениями', 'ограждениях', 'поручень', 'поручни', 'поручней', 'поручнем',
       'поручнями', 'балюстрада', 'балюстрады', 'балюстраду',
@@ -241,22 +263,33 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
     ],
   },
   {
-    // Kitchen glass on this site is the backsplash, so kitchen words live here.
+    // The kitchen glass product. Kitchen and stove words alone are "kitchen" (below): a kitchen, a cabinet or an oven
+    // is not the backsplash ("כמה עולה מטבח חדש?", "my oven is broken").
     concept: 'backsplash',
     terms: [
-      'חיפוי', 'חיפויים', 'חיפויי', 'ספלאש', 'ספלש', 'בקספלאש', 'באקספלאש', 'מטבח', 'מטבחים', 'מטבחון',
+      'חיפוי', 'חיפויים', 'חיפויי', 'ספלאש', 'ספלש', 'בקספלאש', 'באקספלאש', 'זכוכית למטבח', 'זכוכית במטבח', 'זכוכית מטבח',
       'باك سبلاش', 'باكسبلاش', 'سبلاش', 'سبلاش باك', 'واقي مطبخ', 'واقيات', 'تلبيس مطبخ', 'تلبيس زجاج',
-      'كسوة زجاج', 'مطبخ', 'مطابخ',
+      'كسوة زجاج', 'زجاج للمطبخ', 'زجاج المطبخ', 'زجاج مطبخ', 'قزاز للمطبخ', 'قزاز المطبخ',
       'фартук', 'фартука', 'фартуке', 'фартуком', 'фартуки', 'фартуков', 'скинали', 'скиналь', 'стеновая панель',
-      'стеновые панели', 'кухня', 'кухни', 'кухне', 'кухню', 'кухней', 'кухонь', 'кухонный', 'кухонная',
-      'кухонное', 'кухонного', 'кухонной', 'кухонные', 'кухонных', 'кухонном',
-      'backsplash', 'backsplashes', 'back splash', 'splashback', 'splashbacks', 'splash back', 'kitchen',
-      'kitchens', 'kitchenette', 'glass cladding', 'wall cladding', 'cladding',
-      // the stove: the backsplash behind it
-      'כיריים', 'כירת גז', 'תנור', 'תנורים', 'موقد', 'بوتاجاز', 'فرن', 'غاز الطبخ', 'плита', 'плиты', 'плиту',
+      'стеновые панели', 'стекло на кухню', 'стекло для кухни', 'стекло на кухне', 'стекло в кухню',
+      'backsplash', 'backsplashes', 'back splash', 'splashback', 'splashbacks', 'splash back', 'kitchen glass',
+      'glass for the kitchen', 'glass for my kitchen', 'glass cladding', 'wall cladding', 'cladding',
+      'fartuk', 'hipuy',
+    ],
+  },
+  {
+    // Kitchens and stoves (where the backsplash goes): a room, like "bathroom", not a product by itself.
+    concept: 'kitchen',
+    terms: [
+      'מטבח', 'מטבחים', 'מטבחון', 'מטבחי', 'مطبخ', 'مطابخ',
+      'кухня', 'кухни', 'кухне', 'кухню', 'кухней', 'кухонь', 'кухонный', 'кухонная',
+      'кухонное', 'кухонного', 'кухонной', 'кухонные', 'кухонных', 'кухонном', 'kitchen', 'kitchens', 'kitchenette',
+      'כיריים', 'כירת גז', 'תנור', 'תנורים', 'موقد', 'بوتاجاز', 'فرن', 'غاز الطبخ',
+      // the stove called "the gas" where glass goes ("זכוכית מאחורי הגז"): not bare "גז"/"غاز" (a gas bottle, a boiler)
+      'מאחורי הגז', 'ליד הגז', 'מעל הגז', 'מאחורי גז', 'ליד גז', 'ورا الغاز', 'جنب الغاز', 'فوق الغاز', 'خلف الغاز', 'ورا غاز', 'плита', 'плиты', 'плиту',
       'плитой', 'плите', 'варочная', 'варочной', 'варочную', 'варочная панель', 'духовка', 'духовки', 'stove',
       'stoves', 'cooktop', 'cooker', 'hob', 'oven',
-      'matbakh', 'matba5', 'matbach', 'mitbach', 'mitbah', 'kuhnya', 'kuhni', 'fartuk', 'hipuy',
+      'matbakh', 'matba5', 'matbach', 'mitbach', 'mitbah', 'kuhnya', 'kuhni',
     ],
   },
   {
@@ -366,7 +399,8 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
     // Clear and extra clear (low-iron). "שקוף" is left out: "משקוף" (door frame) stems to it.
     concept: 'clear-glass',
     terms: [
-      'שקופה', 'שקופות', 'שקופים', 'שקיפות', 'זכוכית שקופה', 'מעקה שקוף', 'מקלחון שקוף', 'קליר', 'אקסטרה קליר',
+      'שקופה', 'שקופות', 'שקופים', 'שקיפות', 'זכוכית שקופה', 'מעקה שקוף', 'מקלחון שקוף', 'קליר', 'קלייר', 'אקסטרה קליר',
+      'אקסטרה קלייר',
       'אקסטרהקליר', 'אופטיווייט', 'אופטיוויט',
       'شفاف', 'شفافة', 'شفافية', 'كلير', 'اكسترا كلير', 'اكستراكلير', 'زجاج صافي',
       'прозрачное', 'прозрачного', 'прозрачные', 'прозрачная', 'прозрачной', 'прозрачным', 'прозрачную',
@@ -439,7 +473,7 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'مضلع', 'مضلعة', 'مخطط', 'فلوتد', 'فلوتيد', 'زجاج مموج',
       'рифленое', 'рифленого', 'рифленые', 'рифленая', 'рифленой', 'рифленым', 'рифленую', 'ребристое',
       'ребристого', 'ребристые', 'флютед', 'рифленка', 'рифленку', 'рифленки', 'в полоску', 'в полосочку',
-      'fluted', 'reeded', 'ribbed', 'flutes', 'flutted',
+      'fluted', 'reeded', 'ribbed', 'ribs', 'vertical lines', 'flutes', 'flutted',
       'עם פסים', 'פלוטיד',
     ],
   },
@@ -475,24 +509,25 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
     concept: 'thickness',
     terms: [
       'עובי', 'עוביים', 'עבה', 'עבות', 'מ"מ', 'מילימטר', 'מילימטרים', '6ממ', '8ממ', '10ממ', '12ממ',
-      'سماكة', 'سماكات', 'سمك', 'سميك', 'سميكة', 'تخانة', 'تخين', 'تخينة', 'ملم', 'مم', 'مليمتر', 'ميليمتر',
+      // not bare "سمك": also fish
+      'سماكة', 'سماكات', 'سمك الزجاج', 'سمك القزاز', 'سمك المرايه', 'سمكها', 'سميك', 'سميكة', 'تخانة', 'تخين', 'تخينة', 'ملم', 'مم', 'مليمتر', 'ميليمتر',
       'ملليمتر',
       'толщина', 'толшина', 'толщины', 'толшины', 'толщину', 'толщиной', 'толщине', 'толстое', 'толстого', 'толстый',
       'толстые', 'мм',
       'миллиметр', 'миллиметра', 'миллиметров', '6мм', '8мм', '10мм', '12мм',
       'thickness', 'thick', 'thicker', 'thikness', 'mm', 'millimeter', 'millimeters', 'millimetre', 'millimetres',
       '6mm', '8mm', '10mm', '12mm',
-      'samakeh', 'samakat', 'smakeh', 'sumk', 'oviy', 'tolshina', 'tolshchina',
+      'samakeh', 'samakat', 'smakeh', 'smakit', 'smaket', 'samakit', 'sumk', 'oviy', 'tolshina', 'tolshchina',
       'tkhan', 't5an', 'овий',
     ],
   },
   {
     concept: 'warranty',
     terms: [
-      'אחריות', 'ערבות', 'תעודת אחריות',
+      'אחריות', 'ערבות', 'תעודת אחריות', 'אחריוט', 'אחריוד',
       'ضمان', 'ضمانة', 'ضمانات', 'كفالة', 'كفالات', 'مكفول', 'مضمون', 'مضمونة',
       'гарантия', 'гарантии', 'гарантию', 'гарантией', 'гарантий', 'гарантийный', 'гарантийное', 'гарантийного',
-      'гарантийная', 'гарантийной', 'гарантируете', 'гарантируем',
+      'гарантийная', 'гарантийной', 'гарантируете', 'гарантируем', 'гарнтия', 'гарнтию', 'гарнтии',
       'warranty', 'warranties', 'guarantee', 'guarantees', 'guaranteed', 'warrantee', 'warrenty', 'waranty',
       'garantee', 'guarentee', 'garanty',
       // Hebrew loanwords and transliterations
@@ -561,25 +596,132 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'כמה ימים', 'כמה שבועות', 'מהר', 'ייקחו', 'תיקח', 'יימשך', 'נמשך', 'נמשכת', 'zman',
       'كم وقت', 'قديش وقت', 'اديش وقت', 'قديش بدو وقت', 'قديش بياخد', 'قديش بتاخد', 'بياخد', 'بتاخد', 'وقت',
       'مدة', 'يستغرق', 'تستغرق', 'متى', 'امتى', 'ايمتى', 'كم يوم', 'كم اسبوع', 'بسرعة',
-      'بيطول', 'بتطول', 'يطول', 'تطول', 'bya5od', 'byakhod', 'wa2t', 'waqt', 'emta',
+      'بيطول', 'بتطول', 'يطول', 'تطول', 'bya5od', 'byakhod', 'bta5od', 'btakhod', 'wa2t', 'waqt', 'emta',
       'imta',
       'сколько времени', 'сколко времени', 'скока времени', 'как долго', 'как быстро', 'когда', 'сроки', 'сроков',
       'срокам', 'срок изготовления',
       'срок выполнения', 'срок установки', 'сколько дней', 'сколько недель', 'время', 'времени', 'долго',
       'быстро', 'срок', 'сроку', 'сколько ждать', 'skolko vremeni', 'srok', 'kogda',
+      'длиться', 'длится', 'продлится', 'займет', 'займут', 'занимает', 'занимают',
       'how long', 'how soon', 'how quickly', 'how fast', 'how much time', 'when', 'time', 'timeline', 'timeframe',
       'time frame', 'lead time', 'turnaround', 'duration', 'how many days', 'how many weeks',
-      // emergencies (broken glass that cannot wait)
-      'חירום', 'דחוף', 'דחופה', 'בדחיפות', 'מיידי', 'מיידית',
-      'طوارئ', 'طوارىء', 'طارئ', 'طارئه', 'مستعجل', 'مستعجله', 'فوري', 'فورا', 'فوريه', 'حالا',
-      'срочно', 'срочный', 'срочная', 'срочное', 'срочную', 'аварийный', 'аварийная', 'аварийное', 'аварийные',
-      'аварийную', 'аварийно', 'экстренно', 'экстренный', 'экстренная', 'экстренное', 'немедленно', 'srochno',
-      'emergency', 'emergencies', 'urgent', 'urgently', 'asap', 'immediately', 'right away',
+      // urgent (emergencies have their own group)
+      'דחוף', 'דחופה', 'בדחיפות', 'מיידי', 'מיידית',
+      'مستعجل', 'مستعجله', 'فوري', 'فورا', 'فوريه', 'حالا',
+      'срочно', 'срочный', 'срочная', 'срочное', 'срочную', 'немедленно', 'srochno',
+      'urgent', 'urgently', 'asap', 'immediately', 'right away',
       // not "משך" alone: "בהמשך" (later on) stems to it
       'משך הזמן', 'משך ההתקנה', 'משך העבודה', 'משך הייצור',
       'استنى', 'نستنى', 'بستنى', 'انتظر', 'ننتظر', 'استنا', 'لحتى تيجو',
       'ждать', 'ждем', 'подождать', 'ожидание', 'ожидания', 'ожидать', 'wait', 'waiting', 'wait time',
       'waiting time', 'how long do i wait',
+    ],
+  },
+  {
+    // How long a product lasts (its service life), not how long the installation takes: only an entry about it
+    // answers it ("does a railing hold up in the sun?"), see STRICT_SUBJECTS in answer-engine/index.ts. Not bare
+    // "last" ("the last step", "last week"), "stays clear" (a mirror that doesn't fog), "מחזיק" (a shelf holds),
+    // "بعيش"/"بتعيش" (I/you live in…).
+    concept: 'lifespan',
+    terms: [
+      'lifespan', 'life span', 'life expectancy', 'service life', 'durability', 'long lasting', 'last long',
+      'lasts', 'last for', 'will it last', 'does it last', 'it last', 'they last', 'glass last', 'railing last',
+      'railings last', 'shower last', 'showers last', 'mirror last', 'mirrors last', 'partition last',
+      'partitions last', 'door last', 'doors last', 'enclosure last', 'stay new', 'stays new', 'stay like new',
+      'אורך חיים', 'אורך החיים', 'אורך חיי', 'כמה זמן מחזיק', 'כמה זמן זה מחזיק', 'כמה שנים מחזיק',
+      'כמה שנים זה מחזיק', 'כמה שנים יחזיק', 'מחזיק מעמד', 'מחזיקה מעמד', 'מחזיקים מעמד', 'יחזיק מעמד',
+      'תחזיק מעמד',
+      'بيعيش', 'بيدوم', 'يدوم', 'بدوم', 'بتدوم', 'تدوم', 'العمر الافتراضي', 'عمر افتراضي', 'بيطول عمر',
+      'بيطول عمره', 'بطول عمره', 'قديش عمره', 'قديش عمرها', 'عمر الزجاج', 'عمر الشاور', 'عمر الدرابزين',
+      'عمر المرايه',
+      'срок службы', 'срока службы', 'сроком службы', 'срок эксплуатации', 'долговечность', 'долговечный',
+      'долговечная', 'долговечное', 'долговечные', 'прослужит', 'прослужат', 'простоит', 'простоят',
+    ],
+  },
+  {
+    // Something changing by itself (a quote after the measurement, a price from job to job): only an entry about that
+    // answers it (see STRICT_SUBJECTS in answer-engine/index.ts). Not "differ"/"يختلف": differences are other entries'
+    // subject ("8 mm or 10 mm?"); not "change" alone ("change the date", "can I change the color?").
+    concept: 'change',
+    terms: [
+      'להשתנות', 'ישתנה', 'תשתנה', 'ישתנו', 'משתנה', 'משתנים', 'משתנות', 'השתנה', 'השתנתה', 'השתנו',
+      'بيتغير', 'بتتغير', 'يتغير', 'تتغير', 'رح يتغير', 'بيتغيروا',
+      'измениться', 'изменится', 'изменятся', 'меняется', 'меняются', 'поменяется', 'поменяются', 'изменилась',
+      'изменился', 'изменилось',
+      'change after', 'changes after', 'change later', 'go up after', 'goes up after',
+    ],
+  },
+  {
+    // An existing wall a railing would stand on: no approved entry says (see SUBJECT_CONCEPTS in
+    // answer-engine/index.ts). Not "wall" alone (mirrors and backsplashes go on walls), nor "parapet"/"парапет":
+    // a glass parapet is the railing itself.
+    concept: 'existing-wall',
+    terms: [
+      'existing wall', 'concrete wall', 'parapet wall', 'low wall', 'half wall', 'knee wall',
+      'קיר קיים', 'קיר בטון', 'מעקה בטון', 'מעקה קיים', 'קיר נמוך', 'מעקה בנוי',
+      'حيط موجود', 'حيطه موجوده', 'جدار موجود', 'جدار باطون', 'حيط باطون', 'حيطه باطون',
+      'существующую стену', 'существующей стене', 'бетонную стену', 'бетонной стене',
+    ],
+  },
+  {
+    // What something weighs (the shelf entry is about the weight it holds). Not "כבד" alone (heavy, liver,
+    // respect) or "heavy": common in other questions ("heavy door", "heavy rain").
+    concept: 'weight',
+    terms: [
+      'weigh', 'weighs', 'weight', 'weights', 'kg', 'kilo', 'kilos', 'kilogram', 'kilograms',
+      'משקל', 'שוקל', 'שוקלת', 'שוקלים', 'שוקלות', 'קילו', 'קילוגרם', 'קילוגרמים', 'קג',
+      // ("بيحمل" carries; not "بتحمل"/"بيتحمل": also withstands heat or rain)
+      'وزن', 'وزنه', 'وزنها', 'بيوزن', 'بتوزن', 'يوزن', 'كيلو', 'كيلوغرام', 'كغ', 'بيحمل',
+      'вес', 'веса', 'весом', 'весу', 'весит', 'весят', 'кг', 'килограмм', 'килограмма', 'килограммов',
+    ],
+  },
+  {
+    // Asking how high, wide or long something is: no entry answers it (see STRICT_SUBJECTS in answer-engine/index.ts;
+    // "כמה זה גבוה?" is also recognised there). Only questions: a height a visitor gives ("מקלחון בגובה 2 מטר") is not one.
+    concept: 'dimension',
+    terms: [
+      'how high', 'how tall', 'how wide', 'what height', 'what is the height', 'whats the height', 'how high should', 'what width', 'minimum height',
+      'איזה גובה', 'באיזה גובה', 'מה הגובה', 'כמה גובה', 'מה הרוחב', 'איזה רוחב', 'מה האורך', 'גובה מינימלי', 'מה גובה',
+      'قديش الارتفاع', 'شو الارتفاع', 'اي ارتفاع', 'قديش الطول', 'قديش العرض', 'شو الطول', 'كم الارتفاع', 'الارتفاع المطلوب',
+      'какой высоты', 'какая высота', 'какую высоту', 'какой ширины', 'какая ширина', 'какой длины', 'какая длина', 'минимальная высота', 'высота ограждения',
+    ],
+  },
+  {
+    // How long an offer or a document stays valid: no entry answers it (see STRICT_SUBJECTS in
+    // answer-engine/index.ts). Not "действует" (also "works", "applies") or "صالح" (also a name).
+    concept: 'validity',
+    terms: [
+      'valid', 'validity', 'expire', 'expires', 'expired', 'expiry', 'expiration',
+      'בתוקף', 'תוקף', 'תוקפה', 'תוקפו', 'פג תוקף', 'פג התוקף',
+      'صلاحيه', 'صلاحيتها', 'صلاحيته', 'ساري المفعول', 'ساريه المفعول', 'بينتهي العرض',
+      'действительна', 'действителен', 'действительны', 'срок действия', 'истекает', 'истечет',
+    ],
+  },
+  {
+    // Outdoors / exterior (railings and doors outside). Not "חוץ" alone ("מחוץ לערים" = outside the cities),
+    // "לחוץ" (pressed: "התקציב לחוץ") or "outside" (outside working hours).
+    concept: 'outdoor',
+    terms: [
+      'בחוץ', 'חיצוני', 'חיצונית', 'חיצוניים', 'חיצוניות', 'outdoor', 'outdoors', 'exterior', 'خارجي', 'خارجيه', 'بالخارج',
+      'снаружи', 'наружный', 'наружная', 'наружное', 'наружные', 'уличный', 'уличная', 'уличное', 'уличные',
+    ],
+  },
+  {
+    // After the installation (using the shower, a problem that showed up): not how long the installation takes.
+    concept: 'after-install',
+    terms: [
+      'after installation', 'after the installation', 'after install', 'after you install', 'after you installed', 'once installed',
+      'אחרי ההתקנה', 'לאחר ההתקנה', 'אחרי שהתקנתם', 'אחרי שמתקינים', 'אחרי שהתקינו', 'بعد التركيب', 'بعد ما ركبتو', 'بعد ما ركبتوا',
+      'после установки', 'после монтажа', 'после того как установили',
+    ],
+  },
+  {
+    // Emergencies (broken glass that cannot wait). The only approved entry is the storefront one, so an emergency
+    // with other glass goes to the team. Like "time", it doesn't make a message ours.
+    concept: 'emergency',
+    terms: [
+      'חירום', 'שירות חירום', 'طوارئ', 'طوارىء', 'طارئ', 'طارئه', 'аварийный', 'аварийная', 'аварийное', 'аварийные',
+      'аварийную', 'аварийно', 'экстренно', 'экстренный', 'экстренная', 'экстренное', 'emergency', 'emergencies',
     ],
   },
   {
@@ -602,10 +744,11 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'chipped', 'chip', 'scratch', 'scratched', 'scratches', 'damaged', 'damage', 'repair', 'repairs',
       'repaired', 'fix', 'fixing', 'replace', 'replacement', 'replacing', 'replaced', 'repare',
       'תתקנו', 'תיקנתם', 'תחליפו', 'החלפתם', 'מחליף', 'שברו', 'שברתי', 'שברנו', 'שברה', 'ניפצו', 'נופצה', 'נסדקו',
-      'סדוקים', 'סדוקות', 'تصلحولي', 'صلحتوا', 'بدلتوا', 'تبدلولي',
+      'סדוקים', 'סדוקות', 'تصلحولي', 'صلحتوا', 'بدلتوا', 'تبدلولي', 'كسرولي', 'كسروا', 'كسرو', 'انكسرلي', 'انكسرتلي',
+      'تبدلوها', 'تبدلوه', 'بتبدلوها', 'بتبدلوه', 'تصلحوها', 'تصلحوه', 'بتصلحوها',
       'بتغيروا', 'غيرتوا', 'замените', 'меняете', 'меняем', 'почините', 'отремонтируете',
       // stopped working: a door that sticks, sags or won't close, a loose handle
-      'התקלקל', 'התקלקלה', 'מקולקל', 'מקולקלת', 'לא נסגרת', 'לא נסגרת עד הסוף', 'נתקעת', 'נתקע',
+      'התקלקל', 'התקלקלה', 'מקולקל', 'מקולקלת', 'לא נסגרת', 'לא נסגרת עד הסוף', 'שלא נסגרת', 'שלא נסגר', 'נתקעת', 'נתקע',
       'תקועה', 'תקוע', 'התרופף', 'התרופפה', 'רופף', 'רופפת', 'שקעה', 'משפשפת', 'מתנדנד', 'מתנדנדת', 'חורקת',
       'عطل', 'عطلان', 'خراب', 'خربت', 'انخرب', 'عم يعلق', 'صار يعلق', 'عم بيعلق', 'علق الباب', 'باب علق', 'باب بيعلق',
       'باب بعلق', 'باب بتعلق', 'علقان', 'باب ما بسكر', 'باب ما بيسكر', 'باب ما بتسكر', 'ما بسكر منيح',
@@ -615,10 +758,17 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'не закрывается', 'плохо закрывается', 'закрывается не до конца', 'перестала закрываться',
       'перестала нормально закрываться', 'не открывается', 'заедает', 'заело', 'заклинило', 'цепляет', 'провисла',
       'провис', 'провисает', 'разболталась', 'разболтался', 'ослабла', 'ослаб', 'отвалилась', 'отвалился', 'шатается',
-      'болтается', 'скрипит', 'перекосилась',
+      'болтается', 'скрипит', 'перекосилась', 'шатаются', 'качается', 'качаются', 'болтаются',
+      // moves or wobbles ("המעקה זז כשנשענים עליו", "the railing wobbles")
+      'זז', 'wobbles', 'wobbly', 'wobble', 'wobbling', 'shaky', 'بيتحرك', 'بتتحرك', 'عم يتحرك', 'بيهتز', 'بتهتز', 'عم يهتز',
       'wont close', 'doesnt close', 'does not close', 'door not closing', 'not closing properly', 'wont shut', 'doesnt shut',
       'not shutting', 'stuck', 'sticking', 'jammed', 'squeaks', 'squeaky', 'sagging', 'came loose', 'got loose',
       'came off', 'fell off', 'stopped working', 'malfunction',
+      // came off its place or track
+      'comes off', 'off the track', 'off its track', 'came off the track', 'יוצאת מהמקום', 'יצאה מהמקום', 'יוצא מהמקום', 'יצא מהמקום',
+      'יוצאת מהמסילה', 'יצאה מהמסילה', 'יורדת מהמסילה', 'ירדה מהמסילה', 'יוצא מהמסילה', 'יצא מהמסילה',
+      'طلع من مكانه', 'طالع من مكانه', 'طلعت من مكانها', 'طالعه من مكانها', 'طلع من السكه', 'طلعت من السكه', 'نزل عن السكه',
+      'вылетает', 'вылетела', 'вылетел', 'слетела', 'слетает', 'слетел', 'соскочила', 'соскакивает', 'сошла с направляющей',
       'maksour', 'maksur', 'maksoora', 'maksura', 'tasli7', 'tsli7', 'taslee7', 'enkasar', 'nkasar', 'inkasar',
       'mashrou5', 'shar5', 'صلحولي', 'تصلحو', 'بتصلحو', 'بدلولي', 'تبدلو', 'بتبدلو', 'تغيرولي', 'بتغيرولي',
     ],
@@ -642,6 +792,10 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'بتوسخوا', 'توسخولي', 'пыль', 'пыли', 'пылью', 'пыльно', 'грязь', 'грязи', 'насорите', 'намусорите',
       'убираете за собой', 'убираете после себя', 'уберете за собой', 'dust', 'dusty', 'mess', 'messy',
       'leave a mess', 'make a mess', 'clean up after', 'tidy up',
+      // cleaning tools and products ("can I use steel wool?", "מותר אקונומיקה?")
+      'sponge', 'sponges', 'magic sponge', 'steel wool', 'scrub', 'scrubbing', 'scourer', 'bleach', 'ספוג פלא', 'צמר פלדה', 'אקונומיקה',
+      'اسفنج', 'سلك الجلي', 'سلك جلي', 'كلور', 'كلوركس', 'امسح', 'نمسح', 'بمسح', 'تمسح', 'губка', 'губкой', 'губку', 'хлорка', 'хлоркой',
+      'отбеливатель',
     ],
   },
   {
@@ -651,6 +805,8 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'בטיחות', 'בטיחותי', 'בטיחותית', 'בטיחותיים', 'בטיחותיות', 'תקן ישראלי', 'התקן הישראלי', 'עומד בתקן',
       'עומדת בתקן', 'עומדים בתקן', 'לפי התקן', 'בתקן', 'מכון התקנים', 'תו תקן', 'בטוח לילדים', 'בטוחה לילדים',
       'האם זה בטוח', 'בטוח', 'בטוחה', 'בטוחים', 'בטוחות', 'נשברת', 'להישבר', 'יישבר', 'מסוכן', 'מסוכנת', 'סכנה',
+      // can it shatter? (a risk; "התנפץ", shattered, is the repair)
+      'להתנפץ', 'יתנפץ', 'תתנפץ', 'תישבר', 'ישברו', 'יישברו',
       'סכנת',
       'امان', 'سلامة', 'آمن', 'آمنة', 'بينكسر', 'ينكسر', 'بتنكسر', 'تنكسر', 'مواصفات', 'معايير', 'معيار',
       'مواصفة اسرائيلية', 'معهد المواصفات', 'ستاندرد',
@@ -691,25 +847,47 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'opening hours', 'business hours', 'working hours', 'office hours', 'hours of operation', 'opening times',
       'opening time', 'closing time', 'opning hours', 'opening hrs', 'your hours', 'ur hours', 'are you open',
       'open today', 'open now', 'open on', 'open tomorrow', 'open until', 'closed', 'what time', 'when do you open',
-      'when do you close', 'workday', 'working day', 'business day',
+      'when do you close', 'workday', 'working day', 'business day', 'store hours', 'shop hours', 'showroom hours',
       'сейчас работаете', 'сегодня работаете', 'работаете ли сегодня', 'вы работаете сегодня',
       'עובדים היום', 'אתם עובדים היום', 'עובדים מחר', 'פתוחים היום', 'פתוחים מחר', 'بتشتغلوا اليوم', 'شغالين اليوم',
       'فاتحين اليوم', 'فاتحين بكرا', 'فاتحين هلا', 'работаете завтра', 'are you working today', 'working today',
     ],
   },
   {
-    // Days off: Friday, Saturday, the weekend and holidays.
+    // After the measurement: where a wait starts ("כמה זמן עד שמגיע המקלחון אחרי המדידה", "what's the lead time after you
+    // measure?") — the lead time or the quote after it, not how soon we come to measure
+    concept: 'after-measure',
+    terms: [
+      'אחרי המדידה', 'אחרי מדידה', 'לאחר המדידה', 'לאחר מדידה', 'אחרי שמדדתם', 'אחרי שמדדו', 'אחרי שמודדים', 'אחרי שהמודד', 'מהמדידה עד',
+      'after the measurement', 'after measurement', 'after measuring', 'after you measure', 'after the measure', 'after the measuring',
+      'после замера', 'после замеров', 'после того как замерили', 'بعد القياس', 'بعد ما قستوا', 'بعد ما قستو', 'بعد ما تقيسوا', 'بعد ما تقيسو',
+    ],
+  },
+  {
+    // Days off: Friday, Saturday and the weekend.
     concept: 'weekend',
     terms: [
-      'שישי', 'ששי', 'שבת', 'מוצ"ש', 'סופ"ש', 'סוף שבוע', 'סופי שבוע', 'סוף השבוע', 'חג', 'בחג', 'חגים',
-      'חול המועד', 'shishi', 'beshishi', 'shabat',
-      'جمعة', 'سبت', 'ويكند', 'ويك اند', 'نهاية الاسبوع', 'اخر الاسبوع', 'عطلة', 'اعياد', 'عيد', 'الاعياد', 'sabt',
+      'שישי', 'ששי', 'שבת', 'מוצ"ש', 'סופ"ש', 'סוף שבוע', 'סופי שבוע', 'סוף השבוע',
+      'shishi', 'beshishi', 'shabat',
+      'جمعة', 'سبت', 'ويكند', 'ويك اند', 'نهاية الاسبوع', 'اخر الاسبوع', 'عطلة', 'sabt',
       'jum3a', 'jom3a', 'jom3ah',
       'суббота', 'субботу', 'субботам', 'субботы', 'субботе', 'пятница', 'пятницу', 'пятницам', 'пятницы', 'пятнице',
-      'выходные', 'выходной', 'выходных', 'выходным', 'шабат', 'шаббат', 'уикенд', 'праздники',
-      'праздник', 'праздничные', 'праздничный', 'праздников',
+      'выходные', 'выходной', 'выходных', 'выходным', 'шабат', 'шаббат', 'уикенд',
       'saturday', 'saturdays', 'saturdy', 'friday', 'fridays', 'weekend', 'weekends', 'shabbat', 'sabbath',
-      'shabbos', 'holiday', 'holidays',
+      'shabbos',
+    ],
+  },
+  {
+    // Holidays: not in "weekend" — the knowledge base gives the Friday/Saturday hours, nothing about
+    // holidays, so "do you work on holidays?" is for the team. Like "time", it doesn't make a message ours.
+    concept: 'holiday',
+    terms: [
+      'חג', 'בחג', 'חגים', 'חול המועד', 'ערב חג', 'פסח', 'ראש השנה', 'יום כיפור', 'כיפור', 'סוכות', 'חנוכה', 'פורים',
+      'اعياد', 'عيد', 'الاعياد', 'رمضان', 'عيد الفطر', 'عيد الاضحى',
+      'праздники', 'праздник', 'праздничные', 'праздничный', 'праздников', 'песах', 'пасха', 'новый год', 'рош ашана',
+      'йом кипур', 'суккот', 'ханука',
+      'holiday', 'holidays', 'christmas', 'easter', 'passover', 'rosh hashanah', 'yom kippur', 'sukkot', 'hanukkah',
+      'ramadan', 'eid', 'new year',
     ],
   },
   {
@@ -724,6 +902,8 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'после работы', 'после закрытия', 'нерабочее', 'нерабочие', 'нерабочих', 'after hours', 'afterhours',
       'after work', 'after closing', 'out of hours',
       'outside working hours', 'outside business hours', 'outside office hours',
+      // evenings ("do you come to measure in the evening?")
+      'in the evening', 'in the evenings', 'evenings', 'בערב', 'בערבים', 'בלילה', 'вечером', 'по вечерам', 'بالمسا', 'المسا', 'بالليل',
       // without disrupting work or the household
       'הפרעה', 'הפרעות', 'לשבש', 'שיבוש',
       'להשבית', 'השבתה', 'לסגור את המשרד', 'לסגור את העסק', 'לסגור את החנות',
@@ -752,7 +932,7 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'اتصل', 'بتصل', 'اتصلوا', 'تواصل', 'واتساب', 'واتس', 'واتس اب', 'وتساب', 'واتسب', 'ايميل', 'بريد الكتروني',
       'телефон', 'телефона', 'телефону', 'телефоном', 'номер', 'позвонить', 'звонить', 'звоните', 'связаться',
       'связь', 'контакт', 'контакты', 'контактов', 'ватсап', 'вотсап', 'вацап', 'ватсапп', 'ватсапе', 'вотсапе',
-      'вацапе', 'почта', 'почту', 'имейл', 'емейл', 'мейл', 'написать', 'напишите',
+      'вацапе', 'электронная почта', 'ваша почта', 'почту', 'имейл', 'емейл', 'мейл', 'написать', 'напишите',
       'contact', 'contacts', 'phone', 'telephone', 'mobile', 'cell', 'call', 'calls', 'calling', 'whatsapp',
       'whats app', 'watsapp', 'whatsap', 'watsap', 'email', 'e-mail', 'mail', 'reach you', 'get in touch',
       'ra2am', 'ra2amkom', 'raqam', 'raqamkom', 'tilifon', 'telefon', 'mispar telefon', 'wats app',
@@ -772,7 +952,8 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'предоплата', 'предоплату', 'аванс', 'квитанция',
       'payment', 'payments', 'pay', 'paying', 'paid', 'installments', 'instalments', 'credit card', 'credit',
       'cash', 'bank transfer', 'wire transfer', 'cheque', 'cheques', 'deposit', 'invoice', 'receipt', 'financing',
-      'paybox', 'bit app',
+      'paybox', 'bit app', 'by the hour', 'per hour', 'hourly', 'hourly rate', 'לפי שעה', 'לפי שעות', 'תשלום לשעה', 'почасовая',
+      'почасовую', 'почасово', 'оплата в час', 'بالساعه', 'عالساعه',
       'daf3', 'kash', 'ta2seet', 'taqseet', 'tashlumim', 'ташлумим',
     ],
   },
@@ -875,7 +1056,10 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'where are you based', 'showroom', 'show room', 'find you',
       'הכתובת שלכם', 'כתובת שלכם', 'כתובת העסק', 'כתובת החברה', 'כתובת המפעל', 'הכתובת של העסק', 'המיקום שלכם',
       'מיקום שלכם', 'מיקום העסק', 'מיקום החברה', 'הסניף שלכם', 'efo atem nimtzaim',
-      'איפה המפעל', 'איפה המפעל שלכם', 'מאיפה אתם', 'איפה אתם יושבים', 'סניף', 'סניפים', 'איפה המשרד שלכם', 'איפה החנות שלכם',
+      'איפה המפעל', 'איפה המפעל שלכם', 'מאיפה אתם', 'איפה אתם יושבים',
+      // Our branch only, not bare "סניף": "איפה הסניף של הדואר" is someone else's
+      'סניף שלכם', 'סניפים שלכם', 'הסניפים שלכם', 'יש לכם סניף', 'יש לכם סניפים', 'סניפים יש לכם', 'סניף יש לכם',
+      'איפה המשרד שלכם', 'איפה החנות שלכם',
       'عنوانك', 'عنوانكو', 'عنوان الشركه', 'عنوان المحل', 'عنوان المعرض', 'وين المعرض', 'وين مكانكو',
       'ваш адрес', 'адрес компании', 'адрес фирмы', 'адрес мастерской', 'адрес шоурума', 'ваше местоположение',
       'adres kompanii',
@@ -886,6 +1070,9 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'где вас найти', 'где ваша мастерская', 'где ваш цех', 'где ваш шоурум', 'где ваш магазин',
       'где находится ваш', 'куда к вам приехать', 'where u located', 'where r u located',
       'whats your address', 'how do i get to you', 'where can i find you',
+      // our own shop or showroom ("where is your store?")
+      'your store', 'your shop', 'where is your store', 'where is your showroom', 'החנות שלכם', 'חנות שלכם', 'האולם שלכם',
+      'محلكم', 'معرضكم', 'محلكو', 'معرضكو', 'ваш магазин', 'вашего магазина', 'вашем магазине', 'ваш салон', 'вашего салона',
     ],
   },
   {
@@ -1040,7 +1227,7 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'زباين راضيين', 'شو بيحكوا عنكم',
       'отзывы', 'отзыв', 'отзывов', 'отзывам', 'отзывами', 'рекомендации', 'рейтинг', 'рейтинга', 'довольные клиенты',
       'что говорят клиенты', 'otzyvy',
-      'review', 'reviews', 'testimonial', 'testimonials', 'rating', 'ratings', 'rated', 'feedback', 'references',
+      'review', 'reviews', 'testimonial', 'testimonials', 'rating', 'ratings', 'highly rated', 'top rated', 'best rated', 'well rated', 'rated you', 'feedback', 'references',
       'what customers say', 'what clients say',
     ],
   },
@@ -1189,7 +1376,7 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
     // Heat and temperature (behind a stove, the Negev). Not "hot"/"חם"/"жарко"/"حر" (weather small talk).
     concept: 'heat',
     terms: [
-      'חום', 'טמפרטורה', 'טמפרטורות', 'حراره', 'الحراره', 'سخونه', 'سخن', 'ساخن', 'نار', 'لهب', 'жар', 'температура',
+      'חום', 'החום', 'טמפרטורה', 'טמפרטורות', 'حراره', 'الحراره', 'سخونه', 'سخن', 'ساخن', 'نار', 'لهب', 'жар', 'температура',
       'температуры', 'температуру', 'температур',
       'нагрев', 'нагрева', 'нагревается', 'термостойкое',
       'термостойкий', 'термостойкость', 'жаростойкое', 'жаропрочное',
@@ -1399,10 +1586,10 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
 
   // ---- cities ----------------------------------------------------------------
   {
+    // Not the German Colony ("המושבה הגרמנית"): Haifa has one too.
     concept: 'city-jerusalem',
     terms: [
-      'ירושלים', 'ירושלם', 'ירושליים', 'י-ם', 'עין כרם', 'תלפיות', 'קטמון', 'קטמונים', 'המושבה הגרמנית',
-      'מושבה הגרמנית', 'בית הכרם', 'רחביה', 'גבעת רם', 'מלחה', 'פסגת זאב', 'הר חומה', 'בהר חומה', 'הר נוף',
+      'ירושלים', 'ירושלם', 'ירושליים', 'י-ם', 'עין כרם', 'תלפיות', 'קטמון', 'קטמונים', 'בית הכרם', 'רחביה', 'גבעת רם', 'מלחה', 'פסגת זאב', 'הר חומה', 'בהר חומה', 'הר נוף',
       'בהר נוף', 'קרית יובל', 'קריית יובל', 'גבעת שאול', 'רמות אלון', 'רמת שלמה', 'נווה יעקב', 'ארמון הנציב',
       'בית חנינא', 'שועפט', 'בית צפאפא', 'צור באהר', "ג'בל מוכבר", 'סילואן', 'ראס אל עמוד', "שייח ג'ראח",
       'עיסאוויה', 'מבשרת', 'מבשרת ציון',
@@ -1410,11 +1597,11 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'راس العامود', 'سلوان', 'عيسوية', 'وادي الجوز', 'شيخ جراح', 'بلدة القديمة', 'عين كارم', 'تلبيوت',
       'كفر عقب', 'جبل الزيتون', 'ابو طور',
       'иерусалим', 'иерусалиме', 'иерусалима', 'иерусалиму', 'иерусалимом', 'ерусалим', 'эйн керем', 'тальпиот',
-      'катамон', 'немецкая колония', 'немецкой колонии', 'бейт ха керем', 'бейт хакерем', 'рехавия', 'рехавии',
+      'катамон', 'бейт ха керем', 'бейт хакерем', 'рехавия', 'рехавии',
       'гиват рам', 'мальха', 'писгат зеэв', 'ар хома', 'хар хома', 'кирьят йовель', 'гило', 'мевасерет',
       'неве яаков',
       'jerusalem', 'jerusalim', 'jerusalam', 'jerusalm', 'yerushalayim', 'yerushalaim', 'jlm', 'jlem', 'al quds',
-      'alquds', 'quds', 'ein kerem', 'ein karem', 'talpiot', 'talpiyot', 'katamon', 'german colony',
+      'alquds', 'quds', 'ein kerem', 'ein karem', 'talpiot', 'talpiyot', 'katamon',
       'beit hakerem', 'beit ha kerem', 'rehavia', 'rechavia', 'givat ram', 'malha', 'malcha', 'pisgat zeev',
       'har homa', 'har nof', 'kiryat yovel', 'givat shaul', 'gilo', 'beit hanina', 'shuafat', 'shufat',
       'beit safafa', 'sur baher', 'jabal mukaber', 'jabel mukaber', 'silwan', 'ras al amud', 'sheikh jarrah',
@@ -1428,25 +1615,27 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'תל אביב', 'בתל אביב', 'לתל אביב', 'מתל אביב', 'ותל אביב', 'תלאביב', 'ת"א יפו', 'יפו', 'פלורנטין',
       'נווה צדק', 'רוטשילד', 'רמת אביב', 'שרונה', 'הירקון', 'ירקון', 'יד אליהו', 'ביד אליהו', 'רמת החייל',
       'כרם התימנים', 'צהלה', "עג'מי",
-      'تل ابيب', 'تلابيب', 'تل الربيع', 'يافا', 'فلورنتين',
+      'تل ابيب', 'تلابيب', 'تل الربيع', 'فلورنتين',
       'тель авив', 'тель авиве', 'тель авива', 'тель авиву', 'тель авивом', 'тельавив', 'яффо',
       'яффа', 'яффе', 'флорентин', 'неве цедек', 'ротшильд', 'бульвар ротшильда', 'рамат авив', 'сарона', 'яркон',
       'tel aviv', 'telaviv', 'tlv', 'jaffa', 'yafo', 'jafa', 'florentin', 'neve tzedek', 'neve tsedek',
       'neve zedek', 'rothschild', 'ramat aviv', 'sarona', 'yarkon', 'hayarkon', 'tel avive',
     ],
+    contextTerms: ['يافا'], // also a first name ("اسمي يافا")
   },
   {
     // Including the Krayot, Nesher, Tirat Carmel and the Carmel (listed on the Haifa page).
-    // Not "כרמל"/"carmel"/"hadar"/"דניה" alone (first names), "נשר" alone (eagle) or "адар" (a month).
+    // Not "כרמל"/"carmel"/"hadar"/"דניה" alone (first names), "נשר" alone (eagle) or "адар" (a month); "הכרמל" is
+    // also Tel Aviv's Carmel market ("שוק הכרמל"), so the Carmel words are context terms.
     concept: 'city-haifa',
     terms: [
-      'חיפה', 'הכרמל', 'בכרמל', 'הדר הכרמל', 'שכונת הדר', 'נווה שאנן', 'בת גלים', 'בבת גלים', 'קרית אליעזר',
+      'חיפה', 'הדר הכרמל', 'שכונת הדר', 'נווה שאנן', 'בת גלים', 'בבת גלים', 'קרית אליעזר',
       'קריית אליעזר', 'קריות', 'קרית אתא', 'קריית אתא', 'קרית ביאליק', 'קריית ביאליק', 'קרית מוצקין',
       'קריית מוצקין', 'קרית ים', 'קריית ים', 'קרית חיים', 'קריית חיים', 'בנשר', 'לנשר', 'מנשר', 'טירת כרמל',
       'ואדי ניסנאס',
-      'حيفا', 'كرمل', 'وادي النسناس', 'حليصة', 'كريوت', 'نيشر', 'طيرة الكرمل', 'عسفيا', 'دالية الكرمل',
+      'حيفا', 'جبل الكرمل', 'وادي النسناس', 'حليصة', 'كريوت', 'نيشر', 'طيرة الكرمل', 'عسفيا', 'دالية الكرمل',
       'كريات اتا', 'كريات بياليك', 'كريات موتسكين', 'كريات يام', 'حي الهدار',
-      'хайфа', 'хайфе', 'хайфы', 'хайфу', 'хайфой', 'кармель', 'кармеле', 'кармеля', 'неве шаанан',
+      'хайфа', 'хайфе', 'хайфы', 'хайфу', 'хайфой', 'кармеле', 'гора кармель', 'неве шаанан',
       'бат галим', 'кирьят элиэзер', 'крайот', 'кирьят ата', 'кирьят бялик', 'кирьят моцкин', 'кирьят ям',
       'кирьят хаим', 'кирьят яме', 'кирьят бялике', 'кирьят моцкине', 'кирьят хаиме',
       'кирьят элиэзере', 'нешер', 'тират кармель', 'haife',
@@ -1454,22 +1643,25 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'kiryat eliezer', 'krayot', 'kiryat ata', 'kiryat bialik', 'kiryat motzkin', 'kiryat yam', 'kiryat haim',
       'kiryat chaim', 'nesher', 'tirat carmel', 'tirat hacarmel', 'isfiya', 'daliyat al carmel', 'wadi nisnas',
     ],
+    contextTerms: ['הכרמל', 'כרמל', 'كرمل', 'кармель', 'кармеля'],
   },
   {
     // Including Dimona, Arad, Meitar and the Negev (listed on the Beer Sheva page).
-    // Not "נגב" alone ("לנגב" = to wipe), "מיתר" alone (a string) or "עומר"/"عومر"/"омер" (first names).
+    // Not "נגב" alone ("לנגב" = to wipe), "מיתר" alone (a string) or "עומר"/"عومر"/"омер" (first names);
+    // Arad is a first name too (a context term).
     concept: 'city-beer-sheva',
     terms: [
-      'באר שבע', 'בארשבע', 'ב"ש', 'בב"ש', 'לב"ש', 'מב"ש', 'נווה נוי', 'נווה זאב', 'במיתר', 'למיתר', 'דימונה', 'ערד',
+      'באר שבע', 'בארשבע', 'ב"ש', 'בב"ש', 'לב"ש', 'מב"ש', 'נווה נוי', 'נווה זאב', 'במיתר', 'למיתר', 'דימונה',
       'הנגב', 'בנגב', 'להבים',
-      'بئر السبع', 'بير سبع', 'بيرالسبع', 'نقب', 'ديمونا', 'عراد', 'ميتار', 'لهافيم',
+      'بئر السبع', 'بير سبع', 'بيرالسبع', 'نقب', 'ديمونا', 'ميتار', 'لهافيم',
       'беэр шева', 'беэр шеве', 'беэр шевы', 'беэр шеву', 'беер шева', 'беер шеве', 'беер шевы',
-      'беершева', 'беэршева', 'бершева', 'бер шева', 'негев', 'негеве', 'димона', 'димоне', 'димоны', 'арад',
+      'беершева', 'беэршева', 'бершева', 'бер шева', 'негев', 'негеве', 'димона', 'димоне', 'димоны',
       'араде', 'метар', 'мейтар', 'неве ной', 'неве зеэв', 'леавим',
       'beer sheva', 'beersheba', 'beer sheba', 'beersheva', 'bersheva', 'beer shiva', 'bir al sabe',
-      'bir al saba', 'bir el saba', 'beer sheve', 'negev', 'dimona', 'arad', 'meitar', 'neve noy', 'neve zeev',
+      'bir al saba', 'bir el saba', 'beer sheve', 'negev', 'dimona', 'meitar', 'neve noy', 'neve zeev',
       'lehavim',
     ],
+    contextTerms: ['ערד', 'عراد', 'арад', 'arad'],
   },
   {
     // Including Poleg, Ir Yamim, Even Yehuda and Kadima (listed on the Netanya page).
@@ -1488,11 +1680,12 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
   {
     concept: 'city-modiin',
     terms: [
-      'מודיעין', 'מודעין', 'מכבים', 'מכבים רעות',
+      'מודיעין', 'מודעין', 'מכבים רעות',
       'موديعين', 'مودعين',
-      'модиин', 'модиине', 'модиина', 'модиину', 'маккабим',
-      'modiin', 'modiyin', 'modiin maccabim reut', 'maccabim',
+      'модиин', 'модиине', 'модиина', 'модиину',
+      'modiin', 'modiyin', 'modiin maccabim reut',
     ],
+    contextTerms: ['מכבים', 'маккабим', 'maccabim'], // also the Maccabees
   },
   {
     concept: 'city-ashdod',
@@ -1506,14 +1699,15 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
     ],
   },
   {
-    // Not "ראשון" alone (first / Sunday).
+    // Not "ראשון"/"rishon"/"ришон" alone (first / Sunday: "yom rishon"): context terms.
     concept: 'city-rishon-lezion',
     terms: [
       'ראשון לציון', 'ראשל"צ',
-      'ريشون لتسيون', 'ريشون ليتسيون', 'ريشون',
-      'ришон ле цион', 'ришон ле ционе', 'ришон лецион', 'ришон', 'ришоне', 'ришона',
-      'rishon lezion', 'rishon le zion', 'rishon letzion', 'rishon le tzion', 'rishon',
+      'ريشون لتسيون', 'ريشون ليتسيون',
+      'ришон ле цион', 'ришон ле ционе', 'ришон лецион', 'ришоне',
+      'rishon lezion', 'rishon le zion', 'rishon letzion', 'rishon le tzion',
     ],
+    contextTerms: ['ريشون', 'ришон', 'rishon'],
   },
   {
     concept: 'city-petah-tikva',
@@ -1560,11 +1754,13 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
   },
   {
     concept: 'city-raanana',
-    terms: ['רעננה', 'رعنانا', 'раанана', 'раанане', 'раананы', 'раанану', 'raanana', 'ranana', 'raananah'],
+    terms: ['رعنانا', 'раанана', 'раанане', 'раананы', 'раанану', 'raanana', 'ranana', 'raananah'],
+    contextTerms: ['רעננה'], // also "fresh"
   },
   {
     concept: 'city-rehovot',
-    terms: ['רחובות', 'رحوفوت', 'رحوبوت', 'реховот', 'реховоте', 'реховота', 'rehovot', 'rehovoth', 'rechovot'],
+    terms: ['رحوفوت', 'رحوبوت', 'реховот', 'реховоте', 'реховота', 'rehovot', 'rehovoth', 'rechovot'],
+    contextTerms: ['רחובות'], // also "streets"
   },
   {
     concept: 'city-nazareth',
@@ -1689,6 +1885,82 @@ export const SYNONYM_GROUPS: SynonymGroup[] = [
       'baqa el gharbiya', 'arara', 'kafr qara', 'maghar', 'yarka', 'majd al krum', 'kafr yasif', 'abu snan', 'reineh',
       'iksal', 'kafr manda', 'ein mahil', 'jaljulia', 'jaljulya', 'jisr az zarqa', 'fureidis', 'lakiya', 'tel sheva',
       'kuseife', 'segev shalom', 'ibillin', 'eilabun', 'deir al asad', 'beit jann', 'majdal shams', 'kafr kama',
+    ],
+    // "מעלות" alone is also "degrees", "advantages"
+    contextTerms: ['מעלות'],
+  },
+];
+
+/**
+ * Phrases in which a word does not have its usual concept: a shopping centre is not the centre of the country, "open
+ * to suggestions" is not about opening hours, "on time" asks about punctuality, not a lead time, "עד איפה עולה
+ * החיפוי" (how high does it go) is not a price, "مراية جديدة محل المراية القديمة" (instead of the old mirror) not a
+ * shop. The words of such a phrase lose the concept and are read as words the knowledge base doesn't use
+ * (textUnits in answer-engine/kb-index.ts), and the intents don't count them (answer-engine/intents.ts). The first
+ * word of a phrase may carry a glued Hebrew/Arabic prefix ("במרכז מסחרי"). Written as the visitor writes them.
+ */
+export const PHRASE_MASKS: { concept: string; phrases: string[] }[] = [
+  {
+    concept: 'region',
+    phrases: [
+      'מרכז מסחרי', 'מרכזים מסחריים', 'מרכז קניות', 'מרכז העיר', 'מרכז הכפר', 'מרכז המושב', 'מרכז רפואי', 'מרכז ספורט',
+      'مركز تجاري', 'المركز التجاري', 'مركز التسوق', 'مركز المدينه', 'مركز البلد', 'مركز طبي',
+      'торговый центр', 'торговом центре', 'торгового центра', 'торговому центру', 'центр города', 'центре города',
+      'медицинский центр', 'медицинском центре',
+      'shopping center', 'shopping centre', 'shopping centers', 'shopping centres', 'city center', 'city centre',
+      'town center', 'town centre', 'medical center', 'medical centre', 'community center', 'community centre',
+    ],
+  },
+  {
+    concept: 'hours',
+    phrases: [
+      // open to something (suggestions, ideas, changes), opening a business
+      'פתוחים להצעות', 'פתוחים להצעה', 'פתוחים לרעיונות', 'פתוחים לשינויים', 'פתוחים לשיתוף', 'פתוחים לשיתופי',
+      'פתוחים למשא', 'פתוחים לדבר', 'פתוח להצעות', 'פתוח לרעיונות', 'פתוחה להצעות',
+      'open to suggestions', 'open to ideas', 'open to changes', 'open to offers', 'open to negotiation',
+      'open to feedback', 'open to working',
+      'فاتحين محل', 'فاتحين مطعم', 'فاتحين مكتب', 'فاتحين شركه', 'فاتحين مشروع', 'فاتحين صالون', 'فاتحين عياده',
+      'فاتحين فرع', 'فاتحين معرض', 'فاتح محل', 'فاتح مطعم', 'فاتح مكتب', 'فاتحه محل', 'فاتحه صالون',
+      'مفتوحين لاقتراحات', 'مفتوحين للاقتراحات', 'مفتوحين لافكار',
+      // "always", "permanently"
+      'على الدوام', 'عالدوام', 'ع الدوام', 'بشكل دائم',
+      'открыты к предложениям', 'открыты для предложений', 'открыты к идеям', 'открыты к сотрудничеству',
+      'открыты для сотрудничества', 'открыты к изменениям',
+    ],
+  },
+  {
+    // outside the shower, not outdoors ("שהמים יברחו מהמקלחון ויציפו את הרצפה בחוץ")
+    concept: 'outdoor',
+    phrases: ['הרצפה בחוץ', 'לרצפה בחוץ', 'ברצפה בחוץ', 'בחוץ על הרצפה', 'המים בחוץ', 'מים בחוץ', 'נשפכים בחוץ', 'נוזלים בחוץ', 'בחוץ מהמקלחון'],
+  },
+  {
+    // on or over a bathtub: a bath screen, not a bathroom ("אפשר להתקין מקלחון על אמבטיה?", "шторку на ванну")
+    concept: 'bathroom',
+    phrases: [
+      'על אמבטיה', 'על האמבטיה', 'על אמבט', 'על האמבט', 'מעל האמבטיה', 'מעל אמבטיה', 'על גבי האמבטיה',
+      'on the bathtub', 'on a bathtub', 'on the bath', 'on a bath', 'over the bath', 'over the bathtub', 'over a bathtub', 'bath screen', 'bathtub screen',
+      'на ванну', 'на ванне', 'над ванной', 'для ванны', 'على البانيو', 'فوق البانيو', 'عالبانيو', 'ع البانيو',
+    ],
+  },
+  {
+    // punctuality, not a lead time ("will the installer show up on time?")
+    concept: 'time',
+    phrases: ['on time', 'show up on time', 'arrive on time', 'في الوقت المحدد', 'بالوقت المحدد', 'عالوقت المحدد', 'في الموعد', 'بالموعد'],
+  },
+  {
+    // "עולה" also means "goes up": how high a backsplash or a railing goes
+    concept: 'price',
+    phrases: ['עד איפה עולה', 'עד איפה עולים', 'איפה עולה', 'לאן עולה', 'עד לאן עולה', 'עולה עד התקרה', 'עולה עד הסוף', 'עולה למעלה', 'עולה על הקיר'],
+  },
+  {
+    // "محل" + an object: "in place of" ("مراية جديدة محل المراية القديمة"), not a shop; "לחנות" after "where / can" is
+    // "to park" ("איפה אפשר לחנות בתל אביב?"), not "to the shop"
+    concept: 'storefront',
+    phrases: [
+      'אפשר לחנות', 'איפה לחנות', 'מקום לחנות', 'צריך לחנות', 'לחנות את הרכב', 'לחנות את האוטו', 'לחנות ליד', 'לחנות בחניון', 'לחנות בחינם',
+      'محل المرايه', 'محل المرايات', 'محل الشاور', 'محل الدوش', 'محل الكابينه', 'محل الباب', 'محل البواب',
+      'محل الابواب', 'محل الدرابزين', 'محل الرف', 'محل الرفوف', 'محل البانيو', 'محل البلاط', 'محل القديم',
+      'محل القديمه', 'محل الستاره', 'محل البرداي',
     ],
   },
 ];

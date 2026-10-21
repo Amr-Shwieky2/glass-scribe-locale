@@ -21,6 +21,11 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
+      # Any wrong confident answer fails; the tuning set also needs 85% per language
       - run: npm run test:answers -- --quiet
+      - run: npm run test:answers -- --quiet --min 0 --file tests/answer-engine/regressions.json
+      # Separate sets, reported only: never tune paraphrases or synonyms on them (the blind set is the score we report)
+      - run: npm run test:answers -- --quiet --report-only --file tests/answer-engine/calibration.json
+      - run: npm run test:answers -- --quiet --report-only --file tests/answer-engine/blind.json
       # KNOWLEDGE_REVIEW.md must list the current drafts: run `npm run knowledge:review` after changing them
       - run: npm run knowledge:review && git diff --exit-code KNOWLEDGE_REVIEW.md
